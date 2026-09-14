@@ -1,26 +1,153 @@
 @import "tailwindcss";
 
+/* ─── SIMA design system ─────────────────────────────────────
+   Near-black ground, off-white type, one muted sand accent.   */
+@theme {
+  --color-ink: #0a0a09;
+  --color-ink-2: #121210;
+  --color-ink-3: #1a1a17;
+  --color-paper: #f1eee8;
+  --color-mute: #8f8b83;
+  --color-faint: #56534d;
+  --color-sand: #d2bc98;
+  --color-line: rgb(241 238 232 / 0.1);
+
+  --font-sans: var(--font-grotesk), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-grotesk), system-ui, sans-serif;
+
+  --radius-card: 1.25rem;
+  --radius-pill: 999px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --animate-marquee: marquee 38s linear infinite;
+}
+
+html[lang="ar"] {
+  --font-sans: var(--font-alexandria), system-ui, sans-serif;
+  --font-display: var(--font-alexandria), system-ui, sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --gutter: clamp(1.25rem, 0.5rem + 3.2vw, 3.5rem);
+  --nav: 4.5rem;
+  --section: clamp(6rem, 4rem + 9vw, 12rem);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@utility container-x {
+  width: min(100% - 2 * var(--gutter), 96rem);
+  margin-inline: auto;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@utility section-y {
+  padding-block: var(--section);
+}
+
+/* Small uppercase label — used sparingly, for real metadata only. */
+@utility eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+}
+
+@utility display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 1.2rem + 7.2vw, 9.5rem);
+  line-height: 0.94;
+  letter-spacing: -0.045em;
+  font-weight: 500;
+}
+
+@utility display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 1.2rem + 4.6vw, 6.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+}
+
+@utility display-md {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3.75rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    background: var(--color-ink);
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--nav) + 1rem);
+  }
+  body {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  /* Arabic needs more line height and no negative tracking. */
+  html[lang="ar"] body {
+    line-height: 1.85;
+  }
+  html[lang="ar"] :is(.display-xl, .display-lg, .display-md) {
+    letter-spacing: 0;
+    line-height: 1.25;
+  }
+  ::selection {
+    background: var(--color-sand);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 1.5px solid var(--color-sand);
+    outline-offset: 3px;
+  }
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Custom cursor (fine pointers only). */
+@media (hover: hover) and (pointer: fine) {
+  html.has-cursor,
+  html.has-cursor * {
+    cursor: none !important;
+  }
+  html.has-cursor :is(input, textarea, select, [contenteditable="true"]) {
+    cursor: text !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
