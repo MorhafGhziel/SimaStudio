@@ -21,6 +21,22 @@ export function Footer({ locale }: { locale: Locale }) {
         <div className="md:col-span-5">
           <Logo locale={locale} />
           <p className="mt-5 max-w-[30ch] text-mute">{d.footer.statement}</p>
+          <a
+            href="/brand/SIMA-STUDIO-Brand-Identity.pdf"
+            download
+            target="_blank"
+            rel="noopener"
+            data-cursor="open"
+            className="group mt-7 inline-flex items-center gap-3 rounded-pill border border-line px-5 py-3 text-sm text-paper transition-colors hover:border-accent/50"
+          >
+            <span aria-hidden="true" className="grid size-6 place-items-center rounded-full bg-accent text-xs text-ink transition-transform duration-500 group-hover:translate-y-0.5">
+              ↓
+            </span>
+            {d.footer.brand}
+            <span className="text-xs text-faint" dir="ltr">
+              PDF · 18 MB
+            </span>
+          </a>
         </div>
         <nav aria-label={d.nav.menu} className="md:col-span-2">
           <ul className="space-y-3 text-[0.95rem]">

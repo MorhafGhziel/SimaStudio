@@ -85,7 +85,7 @@ export const dictionary = {
       fallbackText: 'Send it to us on WhatsApp or by email to make sure it reaches us.',
       email: 'Send by email',
     },
-    footer: { statement: 'Digital experiences for ambitious brands.', contact: 'Contact', social: 'Social', rights: 'All rights reserved.' },
+    footer: { statement: 'Digital experiences for ambitious brands.', contact: 'Contact', social: 'Social', rights: 'All rights reserved.', brand: 'Download our brand identity' },
     caseStudy: {
       back: 'All work',
       overview: 'Overview',
@@ -195,7 +195,7 @@ export const dictionary = {
       fallbackText: 'أرسله لنا عبر واتساب أو البريد الإلكتروني لضمان وصوله.',
       email: 'أرسل بالبريد',
     },
-    footer: { statement: 'تجارب رقمية للعلامات الطموحة.', contact: 'تواصل', social: 'حساباتنا', rights: 'جميع الحقوق محفوظة.' },
+    footer: { statement: 'تجارب رقمية للعلامات الطموحة.', contact: 'تواصل', social: 'حساباتنا', rights: 'جميع الحقوق محفوظة.', brand: 'حمّل الهوية البصرية' },
     caseStudy: {
       back: 'كل الأعمال',
       overview: 'نظرة عامة',
