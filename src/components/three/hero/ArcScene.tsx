@@ -11,12 +11,11 @@ const ease = (x: number) => 1 - Math.pow(1 - Math.min(Math.max(x, 0), 1), 3);
 function Horizon({ mirror, reduced }: { mirror: boolean; reduced: boolean }) {
   const material = useRef<THREE.ShaderMaterial>(null);
   const pointer = useRef({ x: 0, y: 0 });
-  const smooth = useRef({ x: 0, y: 0, scroll: 0 });
+  const smooth = useRef({ x: 0, y: 0 });
   const uniforms = useMemo(
     () => ({
       uTime: { value: reduced ? 14 : 0 },
       uReveal: { value: reduced ? 1 : 0 },
-      uScroll: { value: 0 },
       uMirror: { value: mirror ? 1 : 0 },
       uRes: { value: new THREE.Vector2(1, 1) },
       uPointer: { value: new THREE.Vector2() },
@@ -27,7 +26,6 @@ function Horizon({ mirror, reduced }: { mirror: boolean; reduced: boolean }) {
   useEffect(() => {
     if (reduced) return;
     const onMove = (e: PointerEvent) => {
-      if (e.pointerType !== 'mouse') return;
       pointer.current.x = ((e.clientX / window.innerWidth) * 2 - 1) * (mirror ? -1 : 1);
       pointer.current.y = -((e.clientY / window.innerHeight) * 2 - 1);
     };
@@ -40,15 +38,12 @@ function Horizon({ mirror, reduced }: { mirror: boolean; reduced: boolean }) {
     if (!m) return;
     const s = smooth.current;
     const time = reduced ? 14 : state.clock.elapsedTime;
-    const k = 1 - Math.exp(-delta * 2);
+    const k = 1 - Math.exp(-delta * 3);
     s.x += (pointer.current.x - s.x) * k;
     s.y += (pointer.current.y - s.y) * k;
-    const scroll = Math.min(Math.max(window.scrollY / window.innerHeight, 0), 1);
-    s.scroll += (scroll - s.scroll) * (reduced ? 1 : Math.min(1, delta * 6));
 
     m.uniforms.uTime.value = time;
-    m.uniforms.uReveal.value = reduced ? 1 : ease((time - 0.2) / 2.6);
-    m.uniforms.uScroll.value = s.scroll;
+    m.uniforms.uReveal.value = reduced ? 1 : ease((time - 0.2) / 2.4);
     (m.uniforms.uRes.value as THREE.Vector2).set(state.size.width, state.size.height);
     (m.uniforms.uPointer.value as THREE.Vector2).set(s.x, s.y);
   });
@@ -61,7 +56,7 @@ function Horizon({ mirror, reduced }: { mirror: boolean; reduced: boolean }) {
   );
 }
 
-/** Full-bleed WebGL backdrop for the hero. Pauses when scrolled out of view. */
+/** Full-bleed WebGL backdrop for the hero only. Pauses when the hero is out of view. */
 export default function ArcScene({ mirror, reduced }: { mirror: boolean; reduced: boolean }) {
   const wrap = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(true);
@@ -77,7 +72,7 @@ export default function ArcScene({ mirror, reduced }: { mirror: boolean; reduced
   }, []);
 
   return (
-    <div ref={wrap} className="absolute inset-0 transition-opacity duration-[1400ms] ease-out" style={{ opacity: ready ? 1 : 0 }}>
+    <div ref={wrap} className="absolute inset-0 transition-opacity duration-[1200ms] ease-out" style={{ opacity: ready ? 1 : 0 }}>
       <Canvas
         dpr={[1, dpr]}
         flat
