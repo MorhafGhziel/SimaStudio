@@ -11,8 +11,8 @@ export const studio = {
   arName: 'سِمة',
   url: 'https://sima.studio', // PLACEHOLDER — production domain
   email: 'simastudio7@gmail.com',
-  whatsapp: '966500000000', // PLACEHOLDER — international format, no + or spaces
-  whatsappDisplay: '+966 50 000 0000', // PLACEHOLDER
+  whatsapp: '966582737120', // international format, no + or spaces
+  whatsappDisplay: '+966 58 273 7120',
   instagram: 'sima.studio', // PLACEHOLDER — handle without @
   tiktok: 'sima.studio', // PLACEHOLDER
   startingPrice: 1500,
