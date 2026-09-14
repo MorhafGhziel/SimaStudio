@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-export const alt = 'SIMA — Website design & development studio in Saudi Arabia';
+export const alt = 'SIMA — Website design & development studio';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 export const generateStaticParams = () => [{ locale: 'en' }, { locale: 'ar' }];
@@ -22,7 +22,7 @@ export default function OpengraphImage() {
           <span style={{ fontSize: 84, lineHeight: 1, letterSpacing: -3, fontWeight: 500 }}>We build brands</span>
           <span style={{ fontSize: 84, lineHeight: 1.05, letterSpacing: -3, fontWeight: 500, color: 'rgba(241,238,232,0.55)' }}>their digital presence deserves.</span>
         </div>
-        <span style={{ fontSize: 24, color: '#8f8b83' }}>Premium websites & digital experiences · Saudi Arabia</span>
+        <span style={{ fontSize: 24, color: '#8f8b83' }}>Premium websites & digital experiences for ambitious brands</span>
       </div>
     ),
     size,

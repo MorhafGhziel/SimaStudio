@@ -15,13 +15,13 @@ export const studio = {
   whatsappDisplay: '+966 50 000 0000', // PLACEHOLDER
   instagram: 'sima.studio', // PLACEHOLDER — handle without @
   tiktok: 'sima.studio', // PLACEHOLDER
-  location: { en: 'Saudi Arabia', ar: 'المملكة العربية السعودية' } as T,
+  location: { en: 'Working with brands worldwide', ar: 'نعمل مع البراندات حول العالم' } as T,
   startingPrice: 1500,
 };
 
 export const whatsappMessage: T = {
   en: "Hi, I'm interested in building a website for my brand. I'd like to know more about your packages.",
-  ar: 'مرحبًا، أرغب في بناء موقع لعلامتي التجارية، وأود معرفة المزيد عن باقاتكم.',
+  ar: 'مرحبًا، أرغب في بناء موقع لبراندي، وأود معرفة المزيد عن باقاتكم.',
 };
 
 export const whatsappUrl = (text: string) => `https://wa.me/${studio.whatsapp}?text=${encodeURIComponent(text)}`;

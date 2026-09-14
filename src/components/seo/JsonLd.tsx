@@ -20,10 +20,9 @@ export function StudioJsonLd({ locale }: { locale: Locale }) {
           email: studio.email,
           description:
             locale === 'ar'
-              ? 'استوديو رقمي في السعودية لتصميم وتطوير المواقع والمتاجر الإلكترونية والتجارب التفاعلية.'
-              : 'Digital studio in Saudi Arabia designing and building websites, e-commerce and interactive experiences for local brands.',
-          areaServed: { '@type': 'Country', name: 'Saudi Arabia' },
-          address: { '@type': 'PostalAddress', addressCountry: 'SA' },
+              ? 'استوديو رقمي لتصميم وتطوير المواقع والمتاجر الإلكترونية والتجارب التفاعلية للبراندات الطموحة.'
+              : 'Digital studio designing and building websites, e-commerce and interactive experiences for ambitious brands.',
+          areaServed: 'Worldwide',
           knowsAbout: ['Website design', 'Web development', 'E-commerce', 'Interactive 3D websites', 'Arabic RTL websites'],
           sameAs: [instagramUrl, tiktokUrl],
           makesOffer: packages.map((p) => ({

@@ -51,7 +51,7 @@ export const projects: Project[] = [
     ),
     concept: t(
       'One continuous film: the bottle arrives, the brand statement appears, oud, saffron and amber gather around it, and the bottle becomes the product you can add to your bag.',
-      'فيلم واحد متصل: تظهر القارورة، ثم تأتي رسالة العلامة، يتجمع العود والزعفران والعنبر حولها، ثم تتحول القارورة إلى منتج يمكن إضافته للسلة.',
+      'فيلم واحد متصل: تظهر القارورة، ثم تأتي رسالة البراند، يتجمع العود والزعفران والعنبر حولها، ثم تتحول القارورة إلى منتج يمكن إضافته للسلة.',
     ),
     design: t(
       'Dark cinematic chapters with ivory editorial sections, a champagne accent used sparingly, and bilingual typography that works equally well in Arabic and English.',
@@ -140,7 +140,7 @@ export const projects: Project[] = [
     arName: 'رشفة',
     industry: t('Café', 'مقاهي'),
     kind: t('Café website', 'موقع مقهى'),
-    summary: t('A specialty coffee brand with an editorial, sun-lit identity and a pinned scroll story.', 'علامة قهوة مختصة بهوية تحريرية مشمسة وقصة تتحرك مع التمرير.'),
+    summary: t('A specialty coffee brand with an editorial, sun-lit identity and a pinned scroll story.', 'براند قهوة مختصة بهوية تحريرية مشمسة وقصة تتحرك مع التمرير.'),
     tags: [t('Café', 'مقهى'), t('Editorial', 'تحريري'), t('Motion', 'حركة')],
     services: [t('Art direction', 'التوجيه الفني'), t('Web development', 'تطوير الويب'), t('Motion design', 'تصميم الحركة')],
     tech: ['Astro', 'GSAP', 'TypeScript', 'CSS'],
