@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Pr
     title: { default: d.meta.title, template: `%s — SIMA` },
     description: d.meta.description,
     keywords: ['Website design Saudi Arabia', 'Web development Riyadh', 'Website design Riyadh', 'Saudi brand websites', 'E-commerce website Saudi Arabia', 'تصميم مواقع السعودية', 'تصميم مواقع الرياض'],
-    alternates: { canonical: `/${locale}`, languages: { en: '/en', ar: '/ar', 'x-default': '/en' } },
+    alternates: { canonical: `/${locale}`, languages: { ar: '/ar', en: '/en', 'x-default': '/ar' } },
     openGraph: {
       type: 'website',
       siteName: 'SIMA',

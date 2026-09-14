@@ -20,7 +20,7 @@ function LangSwitch({ className }: { className?: string }) {
   const rest = pathname.replace(/^\/(en|ar)/, '');
   return (
     <div dir="ltr" className={cn('flex items-center gap-2 text-xs tracking-[0.14em]', className)}>
-      {(['en', 'ar'] as Locale[]).map((code, i) => (
+      {(['ar', 'en'] as Locale[]).map((code, i) => (
         <span key={code} className="flex items-center gap-2">
           {i > 0 && <span className="text-faint">|</span>}
           <Link
