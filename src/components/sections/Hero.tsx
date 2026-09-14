@@ -17,7 +17,7 @@ function Headline({ lines, reduce }: { lines: string[]; reduce: boolean }) {
   return (
     <>
       {lines.map((line, li) => (
-        <span key={line} className={li === 1 ? 'block text-paper/60' : 'block'}>
+        <span key={line} className={li === 1 ? 'block text-[#98948d]' : 'block'}>
           {line.split(' ').map((word, wi, words) => {
             const delay = 0.55 + li * 0.14 + index++ * 0.045;
             return (
@@ -87,7 +87,7 @@ export function Hero() {
           <motion.p {...fade(0.2)} className="eyebrow">
             {dict.hero.kicker}
           </motion.p>
-          <motion.p {...fade(0.35)} className="hidden max-w-[32ch] text-end text-[0.95rem] leading-relaxed text-paper/65 md:block">
+          <motion.p {...fade(0.35)} className="hidden max-w-[32ch] text-end text-[0.95rem] leading-relaxed text-[#a4a09a] md:block">
             {dict.hero.text}
           </motion.p>
         </motion.div>
@@ -98,7 +98,7 @@ export function Hero() {
           </motion.h1>
 
           <motion.div style={{ y: actionsY }} className="mt-8 flex flex-col gap-7 sm:mt-10 md:flex-row md:items-end md:justify-between">
-            <motion.p {...fade(1.05)} className="max-w-[36ch] text-lg leading-relaxed text-paper/65 md:hidden">
+            <motion.p {...fade(1.05)} className="max-w-[36ch] text-lg leading-relaxed text-[#a4a09a] md:hidden">
               {dict.hero.text}
             </motion.p>
             <motion.div {...fade(1.15)} className="flex flex-wrap gap-3">

@@ -117,7 +117,9 @@ function Scene({ mirror, reduced, lite }: { mirror: boolean; reduced: boolean; l
   const portrait = useThree((s) => s.size.width < s.size.height);
   const group = useRef<THREE.Group>(null);
   const pointer = useRef({ x: 0, y: 0 });
-  const frame = useRef<FrameState>({ time: 0, reveal: 0, scroll: 0, px: 0, py: 0, beam: 0, dust: 0 });
+  // With reduced motion only a single frame is drawn, and children read these values
+  // before <Scene> updates them — so start from the finished state.
+  const frame = useRef<FrameState>(reduced ? { time: 9, reveal: 1, scroll: 0, px: 0, py: 0, beam: 0.42, dust: 1 } : { time: 0, reveal: 0, scroll: 0, px: 0, py: 0, beam: 0, dust: 0 });
 
   useEffect(() => {
     if (reduced) return;
