@@ -23,14 +23,13 @@ export function Footer({ locale }: { locale: Locale }) {
           <p className="mt-5 max-w-[30ch] text-mute">{d.footer.statement}</p>
           <a
             href="/brand/SIMA-STUDIO-Brand-Identity.pdf"
-            download
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             data-cursor="open"
             className="group mt-7 inline-flex items-center gap-3 rounded-pill border border-line px-5 py-3 text-sm text-paper transition-colors hover:border-accent/50"
           >
             <span aria-hidden="true" className="grid size-6 place-items-center rounded-full bg-accent text-xs text-ink transition-transform duration-500 group-hover:translate-y-0.5">
-              ↓
+              ↗
             </span>
             {d.footer.brand}
             <span className="text-xs text-faint" dir="ltr">
