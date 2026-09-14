@@ -24,7 +24,7 @@ export function Process() {
         <div ref={ref} className="relative mt-16 sm:mt-24">
           {/* Timeline rail: vertical on mobile, horizontal on desktop */}
           <div aria-hidden="true" className="absolute bottom-0 start-[0.3rem] top-0 w-px bg-line md:inset-x-0 md:bottom-auto md:top-[0.3rem] md:h-px md:w-auto">
-            <motion.div style={{ scaleY: fill }} className="absolute inset-0 origin-top bg-[linear-gradient(180deg,#3ec6ff,#6a6cff,#b05cff,#ff4fa8,#ff8a4c)] md:hidden" />
+            <motion.div style={{ scaleY: fill }} className="absolute inset-0 origin-top bg-[linear-gradient(180deg,#3ec6ff,#5b8bff,#8b9dff)] md:hidden" />
             <motion.div style={{ scaleX: fill }} className="bg-spectrum absolute inset-0 hidden origin-left md:block rtl:origin-right rtl:-scale-x-100" />
           </div>
 

@@ -35,7 +35,7 @@ export function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
       transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
       className={cn(
         'relative flex flex-col rounded-card border p-7 sm:p-9',
-        pkg.popular ? 'border-accent/45 bg-ink-3 shadow-[0_40px_90px_-50px_rgb(176_92_255/0.45)] lg:-translate-y-4' : 'border-line bg-ink-2',
+        pkg.popular ? 'border-accent/45 bg-ink-3 shadow-[0_40px_90px_-50px_rgb(91_139_255/0.45)] lg:-translate-y-4' : 'border-line bg-ink-2',
       )}
     >
       {pkg.popular && <span className="absolute -top-3 start-7 rounded-pill bg-spectrum px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-ink rtl:normal-case rtl:tracking-normal">{dict.packages.popular}</span>}

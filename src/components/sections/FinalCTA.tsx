@@ -21,7 +21,7 @@ export function FinalCTA() {
       <motion.div
         aria-hidden="true"
         style={{ scale: glowScale }}
-        className="absolute left-1/2 top-1/2 -z-10 aspect-square w-[90vw] max-w-[70rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(176,92,255,0.2),rgba(255,79,168,0.07)_55%,transparent)]"
+        className="absolute left-1/2 top-1/2 -z-10 aspect-square w-[90vw] max-w-[70rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(91,139,255,0.18),rgba(62,198,255,0.06)_55%,transparent)]"
       />
       <div className="container-x text-center">
         <RevealLines lines={[dict.cta.line1, dict.cta.line2]} className="display-lg mx-auto max-w-[22ch]" />
