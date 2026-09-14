@@ -1,0 +1,47 @@
+import { faqs, packages } from '@/content/offer';
+import { instagramUrl, studio, tiktokUrl } from '@/content/site';
+import type { Locale } from '@/lib/i18n';
+
+function Script({ data }: { data: unknown }) {
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, '\\u003c') }} />;
+}
+
+export function StudioJsonLd({ locale }: { locale: Locale }) {
+  return (
+    <>
+      <Script
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'ProfessionalService',
+          '@id': `${studio.url}/#studio`,
+          name: 'SIMA',
+          alternateName: studio.arName,
+          url: `${studio.url}/${locale}`,
+          email: studio.email,
+          description:
+            locale === 'ar'
+              ? 'استوديو رقمي في السعودية لتصميم وتطوير المواقع والمتاجر الإلكترونية والتجارب التفاعلية.'
+              : 'Digital studio in Saudi Arabia designing and building websites, e-commerce and interactive experiences for local brands.',
+          areaServed: { '@type': 'Country', name: 'Saudi Arabia' },
+          address: { '@type': 'PostalAddress', addressCountry: 'SA' },
+          knowsAbout: ['Website design', 'Web development', 'E-commerce', 'Interactive 3D websites', 'Arabic RTL websites'],
+          sameAs: [instagramUrl, tiktokUrl],
+          makesOffer: packages.map((p) => ({
+            '@type': 'Offer',
+            name: `${p.name} website package`,
+            description: p.tagline[locale],
+            price: p.price,
+            priceCurrency: 'SAR',
+          })),
+        }}
+      />
+      <Script
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q[locale], acceptedAnswer: { '@type': 'Answer', text: f.a[locale] } })),
+        }}
+      />
+    </>
+  );
+}
