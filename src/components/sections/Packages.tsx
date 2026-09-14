@@ -64,8 +64,10 @@ export function Packages() {
                       {dict.packages.feature}
                     </th>
                     {packages.map((p) => (
-                      <th key={p.id} scope="col" className="py-4 text-start font-medium" dir="ltr">
-                        <span className={p.popular ? 'text-accent' : ''}>{p.name}</span>
+                      <th key={p.id} scope="col" className="py-4 text-start font-medium">
+                        <span dir="ltr" className={p.popular ? 'text-accent' : ''}>
+                          {p.name}
+                        </span>
                       </th>
                     ))}
                   </tr>
