@@ -14,7 +14,7 @@ import { dirOf, isLocale, locales } from '@/lib/i18n';
 export const dynamicParams = false;
 export const generateStaticParams = () => locales.map((locale) => ({ locale }));
 
-export const viewport: Viewport = { themeColor: '#0a0a09', colorScheme: 'dark', width: 'device-width', initialScale: 1, viewportFit: 'cover' };
+export const viewport: Viewport = { themeColor: '#050507', colorScheme: 'dark', width: 'device-width', initialScale: 1, viewportFit: 'cover' };
 
 export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Promise<Metadata> {
   const { locale } = await params;

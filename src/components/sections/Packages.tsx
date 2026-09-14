@@ -65,7 +65,7 @@ export function Packages() {
                     </th>
                     {packages.map((p) => (
                       <th key={p.id} scope="col" className="py-4 text-start font-medium" dir="ltr">
-                        <span className={p.popular ? 'text-sand' : ''}>{p.name}</span>
+                        <span className={p.popular ? 'text-accent' : ''}>{p.name}</span>
                       </th>
                     ))}
                   </tr>
@@ -79,7 +79,7 @@ export function Packages() {
                       {row.values.map((v, i) => (
                         <td key={i} className="py-4">
                           {v === true ? (
-                            <Check aria-label={dict.packages.yes} className="size-4 text-sand" strokeWidth={2} />
+                            <Check aria-label={dict.packages.yes} className="size-4 text-accent" strokeWidth={2} />
                           ) : v === false ? (
                             <Minus aria-label={dict.packages.no} className="size-4 text-faint" strokeWidth={1.6} />
                           ) : (

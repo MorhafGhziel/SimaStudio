@@ -1,16 +1,18 @@
 @import "tailwindcss";
 
 /* ─── SIMA design system ─────────────────────────────────────
-   Near-black ground, off-white type, one muted sand accent.   */
+   Cool near-black ground, crisp white type, one violet accent — plus
+   the hero's cyan → violet → magenta → orange spectrum, used sparingly
+   so every section shares the same light.                          */
 @theme {
-  --color-ink: #0a0a09;
-  --color-ink-2: #121210;
-  --color-ink-3: #1a1a17;
-  --color-paper: #f1eee8;
-  --color-mute: #8f8b83;
-  --color-faint: #56534d;
-  --color-sand: #d2bc98;
-  --color-line: rgb(241 238 232 / 0.1);
+  --color-ink: #050507;
+  --color-ink-2: #0c0c11;
+  --color-ink-3: #15151c;
+  --color-paper: #f3f3f6;
+  --color-mute: #8d8d99;
+  --color-faint: #55555f;
+  --color-accent: #c58bff;
+  --color-line: rgb(243 243 246 / 0.1);
 
   --font-sans: var(--font-grotesk), system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display: var(--font-grotesk), system-ui, sans-serif;
@@ -76,6 +78,18 @@ html[lang="ar"] {
   font-weight: 500;
 }
 
+/* The hero's light as a reusable gradient — for thin rules, badges and progress, not large fills. */
+@utility bg-spectrum {
+  background-image: linear-gradient(90deg, #3ec6ff 0%, #6a6cff 30%, #b05cff 55%, #ff4fa8 80%, #ff8a4c 100%);
+}
+
+@utility text-spectrum {
+  background-image: linear-gradient(90deg, #3ec6ff 0%, #6a6cff 30%, #b05cff 55%, #ff4fa8 80%, #ff8a4c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 @utility no-scrollbar {
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -109,11 +123,11 @@ html[lang="ar"] {
     line-height: 1.25;
   }
   ::selection {
-    background: var(--color-sand);
+    background: var(--color-accent);
     color: var(--color-ink);
   }
   :focus-visible {
-    outline: 1.5px solid var(--color-sand);
+    outline: 1.5px solid var(--color-accent);
     outline-offset: 3px;
   }
   input,
