@@ -18,7 +18,6 @@ export function About() {
           <Reveal className="space-y-5 text-lg text-mute md:col-span-6 md:col-start-6 sm:text-xl">
             <p className="text-paper">{dict.about.p1}</p>
             <p>{dict.about.p2}</p>
-            <p className="text-base text-faint">{dict.about.based}</p>
           </Reveal>
         </div>
       </div>

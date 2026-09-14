@@ -151,7 +151,7 @@ export function Contact() {
                   </div>
                   <div className="sm:col-span-2">
                     {label('reach', c.reach)}
-                    <input id="c-reach" autoComplete="email" dir="ltr" value={values.reach} onChange={(e) => set('reach', e.target.value)} aria-invalid={errors.reach} className={cn(field, locale === 'ar' && 'text-right')} placeholder="05X XXX XXXX / name@brand.com" />
+                    <input id="c-reach" autoComplete="email" dir="ltr" value={values.reach} onChange={(e) => set('reach', e.target.value)} aria-invalid={errors.reach} className={cn(field, locale === 'ar' && 'text-right')} placeholder="WhatsApp / name@brand.com" />
                   </div>
 
                   <fieldset className="sm:col-span-2">

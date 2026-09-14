@@ -21,7 +21,6 @@ export function Footer({ locale }: { locale: Locale }) {
         <div className="md:col-span-5">
           <Logo locale={locale} />
           <p className="mt-5 max-w-[30ch] text-mute">{d.footer.statement}</p>
-          <p className="mt-6 text-sm text-faint">{studio.location[locale]}</p>
         </div>
         <nav aria-label={d.nav.menu} className="md:col-span-2">
           <ul className="space-y-3 text-[0.95rem]">

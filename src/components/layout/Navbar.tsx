@@ -151,7 +151,7 @@ export function Navbar() {
                   </div>
                 </div>
                 <p className="text-xs text-faint">
-                  {studio.email} · {studio.location[locale]}
+                  {studio.email}
                 </p>
               </motion.div>
             </nav>
