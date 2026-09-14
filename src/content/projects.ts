@@ -145,6 +145,7 @@ export const projects: Project[] = [
     services: [t('Art direction', 'التوجيه الفني'), t('Web development', 'تطوير الويب'), t('Motion design', 'تصميم الحركة')],
     tech: ['Astro', 'GSAP', 'TypeScript', 'CSS'],
     year: '2026',
+    live: 'https://rashfa-nine.vercel.app/',
     overview: t(
       'A concept for a specialty coffee café where the website feels like a lifestyle magazine, not a menu board.',
       'مفهوم لمقهى قهوة مختصة، يبدو موقعه كمجلة أسلوب حياة لا كلوحة منيو.',
