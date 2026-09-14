@@ -56,7 +56,7 @@ export const packages: Package[] = [
       t('Domain & hosting', 'النطاق والاستضافة'),
     ],
     cta: t('Choose Starter', 'اختر Starter'),
-    timeline: t('5–7 business days', '5–7 أيام عمل'),
+    timeline: t('2–3 days', '2–3 أيام'),
   },
   {
     id: 'signature',
@@ -78,7 +78,7 @@ export const packages: Package[] = [
       t('Domain & hosting', 'النطاق والاستضافة'),
     ],
     cta: t('Choose Signature', 'اختر Signature'),
-    timeline: t('2–3 weeks', '2–3 أسابيع'),
+    timeline: t('2–7 days', '2–7 أيام'),
   },
   {
     id: 'immersive',
@@ -99,7 +99,7 @@ export const packages: Package[] = [
       t('Domain & hosting', 'النطاق والاستضافة'),
     ],
     cta: t('Choose Immersive', 'اختر Immersive'),
-    timeline: t('3–5 weeks', '3–5 أسابيع'),
+    timeline: t('1–2 weeks', '1–2 أسبوع'),
   },
 ];
 
@@ -140,8 +140,8 @@ export const faqs = [
   {
     q: t('How long does a website take?', 'كم يستغرق بناء الموقع؟'),
     a: t(
-      'Starter takes 5–7 business days, Signature 2–3 weeks and Immersive 3–5 weeks, once we have your content. Custom projects get a timeline in the proposal.',
-      'باقة Starter تستغرق 5–7 أيام عمل، وباقة Signature من 2–3 أسابيع، وباقة Immersive من 3–5 أسابيع بعد استلام المحتوى. المشاريع المخصصة نحدد مدتها في العرض.',
+      'Starter takes 2–3 days, Signature 2–7 days and Immersive 1–2 weeks, once we have your content. Custom projects get a timeline in the proposal.',
+      'باقة Starter تستغرق 2–3 أيام، وباقة Signature من 2–7 أيام، وباقة Immersive من 1–2 أسبوع بعد استلام المحتوى. المشاريع المخصصة نحدد مدتها في العرض.',
     ),
   },
   { q: t('Do you provide domain and hosting?', 'هل توفرون النطاق والاستضافة؟'), a: t('Yes. Every package includes domain and hosting setup for the first year.', 'نعم. كل الباقات تشمل إعداد النطاق والاستضافة للسنة الأولى.') },
