@@ -13,13 +13,12 @@ function Bottle() {
   const group = useRef<THREE.Group>(null);
 
   const materials = useMemo(() => {
-    // Silver-glass edition: clear glass, a smoky graphite liquid and polished chrome hardware.
-    const glass = new THREE.MeshPhysicalMaterial({ color: '#ffffff', roughness: 0.03, transmission: 1, thickness: 0.8, ior: 1.5, clearcoat: 1, attenuationColor: new THREE.Color('#e3e9f3'), attenuationDistance: 3, envMapIntensity: 1.6 });
-    const liquid = new THREE.MeshPhysicalMaterial({ color: '#5d636d', roughness: 0.18, clearcoat: 1, emissive: new THREE.Color('#0d0f13'), envMapIntensity: 1.1 });
+    const glass = new THREE.MeshPhysicalMaterial({ color: '#ffffff', roughness: 0.04, transmission: 1, thickness: 0.8, ior: 1.5, clearcoat: 1, attenuationColor: new THREE.Color('#efe3cc'), attenuationDistance: 3, envMapIntensity: 1.5 });
+    const liquid = new THREE.MeshPhysicalMaterial({ color: '#6e3510', roughness: 0.2, clearcoat: 1, emissive: new THREE.Color('#2a1206'), envMapIntensity: 1 });
     const exterior = { transparent: true, opacity: 1 };
-    const metal = new THREE.MeshStandardMaterial({ color: '#dfe3e9', metalness: 1, roughness: 0.16, envMapIntensity: 1.4, ...exterior });
-    const cap = new THREE.MeshStandardMaterial({ color: '#c8cdd5', metalness: 1, roughness: 0.2, flatShading: true, envMapIntensity: 1.3, ...exterior });
-    const plate = new THREE.MeshStandardMaterial({ color: '#b9bfc8', metalness: 0.95, roughness: 0.28, ...exterior });
+    const metal = new THREE.MeshStandardMaterial({ color: '#d2bc98', metalness: 1, roughness: 0.25, envMapIntensity: 1.3, ...exterior });
+    const cap = new THREE.MeshStandardMaterial({ color: '#b89e74', metalness: 1, roughness: 0.3, flatShading: true, envMapIntensity: 1.2, ...exterior });
+    const plate = new THREE.MeshStandardMaterial({ color: '#c9ae80', metalness: 0.9, roughness: 0.35, ...exterior });
     return { glass, liquid, neck: metal, collar: metal, cap, capTop: cap, label: plate } as Record<(typeof PARTS)[number], THREE.Material>;
   }, []);
 
@@ -47,8 +46,8 @@ export default function BottlePreview({ running }: { running: boolean }) {
   return (
     <Canvas frameloop={running ? 'always' : 'never'} dpr={[1, 1.5]} camera={{ fov: 30, position: [0, 0.3, 6.2] }} gl={{ antialias: true, alpha: true }}>
       <Environment resolution={128} frames={1}>
-        <Lightformer form="rect" intensity={3} color="#f3f6fb" position={[0, 3.5, -5]} scale={[7, 1.4, 1]} />
-        <Lightformer form="rect" intensity={2.2} color="#dde5f2" position={[-5, 1, 0.5]} rotation-y={Math.PI / 2} scale={[5, 2.4, 1]} />
+        <Lightformer form="rect" intensity={3} color="#fff3e0" position={[0, 3.5, -5]} scale={[7, 1.4, 1]} />
+        <Lightformer form="rect" intensity={2.2} color="#ffd8a3" position={[-5, 1, 0.5]} rotation-y={Math.PI / 2} scale={[5, 2.4, 1]} />
         <Lightformer form="rect" intensity={1.5} color="#ffffff" position={[5, 1.4, 1]} rotation-y={-Math.PI / 2} scale={[3.5, 3.5, 1]} />
       </Environment>
       <ambientLight intensity={0.2} />

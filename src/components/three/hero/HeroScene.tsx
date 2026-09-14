@@ -6,11 +6,8 @@ import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import * as THREE from 'three';
 import { beamFragment, beamVertex, dustFragment, dustVertex, ribbonFragment, ribbonVertex } from './shaders';
 
-/** Polished silver for the hero ribbon, icy frosted glass for the distant one. */
-const CHROME = new THREE.Color('#eef1f6');
-const ICE = new THREE.Color('#aeb9cc');
-const COOL_LIGHT = new THREE.Color('#dfe6f1');
-const BEAM = 0.3;
+const SAND = new THREE.Color('#6f9cff');
+const WARM = new THREE.Color('#9dbcff');
 const ease = (x: number) => 1 - Math.pow(1 - Math.min(Math.max(x, 0), 1), 3);
 
 /** Values shared by every object in the scene, written once per frame by <Scene>. */
@@ -27,7 +24,7 @@ function mulberry32(seed: number) {
   };
 }
 
-function Ribbon({ frame, segments, phase, width, twist, opacity, z, tint }: { frame: RefObject<FrameState>; segments: [number, number]; phase: number; width: number; twist: number; opacity: number; z: number; tint: THREE.Color }) {
+function Ribbon({ frame, segments, phase, width, twist, opacity, z }: { frame: RefObject<FrameState>; segments: [number, number]; phase: number; width: number; twist: number; opacity: number; z: number }) {
   const material = useRef<THREE.ShaderMaterial>(null);
   const uniforms = useMemo(
     () => ({
@@ -39,9 +36,9 @@ function Ribbon({ frame, segments, phase, width, twist, opacity, z, tint }: { fr
       uPointer: { value: new THREE.Vector2() },
       uReveal: { value: 0 },
       uOpacity: { value: opacity },
-      uTint: { value: tint },
+      uTint: { value: SAND },
     }),
-    [phase, width, twist, opacity, tint],
+    [phase, width, twist, opacity],
   );
 
   useFrame(() => {
@@ -64,7 +61,7 @@ function Ribbon({ frame, segments, phase, width, twist, opacity, z, tint }: { fr
 
 function Beam({ frame }: { frame: RefObject<FrameState> }) {
   const material = useRef<THREE.ShaderMaterial>(null);
-  const uniforms = useMemo(() => ({ uTime: { value: 0 }, uIntensity: { value: 0 }, uColor: { value: COOL_LIGHT } }), []);
+  const uniforms = useMemo(() => ({ uTime: { value: 0 }, uIntensity: { value: 0 }, uColor: { value: WARM } }), []);
   useFrame(() => {
     const m = material.current;
     const f = frame.current;
@@ -94,7 +91,7 @@ function Dust({ frame, count }: { frame: RefObject<FrameState>; count: number })
     }
     return { positions, seeds };
   }, [count]);
-  const uniforms = useMemo(() => ({ uTime: { value: 0 }, uSize: { value: 30 }, uPixelRatio: { value: 1 }, uColor: { value: COOL_LIGHT }, uOpacity: { value: 0 } }), []);
+  const uniforms = useMemo(() => ({ uTime: { value: 0 }, uSize: { value: 34 }, uPixelRatio: { value: 1 }, uColor: { value: WARM }, uOpacity: { value: 0 } }), []);
 
   useFrame((state) => {
     const m = material.current;
@@ -122,7 +119,7 @@ function Scene({ mirror, reduced, lite }: { mirror: boolean; reduced: boolean; l
   const pointer = useRef({ x: 0, y: 0 });
   // With reduced motion only a single frame is drawn, and children read these values
   // before <Scene> updates them — so start from the finished state.
-  const frame = useRef<FrameState>(reduced ? { time: 9, reveal: 1, scroll: 0, px: 0, py: 0, beam: BEAM, dust: 1 } : { time: 0, reveal: 0, scroll: 0, px: 0, py: 0, beam: 0, dust: 0 });
+  const frame = useRef<FrameState>(reduced ? { time: 9, reveal: 1, scroll: 0, px: 0, py: 0, beam: 0.42, dust: 1 } : { time: 0, reveal: 0, scroll: 0, px: 0, py: 0, beam: 0, dust: 0 });
 
   useEffect(() => {
     if (reduced) return;
@@ -145,7 +142,7 @@ function Scene({ mirror, reduced, lite }: { mirror: boolean; reduced: boolean; l
     f.scroll += (scroll - f.scroll) * (reduced ? 1 : Math.min(1, delta * 6));
     f.time = time;
     f.reveal = reduced ? 1 : ease((time - 0.15) / 2.8);
-    f.beam = (reduced ? 1 : ease((time - 0.6) / 3)) * BEAM * (1 - f.scroll * 0.7);
+    f.beam = (reduced ? 1 : ease((time - 0.6) / 3)) * 0.42 * (1 - f.scroll * 0.7);
     f.dust = (reduced ? 1 : ease((time - 1.2) / 3)) * (1 - f.scroll * 0.5);
 
     const side = mirror ? -1 : 1;
@@ -158,14 +155,14 @@ function Scene({ mirror, reduced, lite }: { mirror: boolean; reduced: boolean; l
 
   return (
     <group ref={group} position-y={portrait ? 1.4 : 0} scale={[(mirror ? -1 : 1) * (portrait ? 0.5 : 1), 1, 1]}>
-      {/* Cool light shaft from the upper corner, with silver dust drifting inside it */}
+      {/* Light shaft from the upper corner, with dust drifting inside it */}
       <group position={[3.1, 1.6, -3.2]} rotation-z={0.42}>
         <Beam frame={frame} />
         <Dust frame={frame} count={lite ? 140 : 360} />
       </group>
-      {/* A frosted, distant ribbon for depth, then the liquid-chrome hero ribbon */}
-      <Ribbon frame={frame} segments={seg} phase={2.4} width={1.2} twist={3.2} opacity={0.32} z={-2.8} tint={ICE} />
-      <Ribbon frame={frame} segments={seg} phase={0} width={2.5} twist={4.2} opacity={1} z={0.6} tint={CHROME} />
+      {/* A dim, distant ribbon for depth, then the hero ribbon */}
+      <Ribbon frame={frame} segments={seg} phase={2.4} width={1.2} twist={3.2} opacity={0.4} z={-2.8} />
+      <Ribbon frame={frame} segments={seg} phase={0} width={2.5} twist={4.2} opacity={1} z={0.6} />
     </group>
   );
 }

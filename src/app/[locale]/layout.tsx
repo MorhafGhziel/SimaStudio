@@ -14,7 +14,7 @@ import { dirOf, isLocale, locales } from '@/lib/i18n';
 export const dynamicParams = false;
 export const generateStaticParams = () => locales.map((locale) => ({ locale }));
 
-export const viewport: Viewport = { themeColor: '#09090b', colorScheme: 'dark', width: 'device-width', initialScale: 1, viewportFit: 'cover' };
+export const viewport: Viewport = { themeColor: '#0a0a09', colorScheme: 'dark', width: 'device-width', initialScale: 1, viewportFit: 'cover' };
 
 export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Promise<Metadata> {
   const { locale } = await params;
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Pr
     metadataBase: new URL(studio.url),
     title: { default: d.meta.title, template: `%s — SIMA` },
     description: d.meta.description,
-    keywords: ['Website design studio', 'Web development studio', 'Brand websites', 'E-commerce website design', 'Interactive 3D websites', 'Arabic English websites', 'تصميم مواقع', 'تطوير مواقع', 'تصميم متاجر إلكترونية'],
+    keywords: ['Website design Saudi Arabia', 'Web development Riyadh', 'Website design Riyadh', 'Saudi brand websites', 'E-commerce website Saudi Arabia', 'تصميم مواقع السعودية', 'تصميم مواقع الرياض'],
     alternates: { canonical: `/${locale}`, languages: { en: '/en', ar: '/ar', 'x-default': '/en' } },
     openGraph: {
       type: 'website',
@@ -32,8 +32,8 @@ export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Pr
       title: d.meta.title,
       description: d.meta.description,
       url: `/${locale}`,
-      locale: locale === 'ar' ? 'ar_AR' : 'en_US',
-      alternateLocale: locale === 'ar' ? 'en_US' : 'ar_AR',
+      locale: locale === 'ar' ? 'ar_SA' : 'en_US',
+      alternateLocale: locale === 'ar' ? 'en_US' : 'ar_SA',
     },
     twitter: { card: 'summary_large_image', title: d.meta.title, description: d.meta.description },
   };

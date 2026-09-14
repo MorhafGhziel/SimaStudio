@@ -7,12 +7,12 @@ import { Magnetic } from './Magnetic';
 type Variant = 'solid' | 'outline' | 'ghost';
 
 const base =
-  'group/btn relative inline-flex h-12 items-center justify-center gap-2 overflow-hidden rounded-pill px-6 text-[0.95rem] font-medium transition-[background-color,color,border-color,transform,filter,box-shadow] duration-500 ease-out active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 sm:h-13 sm:px-7';
+  'group/btn relative inline-flex h-12 items-center justify-center gap-2 overflow-hidden rounded-pill px-6 text-[0.95rem] font-medium transition-[background-color,color,border-color,transform] duration-500 ease-out active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 sm:h-13 sm:px-7';
 
 const variants: Record<Variant, string> = {
-  solid: 'btn-chrome hover:brightness-110',
-  outline: 'border border-white/12 bg-white/[0.03] text-paper backdrop-blur-md hover:border-white/25 hover:bg-white/[0.07]',
-  ghost: 'px-0 text-paper hover:text-silver sm:px-0',
+  solid: 'bg-paper text-ink hover:bg-sand',
+  outline: 'border border-line text-paper hover:border-paper/40 hover:bg-paper/5',
+  ghost: 'px-0 text-paper hover:text-sand sm:px-0',
 };
 
 export const buttonClass = (variant: Variant = 'solid', className?: string) => cn(base, variants[variant], className);

@@ -70,7 +70,7 @@ export function Navbar() {
       <header
         className={cn(
           'fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-500',
-          scrolled && !open ? 'border-b border-white/[0.07] bg-ink/55 shadow-[inset_0_-1px_0_rgb(255_255_255/0.03)] backdrop-blur-2xl backdrop-saturate-150' : 'border-b border-transparent',
+          scrolled && !open ? 'border-b border-line bg-ink/70 backdrop-blur-xl' : 'border-b border-transparent',
         )}
       >
         <div className="container-x flex h-[var(--nav)] items-center justify-between gap-6">

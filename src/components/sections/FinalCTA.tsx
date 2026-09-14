@@ -21,7 +21,7 @@ export function FinalCTA() {
       <motion.div
         aria-hidden="true"
         style={{ scale: glowScale }}
-        className="absolute left-1/2 top-1/2 -z-10 aspect-square w-[90vw] max-w-[70rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(214,219,227,0.16),transparent)]"
+        className="absolute left-1/2 top-1/2 -z-10 aspect-square w-[90vw] max-w-[70rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(210,188,152,0.16),transparent)]"
       />
       <div className="container-x text-center">
         <RevealLines lines={[dict.cta.line1, dict.cta.line2]} className="display-lg mx-auto max-w-[22ch]" />
@@ -36,7 +36,7 @@ export function FinalCTA() {
             </LinkButton>
             <AnchorButton href={whatsappUrl(whatsappMessage[locale])} target="_blank" rel="noopener noreferrer" variant="outline">
               <span className="flex items-center gap-2">
-                <WhatsAppIcon className="size-4 text-silver" />
+                <WhatsAppIcon className="size-4 text-sand" />
                 {dict.cta.whatsapp}
               </span>
             </AnchorButton>

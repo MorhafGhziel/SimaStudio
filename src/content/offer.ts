@@ -4,7 +4,7 @@ const t = (en: string, ar: string): T => ({ en, ar });
 
 /* ── Services ─────────────────────────────────────────────── */
 export const services = [
-  { id: 'brand', title: t('Brand Websites', 'مواقع البراندات'), text: t('Custom websites designed around your identity.', 'مواقع مخصصة مصممة حول هويتك.'), image: '/work/noble-store-hero.jpg' },
+  { id: 'brand', title: t('Brand Websites', 'مواقع العلامات التجارية'), text: t('Custom websites designed around your identity.', 'مواقع مخصصة مصممة حول هويتك.'), image: '/work/noble-store-hero.jpg' },
   { id: 'commerce', title: t('E-Commerce', 'التجارة الإلكترونية'), text: t('Online stores designed for a smooth shopping experience.', 'متاجر إلكترونية مصممة لتجربة تسوق سلسة.'), image: '/work/noble-store-extra.jpg' },
   { id: 'immersive', title: t('Interactive Experiences', 'التجارب التفاعلية'), text: t('Motion, 3D and immersive interactions for the web.', 'حركة وتجارب ثلاثية الأبعاد وتفاعلات غامرة على الويب.'), image: '/work/noble-immersive-hero.jpg' },
   { id: 'landing', title: t('Landing Pages', 'صفحات الهبوط'), text: t('Focused pages designed for campaigns and conversions.', 'صفحات مركّزة مصممة للحملات والتحويل.'), image: '/work/rashfa-hero.jpg' },
@@ -43,11 +43,11 @@ export const packages: Package[] = [
     name: 'Starter',
     price: 1500,
     tagline: t('A professional digital presence.', 'حضور رقمي احترافي.'),
-    audience: t('For brands that need a clean, professional website.', 'للبراندات التي تحتاج موقعًا احترافيًا وأنيقًا.'),
+    audience: t('For brands that need a clean, professional website.', 'للعلامات التي تحتاج موقعًا احترافيًا وأنيقًا.'),
     features: [
       t('Professional responsive website', 'موقع احترافي متجاوب'),
       t('Mobile optimization', 'تحسين كامل للجوال'),
-      t('Brand & product presentation', 'عرض البراند والمنتجات'),
+      t('Brand & product presentation', 'عرض العلامة والمنتجات'),
       t('About section', 'قسم من نحن'),
       t('Contact information', 'معلومات التواصل'),
       t('WhatsApp integration', 'ربط واتساب'),
@@ -64,8 +64,8 @@ export const packages: Package[] = [
     name: 'Signature',
     price: 2500,
     popular: true,
-    tagline: t('A complete brand experience.', 'تجربة متكاملة لبراندك.'),
-    audience: t('For brands ready for a fully custom, bilingual website.', 'للبراندات الجاهزة لموقع مخصص بالكامل وثنائي اللغة.'),
+    tagline: t('A complete brand experience.', 'تجربة متكاملة لعلامتك.'),
+    audience: t('For brands ready for a fully custom, bilingual website.', 'للعلامات الجاهزة لموقع مخصص بالكامل وثنائي اللغة.'),
     features: [
       t('Everything in Starter', 'كل ما في Starter'),
       t('Fully custom UI/UX', 'تصميم واجهة وتجربة مخصص بالكامل'),
@@ -85,8 +85,8 @@ export const packages: Package[] = [
     number: '03',
     name: 'Immersive',
     price: 5000,
-    tagline: t('For brands that want to stand out.', 'للبراندات التي تريد أن تتميّز.'),
-    audience: t('For brands that want their website to be remembered.', 'للبراندات التي تريد موقعًا لا يُنسى.'),
+    tagline: t('For brands that want to stand out.', 'للعلامات التي تريد أن تتميّز.'),
+    audience: t('For brands that want their website to be remembered.', 'للعلامات التي تريد موقعًا لا يُنسى.'),
     features: [
       t('Everything in Signature', 'كل ما في Signature'),
       t('Premium custom UI/UX', 'تصميم مخصص فاخر'),
@@ -120,15 +120,15 @@ export const comparison: { label: T; values: [boolean | T, boolean | T, boolean 
 
 /* ── Process ──────────────────────────────────────────────── */
 export const processSteps = [
-  { title: t('Discover', 'نفهم'), text: t('We understand your brand, audience, products and goals.', 'نفهم براندك وجمهورك ومنتجاتك وأهدافك.') },
-  { title: t('Design', 'نصمم'), text: t('We create a visual direction and user experience around your brand.', 'نبني توجهًا بصريًا وتجربة استخدام حول براندك.') },
+  { title: t('Discover', 'نفهم'), text: t('We understand your brand, audience, products and goals.', 'نفهم علامتك وجمهورك ومنتجاتك وأهدافك.') },
+  { title: t('Design', 'نصمم'), text: t('We create a visual direction and user experience around your brand.', 'نبني توجهًا بصريًا وتجربة استخدام حول علامتك.') },
   { title: t('Build', 'نبني'), text: t('We turn the approved design into a fast, responsive website.', 'نحوّل التصميم المعتمد إلى موقع سريع ومتجاوب.') },
   { title: t('Launch', 'نطلق'), text: t('We connect your domain, finalize everything and go live.', 'نربط نطاقك ونراجع كل التفاصيل ونطلق الموقع.') },
 ];
 
 /* ── Why us ───────────────────────────────────────────────── */
 export const reasons = [
-  { title: t('Designed around your brand.', 'مصمم حول براندك.'), text: t('No generic templates. Every layout starts from your identity.', 'بلا قوالب جاهزة. كل تصميم يبدأ من هويتك.') },
+  { title: t('Designed around your brand.', 'مصمم حول علامتك.'), text: t('No generic templates. Every layout starts from your identity.', 'بلا قوالب جاهزة. كل تصميم يبدأ من هويتك.') },
   { title: t('Built for real users.', 'مبني لمستخدمين حقيقيين.'), text: t('Mobile-first, because that is where your customers find you.', 'الجوال أولًا، لأنه المكان الذي يجدك فيه عملاؤك.') },
   { title: t('Fast by default.', 'سريع بطبيعته.'), text: t('Optimised images, lean code and quick loading on any connection.', 'صور محسّنة وكود خفيف وتحميل سريع على أي اتصال.') },
   { title: t('Ready to grow.', 'جاهز للنمو.'), text: t('Modern technology that can add pages, languages or a store later.', 'تقنيات حديثة تتيح إضافة صفحات أو لغات أو متجر لاحقًا.') },
@@ -149,5 +149,5 @@ export const faqs = [
   { q: t('Can you build an online store?', 'هل يمكنكم بناء متجر إلكتروني؟'), a: t('Yes. Online stores are quoted as custom projects based on products, payments and delivery.', 'نعم. المتاجر الإلكترونية تُسعّر كمشاريع مخصصة حسب المنتجات والدفع والتوصيل.') },
   { q: t('Can you redesign an existing website?', 'هل يمكنكم إعادة تصميم موقع حالي؟'), a: t('Yes. We keep what works, rebuild what doesn’t, and move your content across.', 'نعم. نحتفظ بما ينجح، ونعيد بناء ما لا ينجح، وننقل محتواك.') },
   { q: t('Can I request custom features?', 'هل يمكنني طلب خصائص إضافية؟'), a: t('Yes. Anything beyond a package is quoted separately before we start.', 'نعم. أي خاصية خارج الباقة نسعّرها بشكل منفصل قبل البدء.') },
-  { q: t('Do you work with brands in any country?', 'هل تعملون مع براندات من أي دولة؟'), a: t('Yes. We work remotely with brands anywhere, in English and Arabic.', 'نعم. نعمل عن بُعد مع البراندات في أي مكان، بالعربية والإنجليزية.') },
+  { q: t('Do you work with businesses outside Saudi Arabia?', 'هل تعملون مع شركات خارج السعودية؟'), a: t('Yes. We focus on Saudi brands, but work remotely with brands across the Gulf and beyond.', 'نعم. تركيزنا على العلامات السعودية، لكننا نعمل عن بُعد مع علامات في الخليج وخارجه.') },
 ];

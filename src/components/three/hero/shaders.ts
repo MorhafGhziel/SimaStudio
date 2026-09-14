@@ -2,10 +2,10 @@
  * Hero scene shaders.
  *
  * Ribbon: a long strip whose centreline, twist and width are computed on the
- * GPU, so the whole form flows without touching geometry on the CPU. It is
- * shaded as liquid chrome: every pixel reflects a small procedural studio
- * (cool sky gradient, a crisp horizon, softboxes) in view space, with a faint
- * icy thin-film sheen at grazing angles and glass-bright edges.
+ * GPU, so the whole form flows without touching geometry on the CPU. Shading is
+ * done in view space against a small procedural "studio" (key, rim, soft top),
+ * giving a dark silk-chrome body with champagne highlights and a faint
+ * thin-film sheen at grazing angles.
  */
 
 export const ribbonVertex = /* glsl */ `
@@ -49,7 +49,7 @@ vec3 surface(float t, float v) {
   vec3 lift = cross(T, side);
   float w = uWidth * (0.3 + 0.7 * sin(3.14159 * clamp(t, 0.0, 1.0)));
   vec3 p = c + side * v * w;
-  // Fine liquid ripple across the width.
+  // Fine fabric-like ripple across the width.
   p += lift * sin(v * 5.0 + t * 18.0 - uTime * 0.9) * 0.025 * w;
   return p;
 }
@@ -80,23 +80,6 @@ varying vec3 vPosV;
 varying vec3 vNormalV;
 varying vec2 vUv;
 
-// A small photographic studio for the chrome to reflect.
-vec3 studio(vec3 r) {
-  float sky = smoothstep(-0.2, 0.95, r.y);
-  vec3 col = mix(vec3(0.012, 0.013, 0.017), vec3(0.3, 0.32, 0.36), sky);
-  // Crisp horizon: the signature line of polished metal.
-  col += vec3(0.88, 0.92, 1.0) * exp(-pow((r.y - 0.03) / 0.03, 2.0)) * 0.95;
-  // Tall softbox on the right.
-  float box = smoothstep(0.14, 0.02, abs(r.x - 0.46)) * smoothstep(0.1, 0.45, r.y) * smoothstep(1.0, 0.8, r.y);
-  col += vec3(1.0) * box * 1.7;
-  // Thin strip light on the left.
-  float strip = smoothstep(0.06, 0.0, abs(r.y - 0.58)) * smoothstep(0.55, 0.1, abs(r.x + 0.38));
-  col += vec3(0.84, 0.88, 0.97) * strip * 1.15;
-  // Hot specular point.
-  col += vec3(0.95, 0.97, 1.0) * pow(max(dot(r, normalize(vec3(0.4, 0.8, 0.45))), 0.0), 48.0) * 2.4;
-  return col;
-}
-
 void main() {
   vec3 N = normalize(vNormalV);
   if (!gl_FrontFacing) N = -N;
@@ -104,31 +87,38 @@ void main() {
   float ndv = max(dot(N, V), 0.0);
   vec3 R = reflect(-V, N);
 
-  // Let the reflection drift slowly so the metal feels liquid, not static.
-  float a = uTime * 0.05;
-  R.xz = mat2(cos(a), -sin(a), sin(a), cos(a)) * R.xz;
+  // Procedural studio lighting: a broad key, a sharp rim and a soft top light.
+  vec3 L1 = normalize(vec3(0.55, 0.75, 0.45));
+  float broad = pow(max(dot(R, L1), 0.0), 4.0);
+  float key   = pow(max(dot(R, L1), 0.0), 22.0);
+  float rim   = pow(max(dot(R, normalize(vec3(-0.65, 0.15, 0.75))), 0.0), 48.0);
+  float top   = smoothstep(0.1, 0.95, R.y) * 0.35;
+  float fres  = pow(1.0 - ndv, 2.4);
 
-  vec3 env = studio(R);
-  float fres = pow(1.0 - ndv, 3.0);
+  // Silk sheen: a soft band of light that wanders across the width as the ribbon folds.
+  float bandPos = 0.16 * sin(vUv.x * 6.0 + uTime * 0.3) + 0.1 * sin(vUv.x * 17.0 - uTime * 0.2);
+  float sheen = exp(-pow((vUv.y - bandPos) / 0.16, 2.0)) * (0.35 + 0.65 * broad);
 
-  // Chrome reflects strongly at every angle, a little more at grazing ones.
-  vec3 col = env * mix(0.74, 1.0, fres) * uTint;
+  float spec = broad * 0.55 + key * 2.2 + rim * 1.2 + top + sheen * 0.9;
 
-  // Barely-there icy / lavender thin film on the turning edges.
-  vec3 film = 0.5 + 0.5 * cos(6.28318 * (vec3(0.58, 0.63, 0.7) + fres * 0.6 + vUv.x * 0.35));
-  col = mix(col, col * (0.82 + 0.36 * film), fres * 0.4);
-  col *= 0.97 + 0.03 * sin(vUv.y * 90.0 + vUv.x * 14.0);
+  vec3 film = 0.5 + 0.5 * cos(6.28318 * (vec3(0.0, 0.12, 0.24) + fres * 0.8 + vUv.x * 0.5 + uTime * 0.015));
 
-  // Glass-bright edges keep the silhouette readable against the dark.
+  vec3 col = uTint * 0.06;
+  col += uTint * spec;
+  col += mix(uTint, film * uTint * 1.35, 0.3) * fres * 0.9;
+  col *= 0.94 + 0.06 * sin(vUv.y * 90.0 + vUv.x * 14.0);
+
+  // Luminous glass edges give the form a crisp silhouette.
   float av = abs(vUv.y);
-  float edgeLine = smoothstep(0.37, 0.47, av) * smoothstep(0.5, 0.47, av);
-  col += vec3(0.86, 0.9, 0.98) * edgeLine * (0.3 + 0.9 * fres);
+  float edgeLine = smoothstep(0.36, 0.47, av) * smoothstep(0.5, 0.47, av);
+  col += uTint * edgeLine * (0.45 + 0.9 * fres + 0.6 * broad);
 
   float edge   = smoothstep(0.5, 0.46, av);
   float ends   = smoothstep(0.0, 0.12, vUv.x) * smoothstep(1.0, 0.86, vUv.x);
   float reveal = 1.0 - smoothstep(uReveal * 1.2 - 0.2, uReveal * 1.2, vUv.x);
+  float body   = 0.62 + 0.38 * clamp(spec + fres + edgeLine, 0.0, 1.0);
 
-  gl_FragColor = vec4(col, uOpacity * edge * ends * reveal * 0.94);
+  gl_FragColor = vec4(col, uOpacity * edge * ends * reveal * body);
 }
 `;
 
@@ -158,7 +148,7 @@ void main() {
 }
 `;
 
-/** Fine silver dust drifting up through the light. */
+/** Dust drifting up through the light. */
 export const dustVertex = /* glsl */ `
 uniform float uTime;
 uniform float uSize;

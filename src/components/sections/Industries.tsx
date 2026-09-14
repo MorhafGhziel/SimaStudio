@@ -60,7 +60,7 @@ export function Industries() {
                   )}
                 >
                   {item.label[locale]}
-                  {selected === item.id && <motion.span layoutId="industry-underline" className="absolute inset-x-0 bottom-1 h-[2px] bg-silver" transition={{ type: 'spring', stiffness: 380, damping: 34 }} />}
+                  {selected === item.id && <motion.span layoutId="industry-underline" className="absolute inset-x-0 bottom-1 h-[2px] bg-sand" transition={{ type: 'spring', stiffness: 380, damping: 34 }} />}
                 </button>
               </li>
             ))}
@@ -82,13 +82,13 @@ export function Industries() {
                             <span className="block font-medium">{locale === 'ar' ? p.arName : p.name}</span>
                             <span className="block text-sm text-mute">{p.kind[locale]}</span>
                           </span>
-                          <ArrowUpRight className="size-4 text-mute transition-colors group-hover:text-silver rtl:-scale-x-100" strokeWidth={1.6} />
+                          <ArrowUpRight className="size-4 text-mute transition-colors group-hover:text-sand rtl:-scale-x-100" strokeWidth={1.6} />
                         </Link>
                       </li>
                     ))}
                   </ul>
                 ) : (
-                  <Link href={`${href(locale)}#contact`} className="group inline-flex items-center gap-2 text-paper/80 transition-colors hover:text-silver">
+                  <Link href={`${href(locale)}#contact`} className="group inline-flex items-center gap-2 text-paper/80 transition-colors hover:text-sand">
                     {dict.industries.none}
                     <ArrowUpRight className="size-4 rtl:-scale-x-100" strokeWidth={1.6} />
                   </Link>
