@@ -15,7 +15,7 @@ type Fields = { name: string; brand: string; reach: string; need: string; budget
 const empty: Fields = { name: '', brand: '', reach: '', need: '', budget: '', message: '' };
 
 const field =
-  'mt-2 w-full rounded-xl border border-line bg-ink-2 px-4 py-3.5 text-paper outline-none transition-colors placeholder:text-faint focus:border-sand/60 aria-[invalid=true]:border-red-400/60';
+  'mt-2 w-full rounded-xl border border-line bg-ink-2 px-4 py-3.5 text-paper outline-none transition-colors placeholder:text-faint focus:border-violet/60 aria-[invalid=true]:border-red-400/60';
 
 export function Contact() {
   const { locale, dict } = useLocale();
@@ -67,7 +67,7 @@ export function Contact() {
   const label = (key: keyof Fields, text: string, required = true) => (
     <label htmlFor={`c-${key}`} className="text-sm text-mute">
       {text}
-      {required && <span className="text-sand"> *</span>}
+      {required && <span className="text-coral"> *</span>}
     </label>
   );
 
@@ -94,9 +94,9 @@ export function Contact() {
                     target={ch.href.startsWith('http') ? '_blank' : undefined}
                     rel={ch.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                     data-cursor="open"
-                    className="group flex items-center gap-4 rounded-2xl border border-line px-5 py-4 transition-colors hover:border-sand/40"
+                    className="group flex items-center gap-4 rounded-2xl border border-line px-5 py-4 transition-colors hover:border-violet/40"
                   >
-                    <span className="text-sand">{ch.icon}</span>
+                    <span className="text-violet-soft">{ch.icon}</span>
                     <span className="flex-1">{ch.label}</span>
                     <span className="text-sm text-mute transition-colors group-hover:text-paper" dir="ltr">
                       {ch.value}
@@ -113,13 +113,13 @@ export function Contact() {
             <AnimatePresence mode="wait" initial={false}>
               {status === 'sent' || status === 'fallback' ? (
                 <motion.div key="done" role="status" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="py-10 text-center">
-                  <motion.span initial={{ scale: 0.5 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 260, damping: 18 }} className="mx-auto grid size-16 place-items-center rounded-full border border-sand/50 text-sand">
+                  <motion.span initial={{ scale: 0.5 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 260, damping: 18 }} className="mx-auto grid size-16 place-items-center rounded-full border border-violet/50 text-violet-soft">
                     <Check className="size-7" strokeWidth={1.5} />
                   </motion.span>
                   <h3 className="mt-8 text-3xl font-medium tracking-[-0.02em]">{status === 'sent' ? c.successTitle : c.fallbackTitle}</h3>
                   <p className="mx-auto mt-4 max-w-[38ch] text-mute">{status === 'sent' ? c.successText : c.fallbackText}</p>
                   <div className="mt-8 flex flex-wrap justify-center gap-3">
-                    <a href={whatsappUrl(summary)} target="_blank" rel="noopener noreferrer" data-cursor="open" className="inline-flex h-12 items-center gap-2 rounded-pill bg-paper px-6 font-medium text-ink transition-colors hover:bg-sand">
+                    <a href={whatsappUrl(summary)} target="_blank" rel="noopener noreferrer" data-cursor="open" className="inline-flex h-12 items-center gap-2 rounded-pill bg-paper px-6 font-medium text-ink transition-colors hover:bg-violet hover:text-paper">
                       <WhatsAppIcon className="size-4" /> {c.successWhatsapp}
                     </a>
                     {status === 'fallback' && (
@@ -158,7 +158,7 @@ export function Contact() {
                     <legend className="text-sm text-mute">{c.need}</legend>
                     <div className="mt-3 flex flex-wrap gap-2">
                       {c.needs.map((n) => (
-                        <button key={n} type="button" aria-pressed={values.need === n} onClick={() => set('need', values.need === n ? '' : n)} className={cn('rounded-pill border px-4 py-2 text-sm transition-colors', values.need === n ? 'border-sand bg-sand text-ink' : 'border-line text-paper/80 hover:border-paper/30')}>
+                        <button key={n} type="button" aria-pressed={values.need === n} onClick={() => set('need', values.need === n ? '' : n)} className={cn('rounded-pill border px-4 py-2 text-sm transition-colors', values.need === n ? 'border-violet bg-violet text-paper' : 'border-line text-paper/80 hover:border-paper/30')}>
                           {n}
                         </button>
                       ))}
@@ -169,7 +169,7 @@ export function Contact() {
                     <legend className="text-sm text-mute">{c.budget}</legend>
                     <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
                       {c.budgets.map((b) => (
-                        <button key={b} type="button" aria-pressed={values.budget === b} onClick={() => set('budget', values.budget === b ? '' : b)} className={cn('rounded-xl border px-3 py-3 text-sm transition-colors', values.budget === b ? 'border-sand bg-sand text-ink' : 'border-line text-paper/80 hover:border-paper/30')}>
+                        <button key={b} type="button" aria-pressed={values.budget === b} onClick={() => set('budget', values.budget === b ? '' : b)} className={cn('rounded-xl border px-3 py-3 text-sm transition-colors', values.budget === b ? 'border-violet bg-violet text-paper' : 'border-line text-paper/80 hover:border-paper/30')}>
                           {b}
                         </button>
                       ))}

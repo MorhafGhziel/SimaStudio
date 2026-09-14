@@ -204,9 +204,9 @@ export default async function CaseStudyPage({ params }: PageProps<'/[locale]/wor
         <div className="container-x grid items-center gap-8 py-16 md:grid-cols-12 md:py-24">
           <div className="md:col-span-6">
             <p className="eyebrow">{cs.next}</p>
-            <p className="display-lg mt-4 transition-colors duration-500 group-hover:text-sand">{locale === 'ar' ? next.arName : next.name}</p>
+            <p className="display-lg mt-4 transition-colors duration-500 group-hover:text-violet-soft">{locale === 'ar' ? next.arName : next.name}</p>
             <p className="mt-3 text-mute">{next.kind[locale]}</p>
-            <ArrowUpRight className="mt-8 size-8 text-mute transition-transform duration-700 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-sand rtl:-scale-x-100" strokeWidth={1.2} />
+            <ArrowUpRight className="mt-8 size-8 text-mute transition-transform duration-700 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-violet-soft rtl:-scale-x-100" strokeWidth={1.2} />
           </div>
           <div className="relative aspect-[16/10] overflow-hidden rounded-card border border-line md:col-span-6">
             <Image src={`/work/${next.slug}-hero.jpg`} alt="" fill sizes="(min-width: 768px) 48vw, 100vw" className="object-cover object-top transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]" />

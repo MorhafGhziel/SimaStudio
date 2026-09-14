@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { LiquidView } from '@/components/liquid/LiquidView';
 import { dictionary } from '@/content/dictionary';
 import { instagramUrl, studio, tiktokUrl, whatsappMessage, whatsappUrl } from '@/content/site';
 import { href, type Locale } from '@/lib/i18n';
@@ -17,7 +18,12 @@ export function Footer({ locale }: { locale: Locale }) {
 
   return (
     <footer className="border-t border-line">
-      <div className="container-x grid gap-12 py-16 md:grid-cols-12 md:py-20">
+      {/* The site's closing signature: a slow liquid horizon that settles into the footer. */}
+      <div aria-hidden="true" className="relative h-[clamp(11rem,24vw,22rem)]">
+        <LiquidView mode="footer" className="absolute inset-0" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-b from-transparent to-ink" />
+      </div>
+      <div className="container-x grid gap-12 pb-16 pt-4 md:grid-cols-12 md:pb-20">
         <div className="md:col-span-5">
           <Logo locale={locale} />
           <p className="mt-5 max-w-[30ch] text-mute">{d.footer.statement}</p>

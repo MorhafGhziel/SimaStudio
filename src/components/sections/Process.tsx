@@ -24,8 +24,8 @@ export function Process() {
         <div ref={ref} className="relative mt-16 sm:mt-24">
           {/* Timeline rail: vertical on mobile, horizontal on desktop */}
           <div aria-hidden="true" className="absolute bottom-0 start-[0.3rem] top-0 w-px bg-line md:inset-x-0 md:bottom-auto md:top-[0.3rem] md:h-px md:w-auto">
-            <motion.div style={{ scaleY: fill }} className="absolute inset-0 origin-top bg-sand md:hidden" />
-            <motion.div style={{ scaleX: fill }} className="absolute inset-0 hidden origin-left bg-sand md:block rtl:origin-right" />
+            <motion.div style={{ scaleY: fill }} className="absolute inset-0 origin-top bg-linear-to-b from-violet to-blue md:hidden" />
+            <motion.div style={{ scaleX: fill }} className="absolute inset-0 hidden origin-left bg-linear-to-r from-violet to-blue rtl:bg-linear-to-l md:block rtl:origin-right" />
           </div>
 
           <ol className="grid gap-14 md:grid-cols-4 md:gap-8">
@@ -38,7 +38,7 @@ export function Process() {
                 transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: i * 0.08 }}
                 className="relative ps-10 md:ps-0 md:pt-12"
               >
-                <span aria-hidden="true" className="absolute start-0 top-1.5 size-[0.65rem] rounded-full border border-sand bg-ink md:top-0" />
+                <span aria-hidden="true" className="absolute start-0 top-1.5 size-[0.65rem] rounded-full border border-violet-soft bg-ink md:top-0" />
                 <span className="text-[3.5rem] font-medium leading-none tracking-[-0.05em] text-paper/15" dir="ltr">
                   0{i + 1}
                 </span>

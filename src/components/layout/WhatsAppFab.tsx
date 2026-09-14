@@ -51,9 +51,9 @@ export function WhatsAppFab() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 16 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] end-5 z-40 flex h-12 items-center gap-2 overflow-hidden rounded-pill border border-line bg-ink-2/90 px-3.5 text-paper shadow-[0_18px_40px_-18px_rgb(0_0_0/0.8)] backdrop-blur-md transition-colors hover:border-sand/40"
+          className="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] end-5 z-40 flex h-12 items-center gap-2 overflow-hidden rounded-pill border border-line bg-ink-2/90 px-3.5 text-paper shadow-[0_18px_40px_-18px_rgb(0_0_0/0.8)] backdrop-blur-md transition-colors hover:border-violet/40"
         >
-          <WhatsAppIcon className="size-5 shrink-0 text-sand" />
+          <WhatsAppIcon className="size-5 shrink-0 text-violet-soft" />
           <motion.span
             initial={false}
             animate={{ width: emphasis ? 'auto' : 0, opacity: emphasis ? 1 : 0 }}

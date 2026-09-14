@@ -1,16 +1,22 @@
 @import "tailwindcss";
 
 /* ─── SIMA design system ─────────────────────────────────────
-   Near-black ground, off-white type, one muted sand accent.   */
+   Deep black ground, warm white type. Colour lives mostly in the
+   liquid 3D; the interface uses violet first, blue second and coral
+   only as a rare creative accent.                               */
 @theme {
-  --color-ink: #0a0a09;
-  --color-ink-2: #121210;
-  --color-ink-3: #1a1a17;
-  --color-paper: #f1eee8;
-  --color-mute: #8f8b83;
-  --color-faint: #56534d;
-  --color-sand: #d2bc98;
-  --color-line: rgb(241 238 232 / 0.1);
+  --color-ink: #08080a;
+  --color-ink-2: #111116;
+  --color-ink-3: #18181f;
+  --color-paper: #f5f3ee;
+  --color-mute: #8f8d96;
+  --color-faint: #58565f;
+  --color-line: rgb(245 243 238 / 0.1);
+
+  --color-violet: #7c3aed;
+  --color-violet-soft: #a78bfa; /* violet for small text/icons on dark */
+  --color-blue: #2563eb;
+  --color-coral: #ff6b4a;
 
   --font-sans: var(--font-grotesk), system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display: var(--font-grotesk), system-ui, sans-serif;
@@ -91,8 +97,8 @@ html[lang="ar"] {
     text-size-adjust: 100%;
     scroll-padding-top: calc(var(--nav) + 1rem);
   }
+  /* The body stays transparent so the shared liquid canvas (fixed, behind the page) shows through. */
   body {
-    background: var(--color-ink);
     color: var(--color-paper);
     font-family: var(--font-sans);
     line-height: 1.6;
@@ -109,11 +115,11 @@ html[lang="ar"] {
     line-height: 1.25;
   }
   ::selection {
-    background: var(--color-sand);
-    color: var(--color-ink);
+    background: var(--color-violet);
+    color: var(--color-paper);
   }
   :focus-visible {
-    outline: 1.5px solid var(--color-sand);
+    outline: 1.5px solid var(--color-violet-soft);
     outline-offset: 3px;
   }
   input,

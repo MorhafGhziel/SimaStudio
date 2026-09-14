@@ -33,10 +33,10 @@ export function FAQ() {
                       aria-expanded={isOpen}
                       aria-controls={`faq-${i}`}
                       onClick={() => setOpen(isOpen ? null : i)}
-                      className="flex w-full items-center justify-between gap-6 py-6 text-start text-lg transition-colors hover:text-sand sm:text-xl"
+                      className="flex w-full items-center justify-between gap-6 py-6 text-start text-lg transition-colors hover:text-violet-soft sm:text-xl"
                     >
                       {item.q[locale]}
-                      <Plus className={cn('size-5 shrink-0 transition-transform duration-500 ease-out', isOpen && 'rotate-45 text-sand')} strokeWidth={1.4} />
+                      <Plus className={cn('size-5 shrink-0 transition-transform duration-500 ease-out', isOpen && 'rotate-45 text-violet-soft')} strokeWidth={1.4} />
                     </button>
                   </h3>
                   <AnimatePresence initial={false}>
