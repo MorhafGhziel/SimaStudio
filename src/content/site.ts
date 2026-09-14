@@ -10,12 +10,11 @@ export const studio = {
   name: 'SIMA',
   arName: 'سِمة',
   url: 'https://sima.studio', // PLACEHOLDER — production domain
-  email: 'hello@sima.studio', // PLACEHOLDER
+  email: 'simastudio7@gmail.com',
   whatsapp: '966500000000', // PLACEHOLDER — international format, no + or spaces
   whatsappDisplay: '+966 50 000 0000', // PLACEHOLDER
   instagram: 'sima.studio', // PLACEHOLDER — handle without @
   tiktok: 'sima.studio', // PLACEHOLDER
-  location: { en: 'Saudi Arabia', ar: 'المملكة العربية السعودية' } as T,
   startingPrice: 1500,
 };
 
