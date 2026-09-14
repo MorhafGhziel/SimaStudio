@@ -39,7 +39,7 @@ export function Process() {
                 className="relative ps-10 md:ps-0 md:pt-12"
               >
                 <span aria-hidden="true" className="absolute start-0 top-1.5 size-[0.65rem] rounded-full border border-accent bg-ink md:top-0" />
-                <span className="text-[3.5rem] font-medium leading-none tracking-[-0.05em] text-paper/15" dir="ltr">
+                <span className="text-[3.5rem] font-medium leading-none tracking-[-0.05em] text-[#29292b]" dir="ltr">
                   0{i + 1}
                 </span>
                 <h3 className="mt-4 text-2xl font-medium tracking-[-0.02em]">{step.title[locale]}</h3>

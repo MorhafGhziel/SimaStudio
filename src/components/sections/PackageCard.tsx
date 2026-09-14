@@ -58,13 +58,13 @@ export function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
           ) : (
             <Image src="/work/noble-immersive-detail.jpg" alt="" fill sizes="(min-width: 1024px) 30vw, 100vw" className="object-cover" />
           )}
-          {show3d && <span className="pointer-events-none absolute bottom-3 start-3 rounded-pill bg-ink/60 px-3 py-1 text-[0.7rem] text-paper/80 backdrop-blur">{dict.packages.preview}</span>}
+          {show3d && <span className="pointer-events-none absolute bottom-3 start-3 rounded-pill bg-ink/60 px-3 py-1 text-[0.7rem] text-[#c3c3c6] backdrop-blur">{dict.packages.preview}</span>}
         </div>
       )}
 
       <ul className="mt-8 space-y-3 border-t border-line pt-7 text-[0.95rem]">
         {pkg.features.map((f, i) => (
-          <li key={f.en} className={cn('flex gap-3', i === 0 && index > 0 ? 'text-accent' : 'text-paper/85')}>
+          <li key={f.en} className={cn('flex gap-3', i === 0 && index > 0 ? 'text-accent' : 'text-[#cfcfd2]')}>
             <Check className="mt-1 size-4 shrink-0 text-accent" strokeWidth={1.8} />
             {f[locale]}
           </li>

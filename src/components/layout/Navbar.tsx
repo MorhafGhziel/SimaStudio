@@ -80,7 +80,7 @@ export function Navbar() {
             <ul className="flex items-center gap-9">
               {links.map((l) => (
                 <li key={l.id}>
-                  <Link href={`${href(locale)}#${l.id}`} className="group relative py-2 text-[0.92rem] text-paper/80 transition-colors hover:text-paper">
+                  <Link href={`${href(locale)}#${l.id}`} className="group relative py-2 text-[0.92rem] text-[#c3c3c6] transition-colors hover:text-paper">
                     {l.label}
                     <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-paper transition-transform duration-500 ease-out group-hover:scale-x-100 rtl:origin-right" />
                   </Link>
@@ -138,7 +138,7 @@ export function Navbar() {
                 </LinkButton>
                 <div className="flex items-center justify-between">
                   <LangSwitch />
-                  <div className="flex gap-1 text-paper/70">
+                  <div className="flex gap-1 text-[#acacae]">
                     <a href={whatsappUrl(whatsappMessage[locale])} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="grid size-11 place-items-center">
                       <WhatsAppIcon className="size-5" />
                     </a>

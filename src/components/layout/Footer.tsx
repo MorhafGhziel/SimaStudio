@@ -13,7 +13,7 @@ export function Footer({ locale }: { locale: Locale }) {
     { id: 'about', label: d.nav.about },
     { id: 'contact', label: d.footer.contact },
   ];
-  const link = 'text-paper/70 transition-colors hover:text-paper';
+  const link = 'text-[#acacae] transition-colors hover:text-paper';
 
   return (
     <footer className="border-t border-line">

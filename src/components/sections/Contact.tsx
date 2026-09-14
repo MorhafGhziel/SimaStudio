@@ -158,7 +158,7 @@ export function Contact() {
                     <legend className="text-sm text-mute">{c.need}</legend>
                     <div className="mt-3 flex flex-wrap gap-2">
                       {c.needs.map((n) => (
-                        <button key={n} type="button" aria-pressed={values.need === n} onClick={() => set('need', values.need === n ? '' : n)} className={cn('rounded-pill border px-4 py-2 text-sm transition-colors', values.need === n ? 'border-accent bg-accent text-ink' : 'border-line text-paper/80 hover:border-paper/30')}>
+                        <button key={n} type="button" aria-pressed={values.need === n} onClick={() => set('need', values.need === n ? '' : n)} className={cn('rounded-pill border px-4 py-2 text-sm transition-colors', values.need === n ? 'border-accent bg-accent text-ink' : 'border-line text-[#c3c3c6] hover:border-paper/30')}>
                           {n}
                         </button>
                       ))}
@@ -169,7 +169,7 @@ export function Contact() {
                     <legend className="text-sm text-mute">{c.budget}</legend>
                     <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
                       {c.budgets.map((b) => (
-                        <button key={b} type="button" aria-pressed={values.budget === b} onClick={() => set('budget', values.budget === b ? '' : b)} className={cn('rounded-xl border px-3 py-3 text-sm transition-colors', values.budget === b ? 'border-accent bg-accent text-ink' : 'border-line text-paper/80 hover:border-paper/30')}>
+                        <button key={b} type="button" aria-pressed={values.budget === b} onClick={() => set('budget', values.budget === b ? '' : b)} className={cn('rounded-xl border px-3 py-3 text-sm transition-colors', values.budget === b ? 'border-accent bg-accent text-ink' : 'border-line text-[#c3c3c6] hover:border-paper/30')}>
                           {b}
                         </button>
                       ))}

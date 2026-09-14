@@ -56,7 +56,7 @@ export function Industries() {
                   }}
                   className={cn(
                     'relative py-1 text-[clamp(1.9rem,1.1rem+3vw,4rem)] font-medium uppercase leading-[1.1] tracking-[-0.03em] transition-colors duration-500 rtl:normal-case rtl:tracking-normal',
-                    selected === item.id ? 'text-paper' : 'text-paper/25 hover:text-paper/70',
+                    selected === item.id ? 'text-paper' : 'text-[#404043] hover:text-[#acacae]',
                   )}
                 >
                   {item.label[locale]}
@@ -88,7 +88,7 @@ export function Industries() {
                     ))}
                   </ul>
                 ) : (
-                  <Link href={`${href(locale)}#contact`} className="group inline-flex items-center gap-2 text-paper/80 transition-colors hover:text-accent">
+                  <Link href={`${href(locale)}#contact`} className="group inline-flex items-center gap-2 text-[#c3c3c6] transition-colors hover:text-accent">
                     {dict.industries.none}
                     <ArrowUpRight className="size-4 rtl:-scale-x-100" strokeWidth={1.6} />
                   </Link>
@@ -106,7 +106,7 @@ export function Industries() {
               </motion.div>
             </AnimatePresence>
             <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
-            <p className="absolute bottom-5 start-5 text-sm text-paper/90">{industries.find((i) => i.id === preview)!.label[locale]}</p>
+            <p className="absolute bottom-5 start-5 text-sm text-[#dbdbde]">{industries.find((i) => i.id === preview)!.label[locale]}</p>
           </div>
         </div>
       </div>

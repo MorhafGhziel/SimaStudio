@@ -70,7 +70,7 @@ export function ProjectCard({ project, flip = false }: { project: Project; flip?
         <p className="mt-5 max-w-[40ch] text-mute">{project.summary[locale]}</p>
         <ul className="mt-6 flex flex-wrap gap-2">
           {project.tags.map((tag) => (
-            <li key={tag.en} className="rounded-pill border border-line px-3 py-1 text-xs text-paper/75">
+            <li key={tag.en} className="rounded-pill border border-line px-3 py-1 text-xs text-[#b8b8ba]">
               {tag[locale]}
             </li>
           ))}
@@ -78,7 +78,7 @@ export function ProjectCard({ project, flip = false }: { project: Project; flip?
         <dl className="mt-8 grid grid-cols-2 gap-6 border-t border-line pt-6 text-sm">
           <div>
             <dt className="text-faint">{dict.work.services}</dt>
-            <dd className="mt-2 space-y-1 text-paper/80">
+            <dd className="mt-2 space-y-1 text-[#c3c3c6]">
               {project.services.map((s) => (
                 <span key={s.en} className="block">
                   {s[locale]}
@@ -88,7 +88,7 @@ export function ProjectCard({ project, flip = false }: { project: Project; flip?
           </div>
           <div>
             <dt className="text-faint">{dict.work.tech}</dt>
-            <dd className="mt-2 space-y-1 text-paper/80" dir="ltr">
+            <dd className="mt-2 space-y-1 text-[#c3c3c6]" dir="ltr">
               {project.tech.slice(0, 3).map((t) => (
                 <span key={t} className={cn('block', locale === 'ar' && 'text-right')}>
                   {t}

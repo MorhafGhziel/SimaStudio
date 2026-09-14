@@ -28,7 +28,7 @@ export function About() {
         <div dir="ltr" className="mt-6 overflow-hidden border-y border-line py-6 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
           <div className="flex w-max animate-marquee gap-12 motion-reduce:animate-none">
             {[...stack, ...stack].map((s, i) => (
-              <span key={i} aria-hidden={i >= stack.length} className="text-2xl font-medium tracking-[-0.02em] text-paper/35 sm:text-3xl">
+              <span key={i} aria-hidden={i >= stack.length} className="text-2xl font-medium tracking-[-0.02em] text-[#58585b] sm:text-3xl">
                 {s}
               </span>
             ))}

@@ -73,7 +73,7 @@ export function Packages() {
                 <tbody>
                   {comparison.map((row) => (
                     <tr key={row.label.en} className="border-b border-line">
-                      <th scope="row" className="py-4 pe-4 text-start font-normal text-paper/80">
+                      <th scope="row" className="py-4 pe-4 text-start font-normal text-[#c3c3c6]">
                         {row.label[locale]}
                       </th>
                       {row.values.map((v, i) => (
@@ -83,7 +83,7 @@ export function Packages() {
                           ) : v === false ? (
                             <Minus aria-label={dict.packages.no} className="size-4 text-faint" strokeWidth={1.6} />
                           ) : (
-                            <span className="text-paper/80">{v[locale]}</span>
+                            <span className="text-[#c3c3c6]">{v[locale]}</span>
                           )}
                         </td>
                       ))}

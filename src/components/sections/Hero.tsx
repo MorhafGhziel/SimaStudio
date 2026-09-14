@@ -70,7 +70,7 @@ export function Hero() {
 
       {/* ── Content ──────────────────────────────────────────── */}
       <div className="container-x flex flex-1 flex-col items-center pb-16 pt-[calc(var(--nav)+clamp(2rem,8vh,6rem))] text-center">
-        <motion.p {...fade(0.2)} className="inline-flex items-center gap-2.5 rounded-pill border border-line bg-ink/50 px-4 py-1.5 text-[0.72rem] uppercase tracking-[0.14em] text-paper/80 backdrop-blur-sm rtl:text-xs rtl:normal-case rtl:tracking-normal">
+        <motion.p {...fade(0.2)} className="inline-flex items-center gap-2.5 rounded-pill border border-line bg-ink/50 px-4 py-1.5 text-[0.72rem] uppercase tracking-[0.14em] text-[#c3c3c6] backdrop-blur-sm rtl:text-xs rtl:normal-case rtl:tracking-normal">
           <span aria-hidden="true" className="bg-spectrum size-1.5 rounded-full" />
           {dict.hero.kicker}
         </motion.p>

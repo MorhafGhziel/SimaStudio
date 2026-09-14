@@ -8,7 +8,7 @@ export default function NotFound() {
   const { locale, dict } = useLocale();
   return (
     <section className="container-x flex min-h-[80svh] flex-col items-start justify-center pt-[var(--nav)]">
-      <p className="text-[clamp(6rem,4rem+10vw,14rem)] font-medium leading-none tracking-[-0.06em] text-paper/10" dir="ltr">
+      <p className="text-[clamp(6rem,4rem+10vw,14rem)] font-medium leading-none tracking-[-0.06em] text-[#1d1d1f]" dir="ltr">
         404
       </p>
       <h1 className="display-md mt-4">{dict.notFound.title}</h1>

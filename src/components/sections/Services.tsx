@@ -41,7 +41,7 @@ export function Services() {
                 <span className="text-sm text-faint md:col-span-1" dir="ltr">
                   0{i + 1}
                 </span>
-                <h3 className={cn('display-md transition-colors duration-500 md:col-span-6', active && active !== service.id ? 'text-paper/30' : 'text-paper')}>{service.title[locale]}</h3>
+                <h3 className={cn('display-md transition-colors duration-500 md:col-span-6', active && active !== service.id ? 'text-[#4c4c4f]' : 'text-paper')}>{service.title[locale]}</h3>
                 <p className="max-w-[36ch] text-mute md:col-span-5">{service.text[locale]}</p>
               </div>
               {/* Touch devices: inline preview */}
