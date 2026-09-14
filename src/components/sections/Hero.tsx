@@ -77,7 +77,7 @@ export function Hero() {
         <motion.p {...rise(0.3)} className="eyebrow">
           {dict.hero.kicker}
         </motion.p>
-        <motion.h1 id="hero-title" style={{ x: textX }} className="display-xl mt-7 max-w-[18ch] !text-[clamp(2.6rem,0.9rem+4.6vw,6rem)] lg:mt-9 rtl:max-w-[16ch]">
+        <motion.h1 id="hero-title" style={{ x: textX }} className="display-xl mt-7 max-w-[18ch] !text-[clamp(2.6rem,0.9rem+4.6vw,6rem)] lg:mt-9 rtl:max-w-[16ch] rtl:!leading-[1.35]">
           {[dict.hero.line1, dict.hero.line2].map((line, i) => (
             <span key={line} className="block overflow-hidden pb-[0.06em] rtl:overflow-visible">
               <motion.span
