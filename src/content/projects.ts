@@ -42,8 +42,8 @@ export const projects: Project[] = [
     year: '2026',
     live: 'https://3dperfume.vercel.app/en',
     overview: t(
-      'A concept for a Saudi perfume house that wanted its website to feel like a fragrance campaign — the bottle is the hero, and every scroll moves the story forward.',
-      'مفهوم لدار عطور سعودية أرادت أن يبدو موقعها كحملة إعلانية لعطر — القارورة هي البطل، وكل تمريرة تدفع القصة إلى الأمام.',
+      'A concept for a perfume house that wanted its website to feel like a fragrance campaign — the bottle is the hero, and every scroll moves the story forward.',
+      'مفهوم لدار عطور أرادت أن يبدو موقعها كحملة إعلانية لعطر — القارورة هي البطل، وكل تمريرة تدفع القصة إلى الأمام.',
     ),
     challenge: t(
       'Perfume is sold through the senses. On a screen you cannot smell it, so the site had to make people feel the depth, warmth and craft of each fragrance.',
@@ -105,15 +105,15 @@ export const projects: Project[] = [
     arName: 'مائدة نجد',
     industry: t('Restaurant', 'مطاعم'),
     kind: t('Restaurant website', 'موقع مطعم'),
-    summary: t('A modern Saudi restaurant with a scannable menu, reservations and WhatsApp at every step.', 'مطعم سعودي عصري بمنيو سهل التصفح وحجوزات وواتساب في كل خطوة.'),
+    summary: t('A modern restaurant with a scannable menu, reservations and WhatsApp at every step.', 'مطعم عصري بمنيو سهل التصفح وحجوزات وواتساب في كل خطوة.'),
     tags: [t('Restaurant', 'مطعم'), t('Reservations', 'حجوزات'), t('Arabic + English', 'عربي + إنجليزي')],
-    services: [t('Brand-led design', 'تصميم مستوحى من الهوية'), t('Web development', 'تطوير الويب'), t('Local SEO', 'تحسين محركات البحث المحلي')],
+    services: [t('Brand-led design', 'تصميم مستوحى من الهوية'), t('Web development', 'تطوير الويب'), t('SEO', 'تحسين محركات البحث')],
     tech: ['Next.js', 'Tailwind CSS', 'Radix UI', 'Motion', 'TypeScript'],
     year: '2026',
     live: 'https://najdi-table.vercel.app',
     overview: t(
-      'A concept for a Riyadh restaurant serving modern Najdi cuisine — built for guests deciding where to eat tonight, mostly on their phones.',
-      'مفهوم لمطعم في الرياض يقدّم المطبخ النجدي بروح عصرية — مصمم للضيوف الذين يقررون أين يتناولون العشاء الليلة، غالبًا من هواتفهم.',
+      'A concept for a restaurant serving modern Najdi cuisine — built for guests deciding where to eat tonight, mostly on their phones.',
+      'مفهوم لمطعم يقدّم المطبخ النجدي بروح عصرية — مصمم للضيوف الذين يقررون أين يتناولون العشاء الليلة، غالبًا من هواتفهم.',
     ),
     challenge: t(
       'Restaurant sites are often slow PDFs of a menu. Guests want three things fast: what the food looks like, what it costs, and how to book.',
@@ -146,16 +146,16 @@ export const projects: Project[] = [
     tech: ['Astro', 'GSAP', 'TypeScript', 'CSS'],
     year: '2026',
     overview: t(
-      'A concept for a Riyadh specialty coffee café where the website feels like a lifestyle magazine, not a menu board.',
-      'مفهوم لمقهى قهوة مختصة في الرياض، يبدو موقعه كمجلة أسلوب حياة لا كلوحة منيو.',
+      'A concept for a specialty coffee café where the website feels like a lifestyle magazine, not a menu board.',
+      'مفهوم لمقهى قهوة مختصة، يبدو موقعه كمجلة أسلوب حياة لا كلوحة منيو.',
     ),
     challenge: t(
       'Cafés compete on atmosphere. The site had to capture the feeling of the place — light, texture, calm — while staying extremely fast on mobile.',
       'المقاهي تتنافس على الأجواء. كان على الموقع أن ينقل إحساس المكان — الضوء والملمس والهدوء — مع بقائه سريعًا جدًا على الجوال.',
     ),
     concept: t(
-      'Harsh Riyadh sunlight and long shadows as the art direction, with a pinned signature-drinks chapter that rolls from one drink to the next as you scroll.',
-      'ضوء شمس الرياض الحاد والظلال الطويلة كتوجيه فني، مع فصل للمشروبات المميزة يتنقل من مشروب لآخر مع التمرير.',
+      'Harsh midday sunlight and long shadows as the art direction, with a pinned signature-drinks chapter that rolls from one drink to the next as you scroll.',
+      'ضوء شمس الظهيرة الحاد والظلال الطويلة كتوجيه فني، مع فصل للمشروبات المميزة يتنقل من مشروب لآخر مع التمرير.',
     ),
     design: t(
       'Sand and espresso tones, geometric Kufi for Arabic headlines, a magazine serif for English, and photography that carries the mood.',
@@ -163,7 +163,7 @@ export const projects: Project[] = [
     ),
     interactions: [
       { title: t('Pinned signature drinks', 'المشروبات المميزة المثبتة'), text: t('Scroll rolls the counter and wipes in each drink.', 'التمرير يغيّر الرقم ويكشف كل مشروب.') },
-      { title: t('Open-now status', 'حالة الفتح الآن'), text: t('Live opening hours in Riyadh time.', 'ساعات عمل مباشرة بتوقيت الرياض.') },
+      { title: t('Open-now status', 'حالة الفتح الآن'), text: t('Live opening hours in local time.', 'ساعات عمل مباشرة بالتوقيت المحلي.') },
       { title: t('Mobile action bar', 'شريط الإجراءات للجوال'), text: t('WhatsApp, directions and call, always in reach.', 'واتساب والاتجاهات والاتصال في متناول اليد دائمًا.') },
     ],
   },

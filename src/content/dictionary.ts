@@ -2,17 +2,17 @@
 export const dictionary = {
   en: {
     meta: {
-      title: 'SIMA — Website Design & Development Studio in Saudi Arabia',
+      title: 'SIMA — Website Design & Development Studio',
       description:
-        'SIMA is a digital studio in Saudi Arabia designing premium websites, e-commerce and interactive experiences for perfume, fashion, beauty, restaurant and café brands.',
+        'SIMA is a digital studio designing premium websites, e-commerce and interactive experiences for perfume, fashion, beauty, restaurant and café brands.',
     },
     skip: 'Skip to content',
     nav: { work: 'Work', services: 'Services', packages: 'Packages', process: 'Process', about: 'About', start: 'Start a Project', menu: 'Menu', close: 'Close' },
     hero: {
-      kicker: 'Digital studio · Saudi Arabia',
+      kicker: 'Digital design studio',
       line1: 'We build brands',
       line2: 'their digital presence deserves.',
-      text: 'Premium websites and digital experiences for ambitious brands in Saudi Arabia.',
+      text: 'Premium websites and digital experiences for ambitious brands.',
       explore: 'Explore Our Work',
       start: 'Start a Project',
       scroll: 'Scroll',
@@ -33,7 +33,7 @@ export const dictionary = {
       p2: 'We turn your existing brand identity into a digital experience that feels intentional, premium and memorable.',
     },
     services: { title: 'What We Build', cta: 'Discuss your project' },
-    industries: { title: 'Built for ambitious local brands.', text: 'Choose an industry to see related work.', related: 'Related work', none: 'Be the first in this category — tell us about your brand.', talk: 'Start a project' },
+    industries: { title: 'Built for ambitious brands.', text: 'Choose an industry to see related work.', related: 'Related work', none: 'Be the first in this category — tell us about your brand.', talk: 'Start a project' },
     packages: {
       title: 'Choose your experience.',
       text: 'Simple options for brands at different stages.',
@@ -57,7 +57,6 @@ export const dictionary = {
       line2: 'Big digital ambitions.',
       p1: 'We are an independent digital studio focused on designing and building modern websites for ambitious brands.',
       p2: 'We combine design, development, motion and technology to create digital experiences that feel as strong as the brands behind them.',
-      based: 'Based in Saudi Arabia.',
       capabilities: 'What we work with',
     },
     faq: { title: 'Questions, answered.' },
@@ -113,17 +112,17 @@ export const dictionary = {
   },
   ar: {
     meta: {
-      title: 'سِمة — استوديو تصميم وتطوير المواقع في السعودية',
+      title: 'سِمة — استوديو تصميم وتطوير المواقع',
       description:
-        'سِمة استوديو رقمي في السعودية يصمم ويبني مواقع فاخرة ومتاجر إلكترونية وتجارب تفاعلية لعلامات العطور والأزياء والتجميل والمطاعم والمقاهي.',
+        'سِمة استوديو رقمي يصمم ويبني مواقع فاخرة ومتاجر إلكترونية وتجارب تفاعلية لعلامات العطور والأزياء والتجميل والمطاعم والمقاهي.',
     },
     skip: 'انتقل إلى المحتوى',
     nav: { work: 'أعمالنا', services: 'خدماتنا', packages: 'الباقات', process: 'آلية العمل', about: 'من نحن', start: 'ابدأ مشروعك', menu: 'القائمة', close: 'إغلاق' },
     hero: {
-      kicker: 'استوديو رقمي · السعودية',
+      kicker: 'استوديو تصميم رقمي',
       line1: 'نبني للعلامات',
       line2: 'الحضور الرقمي الذي تستحقه.',
-      text: 'مواقع وتجارب رقمية فاخرة للعلامات الطموحة في المملكة العربية السعودية.',
+      text: 'مواقع وتجارب رقمية فاخرة للعلامات الطموحة.',
       explore: 'استكشف أعمالنا',
       start: 'ابدأ مشروعك',
       scroll: 'مرّر',
@@ -144,7 +143,7 @@ export const dictionary = {
       p2: 'نحوّل هويتك الحالية إلى تجربة رقمية مدروسة وفاخرة ولا تُنسى.',
     },
     services: { title: 'ماذا نبني', cta: 'ناقش مشروعك معنا' },
-    industries: { title: 'مصمم للعلامات المحلية الطموحة.', text: 'اختر مجالًا لعرض الأعمال المرتبطة به.', related: 'أعمال مرتبطة', none: 'كن الأول في هذا المجال — أخبرنا عن علامتك.', talk: 'ابدأ مشروعك' },
+    industries: { title: 'مصمم للعلامات الطموحة.', text: 'اختر مجالًا لعرض الأعمال المرتبطة به.', related: 'أعمال مرتبطة', none: 'كن الأول في هذا المجال — أخبرنا عن علامتك.', talk: 'ابدأ مشروعك' },
     packages: {
       title: 'اختر تجربتك.',
       text: 'خيارات واضحة للعلامات في مراحل مختلفة.',
@@ -168,7 +167,6 @@ export const dictionary = {
       line2: 'بطموح رقمي كبير.',
       p1: 'نحن استوديو رقمي مستقل يركّز على تصميم وبناء مواقع عصرية للعلامات الطموحة.',
       p2: 'نجمع بين التصميم والتطوير والحركة والتقنية لنصنع تجارب رقمية بقوة العلامات التي تقف خلفها.',
-      based: 'مقرنا في المملكة العربية السعودية.',
       capabilities: 'ما نعمل به',
     },
     faq: { title: 'أسئلة وأجوبة.' },

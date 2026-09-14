@@ -149,5 +149,5 @@ export const faqs = [
   { q: t('Can you build an online store?', 'هل يمكنكم بناء متجر إلكتروني؟'), a: t('Yes. Online stores are quoted as custom projects based on products, payments and delivery.', 'نعم. المتاجر الإلكترونية تُسعّر كمشاريع مخصصة حسب المنتجات والدفع والتوصيل.') },
   { q: t('Can you redesign an existing website?', 'هل يمكنكم إعادة تصميم موقع حالي؟'), a: t('Yes. We keep what works, rebuild what doesn’t, and move your content across.', 'نعم. نحتفظ بما ينجح، ونعيد بناء ما لا ينجح، وننقل محتواك.') },
   { q: t('Can I request custom features?', 'هل يمكنني طلب خصائص إضافية؟'), a: t('Yes. Anything beyond a package is quoted separately before we start.', 'نعم. أي خاصية خارج الباقة نسعّرها بشكل منفصل قبل البدء.') },
-  { q: t('Do you work with businesses outside Saudi Arabia?', 'هل تعملون مع شركات خارج السعودية؟'), a: t('Yes. We focus on Saudi brands, but work remotely with brands across the Gulf and beyond.', 'نعم. تركيزنا على العلامات السعودية، لكننا نعمل عن بُعد مع علامات في الخليج وخارجه.') },
+  { q: t('Do you work with brands anywhere?', 'هل تعملون مع علامات من أي مكان؟'), a: t('Yes. We work remotely with brands wherever they are.', 'نعم. نعمل عن بُعد مع العلامات أينما كانت.') },
 ];
