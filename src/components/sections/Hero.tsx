@@ -1,13 +1,14 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useRef } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
-import { LiquidView } from '@/components/liquid/LiquidView';
 import { useLocale } from '@/components/providers/LocaleProvider';
 import { LinkButton } from '@/components/ui/Button';
 import { useWebGL } from '@/lib/capabilities';
 import { href } from '@/lib/i18n';
 
+const HeroScene = dynamic(() => import('@/components/three/hero/HeroScene'), { ssr: false });
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /** Headline words rise out of a soft blur, line by line. */
@@ -16,14 +17,15 @@ function Headline({ lines, reduce }: { lines: string[]; reduce: boolean }) {
   return (
     <>
       {lines.map((line, li) => (
-        <span key={line} className={li === 1 ? 'block text-[#9a98a2]' : 'block'}>
+        <span key={line} className="block">
           {line.split(' ').map((word, wi, words) => {
             const delay = 0.55 + li * 0.14 + index++ * 0.045;
             return (
               <span key={wi}>
                 <span className="inline-block overflow-hidden pb-[0.08em] align-bottom rtl:overflow-visible">
                   <motion.span
-                    className="inline-block"
+                    // Line two is polished chrome; each word carries its own gradient so the blur-in stays intact.
+                    className={li === 1 ? 'text-chrome inline-block' : 'inline-block'}
                     initial={reduce ? false : { y: '100%', opacity: 0, filter: 'blur(12px)' }}
                     animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
                     transition={{ duration: 1.25, ease: EASE, delay }}
@@ -46,6 +48,7 @@ export function Hero() {
   const reduce = useReducedMotion() ?? false;
   const webgl = useWebGL();
   const section = useRef<HTMLElement>(null);
+  const rtl = locale === 'ar';
 
   // Scroll: type drifts up at two speeds and dissolves; the scene handles its own camera move.
   const { scrollYProgress } = useScroll({ target: section, offset: ['start start', 'end start'] });
@@ -53,14 +56,16 @@ export function Hero() {
   const titleY = useTransform(scrollYProgress, [0, 1], ['0%', reduce ? '0%' : '-35%']);
   const actionsY = useTransform(scrollYProgress, [0, 1], ['0%', reduce ? '0%' : '-60%']);
   const contentOpacity = useTransform(scrollYProgress, [0.1, 0.65], [1, reduce ? 1 : 0]);
+  const sceneOpacity = useTransform(scrollYProgress, [0.3, 1], [1, reduce ? 1 : 0.25]);
 
   const fade = (delay: number) => ({ initial: reduce ? false : { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 }, transition: { duration: 1.2, ease: EASE, delay } });
 
   return (
-    <section ref={section} aria-labelledby="hero-title" className="relative isolate flex min-h-[100svh] flex-col overflow-hidden">
-      {/* ── Backdrop: the liquid is drawn by the shared stage behind the page ── */}
-      <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <LiquidView mode="hero" className="absolute inset-0" />
+    <section ref={section} aria-labelledby="hero-title" className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ink">
+      {/* ── Backdrop ─────────────────────────────────────────── */}
+      <motion.div aria-hidden="true" style={{ opacity: sceneOpacity }} className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(60%_55%_at_70%_30%,rgba(196,207,226,0.07),transparent_70%)] rtl:bg-[radial-gradient(60%_55%_at_30%_30%,rgba(196,207,226,0.07),transparent_70%)]" />
+        {webgl === true && <HeroScene mirror={rtl} reduced={reduce} />}
         {webgl === false && (
           // eslint-disable-next-line @next/next/no-img-element
           <img src="/hero/poster-desktop.jpg" alt="" className="absolute inset-0 size-full object-cover rtl:-scale-x-100 max-md:hidden" />
@@ -69,12 +74,12 @@ export function Hero() {
           // eslint-disable-next-line @next/next/no-img-element
           <img src="/hero/poster-mobile.jpg" alt="" className="absolute inset-0 size-full object-cover rtl:-scale-x-100 md:hidden" />
         )}
-      </div>
+      </motion.div>
       {/* Readability: darken where the type sits, vignette the edges, film grain on top. */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_top,var(--color-ink)_0%,rgba(8,8,10,0.5)_16%,transparent_42%)]" />
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(130%_95%_at_50%_45%,transparent_60%,rgba(8,8,10,0.6)_100%)]" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_top,var(--color-ink)_0%,rgba(9,9,11,0.5)_16%,transparent_42%)]" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(130%_95%_at_50%_45%,transparent_60%,rgba(9,9,11,0.6)_100%)]" />
       {/* Soft shadow pooled behind the headline so the light can pass behind the type without fighting it. */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(48%_38%_at_24%_74%,rgba(8,8,10,0.62),transparent_75%)] max-md:bg-[radial-gradient(90%_40%_at_30%_68%,rgba(8,8,10,0.6),transparent_75%)] rtl:bg-[radial-gradient(48%_38%_at_76%_74%,rgba(8,8,10,0.62),transparent_75%)] rtl:max-md:bg-[radial-gradient(90%_40%_at_70%_68%,rgba(8,8,10,0.6),transparent_75%)]" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(48%_38%_at_24%_74%,rgba(9,9,11,0.62),transparent_75%)] max-md:bg-[radial-gradient(90%_40%_at_30%_68%,rgba(9,9,11,0.6),transparent_75%)] rtl:bg-[radial-gradient(48%_38%_at_76%_74%,rgba(9,9,11,0.62),transparent_75%)] rtl:max-md:bg-[radial-gradient(90%_40%_at_70%_68%,rgba(9,9,11,0.6),transparent_75%)]" />
       <div aria-hidden="true" className="hero-grain pointer-events-none absolute -inset-[20%] -z-10" />
 
       {/* ── Content ──────────────────────────────────────────── */}
@@ -83,7 +88,7 @@ export function Hero() {
           <motion.p {...fade(0.2)} className="eyebrow">
             {dict.hero.kicker}
           </motion.p>
-          <motion.p {...fade(0.35)} className="hidden max-w-[32ch] text-end text-[0.95rem] leading-relaxed text-[#a8a6af] md:block">
+          <motion.p {...fade(0.35)} className="hidden max-w-[32ch] text-end text-[0.95rem] leading-relaxed text-[#a3a7af] md:block">
             {dict.hero.text}
           </motion.p>
         </motion.div>
@@ -94,7 +99,7 @@ export function Hero() {
           </motion.h1>
 
           <motion.div style={{ y: actionsY }} className="mt-8 flex flex-col gap-7 sm:mt-10 md:flex-row md:items-end md:justify-between">
-            <motion.p {...fade(1.05)} className="max-w-[36ch] text-lg leading-relaxed text-[#a8a6af] md:hidden">
+            <motion.p {...fade(1.05)} className="max-w-[36ch] text-lg leading-relaxed text-[#a3a7af] md:hidden">
               {dict.hero.text}
             </motion.p>
             <motion.div {...fade(1.15)} className="flex flex-wrap gap-3">
@@ -108,7 +113,7 @@ export function Hero() {
             <motion.div {...fade(1.5)} aria-hidden="true" className="hidden items-center gap-3 text-xs text-faint md:flex">
               {dict.hero.scroll}
               <span className="relative h-10 w-px overflow-hidden bg-line">
-                <motion.span className="absolute inset-x-0 top-0 h-4 bg-violet-soft" animate={reduce ? undefined : { y: ['-100%', '260%'] }} transition={{ duration: 2.4, repeat: Infinity, ease: [0.65, 0, 0.35, 1] }} />
+                <motion.span className="absolute inset-x-0 top-0 h-4 bg-silver" animate={reduce ? undefined : { y: ['-100%', '260%'] }} transition={{ duration: 2.4, repeat: Infinity, ease: [0.65, 0, 0.35, 1] }} />
               </span>
             </motion.div>
           </motion.div>

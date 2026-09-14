@@ -1,8 +1,9 @@
 'use client';
 
+import { useRef } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { useLocale } from '@/components/providers/LocaleProvider';
 import { WhatsAppIcon } from '@/components/icons';
-import { LiquidView } from '@/components/liquid/LiquidView';
 import { AnchorButton, LinkButton } from '@/components/ui/Button';
 import { Reveal, RevealLines } from '@/components/ui/Reveal';
 import { whatsappMessage, whatsappUrl } from '@/content/site';
@@ -10,12 +11,18 @@ import { href } from '@/lib/i18n';
 
 export function FinalCTA() {
   const { locale, dict } = useLocale();
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const glowScale = useTransform(scrollYProgress, [0, 0.5, 1], reduce ? [1, 1, 1] : [0.6, 1.1, 0.9]);
 
   return (
-    <section id="final-cta" aria-labelledby="final-title" className="relative isolate overflow-hidden border-t border-line py-[clamp(8rem,6rem+12vw,16rem)]">
-      {/* Liquid halo around the call to action, with a quiet pool of dark behind the words */}
-      <LiquidView mode="cta" className="absolute inset-0" />
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(44%_40%_at_50%_50%,rgba(8,8,10,0.78),transparent_85%)]" />
+    <section ref={ref} id="final-cta" aria-labelledby="final-title" className="relative isolate overflow-hidden border-t border-line py-[clamp(8rem,6rem+12vw,16rem)]">
+      <motion.div
+        aria-hidden="true"
+        style={{ scale: glowScale }}
+        className="absolute left-1/2 top-1/2 -z-10 aspect-square w-[90vw] max-w-[70rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(214,219,227,0.16),transparent)]"
+      />
       <div className="container-x text-center">
         <RevealLines lines={[dict.cta.line1, dict.cta.line2]} className="display-lg mx-auto max-w-[22ch]" />
         <span id="final-title" className="sr-only">
@@ -27,9 +34,9 @@ export function FinalCTA() {
             <LinkButton href={`${href(locale)}#contact`} arrow>
               {dict.cta.start}
             </LinkButton>
-            <AnchorButton href={whatsappUrl(whatsappMessage[locale])} target="_blank" rel="noopener noreferrer" variant="outline" className="bg-ink/40 backdrop-blur-sm">
+            <AnchorButton href={whatsappUrl(whatsappMessage[locale])} target="_blank" rel="noopener noreferrer" variant="outline">
               <span className="flex items-center gap-2">
-                <WhatsAppIcon className="size-4 text-violet-soft" />
+                <WhatsAppIcon className="size-4 text-silver" />
                 {dict.cta.whatsapp}
               </span>
             </AnchorButton>

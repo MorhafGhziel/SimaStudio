@@ -53,7 +53,7 @@ export function ProjectCard({ project, flip = false }: { project: Project; flip?
         <div className="flex items-center justify-between text-sm text-mute">
           <span className="relative block overflow-hidden text-paper" dir="ltr">
             <span className="block transition-transform duration-700 ease-out group-hover:-translate-y-full">{project.number}</span>
-            <span aria-hidden="true" className="absolute inset-0 translate-y-full text-violet-soft transition-transform duration-700 ease-out group-hover:translate-y-0">
+            <span aria-hidden="true" className="absolute inset-0 translate-y-full text-silver transition-transform duration-700 ease-out group-hover:translate-y-0">
               {project.number}
             </span>
           </span>
@@ -97,7 +97,7 @@ export function ProjectCard({ project, flip = false }: { project: Project; flip?
             </dd>
           </div>
         </dl>
-        <Link href={url} className="mt-auto inline-flex items-center gap-2 self-start pt-8 text-sm text-paper transition-colors hover:text-violet-soft">
+        <Link href={url} className="mt-auto inline-flex items-center gap-2 self-start pt-8 text-sm text-paper transition-colors hover:text-silver">
           {dict.work.view}
           <ArrowUpRight className="size-4 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:-scale-x-100" strokeWidth={1.6} />
         </Link>

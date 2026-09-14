@@ -1,29 +1,32 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'motion/react';
 import { Check } from 'lucide-react';
 import { useLocale } from '@/components/providers/LocaleProvider';
+import { SceneBoundary } from '@/components/three/SceneBoundary';
 import { LinkButton } from '@/components/ui/Button';
 import type { Package } from '@/content/offer';
-import { useWebGL } from '@/lib/capabilities';
+import { useMedia, useWebGL } from '@/lib/capabilities';
 import { selectBudget } from '@/lib/events';
 import { formatSAR, href } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 
-const LiquidMini = dynamic(() => import('@/components/liquid/LiquidMini'), { ssr: false });
+const BottlePreview = dynamic(() => import('@/components/three/BottlePreview'), { ssr: false });
 
 /** Hierarchy: experience → value → features → price → CTA. */
 export function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
   const { locale, dict } = useLocale();
   const reduce = useReducedMotion();
   const webgl = useWebGL();
+  const desktop = useMedia('(min-width: 768px)');
   const box = useRef<HTMLDivElement>(null);
   const near = useInView(box, { margin: '300px 0px' });
   const visible = useInView(box);
   const immersive = pkg.id === 'immersive';
-  const show3d = immersive && webgl === true;
+  const show3d = immersive && webgl && desktop && !reduce;
 
   return (
     <motion.article
@@ -32,11 +35,11 @@ export function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
       viewport={{ once: true, margin: '0px 0px -10% 0px' }}
       transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
       className={cn(
-        'relative flex flex-col rounded-card border p-7 sm:p-9',
-        pkg.popular ? 'border-violet/50 bg-ink-3/60 shadow-[0_40px_90px_-50px_rgb(124_58_237/0.55)] backdrop-blur-xl lg:-translate-y-4' : 'border-line bg-ink-2/50 backdrop-blur-xl',
+        'relative flex flex-col rounded-card p-7 sm:p-9',
+        pkg.popular ? 'glass-strong lg:-translate-y-4' : 'glass',
       )}
     >
-      {pkg.popular && <span className="absolute -top-3 start-7 rounded-pill bg-coral px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-ink rtl:normal-case rtl:tracking-normal">{dict.packages.popular}</span>}
+      {pkg.popular && <span className="btn-chrome absolute -top-3 start-7 rounded-pill px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-ink rtl:normal-case rtl:tracking-normal">{dict.packages.popular}</span>}
 
       <div className="flex items-baseline justify-between">
         <h3 className="text-[1.9rem] font-medium tracking-[-0.02em]" dir="ltr">
@@ -50,16 +53,22 @@ export function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
       <p className="mt-2 text-sm text-mute">{pkg.audience[locale]}</p>
 
       {immersive && (
-        <div ref={box} data-cursor={show3d ? 'drag' : undefined} className="relative mt-7 aspect-[4/3] overflow-hidden rounded-2xl border border-line bg-[radial-gradient(90%_80%_at_50%_40%,#17122b_0%,#0a0a0e_75%)]">
-          {show3d && near && <LiquidMini running={visible} reduced={!!reduce} />}
+        <div ref={box} data-cursor={show3d ? 'drag' : undefined} className="relative mt-7 aspect-[4/3] overflow-hidden rounded-2xl border border-line bg-[radial-gradient(90%_80%_at_50%_35%,#2a2c32_0%,#0b0b0e_75%)]">
+          {show3d && near ? (
+            <SceneBoundary fallback={<Image src="/work/noble-immersive-detail.jpg" alt="" fill sizes="(min-width: 1024px) 30vw, 100vw" className="object-cover" />}>
+              <BottlePreview running={visible} />
+            </SceneBoundary>
+          ) : (
+            <Image src="/work/noble-immersive-detail.jpg" alt="" fill sizes="(min-width: 1024px) 30vw, 100vw" className="object-cover" />
+          )}
           {show3d && <span className="pointer-events-none absolute bottom-3 start-3 rounded-pill bg-ink/60 px-3 py-1 text-[0.7rem] text-paper/80 backdrop-blur">{dict.packages.preview}</span>}
         </div>
       )}
 
       <ul className="mt-8 space-y-3 border-t border-line pt-7 text-[0.95rem]">
         {pkg.features.map((f, i) => (
-          <li key={f.en} className={cn('flex gap-3', i === 0 && index > 0 ? 'text-violet-soft' : 'text-paper/85')}>
-            <Check className="mt-1 size-4 shrink-0 text-violet-soft" strokeWidth={1.8} />
+          <li key={f.en} className={cn('flex gap-3', i === 0 && index > 0 ? 'text-silver' : 'text-paper/85')}>
+            <Check className="mt-1 size-4 shrink-0 text-silver" strokeWidth={1.8} />
             {f[locale]}
           </li>
         ))}

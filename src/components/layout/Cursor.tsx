@@ -66,8 +66,8 @@ export function Cursor() {
             width: size,
             height: size,
             opacity: visible && mode !== 'text' ? 1 : 0,
-            backgroundColor: label ? 'rgba(124,58,237,1)' : 'rgba(245,243,238,0)',
-            borderColor: label ? 'rgba(124,58,237,0)' : 'rgba(245,243,238,0.35)',
+            backgroundColor: label ? 'rgba(214,219,227,1)' : 'rgba(236,238,241,0)',
+            borderColor: label ? 'rgba(214,219,227,0)' : 'rgba(236,238,241,0.35)',
           }}
           transition={{ type: 'spring', stiffness: 360, damping: 30 }}
         >
@@ -78,7 +78,7 @@ export function Cursor() {
                 initial={{ opacity: 0, scale: 0.6 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.6 }}
-                className="text-[0.66rem] font-semibold uppercase tracking-[0.12em] text-paper rtl:text-xs rtl:normal-case rtl:tracking-normal"
+                className="text-[0.66rem] font-semibold uppercase tracking-[0.12em] text-ink rtl:text-xs rtl:normal-case rtl:tracking-normal"
               >
                 {label}
               </motion.span>

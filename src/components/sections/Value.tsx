@@ -31,7 +31,7 @@ export function Value() {
             {reduce ? (
               <>
                 <span className="block">{dict.value.line1}</span>
-                <span className="block text-violet-soft">{dict.value.line2}</span>
+                <span className="block text-silver">{dict.value.line2}</span>
               </>
             ) : (
               <>
@@ -40,7 +40,7 @@ export function Value() {
                     <Word key={i} word={w} progress={scrollYProgress} range={[i / words.length * 0.6, (i + 1) / words.length * 0.6]} />
                   ))}
                 </span>
-                <span className="block text-violet-soft">
+                <span className="block text-silver">
                   {words.slice(splitAt).map((w, j) => {
                     const i = j + splitAt;
                     return <Word key={i} word={w} progress={scrollYProgress} range={[i / words.length * 0.6, (i + 1) / words.length * 0.6]} />;

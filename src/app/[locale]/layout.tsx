@@ -5,7 +5,6 @@ import { Cursor } from '@/components/layout/Cursor';
 import { Footer } from '@/components/layout/Footer';
 import { Navbar } from '@/components/layout/Navbar';
 import { WhatsAppFab } from '@/components/layout/WhatsAppFab';
-import { LiquidStageMount } from '@/components/liquid/LiquidView';
 import { LocaleProvider } from '@/components/providers/LocaleProvider';
 import { dictionary } from '@/content/dictionary';
 import { studio } from '@/content/site';
@@ -15,7 +14,7 @@ import { dirOf, isLocale, locales } from '@/lib/i18n';
 export const dynamicParams = false;
 export const generateStaticParams = () => locales.map((locale) => ({ locale }));
 
-export const viewport: Viewport = { themeColor: '#08080a', colorScheme: 'dark', width: 'device-width', initialScale: 1, viewportFit: 'cover' };
+export const viewport: Viewport = { themeColor: '#09090b', colorScheme: 'dark', width: 'device-width', initialScale: 1, viewportFit: 'cover' };
 
 export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Promise<Metadata> {
   const { locale } = await params;
@@ -51,7 +50,6 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
           <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-[200] focus:rounded-pill focus:bg-paper focus:px-4 focus:py-2 focus:text-ink">
             {dictionary[locale].skip}
           </a>
-          <LiquidStageMount />
           <Navbar />
           <main id="main">{children}</main>
           <Footer locale={locale} />

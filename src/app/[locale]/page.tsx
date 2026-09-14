@@ -5,7 +5,6 @@ import { FAQ } from '@/components/sections/FAQ';
 import { FinalCTA } from '@/components/sections/FinalCTA';
 import { Hero } from '@/components/sections/Hero';
 import { Industries } from '@/components/sections/Industries';
-import { LiquidDivider } from '@/components/sections/LiquidDivider';
 import { Packages } from '@/components/sections/Packages';
 import { Process } from '@/components/sections/Process';
 import { SelectedWork } from '@/components/sections/SelectedWork';
@@ -24,10 +23,8 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
       <Value />
       <Services />
       <Industries />
-      <LiquidDivider />
       <Packages />
       <BeforeAfter />
-      <LiquidDivider />
       <Process />
       <WhyUs />
       <About />
