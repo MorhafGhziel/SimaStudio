@@ -254,6 +254,8 @@ export function DashboardView({ data, ranges, me }: Props) {
   const prev = data.kpis.previous as Row;
   const leads = data.leads as Row;
   const conversion = n(cur.sessions) ? n(leads.any_lead) / n(cur.sessions) : 0;
+  const active = data.activeUsers as Row;
+  const activeMinutes = (data.activeMinutes as Row[]).map((r) => ({ t: String(r.t), users: n(r.users) }));
 
   const kpis = [
     { label: 'Visitors', value: fmt(n(cur.visitors)), d: delta(n(cur.visitors), n(prev.visitors)) },
@@ -534,7 +536,31 @@ export function DashboardView({ data, ranges, me }: Props) {
       </Card>
 
       <div className="mt-3 grid gap-3 lg:grid-cols-3">
-        <Card title="Live now" className="lg:col-span-1">
+        <Card title="Active users" className="lg:col-span-1">
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { label: 'Right now', value: n(active.now_5m) },
+              { label: 'Last 30 min', value: n(active.last_30m) },
+              { label: 'Today', value: n(active.today) },
+            ].map((s) => (
+              <div key={s.label} className="rounded-xl border border-line px-3 py-2.5 text-center">
+                <p className="text-2xl font-medium tabular-nums">{fmt(s.value)}</p>
+                <p className="mt-0.5 text-[11px] text-faint">{s.label}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-3 h-16">
+            <ResponsiveContainer>
+              <BarChart data={activeMinutes} margin={{ top: 4, right: 0, bottom: 0, left: 0 }}>
+                <XAxis dataKey="t" hide />
+                <YAxis hide allowDecimals={false} />
+                <Tooltip {...tooltipStyle()} cursor={{ fill: 'rgba(243,243,246,.04)' }} />
+                <Bar dataKey="users" fill="#22c55e" radius={[2, 2, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+          <p className="mt-1 text-xs text-faint">Active users per minute, last 30 minutes (Riyadh)</p>
+          <p className="mb-2 mt-5 text-xs text-mute">On the site right now</p>
           {(data.realtime.sessions as Row[]).length ? (
             <ul className="space-y-3">
               {(data.realtime.sessions as Row[]).map((s, i) => (

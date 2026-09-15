@@ -84,6 +84,8 @@ export async function getDashboard(rangeKey: string | undefined) {
     leads,
     admins,
     logins,
+    activeUsers,
+    activeMinutes,
     ...breakdowns
   ] = await Promise.all([
     kpi(from, to),
@@ -155,6 +157,20 @@ export async function getDashboard(rangeKey: string | undefined) {
     sql`
       select email, ts, success, reason, ip, country, city, user_agent
       from admin_logins order by ts desc limit 40`,
+    sql`
+      select count(distinct visitor_id) filter (where last_seen > now() - interval '5 minutes')::int as now_5m,
+             count(distinct visitor_id) filter (where last_seen > now() - interval '30 minutes')::int as last_30m,
+             count(distinct visitor_id) filter (where last_seen >= (date_trunc('day', now() at time zone 'Asia/Riyadh') at time zone 'Asia/Riyadh'))::int as today
+      from analytics_sessions where last_seen > now() - interval '2 days'`,
+    // A visit counts as active in every minute between its first and last activity.
+    sql`
+      with minutes as (
+        select generate_series(date_trunc('minute', now()) - interval '29 minutes', date_trunc('minute', now()), interval '1 minute') as t
+      )
+      select to_char(m.t at time zone 'Asia/Riyadh', 'HH24:MI') as t, count(distinct s.visitor_id)::int as users
+      from minutes m
+      left join analytics_sessions s on s.started_at <= m.t + interval '1 minute' and s.last_seen >= m.t
+      group by m.t order by m.t`,
     breakdown('source'),
     breakdown('referrer'),
     breakdown('utmCampaign'),
@@ -183,6 +199,8 @@ export async function getDashboard(rangeKey: string | undefined) {
     series,
     pages,
     realtime: { active: (realtimeCount[0] as { active: number }).active, sessions: realtimeList },
+    activeUsers: activeUsers[0],
+    activeMinutes,
     events,
     sections,
     scroll,
