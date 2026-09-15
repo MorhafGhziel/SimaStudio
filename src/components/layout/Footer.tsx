@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { dictionary } from '@/content/dictionary';
 import { instagramUrl, studio, tiktokUrl, whatsappMessage, whatsappUrl } from '@/content/site';
 import { href, type Locale } from '@/lib/i18n';
+import { FooterSilk } from './FooterSilk';
 import { Logo } from './Logo';
 
 export function Footer({ locale }: { locale: Locale }) {
@@ -16,8 +17,11 @@ export function Footer({ locale }: { locale: Locale }) {
   const link = 'text-[#acacae] transition-colors hover:text-paper';
 
   return (
-    <footer className="border-t border-line">
-      <div className="container-x grid gap-12 py-16 md:grid-cols-12 md:py-20">
+    <footer className="relative isolate overflow-hidden border-t border-line bg-ink">
+      <div className="absolute inset-0 -z-10">
+        <FooterSilk />
+      </div>
+      <div className="container-x grid gap-12 pb-40 pt-16 md:grid-cols-12 md:pb-56 md:pt-20">
         <div className="md:col-span-5">
           <Logo locale={locale} />
           <p className="mt-5 max-w-[30ch] text-mute">{d.footer.statement}</p>
