@@ -58,7 +58,9 @@ export function Contact() {
     try {
       const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...values, locale }) });
       const data = (await res.json()) as { delivered?: boolean };
-      setStatus(res.ok && data.delivered ? 'sent' : 'fallback');
+      const delivered = res.ok && !!data.delivered;
+      window.dispatchEvent(new CustomEvent('sima:track', { detail: { name: 'contact_submit', props: { delivered: delivered ? 'yes' : 'no', need: values.need || 'none', budget: values.budget || 'none' } } }));
+      setStatus(delivered ? 'sent' : 'fallback');
     } catch {
       setStatus('fallback');
     }

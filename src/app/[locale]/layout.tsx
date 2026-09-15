@@ -1,6 +1,7 @@
 import '../globals.css';
 import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
+import { Tracker } from '@/components/analytics/Tracker';
 import { Cursor } from '@/components/layout/Cursor';
 import { Footer } from '@/components/layout/Footer';
 import { Navbar } from '@/components/layout/Navbar';
@@ -55,6 +56,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
           <Footer locale={locale} />
           <WhatsAppFab />
           <Cursor />
+          <Tracker />
         </LocaleProvider>
       </body>
     </html>
