@@ -44,9 +44,9 @@ export function Services() {
                 <h3 className={cn('display-md transition-colors duration-500 md:col-span-6', active && active !== service.id ? 'text-[#4c4c4f]' : 'text-paper')}>{service.title[locale]}</h3>
                 <p className="max-w-[36ch] text-mute md:col-span-5">{service.text[locale]}</p>
               </div>
-              {/* Touch devices: inline preview */}
+              {/* Touch tablets: inline preview (hidden on phones to keep the list short) */}
               {!hover && (
-                <div className="relative mb-8 aspect-[16/9] overflow-hidden rounded-card">
+                <div className="relative mb-8 aspect-[16/9] overflow-hidden rounded-card max-md:hidden">
                   <Image src={service.image} alt="" fill sizes="100vw" className="object-cover object-top" />
                 </div>
               )}
