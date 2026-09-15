@@ -27,7 +27,7 @@ export function WhatsAppFab() {
       },
       { rootMargin: '-35% 0px -35% 0px' },
     );
-    ['packages', 'contact', 'final-cta'].forEach((id) => {
+    ['packages', 'contact'].forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });

@@ -1,10 +1,9 @@
 'use client';
 
-import { Check, Minus } from 'lucide-react';
 import { useLocale } from '@/components/providers/LocaleProvider';
 import { LinkButton } from '@/components/ui/Button';
 import { Reveal, RevealLines } from '@/components/ui/Reveal';
-import { comparison, packages } from '@/content/offer';
+import { packages } from '@/content/offer';
 import { studio } from '@/content/site';
 import { selectBudget } from '@/lib/events';
 import { formatSAR, href } from '@/lib/i18n';
@@ -51,59 +50,6 @@ export function Packages() {
           </div>
         </Reveal>
 
-        {/* Comparison */}
-        <div className="mt-28 sm:mt-36">
-          <RevealLines lines={[dict.packages.compareTitle]} className="display-md max-w-[20ch]" />
-          <Reveal delay={0.1} className="mt-10">
-            <div className="no-scrollbar -mx-[var(--gutter)] overflow-x-auto px-[var(--gutter)]">
-              <table className="w-full min-w-[40rem] border-collapse text-start text-[0.95rem]">
-                <caption className="sr-only">{dict.packages.compareTitle}</caption>
-                <thead>
-                  <tr className="border-b border-line">
-                    <th scope="col" className="w-[40%] py-4 text-start font-normal text-faint">
-                      {dict.packages.feature}
-                    </th>
-                    {packages.map((p) => (
-                      <th key={p.id} scope="col" className="py-4 text-start font-medium">
-                        <span dir="ltr" className={p.popular ? 'text-accent' : ''}>
-                          {p.name}
-                        </span>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {comparison.map((row) => (
-                    <tr key={row.label.en} className="border-b border-line">
-                      <th scope="row" className="py-4 pe-4 text-start font-normal text-[#c3c3c6]">
-                        {row.label[locale]}
-                      </th>
-                      {row.values.map((v, i) => (
-                        <td key={i} className="py-4">
-                          {v === true ? (
-                            <Check aria-label={dict.packages.yes} className="size-4 text-accent" strokeWidth={2} />
-                          ) : v === false ? (
-                            <Minus aria-label={dict.packages.no} className="size-4 text-faint" strokeWidth={1.6} />
-                          ) : (
-                            <span className="text-[#c3c3c6]">{v[locale]}</span>
-                          )}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                  <tr>
-                    <th scope="row" className="py-5 text-start font-normal text-faint" />
-                    {packages.map((p) => (
-                      <td key={p.id} className="py-5 font-medium">
-                        {formatSAR(p.price, locale)}
-                      </td>
-                    ))}
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </Reveal>
-        </div>
       </div>
     </section>
   );

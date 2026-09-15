@@ -10,7 +10,7 @@ export function Footer({ locale }: { locale: Locale }) {
     { id: 'work', label: d.nav.work },
     { id: 'services', label: d.nav.services },
     { id: 'packages', label: d.nav.packages },
-    { id: 'about', label: d.nav.about },
+    { id: 'process', label: d.nav.process },
     { id: 'contact', label: d.footer.contact },
   ];
   const link = 'text-[#acacae] transition-colors hover:text-paper';
