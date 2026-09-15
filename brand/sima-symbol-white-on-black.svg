@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1080" height="1080">
+  <title>SIMA STUDIO — symbol, white on black</title>
+  <rect width="1000" height="1000" fill="#000"/>
+  <g transform="translate(500 500) scale(0.86) translate(-500 -500)" fill="#fff">
+    <path d="M660 180H500A160 160 0 0 0 500 500V400A60 60 0 0 1 500 280H660Z"/>
+    <path d="M340 820H500A160 160 0 0 0 500 500V600A60 60 0 0 1 500 720H340Z"/>
+  </g>
+</svg>

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1080" height="1080">
+  <title>SIMA STUDIO — symbol</title>
+  <defs>
+    <!-- Deep graphite ground with a soft lift behind the mark -->
+    <radialGradient id="bg" cx="50%" cy="44%" r="72%">
+      <stop offset="0" stop-color="#1d1e22"/>
+      <stop offset="0.55" stop-color="#121215"/>
+      <stop offset="1" stop-color="#08080a"/>
+    </radialGradient>
+
+    <!-- Polished platinum: bright key, dark core reflection, soft return -->
+    <linearGradient id="chromeTop" gradientUnits="userSpaceOnUse" x1="330" y1="170" x2="640" y2="520">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.18" stop-color="#d9dce1"/>
+      <stop offset="0.42" stop-color="#7a8088"/>
+      <stop offset="0.5" stop-color="#5c6168"/>
+      <stop offset="0.66" stop-color="#e6e8eb"/>
+      <stop offset="0.84" stop-color="#a3a8ae"/>
+      <stop offset="1" stop-color="#6b7077"/>
+    </linearGradient>
+    <linearGradient id="chromeBottom" gradientUnits="userSpaceOnUse" x1="670" y1="480" x2="360" y2="830">
+      <stop offset="0" stop-color="#9ba0a7"/>
+      <stop offset="0.2" stop-color="#eef0f2"/>
+      <stop offset="0.44" stop-color="#8d939a"/>
+      <stop offset="0.56" stop-color="#4f545b"/>
+      <stop offset="0.74" stop-color="#d3d6da"/>
+      <stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+
+    <!-- The fold: the lower sheet dips into shadow where it meets the upper one -->
+    <radialGradient id="fold" gradientUnits="userSpaceOnUse" cx="500" cy="500" r="170">
+      <stop offset="0" stop-color="#000" stop-opacity="0.5"/>
+      <stop offset="0.6" stop-color="#000" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Controlled top sheen -->
+    <linearGradient id="sheen" gradientUnits="userSpaceOnUse" x1="0" y1="170" x2="0" y2="520">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.28"/>
+      <stop offset="0.45" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Precise rim light along the edges -->
+    <linearGradient id="rim" gradientUnits="userSpaceOnUse" x1="340" y1="180" x2="660" y2="820">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.9"/>
+      <stop offset="0.5" stop-color="#fff" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0.55"/>
+    </linearGradient>
+
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="16"/>
+      <feOffset dy="20"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.6"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- Geometry: two identical folded half-rings, rotated 180° about the centre -->
+    <path id="upper" d="M660 180H500A160 160 0 0 0 500 500V400A60 60 0 0 1 500 280H660Z"/>
+    <path id="lower" d="M340 820H500A160 160 0 0 0 500 500V600A60 60 0 0 1 500 720H340Z"/>
+  </defs>
+
+  <rect width="1000" height="1000" fill="url(#bg)"/>
+
+  <g transform="translate(500 500) scale(0.86) translate(-500 -500)">
+    <g filter="url(#shadow)">
+      <use href="#lower" fill="url(#chromeBottom)"/>
+      <use href="#upper" fill="url(#chromeTop)"/>
+    </g>
+    <use href="#lower" fill="url(#fold)"/>
+    <use href="#upper" fill="url(#sheen)"/>
+    <use href="#upper" fill="none" stroke="url(#rim)" stroke-width="2.5"/>
+    <use href="#lower" fill="none" stroke="url(#rim)" stroke-width="2.5"/>
+  </g>
+</svg>
