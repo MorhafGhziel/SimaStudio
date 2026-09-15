@@ -37,7 +37,7 @@ export function Footer({ locale }: { locale: Locale }) {
             </span>
             {d.footer.brand}
             <span className="text-xs text-faint" dir="ltr">
-              PDF · 18 MB
+              PDF · 20 MB
             </span>
           </a>
         </div>
