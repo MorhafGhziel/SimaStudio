@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SIMA STUDIO — Brand Identity 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;800;900&family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  @page { size: 1920px 1080px; margin: 0; }
+  :root {
+    --saffron: #e8a33a;
+    --saffron-deep: #c9831f;
+    --ink: #0e0e0f;
+    --char: #161618;
+    --steel: #232326;
+    --lime: #ecebe6;
+    --plat: #c4c7cb;
+    --ash: #8c8c91;
+    --bone: #f5f4f0;
+    --ar: "Alexandria", Tahoma, sans-serif;
+    --cond: "Barlow Condensed", "Arial Narrow", sans-serif;
+    --body: "Barlow", Arial, sans-serif;
+    --mono: "IBM Plex Mono", monospace;
+    --grain-dark: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 -.25'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    --grain-light: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .7 -.3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #050505; }
+  body { font-family: var(--body); color: var(--bone); -webkit-font-smoothing: antialiased; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  [lang="ar"] { font-family: var(--ar); }
+
+  .slide { width: 1920px; height: 1080px; position: relative; overflow: hidden; page-break-after: always; break-after: page; }
+  .slide.dark { background: radial-gradient(90% 80% at 50% 30%, #1b1b1d 0%, var(--ink) 70%); color: var(--bone); }
+  .slide.saffron { background: radial-gradient(80% 90% at 30% 20%, #f1b04c 0%, var(--saffron) 45%, #d88f25 100%); color: var(--ink); }
+  .slide.lime { background: var(--lime); color: var(--ink); }
+  .slide.black { background: #000; color: var(--bone); }
+  .slide::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 50; }
+  .slide.dark::after, .slide.black::after { background-image: var(--grain-light); opacity: 0.09; }
+  .slide.saffron::after { background-image: var(--grain-dark); opacity: 0.22; mix-blend-mode: multiply; }
+  .slide.lime::after { background-image: var(--grain-dark); opacity: 0.07; }
+  .stripes { position: absolute; background: repeating-linear-gradient(180deg, rgba(14,14,15,0.13) 0 3px, transparent 3px 14px); }
+
+  .frame { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .frame path { fill: none; stroke: currentColor; stroke-width: 1.5; opacity: 0.35; }
+  .sh { position: absolute; top: 44px; left: 96px; right: 96px; display: flex; justify-content: space-between; align-items: center; z-index: 5; }
+  .mono { font: 500 16px/1.3 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; }
+  .pad { position: absolute; inset: 150px 150px 110px; }
+
+  .sym { display: block; }
+  .seal { display: inline-flex; align-items: center; gap: 22px; }
+  .seal .pill { border: 3px solid currentColor; border-radius: 999px; height: 1em; width: 1.9em; display: grid; place-items: center; }
+  .seal .pill svg { height: 66%; width: auto; }
+  .seal .yr { font: 600 0.2em var(--mono); letter-spacing: 0.1em; }
+
+  .cond { font-family: var(--cond); text-transform: uppercase; letter-spacing: -0.005em; }
+  .wm { font: 700 1em/1 var(--cond); letter-spacing: 0.22em; margin-inline-end: -0.22em; text-transform: uppercase; }
+  .wm-sub { font: 500 0.36em/1 var(--mono); letter-spacing: 0.62em; }
+  .lockup { display: inline-flex; align-items: center; gap: 0.6em; line-height: 1; }
+  .lockup .sym { height: 1.9em; width: auto; }
+  .lockup .rule { width: 2px; align-self: stretch; background: currentColor; opacity: 0.3; }
+  .lockup .words { display: grid; gap: 0.3em; }
+  .lockup .ar { font: 800 1.35em/1 var(--ar); }
+
+  .num-title { display: flex; align-items: baseline; gap: 24px; }
+  .num-title .n { font: 500 20px var(--mono); color: var(--saffron); }
+  .slide.saffron .num-title .n { color: var(--ink); }
+  h2.title { font: 800 120px/0.9 var(--cond); text-transform: uppercase; letter-spacing: -0.01em; }
+  .ar-title { font: 800 72px/1.2 var(--ar); }
+  .lead { font: 400 26px/1.5 var(--body); max-width: 40ch; }
+  .muted { color: var(--ash); }
+  .accent { color: var(--saffron); }
+
+  /* Cover */
+  .cover-seal { position: absolute; top: 380px; left: 50%; transform: translateX(-50%); font-size: 190px; color: var(--ink); }
+  .cover-bottom { position: absolute; left: 96px; right: 96px; bottom: 90px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .tagbox { display: flex; align-items: center; gap: 0; }
+  .tagbox .box { background: var(--ink); color: var(--saffron); font: 800 34px/1 var(--ar); padding: 20px 34px; }
+  .tagbox .chev { display: flex; gap: 6px; margin-inline-start: 18px; }
+  .tagbox .chev i { width: 34px; height: 44px; background: var(--ink); clip-path: polygon(0 0, 45% 0, 100% 50%, 45% 100%, 0 100%, 55% 50%); }
+  .cover-name { text-align: right; }
+  .cover-name .ar { font: 900 210px/0.95 var(--ar); display: block; }
+  .cover-name .en { font: 800 64px/1 var(--cond); letter-spacing: 0.3em; margin-inline-end: -0.3em; }
+
+  /* Contents */
+  .toc { position: absolute; left: 150px; right: 150px; top: 330px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 80px; }
+  .toc div { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1.5px solid rgba(245,244,240,0.16); padding-block: 22px; }
+  .toc .t { font: 700 40px/1 var(--cond); text-transform: uppercase; }
+  .toc .a { font: 600 24px var(--ar); color: var(--plat); }
+  .toc .p { font: 500 16px var(--mono); color: var(--saffron); margin-inline-end: 20px; }
+
+  /* Definition */
+  .def-word { position: absolute; right: 150px; top: 330px; font: 900 330px/1 var(--ar); color: var(--bone); }
+  .def-word .dot { color: var(--saffron); }
+
+  /* Symbol */
+  .construct { position: absolute; right: 110px; top: 110px; width: 860px; height: 860px; }
+  .construct text { font: 500 20px var(--mono); fill: var(--ash); }
+
+  .three { position: absolute; left: 96px; right: 96px; top: 250px; bottom: 110px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
+  .ground { display: grid; place-items: center; position: relative; }
+  .ground .cap { position: absolute; bottom: 22px; left: 26px; font: 500 15px var(--mono); letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; }
+
+  .grid-logos { position: absolute; left: 96px; right: 96px; top: 250px; bottom: 96px; display: grid; grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 24px; }
+  .tile { border: 1.5px solid rgba(245,244,240,0.14); display: grid; place-items: center; position: relative; background: rgba(0,0,0,0.25); }
+  .tile .cap { position: absolute; left: 22px; bottom: 18px; font: 500 14px var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ash); }
+
+  /* Colour */
+  .colors { position: absolute; left: 96px; right: 96px; top: 96px; bottom: 96px; display: grid; grid-template-columns: 1.35fr 1fr 1fr; grid-template-rows: 1.3fr 1fr; gap: 0; }
+  .colors > div { position: relative; padding: 34px; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; }
+  .colors .nm { font: 800 44px/1 var(--cond); text-transform: uppercase; }
+  .colors .hx { font: 500 18px/1.5 var(--mono); }
+
+  /* Type */
+  .ar-samples { position: absolute; right: 150px; top: 250px; text-align: right; display: grid; gap: 10px; }
+  .ar-samples p { font-family: var(--ar); color: var(--saffron); line-height: 1.25; }
+
+  /* Statement */
+  .big-ar { position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%); font: 900 330px/1.1 var(--ar); color: var(--bone); white-space: nowrap; }
+  .scribble { position: absolute; }
+
+  /* Visual language */
+  .pattern-field { position: absolute; inset: 0; }
+  .vl-grid { position: absolute; left: 96px; right: 96px; top: 250px; bottom: 96px; display: grid; grid-template-columns: 1.4fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 24px; }
+
+  .duo { position: relative; overflow: hidden; background: #111; }
+  .duo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.25) brightness(0.85); display: block; }
+  .duo::after { content: ""; position: absolute; inset: 0; background: var(--saffron); mix-blend-mode: multiply; opacity: 0.62; }
+  .duo.mono-only::after { display: none; }
+  .duo .cap { position: absolute; left: 22px; bottom: 18px; z-index: 2; font: 500 15px var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--bone); }
+
+  /* UI */
+  .btn { display: inline-flex; align-items: center; gap: 12px; border-radius: 999px; padding: 22px 34px; font: 600 22px/1 var(--body); }
+  .btn.p { background: var(--bone); color: var(--ink); }
+  .btn.s { border: 2px solid rgba(245,244,240,0.35); color: var(--bone); }
+  .btn.a { background: var(--saffron); color: var(--ink); }
+  .field { display: grid; gap: 10px; }
+  .field .l { font: 500 18px var(--body); color: var(--plat); }
+  .field .i { border: 2px solid rgba(245,244,240,0.2); border-radius: 14px; padding: 20px 22px; font: 400 22px var(--body); }
+  .field.f .i { border-color: var(--saffron); box-shadow: 0 0 0 5px rgba(232,163,58,0.2); }
+  .tag { border: 2px solid rgba(245,244,240,0.25); border-radius: 999px; padding: 12px 20px; font: 500 18px var(--body); color: var(--plat); }
+  .tag.on { background: var(--bone); color: var(--ink); border-color: var(--bone); }
+
+  /* Devices & mockups */
+  .phone { width: 360px; height: 760px; border-radius: 52px; border: 12px solid #1f1f22; background: var(--ink); overflow: hidden; position: relative; box-shadow: 0 60px 90px -40px rgba(0,0,0,0.85); }
+  .phone .scr { position: absolute; inset: 0; display: flex; flex-direction: column; }
+  .post { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; padding: 34px; }
+  .shadow { box-shadow: 0 50px 80px -40px rgba(0,0,0,0.8); }
+
+  .card { width: 680px; height: 440px; position: absolute; border-radius: 14px; overflow: hidden; }
+  .a4 { width: 470px; height: 665px; position: absolute; overflow: hidden; }
+
+  /* Path-traced application renders (brand/deck/renders) */
+  .render { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .render-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 78%, rgba(0,0,0,.65) 100%); z-index: 1; }
+  .render-grid { position: absolute; left: 96px; right: 96px; top: 120px; bottom: 120px; display: grid; grid-template-columns: 1.2fr 1fr; grid-template-rows: 1fr 1fr; gap: 20px; }
+  .render-tile { position: relative; overflow: hidden; background: #111; }
+  .render-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .render-tile .cap { position: absolute; left: 22px; bottom: 18px; font: 500 14px var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--bone); text-shadow: 0 1px 12px rgba(0,0,0,.8); }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gTop" gradientUnits="userSpaceOnUse" x1="330" y1="170" x2="640" y2="520">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="0.18" stop-color="#d9dce1"/><stop offset="0.42" stop-color="#7a8088"/><stop offset="0.5" stop-color="#5c6168"/><stop offset="0.66" stop-color="#e6e8eb"/><stop offset="0.84" stop-color="#a3a8ae"/><stop offset="1" stop-color="#6b7077"/>
+    </linearGradient>
+    <linearGradient id="gBot" gradientUnits="userSpaceOnUse" x1="670" y1="480" x2="360" y2="830">
+      <stop offset="0" stop-color="#9ba0a7"/><stop offset="0.2" stop-color="#eef0f2"/><stop offset="0.44" stop-color="#8d939a"/><stop offset="0.56" stop-color="#4f545b"/><stop offset="0.74" stop-color="#d3d6da"/><stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+    <path id="fu" d="M660 180H500A160 160 0 0 0 500 500V400A60 60 0 0 1 500 280H660Z"/>
+    <path id="fl" d="M340 820H500A160 160 0 0 0 500 500V600A60 60 0 0 1 500 720H340Z"/>
+    <symbol id="S" viewBox="330 170 340 660"><use href="#fu"/><use href="#fl"/></symbol>
+    <symbol id="Schrome" viewBox="330 170 340 660"><use href="#fl" fill="url(#gBot)"/><use href="#fu" fill="url(#gTop)"/></symbol>
+    <symbol id="Spin" viewBox="330 170 340 660"><use href="#fl" fill="url(#gBot)"/><use href="#fu" fill="url(#gTop)"/><circle cx="500" cy="500" r="20" fill="#e8a33a"/></symbol>
+    <pattern id="patDark" width="180" height="180" patternUnits="userSpaceOnUse"><g transform="translate(90 90) scale(0.1) translate(-500 -500)" fill="rgba(245,244,240,0.08)"><use href="#fu"/><use href="#fl"/></g></pattern>
+    <pattern id="patSaff" width="220" height="220" patternUnits="userSpaceOnUse"><g transform="translate(110 110) scale(0.12) translate(-500 -500)" fill="rgba(14,14,15,0.16)"><use href="#fu"/><use href="#fl"/></g></pattern>
+  </defs>
+</svg>
+
+<!-- 01 COVER -->
+<section class="slide saffron">
+  <div class="stripes" style="left:0;right:0;bottom:0;height:300px"></div>
+  <div class="sh"><span class="mono">Brand Identity</span><span class="mono">سِمة ستوديو</span><span class="mono">V 1.0</span></div>
+  <div class="cover-seal"><span class="seal"><span class="yr">20</span><span class="pill"><svg class="sym"><use href="#S" fill="#0e0e0f"/></svg></span><span class="yr">26</span></span></div>
+  <div class="cover-bottom">
+    <div>
+      <p style="font:500 22px/1.6 var(--ar);max-width:560px;margin-bottom:26px" lang="ar" dir="rtl">استوديو رقمي فاخر لتصميم وتطوير المواقع والمتاجر والتجارب التفاعلية.</p>
+      <div class="tagbox"><span class="box" lang="ar">الهوية البصرية</span><span class="chev"><i></i><i></i><i></i><i></i></span></div>
+    </div>
+    <div class="cover-name"><span class="ar" lang="ar">سِمة</span><span class="en">SIMA STUDIO</span></div>
+  </div>
+</section>
+
+<!-- 02 CONTENTS -->
+<section class="slide dark">
+  <svg class="frame" viewBox="0 0 1920 1080"><path d="M60 110H900V70H1860V1020H60Z"/></svg>
+  <div class="sh"><span class="mono">Contents</span><span class="mono accent">SIMA</span><span class="mono">02</span></div>
+  <div style="position:absolute;left:150px;top:170px" class="num-title"><h2 class="title">Contents</h2><span class="ar-title" lang="ar" style="font-size:56px;color:var(--plat)">المحتوى</span></div>
+  <div class="toc">
+    <div><span><span class="p">01</span><span class="t">The Name</span></span><span class="a" lang="ar">الاسم</span></div>
+    <div><span><span class="p">02</span><span class="t">Directions</span></span><span class="a" lang="ar">الاتجاهات</span></div>
+    <div><span><span class="p">03</span><span class="t">The Symbol</span></span><span class="a" lang="ar">الرمز</span></div>
+    <div><span><span class="p">04</span><span class="t">Logo System</span></span><span class="a" lang="ar">نظام الشعار</span></div>
+    <div><span><span class="p">05</span><span class="t">Colour</span></span><span class="a" lang="ar">الألوان</span></div>
+    <div><span><span class="p">06</span><span class="t">Typography</span></span><span class="a" lang="ar">الخطوط</span></div>
+    <div><span><span class="p">07</span><span class="t">Visual Language</span></span><span class="a" lang="ar">اللغة البصرية</span></div>
+    <div><span><span class="p">08</span><span class="t">Photography</span></span><span class="a" lang="ar">التصوير</span></div>
+    <div><span><span class="p">09</span><span class="t">UI System</span></span><span class="a" lang="ar">الواجهات</span></div>
+    <div><span><span class="p">10</span><span class="t">Motion &amp; Voice</span></span><span class="a" lang="ar">الحركة والنبرة</span></div>
+    <div><span><span class="p">11</span><span class="t">Social Media</span></span><span class="a" lang="ar">المنصات</span></div>
+    <div><span><span class="p">12</span><span class="t">Applications</span></span><span class="a" lang="ar">التطبيقات</span></div>
+  </div>
+  <div style="position:absolute;left:150px;bottom:90px" class="lockup"><svg class="sym" style="height:46px;width:24px"><use href="#S" fill="#f5f4f0"/></svg><span class="wm" style="font-size:26px">SIMA</span></div>
+</section>
+
+<!-- 03 NAME -->
+<section class="slide dark">
+  <svg class="frame" viewBox="0 0 1920 1080"><path d="M60 110H900V70H1860V1020H60Z"/></svg>
+  <div class="sh"><span class="mono">01 · The Name</span><span class="mono accent">الاسم</span><span class="mono">03</span></div>
+  <div style="position:absolute;left:150px;top:250px;width:760px;display:grid;gap:34px">
+    <p class="mono accent">/ si · ma / — noun</p>
+    <h2 class="title" style="font-size:150px">The Mark</h2>
+    <p class="lead" style="color:var(--plat)">سِمة means a distinguishing mark — the trait that makes something instantly recognisable. It is what every brand we work with already has, and what their digital presence should carry.</p>
+    <p lang="ar" dir="rtl" style="font:500 30px/1.7 var(--ar);text-align:right">السِّمة هي العلامة التي تميّز الشيء وتجعله يُعرف من أول نظرة. كل علامة نعمل معها لها سِمة — ومهمتنا أن نبنيها رقميًا.</p>
+  </div>
+  <p class="def-word" lang="ar">سِمة</p>
+  <p style="position:absolute;right:160px;bottom:120px;font:800 54px/1 var(--cond);letter-spacing:0.28em;text-transform:uppercase">Sima Studio</p>
+</section>
+
+<!-- 04 POSITIONING -->
+<section class="slide saffron">
+  <svg style="position:absolute;inset:0;width:100%;height:100%"><rect width="100%" height="100%" fill="url(#patSaff)"/></svg>
+  <div class="sh"><span class="mono">Positioning</span><span class="mono">SIMA</span><span class="mono">04</span></div>
+  <div style="position:absolute;left:150px;top:200px;width:980px">
+    <h2 class="title" style="font-size:170px;line-height:0.86">A studio.<br>Not a<br>freelancer.</h2>
+    <p lang="ar" dir="rtl" style="font:900 86px/1.25 var(--ar);text-align:left;margin-top:34px">استوديو، مو شغل فريلانسر.</p>
+  </div>
+  <div style="position:absolute;right:150px;top:220px;width:560px;display:grid;gap:40px">
+    <div><p class="mono" style="margin-bottom:18px">We design &amp; build</p>
+      <p style="font:700 44px/1.25 var(--cond);text-transform:uppercase">Website design<br>UI / UX design<br>Web development<br>E-commerce<br>Interactive &amp; 3D</p></div>
+    <div><p class="mono" style="margin-bottom:18px">For brands in</p>
+      <p style="font:600 30px/1.55 var(--ar)" lang="ar" dir="rtl">العطور · الأزياء · المطاعم · المقاهي · الفخامة · الشركات الناشئة</p></div>
+  </div>
+  <div class="tagbox" style="position:absolute;left:150px;bottom:90px"><span class="box" style="font:800 30px var(--cond);letter-spacing:.08em">DIGITAL CRAFTSMANSHIP</span><span class="chev"><i></i><i></i><i></i></span></div>
+</section>
+
+<!-- 05 DIRECTIONS -->
+<section class="slide dark">
+  <svg class="frame" viewBox="0 0 1920 1080"><path d="M60 110H900V70H1860V1020H60Z"/></svg>
+  <div class="sh"><span class="mono">02 · Directions</span><span class="mono accent">الاتجاهات</span><span class="mono">05</span></div>
+  <div style="position:absolute;left:96px;top:140px" class="num-title"><h2 class="title" style="font-size:96px">Three directions. One mark.</h2></div>
+  <div class="three" style="top:290px">
+    <div style="border:1.5px solid rgba(245,244,240,.16);display:grid;grid-template-rows:380px 1fr">
+      <div class="ground" style="background:#efe9df;color:#3d1414"><svg viewBox="0 0 200 200" width="200"><circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="100" cy="100" r="72" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="100" y="124" text-anchor="middle" font-family="Alexandria" font-weight="800" font-size="60" fill="currentColor">سمة</text></svg><span class="cap">A · The Seal</span></div>
+      <div style="padding:30px;display:grid;gap:14px;align-content:start"><p style="font:700 40px var(--cond);text-transform:uppercase">Al-Khatm</p><p class="muted" style="font-size:21px;line-height:1.5">A heritage stamp pressed in oxblood ink. Beautiful for a perfume house — but it says tradition, not technology.</p><p class="mono" style="color:#e0685a">Rejected</p></div>
+    </div>
+    <div style="border:1.5px solid rgba(245,244,240,.16);display:grid;grid-template-rows:380px 1fr">
+      <div class="ground" style="background:#f6f6f4;color:#111"><svg viewBox="0 0 240 120" width="300"><g stroke="#111" stroke-width=".8" opacity=".25"><path d="M0 30H240M0 60H240M0 90H240M60 0V120M120 0V120M180 0V120"/></g><text x="112" y="74" text-anchor="middle" font-family="IBM Plex Mono" font-weight="500" font-size="40" letter-spacing="8" fill="#111">SIMA</text><rect x="204" y="44" width="16" height="16" fill="#ff5a1f"/></svg><span class="cap">B · Blueprint</span></div>
+      <div style="padding:30px;display:grid;gap:14px;align-content:start"><p style="font:700 40px var(--cond);text-transform:uppercase">The System</p><p class="muted" style="font-size:21px;line-height:1.5">Grids, coordinates and signal orange. Credible but cold — luxury clients would read it as a software vendor.</p><p class="mono" style="color:#e0685a">Rejected</p></div>
+    </div>
+    <div style="border:3px solid var(--saffron);display:grid;grid-template-rows:380px 1fr">
+      <div class="ground" style="background:radial-gradient(70% 70% at 50% 40%,#232327,#0e0e0f)"><svg class="sym" style="width:110px;height:214px"><use href="#Spin"/></svg><span class="cap" style="color:var(--bone)">C · Folded Metal</span><span class="mono" style="position:absolute;top:18px;right:20px;background:var(--saffron);color:var(--ink);padding:8px 14px;border-radius:99px;font-size:14px">Selected</span></div>
+      <div style="padding:30px;display:grid;gap:14px;align-content:start"><p style="font:700 40px var(--cond);text-transform:uppercase">The Mark</p><p style="font-size:21px;line-height:1.5;color:var(--plat)">One sheet of metal, folded once and pinned in saffron. Technical enough for a digital studio, crafted enough for oud and couture.</p><p class="mono accent">Developed</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 SYMBOL -->
+<section class="slide dark">
+  <svg class="frame" viewBox="0 0 1920 1080"><path d="M60 110H900V70H1860V1020H60Z"/></svg>
+  <div class="sh"><span class="mono">03 · The Symbol</span><span class="mono accent">الرمز</span><span class="mono">06</span></div>
+  <div style="position:absolute;left:150px;top:230px;width:720px;display:grid;gap:36px">
+    <h2 class="title" style="font-size:132px">One sheet.<br>One fold.<br><span class="accent">One pin.</span></h2>
+    <p class="lead" style="color:var(--plat)">Two identical half-rings, rotated 180° and stacked so they touch at a single point. It reads as an S for SIMA without being a typed letter — and the saffron pin marks the fold, like the kasra marks سِمة.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+      <div><p class="mono accent">R 160</p><p class="muted" style="font-size:19px;margin-top:6px">Outer arc</p></div>
+      <div><p class="mono accent">R 60</p><p class="muted" style="font-size:19px;margin-top:6px">Counter</p></div>
+      <div><p class="mono accent">100 u</p><p class="muted" style="font-size:19px;margin-top:6px">Bar = unit x</p></div>
+    </div>
+  </div>
+  <svg class="construct" viewBox="200 120 600 760">
+    <g stroke="rgba(232,163,58,0.45)" stroke-width="1.6" stroke-dasharray="7 7" fill="none">
+      <path d="M340 130V870M500 130V870M660 130V870M210 180H790M210 280H790M210 400H790M210 500H790M210 600H790M210 720H790M210 820H790"/>
+      <circle cx="500" cy="340" r="160"/><circle cx="500" cy="340" r="60"/><circle cx="500" cy="660" r="160"/><circle cx="500" cy="660" r="60"/>
+    </g>
+    <g fill="rgba(245,244,240,0.06)" stroke="#f5f4f0" stroke-width="2.5"><use href="#fu"/><use href="#fl"/></g>
+    <circle cx="500" cy="500" r="15" fill="#e8a33a"/>
+    <path d="M500 500L690 455" stroke="#e8a33a" stroke-width="2"/><text x="698" y="458">FOLD</text>
+    <text x="214" y="236">X = 100</text>
+  </svg>
+</section>
+
+<!-- 07 PRIMARY LOGO -->
+<section class="slide lime">
+  <div class="sh"><span class="mono">04 · Primary Logo</span><span class="mono">الشعار الرئيسي</span><span class="mono">07</span></div>
+  <div style="position:absolute;inset:0;display:grid;place-items:center">
+    <span class="lockup" style="font-size:84px;color:var(--ink)">
+      <svg class="sym" style="height:170px;width:88px"><use href="#S" fill="#0e0e0f"/></svg>
+      <span class="rule"></span>
+      <span class="words"><span class="wm">SIMA</span><span class="wm-sub">STUDIO</span></span>
+      <span class="rule"></span>
+      <span class="ar" lang="ar">سِمة</span>
+    </span>
+  </div>
+  <div style="position:absolute;left:96px;right:96px;bottom:70px;display:flex;justify-content:space-between"><span class="mono" style="color:#5c5c61">Bilingual lockup · symbol / SIMA STUDIO / سِمة</span><span class="mono" style="color:#5c5c61">Clear space 2x · min width 160px</span></div>
+</section>
+
+<!-- 08 LOGO ON GROUNDS -->
+<section class="slide black">
+  <div class="three" style="left:0;right:0;top:0;bottom:0;gap:0">
+    <div class="ground" style="background:radial-gradient(70% 70% at 50% 40%,#1d1d20,#0e0e0f)"><div style="display:grid;justify-items:center;gap:40px"><span class="seal" style="font-size:120px;color:var(--bone)"><span class="yr">20</span><span class="pill"><svg class="sym"><use href="#Schrome"/></svg></span><span class="yr">26</span></span><span class="lockup" style="font-size:40px"><span class="words" style="justify-items:center"><span class="wm">SIMA</span><span class="wm-sub">STUDIO</span></span><span class="rule"></span><span class="ar" lang="ar">سِمة</span></span></div><span class="cap">Graphite</span></div>
+    <div class="ground" style="background:var(--saffron);color:var(--ink)"><div style="display:grid;justify-items:center;gap:40px"><span class="seal" style="font-size:120px"><span class="yr">20</span><span class="pill"><svg class="sym"><use href="#S" fill="#0e0e0f"/></svg></span><span class="yr">26</span></span><span class="lockup" style="font-size:40px"><span class="words" style="justify-items:center"><span class="wm">SIMA</span><span class="wm-sub">STUDIO</span></span><span class="rule"></span><span class="ar" lang="ar">سِمة</span></span></div><span class="cap">Saffron</span></div>
+    <div class="ground" style="background:var(--lime);color:var(--ink)"><div style="display:grid;justify-items:center;gap:40px"><span class="seal" style="font-size:120px"><span class="yr">20</span><span class="pill"><svg class="sym"><use href="#S" fill="#0e0e0f"/></svg></span><span class="yr">26</span></span><span class="lockup" style="font-size:40px"><span class="words" style="justify-items:center"><span class="wm">SIMA</span><span class="wm-sub">STUDIO</span></span><span class="rule"></span><span class="ar" lang="ar">سِمة</span></span></div><span class="cap">Limestone</span></div>
+  </div>
+</section>
+
+<!-- 09 LOGO SYSTEM -->
+<section class="slide dark">
+  <svg class="frame" viewBox="0 0 1920 1080"><path d="M60 110H900V70H1860V1020H60Z"/></svg>
+  <div class="sh"><span class="mono">04 · Logo System</span><span class="mono accent">نظام الشعار</span><span class="mono">09</span></div>
+  <div style="position:absolute;left:96px;top:130px"><h2 class="title" style="font-size:96px">Logo System</h2></div>
+  <div class="grid-logos">
+    <div class="tile" style="grid-row:span 2"><svg class="sym" style="width:230px;height:447px"><use href="#Spin"/></svg><span class="cap">Symbol · chrome + saffron pin</span></div>
+    <div class="tile"><span class="lockup" style="font-size:44px"><svg class="sym" style="height:84px;width:44px"><use href="#S" fill="#f5f4f0"/></svg><span class="wm">SIMA</span></span><span class="cap">Simplified · headers</span></div>
+    <div class="tile"><span style="display:grid;justify-items:center;gap:14px"><span class="wm" style="font-size:66px">SIMA</span><span class="wm-sub" style="font-size:24px">STUDIO</span></span><span class="cap">Wordmark</span></div>
+    <div class="tile"><span lang="ar" style="font:900 120px/1 var(--ar)">سِمة</span><span class="cap">Arabic wordmark</span></div>
+    <div class="tile"><span style="display:flex;gap:30px;align-items:end">
+      <svg width="120" height="120" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0e0e0f" stroke="rgba(245,244,240,.3)"/><g transform="translate(32 32) scale(0.075) translate(-500 -500)" fill="#f5f4f0"><use href="#fu"/><use href="#fl"/></g></svg>
+      <svg width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#e8a33a"/><g transform="translate(32 32) scale(0.075) translate(-500 -500)" fill="#0e0e0f"><use href="#fu"/><use href="#fl"/></g></svg>
+      <svg width="32" height="32" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#f5f4f0"/><g transform="translate(32 32) scale(0.075) translate(-500 -500)" fill="#0e0e0f"><use href="#fu"/><use href="#fl"/></g></svg>
+      <span style="width:150px;height:150px;border-radius:50%;background:radial-gradient(70% 70% at 50% 40%,#26262a,#0a0a0b);display:grid;place-items:center;border:1.5px solid rgba(245,244,240,.2)"><svg class="sym" style="width:36px;height:70px"><use href="#Schrome"/></svg></span>
+    </span><span class="cap">Favicon · social profile</span></div>
+  </div>
+</section>
+
+<!-- 10 CLEAR SPACE & MISUSE -->
+<section class="slide lime">
+  <div class="sh"><span class="mono">04 · Rules</span><span class="mono">القواعد</span><span class="mono">10</span></div>
+  <div style="position:absolute;left:96px;top:130px"><h2 class="title" style="font-size:96px">Protect the mark</h2></div>
+  <div style="position:absolute;left:96px;top:290px;width:820px;height:640px;border:1.5px solid rgba(14,14,15,.2);display:grid;place-items:center;position:absolute">
+    <div style="position:relative;padding:90px;outline:2px dashed rgba(201,131,31,.8)">
+      <span class="lockup" style="font-size:52px;color:var(--ink)"><svg class="sym" style="height:104px;width:54px"><use href="#S" fill="#0e0e0f"/></svg><span class="rule"></span><span class="words"><span class="wm">SIMA</span><span class="wm-sub">STUDIO</span></span></span>
+      <span class="mono" style="position:absolute;top:30px;left:50%;transform:translateX(-50%);color:var(--saffron-deep)">2x</span>
+      <span class="mono" style="position:absolute;left:28px;top:50%;transform:translateY(-50%);color:var(--saffron-deep)">2x</span>
+    </div>
+    <span class="mono" style="position:absolute;bottom:20px;left:24px;color:#5c5c61">Clear space = 2x the bar thickness · Min 160px</span>
+  </div>
+  <div style="position:absolute;right:96px;top:290px;width:840px;height:640px;display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <div style="background:#fff;display:grid;place-items:center;position:relative"><span class="mono" style="position:absolute;top:18px;left:20px;color:#d24a3a">✕ Stretch</span><svg class="sym" style="width:180px;height:120px" preserveAspectRatio="none" viewBox="330 170 340 660"><use href="#fu" fill="#0e0e0f"/><use href="#fl" fill="#0e0e0f"/></svg></div>
+    <div style="background:#0e0e0f;display:grid;place-items:center;position:relative"><span class="mono" style="position:absolute;top:18px;left:20px;color:#ff7a6a">✕ Neon glow</span><svg class="sym" style="width:64px;height:124px;filter:drop-shadow(0 0 18px #b388ff)"><use href="#S" fill="#b388ff"/></svg></div>
+    <div style="background:#fff;display:grid;place-items:center;position:relative"><span class="mono" style="position:absolute;top:18px;left:20px;color:#d24a3a">✕ Rotate</span><svg class="sym" style="width:64px;height:124px;transform:rotate(38deg)"><use href="#S" fill="#0e0e0f"/></svg></div>
+    <div style="background:var(--saffron);display:grid;place-items:center;position:relative;overflow:hidden"><span class="mono" style="position:absolute;top:18px;left:20px;color:#0e0e0f">✕ Pin on photos / saffron</span><svg class="sym" style="width:64px;height:124px"><use href="#Spin"/></svg></div>
+  </div>
+</section>
+
+<!-- 11 COLOUR -->
+<section class="slide black">
+  <div class="colors">
+    <div style="background:var(--saffron);color:var(--ink);grid-row:span 2"><p class="mono" style="position:absolute;top:34px;left:34px">Accent · the signature</p><p class="nm" style="font-size:96px">Saffron</p><p class="hx">#E8A33A · RGB 232 163 58 · Pantone ≈ 7563 C</p><p style="font:500 22px/1.6 var(--ar);margin-top:18px;max-width:560px" lang="ar" dir="rtl">الزعفران: النغمة الأولى في العود والقهوة والضيافة — فخامة سعودية لا يستخدمها أي استوديو رقمي.</p></div>
+    <div style="background:var(--ink);color:var(--bone);border:1.5px solid rgba(245,244,240,.12)"><p class="nm">Graphite</p><p class="hx">#0E0E0F · Background</p></div>
+    <div style="background:var(--lime);color:var(--ink)"><p class="nm">Limestone</p><p class="hx">#ECEBE6 · Light ground</p></div>
+    <div style="background:linear-gradient(135deg,#f2f3f5,#9aa0a7 45%,#e6e8eb 70%,#7a8088);color:var(--ink)"><p class="nm">Platinum</p><p class="hx">#C4C7CB · Metal / secondary</p></div>
+    <div style="display:grid;grid-template-rows:1fr 1fr 1fr;padding:0;gap:0">
+      <div style="background:var(--char);color:var(--bone);padding:20px 34px;display:flex;justify-content:space-between;align-items:center"><span class="nm" style="font-size:32px">Carbon</span><span class="hx">#161618 · Surface</span></div>
+      <div style="background:var(--bone);color:var(--ink);padding:20px 34px;display:flex;justify-content:space-between;align-items:center"><span class="nm" style="font-size:32px">Bone</span><span class="hx">#F5F4F0 · Text</span></div>
+      <div style="background:var(--ash);color:var(--ink);padding:20px 34px;display:flex;justify-content:space-between;align-items:center"><span class="nm" style="font-size:32px">Ash</span><span class="hx">#8C8C91 · Muted</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 ARABIC TYPE -->
+<section class="slide dark">
+  <svg class="frame" viewBox="0 0 1920 1080"><path d="M60 110H900V70H1860V1020H60Z"/></svg>
+  <div class="sh"><span class="mono">06 · Arabic Type</span><span class="mono accent">خط ألكسندريا</span><span class="mono">12</span></div>
+  <div style="position:absolute;left:150px;top:230px;width:640px;display:grid;gap:30px">
+    <p class="mono accent">Alexandria · Google Fonts</p>
+    <h2 class="title" style="font-size:130px">Arabic<br>that leads</h2>
+    <p class="lead" style="color:var(--plat)">Geometric, Kufi-rooted and confident. Headlines in Black 900, text in Regular 400 with generous line height. Never letter-spaced.</p>
+    <div style="display:flex;gap:40px;margin-top:10px"><span style="font:400 30px var(--ar)" lang="ar">عادي 400</span><span style="font:600 30px var(--ar)" lang="ar">متوسط 600</span><span style="font:900 30px var(--ar)" lang="ar">أسود 900</span></div>
+  </div>
+  <div class="ar-samples" dir="rtl">
+    <p style="font-size:150px;font-weight:900" lang="ar">اترك سِمتك</p>
+    <p style="font-size:150px;font-weight:600" lang="ar">اترك سِمتك</p>
+    <p style="font-size:150px;font-weight:400" lang="ar">اترك سِمتك</p>
+  </div>
+</section>
+
+<!-- 13 LATIN TYPE -->
+<section class="slide dark">
+  <svg class="frame" viewBox="0 0 1920 1080"><path d="M60 110H900V70H1860V1020H60Z"/></svg>
+  <div class="sh"><span class="mono">06 · Latin Type</span><span class="mono accent">Barlow</span><span class="mono">13</span></div>
+  <p style="position:absolute;left:150px;top:210px;font:800 250px/0.84 var(--cond);text-transform:uppercase;color:var(--saffron)">Made<br>with<br>precision</p>
+  <div style="position:absolute;right:150px;top:250px;width:720px;display:grid;gap:26px">
+    <p class="mono accent">Barlow Condensed · Barlow · IBM Plex Mono</p>
+    <p style="font:400 40px/1.3 var(--body)">digital experiences for ambitious brands</p>
+    <p style="font:500 40px/1.3 var(--body)">digital experiences for ambitious brands</p>
+    <p style="font:600 40px/1.3 var(--body)">digital experiences for ambitious brands</p>
+    <div style="border-top:1.5px solid rgba(245,244,240,.16);padding-top:26px;display:grid;grid-template-columns:auto 1fr;gap:14px 30px;font-size:20px">
+      <span class="mono accent">Display</span><span>Barlow Condensed 800 · uppercase · 120–250</span>
+      <span class="mono accent">Body</span><span>Barlow 400 · 22 / 1.5</span>
+      <span class="mono accent">Buttons</span><span>Barlow 600 · 20 · sentence case</span>
+      <span class="mono accent">Labels</span><span>IBM Plex Mono 500 · caps · +14%</span>
+    </div>
+  </div>
+</section>
+
+<!-- 14 STATEMENT -->
+<section class="slide saffron">
+  <div class="stripes" style="inset:0"></div>
+  <div class="sh"><span class="mono">Brand statement</span><span class="mono">SIMA</span><span class="mono">14</span></div>
+  <div style="position:absolute;top:120px;left:50%;transform:translateX(-50%)"><span class="seal" style="font-size:110px;color:var(--ink)"><span class="yr">20</span><span class="pill"><svg class="sym"><use href="#S" fill="#0e0e0f"/></svg></span><span class="yr">26</span></span></div>
+  <p class="big-ar" lang="ar" style="color:var(--bone);text-shadow:0 6px 0 rgba(14,14,15,.12)">اترك سِمتك.</p>
+  <svg class="scribble" style="left:1270px;top:170px" width="420" height="220" viewBox="0 0 420 220"><path d="M400 30 C 300 10, 200 60, 120 150" fill="none" stroke="#0e0e0f" stroke-width="5" stroke-linecap="round"/><path d="M110 118 L118 158 L156 140" fill="none" stroke="#0e0e0f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <p style="position:absolute;left:1520px;top:120px;font:800 40px/1.2 var(--cond);text-transform:uppercase;color:var(--ink);text-align:center">Make<br>your mark</p>
+  <p style="position:absolute;left:0;right:0;bottom:90px;text-align:center;font:800 44px/1 var(--cond);letter-spacing:.3em;text-transform:uppercase;color:var(--ink)">SIMA STUDIO</p>
+</section>
+
+<!-- 15 VISUAL LANGUAGE -->
+<section class="slide dark">
+  <svg class="frame" viewBox="0 0 1920 1080"><path d="M60 110H900V70H1860V1020H60Z"/></svg>
+  <div class="sh"><span class="mono">07 · Visual Language</span><span class="mono accent">اللغة البصرية</span><span class="mono">15</span></div>
+  <div style="position:absolute;left:96px;top:130px"><h2 class="title" style="font-size:96px">Recognisable without the logo</h2></div>
+  <div class="vl-grid">
+    <div style="grid-row:span 2;background:var(--saffron);position:relative;overflow:hidden">
+      <svg class="sym" style="position:absolute;width:560px;height:1088px;left:-60px;top:-120px"><use href="#S" fill="#0e0e0f"/></svg>
+      <svg class="sym" style="position:absolute;width:300px;height:583px;right:-40px;bottom:-200px;transform:rotate(180deg)"><use href="#S" fill="rgba(14,14,15,.18)"/></svg>
+      <span class="mono" style="position:absolute;right:26px;top:24px;color:var(--ink)">Oversized crop</span>
+    </div>
+    <div style="border:1.5px solid rgba(245,244,240,.14);position:relative;overflow:hidden"><svg style="position:absolute;inset:0;width:100%;height:100%"><rect width="100%" height="100%" fill="url(#patDark)"/></svg><span class="mono" style="position:absolute;left:22px;bottom:18px;color:var(--ash)">Fold pattern</span></div>
+    <div style="border:1.5px solid rgba(245,244,240,.14);position:relative;display:grid;place-items:center"><svg width="360" height="120" viewBox="0 0 360 120"><path d="M10 70H170V40H350" fill="none" stroke="#c4c7cb" stroke-width="3"/><circle cx="170" cy="55" r="8" fill="#e8a33a"/></svg><span class="mono" style="position:absolute;left:22px;bottom:18px;color:var(--ash)">Fold line divider</span></div>
+    <div style="background:var(--saffron);position:relative;overflow:hidden"><div class="stripes" style="inset:0"></div><div style="position:absolute;left:40px;top:40px;display:flex;gap:6px"><i style="width:40px;height:52px;background:#0e0e0f;clip-path:polygon(0 0,45% 0,100% 50%,45% 100%,0 100%,55% 50%)"></i><i style="width:40px;height:52px;background:#0e0e0f;clip-path:polygon(0 0,45% 0,100% 50%,45% 100%,0 100%,55% 50%)"></i><i style="width:40px;height:52px;background:#0e0e0f;clip-path:polygon(0 0,45% 0,100% 50%,45% 100%,0 100%,55% 50%)"></i></div><span class="mono" style="position:absolute;left:22px;bottom:18px;color:var(--ink)">Stripes · chevrons</span></div>
+    <div style="border:1.5px solid rgba(245,244,240,.14);position:relative;display:grid;grid-template-columns:repeat(3,1fr);place-items:center;padding:30px 20px 50px">
+      <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#f5f4f0" stroke-width="1.5" stroke-linecap="square"><rect x="3.5" y="5" width="17" height="11"/><path d="M8 20h8"/></svg>
+      <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#f5f4f0" stroke-width="1.5" stroke-linecap="square"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg>
+      <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#e8a33a" stroke-width="1.5" stroke-linecap="square"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></svg>
+      <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#f5f4f0" stroke-width="1.5" stroke-linecap="square"><path d="M4 12a8 8 0 0 1 14.5-4.6"/><path d="M20 12a8 8 0 0 1-14.5 4.6"/><path d="M18.5 3.5v4h-4M5.5 20.5v-4h4"/></svg>
+      <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#f5f4f0" stroke-width="1.5" stroke-linecap="square"><path d="M16 5h-4a4 4 0 0 0 0 8"/><path d="M8 19h4a4 4 0 0 0 0-8"/></svg>
+      <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#f5f4f0" stroke-width="1.5" stroke-linecap="square"><path d="M4 5h16v11H9l-5 4z"/></svg>
+      <span class="mono" style="position:absolute;left:22px;bottom:18px;color:var(--ash)">Icons · 1.5 stroke · square caps</span>
+    </div>
+  </div>
+</section>
+
+<!-- 16 PHOTOGRAPHY -->
+<section class="slide black">
+  <div style="position:absolute;inset:0;display:grid;grid-template-columns:1.25fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:6px">
+    <div class="duo" style="grid-row:span 2"><img src="../../src/assets/images/ind-perfume.jpg" alt=""><span class="cap">Single light · product first</span></div>
+    <div class="duo mono-only"><img src="../../src/assets/images/ind-fashion.jpg" alt=""><span class="cap">Mono for process</span></div>
+    <div class="duo"><img src="../../src/assets/images/ind-cafes.jpg" alt=""><span class="cap">Saffron duotone</span></div>
+    <div class="duo"><img src="../../src/assets/images/ind-restaurants.jpg" alt=""><span class="cap">Close crops · real texture</span></div>
+    <div style="background:var(--ink);padding:50px;display:flex;flex-direction:column;justify-content:space-between;position:relative">
+      <p class="mono accent">08 · Photography</p>
+      <h2 class="title" style="font-size:88px">Low light.<br>Real grain.</h2>
+      <p style="font-size:21px;line-height:1.55;color:var(--plat)">One hard light source, mineral surfaces, details over wide shots. Grade: saturation −15, contrast +12, crushed blacks, saffron duotone for campaign moments.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 17 UI SYSTEM -->
+<section class="slide dark">
+  <svg class="frame" viewBox="0 0 1920 1080"><path d="M60 110H900V70H1860V1020H60Z"/></svg>
+  <div class="sh"><span class="mono">09 · UI System</span><span class="mono accent">نظام الواجهات</span><span class="mono">17</span></div>
+  <div style="position:absolute;left:96px;top:130px"><h2 class="title" style="font-size:96px">Quiet by default. Alive on contact.</h2></div>
+  <div style="position:absolute;left:96px;right:96px;top:280px;bottom:96px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px">
+    <div style="border:1.5px solid rgba(245,244,240,.14);padding:36px;display:grid;gap:22px;align-content:start">
+      <p class="mono muted">Buttons</p>
+      <span class="btn p">Start a project <span>↗</span></span>
+      <span class="btn s">View work</span>
+      <span class="btn a">Chat on WhatsApp</span>
+      <span class="btn p" style="background:#c4c7cb">Hover state</span>
+      <span class="btn p" style="font-family:var(--ar)" lang="ar">ابدأ مشروعك</span>
+      <p class="mono muted" style="margin-top:8px">Loading</p>
+      <span style="display:flex;gap:18px;align-items:center"><svg class="sym" style="width:26px;height:50px;transform:rotate(90deg)"><use href="#S" fill="#c4c7cb"/></svg><span style="flex:1;display:grid;gap:10px"><i style="height:14px;border-radius:7px;background:linear-gradient(90deg,#232326,#3a3a3f,#232326)"></i><i style="height:14px;width:70%;border-radius:7px;background:#232326"></i></span></span>
+    </div>
+    <div style="border:1.5px solid rgba(245,244,240,.14);padding:36px;display:grid;gap:24px;align-content:start">
+      <p class="mono muted">Forms &amp; tags</p>
+      <div class="field"><span class="l">Brand name</span><span class="i">Maison Oud</span></div>
+      <div class="field f"><span class="l">WhatsApp or email</span><span class="i">+966 5X XXX XXXX</span></div>
+      <div class="field"><span class="l">Budget</span><span style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag">1,500</span><span class="tag on">2,500</span><span class="tag">5,000</span><span class="tag">Custom</span></span></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag on">All</span><span class="tag">Perfume</span><span class="tag">Fashion</span><span class="tag">Cafés</span></div>
+    </div>
+    <div style="display:grid;grid-template-rows:auto 1fr;gap:28px">
+      <div style="border:1.5px solid rgba(245,244,240,.14);overflow:hidden">
+        <div style="height:250px;position:relative;overflow:hidden"><img src="../../public/work/noble-immersive-hero.jpg" alt="" style="width:100%;height:100%;object-fit:cover;transform:scale(1.06)"><span style="position:absolute;left:50%;top:50%;width:110px;height:110px;margin:-55px;border-radius:50%;background:var(--saffron);color:var(--ink);display:grid;place-items:center;font:600 16px var(--mono);letter-spacing:.12em">VIEW</span></div>
+        <div style="padding:24px 28px;display:grid;gap:8px"><div style="display:flex;justify-content:space-between"><span class="mono muted">01 · Perfume</span><span class="mono muted">2026</span></div><p style="font:700 38px/1 var(--cond);text-transform:uppercase">NOBLE Immersive</p><p class="muted" style="font-size:19px">Hover: image scales 1.04, cursor becomes “View”.</p></div>
+      </div>
+      <div style="border:1.5px solid rgba(245,244,240,.14);padding:28px;display:grid;gap:16px;align-content:start;border-left:4px solid var(--saffron)">
+        <p class="mono muted">Testimonial · template</p>
+        <p style="font:500 26px/1.4 var(--body)">“Real client words only — one or two lines about the result.”</p>
+        <p class="mono accent">Client · Brand</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 18 MOTION & VOICE -->
+<section class="slide lime">
+  <div class="sh"><span class="mono">10 · Motion &amp; Voice</span><span class="mono">الحركة والنبرة</span><span class="mono">18</span></div>
+  <div style="position:absolute;left:96px;top:130px;right:1010px">
+    <h2 class="title" style="font-size:96px">Motion</h2>
+    <svg width="100%" height="230" viewBox="0 0 600 230" style="margin-top:20px"><path d="M20 210H580M20 210V20" stroke="rgba(14,14,15,.3)" stroke-width="2" fill="none"/><path d="M20 210C150 210 150 26 580 22" stroke="#c9831f" stroke-width="6" fill="none"/><text x="360" y="200" font-family="IBM Plex Mono" font-size="18" fill="#5c5c61">cubic-bezier(.22, 1, .36, 1)</text></svg>
+    <div style="display:grid;gap:0;margin-top:14px;font-size:21px">
+      <div style="display:grid;grid-template-columns:230px 1fr 130px;padding-block:16px;border-bottom:1.5px solid rgba(14,14,15,.14)"><span class="mono">Fold reveal</span><span>Opens from the centre line</span><span class="mono">900ms</span></div>
+      <div style="display:grid;grid-template-columns:230px 1fr 130px;padding-block:16px;border-bottom:1.5px solid rgba(14,14,15,.14)"><span class="mono">Hover</span><span>4px magnetic drift, image scale 1.04</span><span class="mono">280ms</span></div>
+      <div style="display:grid;grid-template-columns:230px 1fr 130px;padding-block:16px;border-bottom:1.5px solid rgba(14,14,15,.14)"><span class="mono">Scroll</span><span>Rise 24px, 80ms stagger, once</span><span class="mono">900ms</span></div>
+      <div style="display:grid;grid-template-columns:230px 1fr 130px;padding-block:16px;border-bottom:1.5px solid rgba(14,14,15,.14)"><span class="mono">Page</span><span>Graphite panel folds closed, then open</span><span class="mono">700ms ×2</span></div>
+      <div style="display:grid;grid-template-columns:230px 1fr 130px;padding-block:16px"><span class="mono">Loader</span><span>Symbol turns 180°, rests, repeats</span><span class="mono">1400ms</span></div>
+    </div>
+  </div>
+  <div style="position:absolute;right:0;top:0;bottom:0;width:910px;background:var(--ink);color:var(--bone);padding:130px 90px 90px">
+    <h2 class="title" style="font-size:96px">Voice</h2>
+    <p class="lead" style="margin-top:20px;color:var(--plat)">A senior designer across the table: sure of the work, short with words, warm with people.</p>
+    <div style="display:grid;gap:0;margin-top:36px;font-size:22px">
+      <div style="display:grid;grid-template-columns:110px 1fr;padding-block:16px;border-bottom:1.5px solid rgba(245,244,240,.14)"><span class="mono accent">Say</span><span>Your website should look as good as your product.</span></div>
+      <div style="display:grid;grid-template-columns:110px 1fr;padding-block:16px;border-bottom:1.5px solid rgba(245,244,240,.14)"><span class="mono" style="color:#ff7a6a">Never</span><span>We revolutionize your digital presence.</span></div>
+      <div style="display:grid;grid-template-columns:110px 1fr;padding-block:16px;border-bottom:1.5px solid rgba(245,244,240,.14)"><span class="mono accent">Say</span><span lang="ar" style="font-family:var(--ar)">موقعك أول مكان يحكم فيه العميل على علامتك.</span></div>
+      <div style="display:grid;grid-template-columns:110px 1fr;padding-block:16px;border-bottom:1.5px solid rgba(245,244,240,.14)"><span class="mono" style="color:#ff7a6a">Never</span><span lang="ar" style="font-family:var(--ar)">حلول رقمية متكاملة ومبتكرة لنمو أعمالك.</span></div>
+    </div>
+    <p class="mono muted" style="margin-top:34px">WhatsApp intro</p>
+    <p lang="ar" dir="rtl" style="font:400 24px/1.8 var(--ar);margin-top:12px">مرحبًا، معك سِمة ستوديو. أخبرنا باسم علامتك وماذا تبيع وأين يجدك عملاؤك — ونرد خلال يوم عمل بتوجه واضح وسعر مبدئي.</p>
+  </div>
+</section>
+
+<!-- 19 TAGLINES -->
+<section class="slide saffron">
+  <svg style="position:absolute;inset:0;width:100%;height:100%"><rect width="100%" height="100%" fill="url(#patSaff)"/></svg>
+  <div class="sh"><span class="mono">Taglines</span><span class="mono">الشعارات اللفظية</span><span class="mono">19</span></div>
+  <div style="position:absolute;left:96px;top:140px;right:96px;display:grid;grid-template-columns:1.2fr 1fr;gap:80px">
+    <div style="display:grid;gap:44px">
+      <div><p class="mono">01 · Strongest</p><p style="font:800 150px/0.88 var(--cond);text-transform:uppercase;margin-top:12px">Make your mark.</p><p lang="ar" dir="rtl" style="font:900 84px/1.3 var(--ar);text-align:left">اترك سِمتك.</p><p style="font-size:22px;line-height:1.5;max-width:40ch;margin-top:10px">The name, explained: سِمة means mark. A promise to the client, not a boast about the studio.</p></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px">
+        <div><p class="mono">02</p><p style="font:800 58px/0.95 var(--cond);text-transform:uppercase;margin-top:10px">Quietly unmistakable.</p><p lang="ar" style="font:800 34px/1.4 var(--ar)">هادئ، ولا يُخطأ.</p></div>
+        <div><p class="mono">03</p><p style="font:800 58px/0.95 var(--cond);text-transform:uppercase;margin-top:10px">Presence, precisely made.</p><p lang="ar" style="font:800 34px/1.4 var(--ar)">حضور مصنوع بدقة.</p></div>
+      </div>
+    </div>
+    <div style="background:var(--ink);color:var(--bone);padding:44px;display:grid;gap:0;align-content:start">
+      <p class="mono accent" style="margin-bottom:16px">All ten</p>
+      <div style="display:grid;grid-template-columns:50px 1fr;padding-block:15px;border-bottom:1.5px solid rgba(245,244,240,.14);font-size:24px"><span class="mono muted">01</span><span>Make your mark.</span></div>
+      <div style="display:grid;grid-template-columns:50px 1fr;padding-block:15px;border-bottom:1.5px solid rgba(245,244,240,.14);font-size:24px"><span class="mono muted">02</span><span>Quietly unmistakable.</span></div>
+      <div style="display:grid;grid-template-columns:50px 1fr;padding-block:15px;border-bottom:1.5px solid rgba(245,244,240,.14);font-size:24px"><span class="mono muted">03</span><span>Presence, precisely made.</span></div>
+      <div style="display:grid;grid-template-columns:50px 1fr;padding-block:15px;border-bottom:1.5px solid rgba(245,244,240,.14);font-size:24px"><span class="mono muted">04</span><span>Digital, with a signature.</span></div>
+      <div style="display:grid;grid-template-columns:50px 1fr;padding-block:15px;border-bottom:1.5px solid rgba(245,244,240,.14);font-size:24px"><span class="mono muted">05</span><span>Designed to be recognised.</span></div>
+      <div style="display:grid;grid-template-columns:50px 1fr;padding-block:15px;border-bottom:1.5px solid rgba(245,244,240,.14);font-size:24px"><span class="mono muted">06</span><span>Built to be remembered.</span></div>
+      <div style="display:grid;grid-template-columns:50px 1fr;padding-block:15px;border-bottom:1.5px solid rgba(245,244,240,.14);font-size:24px"><span class="mono muted">07</span><span>The mark of good work.</span></div>
+      <div style="display:grid;grid-template-columns:50px 1fr;padding-block:15px;border-bottom:1.5px solid rgba(245,244,240,.14);font-size:24px"><span class="mono muted">08</span><span>Where brands take shape online.</span></div>
+      <div style="display:grid;grid-template-columns:50px 1fr;padding-block:15px;border-bottom:1.5px solid rgba(245,244,240,.14);font-size:24px"><span class="mono muted">09</span><span>Craft, compiled.</span></div>
+      <div style="display:grid;grid-template-columns:50px 1fr;padding-block:15px;font-size:24px"><span class="mono muted">10</span><span>Your brand, in its best light.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 20 INSTAGRAM -->
+<section class="slide dark">
+  <svg class="frame" viewBox="0 0 1920 1080"><path d="M60 110H900V70H1860V1020H60Z"/></svg>
+  <div class="sh"><span class="mono">11 · Instagram &amp; TikTok</span><span class="mono accent">المنصات</span><span class="mono">20</span></div>
+  <div class="phone" style="position:absolute;left:140px;top:160px">
+    <div class="scr">
+      <div style="padding:40px 20px 14px;display:grid;gap:14px">
+        <div style="display:flex;gap:18px;align-items:center"><span style="width:88px;height:88px;border-radius:50%;background:radial-gradient(70% 70% at 50% 40%,#26262a,#0a0a0b);display:grid;place-items:center;border:1px solid rgba(245,244,240,.2)"><svg class="sym" style="width:22px;height:43px"><use href="#Schrome"/></svg></span><div style="display:flex;gap:18px;font-size:13px;color:var(--plat)"><span><b style="display:block;color:var(--bone);font-size:17px">36</b>posts</span><span><b style="display:block;color:var(--bone);font-size:17px">—</b>followers</span></div></div>
+        <p style="font-size:13.5px;line-height:1.5"><b>SIMA STUDIO — سِمة</b><br>Websites &amp; digital experiences for brands with a signature.<br>↓ Start a project</p>
+        <div style="display:flex;gap:12px">
+          <span style="display:grid;justify-items:center;gap:6px;font-size:11px;color:var(--plat)"><i style="width:54px;height:54px;border-radius:50%;background:var(--char);border:1.5px solid rgba(245,244,240,.25);display:grid;place-items:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e8a33a" stroke-width="1.7"><rect x="3.5" y="5" width="17" height="11"/><path d="M8 20h8"/></svg></i>Work</span>
+          <span style="display:grid;justify-items:center;gap:6px;font-size:11px;color:var(--plat)"><i style="width:54px;height:54px;border-radius:50%;background:var(--char);border:1.5px solid rgba(245,244,240,.25);display:grid;place-items:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e8a33a" stroke-width="1.7"><path d="M4 12a8 8 0 0 1 14.5-4.6"/><path d="M20 12a8 8 0 0 1-14.5 4.6"/></svg></i>Process</span>
+          <span style="display:grid;justify-items:center;gap:6px;font-size:11px;color:var(--plat)"><i style="width:54px;height:54px;border-radius:50%;background:var(--char);border:1.5px solid rgba(245,244,240,.25);display:grid;place-items:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e8a33a" stroke-width="1.7"><path d="M5 8h14l-1.2 12H6.2z"/></svg></i>Packages</span>
+          <span style="display:grid;justify-items:center;gap:6px;font-size:11px;color:var(--plat)"><i style="width:54px;height:54px;border-radius:50%;background:var(--char);border:1.5px solid rgba(245,244,240,.25);display:grid;place-items:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e8a33a" stroke-width="1.7"><path d="M4 5h16v11H9l-5 4z"/></svg></i>Contact</span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px">
+        <div style="aspect-ratio:4/5;background:var(--saffron);display:grid;place-items:center;font:900 16px var(--ar);color:var(--ink)" lang="ar">اترك سِمتك</div>
+        <div style="aspect-ratio:4/5;background:#111;overflow:hidden"><img src="../../public/work/noble-immersive-mobile.jpg" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+        <div style="aspect-ratio:4/5;background:var(--ink);display:grid;place-items:center;border:1px solid #222"><svg class="sym" style="width:18px;height:35px"><use href="#Schrome"/></svg></div>
+        <div style="aspect-ratio:4/5;background:#111;overflow:hidden"><img src="../../public/work/najdi-table-mobile.jpg" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+        <div style="aspect-ratio:4/5;background:var(--lime);display:grid;place-items:center;font:800 22px var(--cond);color:var(--ink)">03 TIPS</div>
+        <div style="aspect-ratio:4/5;background:#111;overflow:hidden"><img src="../../public/work/rashfa-mobile.jpg" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+        <div style="aspect-ratio:4/5;background:var(--ink)"></div><div style="aspect-ratio:4/5;background:var(--saffron)"></div><div style="aspect-ratio:4/5;background:var(--char)"></div>
+      </div>
+    </div>
+  </div>
+  <div style="position:absolute;left:600px;top:160px;right:96px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px">
+    <div class="post shadow" style="aspect-ratio:4/5;background:var(--saffron);color:var(--ink)"><div class="stripes" style="left:0;right:0;bottom:0;height:40%"></div><div style="display:flex;justify-content:space-between;position:relative"><span class="mono" style="font-size:13px">SIMA · رأي</span><span class="mono" style="font-size:13px">01</span></div><p lang="ar" dir="rtl" style="font:900 52px/1.3 var(--ar);position:relative">موقعك هو أول انطباع.</p><span class="mono" style="font-size:13px;position:relative">SIMA STUDIO</span></div>
+    <div class="post shadow" style="aspect-ratio:4/5;background:var(--ink);border:1.5px solid rgba(245,244,240,.14)"><div style="display:flex;justify-content:space-between"><span class="mono muted" style="font-size:13px">Project 01 · Perfume</span><span class="mono muted" style="font-size:13px">2026</span></div><div style="flex:1;margin-block:22px;overflow:hidden"><img src="../../public/work/noble-immersive-hero.jpg" alt="" style="width:100%;height:100%;object-fit:cover"></div><div style="display:flex;justify-content:space-between;align-items:end"><span style="font:800 40px/1 var(--cond);text-transform:uppercase">NOBLE</span><span class="mono accent" style="font-size:13px">View →</span></div></div>
+    <div class="post shadow" style="aspect-ratio:4/5;background:var(--lime);color:var(--ink)"><div style="display:flex;justify-content:space-between"><span class="mono" style="font-size:13px">Insight</span><span class="mono" style="font-size:13px">Swipe →</span></div><div dir="rtl"><p style="font:800 150px/0.9 var(--cond)">3</p><p lang="ar" style="font:900 38px/1.35 var(--ar)">أخطاء تجعل عميلك يغادر موقعك.</p></div><span class="mono" style="font-size:13px">SIMA STUDIO</span></div>
+  </div>
+  <div style="position:absolute;left:600px;right:96px;bottom:96px;display:grid;grid-template-columns:repeat(4,1fr);gap:26px;font-size:20px">
+    <div><p class="mono accent">Profile</p><p style="margin-top:8px;color:var(--plat)">Chrome symbol on graphite — same on TikTok &amp; WhatsApp</p></div>
+    <div><p class="mono accent">Rhythm</p><p style="margin-top:8px;color:var(--plat)">Statement → Project → Insight, repeating</p></div>
+    <div><p class="mono accent">Layout</p><p style="margin-top:8px;color:var(--plat)">1080×1350 · 72px margins · mono labels top</p></div>
+    <div><p class="mono accent">Highlights</p><p style="margin-top:8px;color:var(--plat)">Carbon circle · saffron line icon</p></div>
+  </div>
+</section>
+
+<!-- 21 STORIES & REELS -->
+<section class="slide saffron">
+  <div class="stripes" style="left:0;right:0;top:0;height:260px"></div>
+  <div class="sh"><span class="mono">11 · Stories &amp; Reels</span><span class="mono">الستوري والريلز</span><span class="mono">21</span></div>
+  <div style="position:absolute;left:96px;top:140px;width:520px;display:grid;gap:26px">
+    <h2 class="title" style="font-size:118px;color:var(--ink)">Stories<br>&amp; Reels</h2>
+    <p style="font-size:24px;line-height:1.55;color:var(--ink)">Arabic-first questions, one bone button, titles kept inside the centre 1:1 safe zone so covers read on the grid and in the feed.</p>
+    <p lang="ar" dir="rtl" style="font:900 60px/1.3 var(--ar);text-align:left;color:var(--ink)">وش صنعت اليوم؟</p>
+  </div>
+  <div style="position:absolute;right:96px;top:150px;display:flex;gap:40px">
+    <div class="phone"><div class="scr" style="background:var(--ink);padding:70px 30px 50px;justify-content:space-between"><div style="display:flex;justify-content:space-between"><span class="mono muted" style="font-size:13px">SIMA</span><span class="mono muted" style="font-size:13px">Q&amp;A</span></div><p lang="ar" dir="rtl" style="font:900 46px/1.35 var(--ar)">كم يستغرق بناء موقع لعلامتك؟</p><span style="align-self:center;background:var(--bone);color:var(--ink);border-radius:99px;padding:14px 30px;font:700 20px var(--ar)" lang="ar">اسألنا</span><div style="position:absolute;left:-30%;right:-30%;bottom:-40%;aspect-ratio:1;border-radius:50%;border:2px solid rgba(232,163,58,.4)"></div></div></div>
+    <div class="phone"><div class="scr" style="background:#000"><img src="../../src/assets/images/ind-perfume.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.2) brightness(.7)"><div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.85))"></div><div style="position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);aspect-ratio:1;border-block:2px dashed rgba(232,163,58,.8);display:grid;place-items:center;text-align:center;padding:30px"><div><p lang="ar" style="font:900 44px/1.3 var(--ar)">من الفكرة إلى الإطلاق</p><p class="mono accent" style="font-size:13px;margin-top:12px">Behind the build</p></div></div></div></div>
+    <div class="phone"><div class="scr" style="background:var(--lime);color:var(--ink);padding:70px 30px 50px;justify-content:space-between"><div style="display:flex;justify-content:space-between"><span class="mono" style="font-size:13px;color:#5c5c61">Process · 02</span><span class="mono" style="font-size:13px;color:#5c5c61">SIMA</span></div><div><p style="font:800 64px/0.9 var(--cond);text-transform:uppercase">Week two:<br>type &amp; colour</p><p lang="ar" style="font:900 34px/1.4 var(--ar);margin-top:16px">الأسبوع الثاني: الخطوط والألوان.</p></div><div style="display:flex;gap:8px"><i style="flex:1;height:60px;background:var(--ink)"></i><i style="flex:1;height:60px;background:var(--plat)"></i><i style="flex:.35;height:60px;background:var(--saffron)"></i></div></div></div>
+  </div>
+</section>
+
+<!-- 22 STATIONERY · path-traced render -->
+<section class="slide dark">
+  <img class="render" src="renders/stationery.jpg" alt="SIMA business cards, proposal and letterhead">
+  <div class="render-shade"></div>
+  <div class="sh"><span class="mono">12 · Stationery</span><span class="mono accent">المطبوعات</span><span class="mono">22</span></div>
+  <p class="mono" style="position:absolute;left:96px;bottom:56px;z-index:5;color:var(--plat)">Business cards 85×55 · raised platinum foil S · saffron back · A4 proposal &amp; letterhead</p>
+</section>
+
+<!-- 23 DIGITAL · path-traced render -->
+<section class="slide black">
+  <img class="render" src="renders/devices.jpg" alt="SIMA website on a laptop and phone">
+  <div class="render-shade"></div>
+  <div class="sh"><span class="mono">12 · Digital</span><span class="mono accent">الموقع</span><span class="mono">23</span></div>
+  <p class="mono" style="position:absolute;left:96px;bottom:56px;z-index:5;color:var(--plat)">Website · desktop hero in English · mobile hero in Arabic</p>
+</section>
+
+<!-- 24 MERCH & PRESENTATIONS · path-traced renders -->
+<section class="slide dark">
+  <div class="sh"><span class="mono">12 · Merch &amp; Presentations</span><span class="mono accent">التطبيقات</span><span class="mono">24</span></div>
+  <div class="render-grid">
+    <div class="render-tile" style="grid-row:span 2"><img src="renders/merch.jpg" alt="SIMA tote bag and folded tee" style="object-position:36% 50%"><span class="cap">Canvas tote · folded tee</span></div>
+    <div class="render-tile"><img src="renders/perfume.jpg" alt="NOBLE perfume bottle and box" style="object-position:50% 55%"><span class="cap">NOBLE · perfume brand direction</span></div>
+    <div class="render-tile"><img src="renders/tablet.jpg" alt="Client kick-off agenda on a tablet" style="object-position:50% 52%"><span class="cap">Client presentation · kick-off agenda</span></div>
+  </div>
+  <p class="mono muted" style="position:absolute;left:96px;bottom:60px">Tote · tee · perfume brand presentation · client presentation</p>
+</section>
+
+<!-- 25 THANK YOU -->
+<section class="slide dark">
+  <svg class="frame" viewBox="0 0 1920 1080"><path d="M60 110H900V70H1860V1020H60Z"/></svg>
+  <div style="position:absolute;top:130px;left:50%;transform:translateX(-50%)"><span class="seal" style="font-size:96px;color:var(--saffron)"><span class="yr">20</span><span class="pill"><svg class="sym"><use href="#S" fill="#e8a33a"/></svg></span><span class="yr">26</span></span></div>
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:50px">
+    <span style="font:600 70px var(--body);color:var(--saffron)">Thank you</span>
+    <span lang="ar" style="font:900 200px/1.2 var(--ar)">شكرًا لكم</span>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:110px;display:flex;justify-content:center;gap:40px;align-items:center">
+    <span class="wm" style="font-size:34px;color:var(--saffron)">SIMA STUDIO</span>
+    <span lang="ar" style="font:900 44px var(--ar);color:var(--saffron)">سِمة</span>
+  </div>
+  <p class="mono muted" style="position:absolute;left:0;right:0;bottom:60px;text-align:center">simastudio7@gmail.com · +966 58 273 7120</p>
+</section>
+
+</body>
+</html>
