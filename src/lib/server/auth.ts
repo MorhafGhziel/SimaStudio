@@ -13,7 +13,9 @@ export const ADMIN_EMAILS = ['ghzielmorhaf@gmail.com', 'aghyadghziel@gmail.com']
 
 export const SESSION_COOKIE = '__Host-sima_admin';
 const SESSION_HOURS = 12;
-const CODE_MINUTES = 10;
+// 30, not 10: Gmail throttles mail from a young sending domain, so a code can arrive
+// several minutes late. A short window meant a delivered code was already dead.
+const CODE_MINUTES = 30;
 const MAX_ATTEMPTS = 5;
 
 const normalizeEmail = (value: unknown) => (typeof value === 'string' ? value.trim().toLowerCase().slice(0, 254) : '');

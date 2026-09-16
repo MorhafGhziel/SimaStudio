@@ -35,10 +35,10 @@ ${body}
 export function loginCodeMail(code: string) {
   return {
     subject: `SIMA admin code: ${code}`,
-    text: `Your SIMA admin login code is ${code}.\n\nIt expires in 10 minutes and can only be used once. If you didn't request it, ignore this email.`,
+    text: `Your SIMA admin login code is ${code}.\n\nIt expires in 30 minutes and can only be used once. If you didn't request it, ignore this email.`,
     html: shell(`<p style="color:#8d8d99;margin:0 0 14px">Your login code</p>
 <p style="font-size:40px;letter-spacing:.3em;font-weight:700;margin:0 0 18px">${code}</p>
-<p style="color:#8d8d99;margin:0">Expires in 10 minutes and works once. If you didn't request it, ignore this email.</p>`),
+<p style="color:#8d8d99;margin:0">Expires in 30 minutes and works once. If you didn't request it, ignore this email.</p>`),
   };
 }
 
