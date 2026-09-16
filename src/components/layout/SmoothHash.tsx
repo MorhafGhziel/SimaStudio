@@ -28,8 +28,9 @@ export function SmoothHash() {
       history.pushState(null, '', url.hash);
     };
 
-    document.addEventListener('click', onClick);
-    return () => document.removeEventListener('click', onClick);
+    // Capture phase: the router handles anchor clicks first otherwise, and jumps.
+    document.addEventListener('click', onClick, { capture: true });
+    return () => document.removeEventListener('click', onClick, { capture: true });
   }, []);
 
   return null;
