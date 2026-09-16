@@ -1,5 +1,5 @@
 import { faqs, packages } from '@/content/offer';
-import { instagramUrl, studio, tiktokUrl } from '@/content/site';
+import { instagramUrl, launchOffer, launchOfferEnds, studio, tiktokUrl } from '@/content/site';
 import type { Locale } from '@/lib/i18n';
 
 function Script({ data }: { data: unknown }) {
@@ -7,6 +7,8 @@ function Script({ data }: { data: unknown }) {
 }
 
 export function StudioJsonLd({ locale }: { locale: Locale }) {
+  const offer = launchOffer();
+
   return (
     <>
       <Script
@@ -24,12 +26,14 @@ export function StudioJsonLd({ locale }: { locale: Locale }) {
               : 'Digital studio designing and building websites, e-commerce and interactive experiences for ambitious brands.',
           knowsAbout: ['Website design', 'Web development', 'E-commerce', 'Interactive 3D websites', 'Arabic RTL websites'],
           sameAs: [instagramUrl, tiktokUrl],
+          // Advertise the price a client actually pays today, so search results match the site.
           makesOffer: packages.map((p) => ({
             '@type': 'Offer',
             name: `${p.name} website package`,
             description: p.tagline[locale],
-            price: p.price,
+            price: offer.active ? p.launchPrice : p.price,
             priceCurrency: 'SAR',
+            ...(offer.active ? { priceValidUntil: launchOfferEnds.slice(0, 10) } : {}),
           })),
         }}
       />

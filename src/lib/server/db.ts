@@ -96,6 +96,21 @@ export const SCHEMA: string[] = [
     user_agent text
   )`,
   `create index if not exists admin_logins_ts_idx on admin_logins (ts)`,
+  `create table if not exists testimonials (
+    id bigserial primary key,
+    name text not null,
+    brand text,
+    rating integer not null,
+    message text not null,
+    locale text not null default 'ar',
+    status text not null default 'pending',
+    created_at timestamptz not null default now(),
+    reviewed_at timestamptz,
+    ip_hash text,
+    country text,
+    city text
+  )`,
+  `create index if not exists testimonials_status_idx on testimonials (status, created_at desc)`,
   `create table if not exists rate_limits (
     key text not null,
     window_start bigint not null,

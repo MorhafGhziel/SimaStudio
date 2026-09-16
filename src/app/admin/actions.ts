@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { requestLoginCode, revokeAllOtherSessions, revokeSession, SESSION_COOKIE, signOut, verifyLoginCode, type AuthResult } from '@/lib/server/auth';
+import { deleteTestimonial, setTestimonialStatus } from '@/lib/server/testimonials';
 
 /** Every action is a public POST endpoint: each one validates input and re-checks auth itself. */
 
@@ -31,6 +32,15 @@ export async function revokeSessionAction(formData: FormData) {
     (await cookies()).delete(SESSION_COOKIE);
     redirect('/admin/login');
   }
+  revalidatePath('/admin');
+}
+
+export async function moderateTestimonialAction(formData: FormData) {
+  const id = Number(formData.get('id'));
+  const action = formData.get('action');
+  if (!Number.isInteger(id)) return;
+  if (action === 'delete') await deleteTestimonial(id);
+  else if (action === 'approved' || action === 'rejected' || action === 'pending') await setTestimonialStatus(id, action);
   revalidatePath('/admin');
 }
 

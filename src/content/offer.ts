@@ -27,7 +27,10 @@ export type Package = {
   id: 'starter' | 'signature' | 'immersive';
   number: string;
   name: string;
+  /** Full price. */
   price: number;
+  /** Launch-offer price, shown instead of `price` while the offer runs (see launchOffer in content/site). */
+  launchPrice: number;
   tagline: T;
   audience: T;
   features: T[];
@@ -41,7 +44,8 @@ export const packages: Package[] = [
     id: 'starter',
     number: '01',
     name: 'Starter',
-    price: 1500,
+    price: 2500,
+    launchPrice: 1500,
     tagline: t('A professional digital presence.', 'حضور رقمي احترافي.'),
     audience: t('For brands that need a clean, professional website.', 'للعلامات التي تحتاج موقعًا احترافيًا وأنيقًا.'),
     features: [
@@ -62,7 +66,8 @@ export const packages: Package[] = [
     id: 'signature',
     number: '02',
     name: 'Signature',
-    price: 2500,
+    price: 4500,
+    launchPrice: 2500,
     popular: true,
     tagline: t('A complete brand experience.', 'تجربة متكاملة لعلامتك.'),
     audience: t('For brands ready for a fully custom, bilingual website.', 'للعلامات الجاهزة لموقع مخصص بالكامل وثنائي اللغة.'),
@@ -84,7 +89,8 @@ export const packages: Package[] = [
     id: 'immersive',
     number: '03',
     name: 'Immersive',
-    price: 5000,
+    price: 8000,
+    launchPrice: 5000,
     tagline: t('For brands that want to stand out.', 'للعلامات التي تريد أن تتميّز.'),
     audience: t('For brands that want their website to be remembered.', 'للعلامات التي تريد موقعًا لا يُنسى.'),
     features: [

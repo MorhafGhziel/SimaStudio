@@ -10,6 +10,7 @@ import { LinkButton } from '@/components/ui/Button';
 import type { Package } from '@/content/offer';
 import { useMedia, useWebGL } from '@/lib/capabilities';
 import { selectBudget } from '@/lib/events';
+import { launchOffer } from '@/content/site';
 import { formatSAR, href } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 
@@ -24,6 +25,7 @@ export function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
   const box = useRef<HTMLDivElement>(null);
   const near = useInView(box, { margin: '300px 0px' });
   const visible = useInView(box);
+  const offer = launchOffer();
   const immersive = pkg.id === 'immersive';
   const show3d = immersive && webgl && desktop && !reduce;
 
@@ -73,7 +75,24 @@ export function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
 
       <div className="mt-auto pt-10">
         <div className="flex items-end justify-between gap-4 border-t border-line pt-6">
-          <p className="text-[2rem] font-medium leading-none tracking-[-0.03em]">{formatSAR(pkg.price, locale)}</p>
+          <div>
+            {offer.active ? (
+              <>
+                <span className="flex items-center gap-2">
+                  <span className="text-sm text-faint line-through" dir="ltr">
+                    <span className="sr-only">{dict.packages.was} </span>
+                    {formatSAR(pkg.price, locale)}
+                  </span>
+                  <span className="rounded-pill bg-accent/15 px-2 py-0.5 text-xs font-semibold text-accent" dir="ltr">
+                    −{Math.round((1 - pkg.launchPrice / pkg.price) * 100)}%
+                  </span>
+                </span>
+                <p className="mt-1 text-[2rem] font-medium leading-none tracking-[-0.03em] text-accent">{formatSAR(pkg.launchPrice, locale)}</p>
+              </>
+            ) : (
+              <p className="text-[2rem] font-medium leading-none tracking-[-0.03em]">{formatSAR(pkg.price, locale)}</p>
+            )}
+          </div>
           <p className="text-end text-xs text-faint">
             {dict.packages.timeline}
             <br />

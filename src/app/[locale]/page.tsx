@@ -5,6 +5,7 @@ import { Packages } from '@/components/sections/Packages';
 import { Process } from '@/components/sections/Process';
 import { SelectedWork } from '@/components/sections/SelectedWork';
 import { Services } from '@/components/sections/Services';
+import { Testimonials } from '@/components/sections/Testimonials';
 import { StudioJsonLd } from '@/components/seo/JsonLd';
 import { isLocale } from '@/lib/i18n';
 
@@ -17,6 +18,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
       <Services />
       <Packages />
       <Process />
+      {isLocale(locale) && <Testimonials locale={locale} />}
       <FAQ />
       <Contact />
       {isLocale(locale) && <StudioJsonLd locale={locale} />}

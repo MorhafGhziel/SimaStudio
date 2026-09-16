@@ -5,9 +5,10 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis, ZAxis } from 'recharts';
 import type { Dashboard, RangeKey } from '@/lib/server/analytics';
-import { revokeOthersAction, revokeSessionAction, signOutAction } from './actions';
+import type { AdminTestimonial } from '@/lib/server/testimonials';
+import { moderateTestimonialAction, revokeOthersAction, revokeSessionAction, signOutAction } from './actions';
 
-type Props = { data: Dashboard; ranges: { key: RangeKey; label: string }[]; me: { email: string; sessionId: string } };
+type Props = { data: Dashboard; ranges: { key: RangeKey; label: string }[]; me: { email: string; sessionId: string }; testimonials: AdminTestimonial[] };
 type Row = Record<string, unknown>;
 
 const PALETTE = ['#3ec6ff', '#8b9dff', '#b340ff', '#ff2e9e', '#ff7338', '#5b8bff', '#22c55e', '#eab308', '#8d8d99'];
@@ -229,7 +230,7 @@ function Journey({ sessionId, onClose }: { sessionId: string; onClose: () => voi
   );
 }
 
-export function DashboardView({ data, ranges, me }: Props) {
+export function DashboardView({ data, ranges, me, testimonials }: Props) {
   const router = useRouter();
   const [metric, setMetric] = useState<'visitors' | 'sessions' | 'pageviews'>('visitors');
   const [sourceTab, setSourceTab] = useState<'source' | 'referrer' | 'campaign' | 'medium'>('source');
@@ -622,6 +623,54 @@ export function DashboardView({ data, ranges, me }: Props) {
           <p className="mt-2 text-xs text-faint">Click a visit to see its full journey.</p>
         </Card>
       </div>
+
+      {/* Client reviews — nothing appears on the website until it is approved here. */}
+      <Card title={`Client reviews${testimonials.filter((t) => t.status === 'pending').length ? ` · ${testimonials.filter((t) => t.status === 'pending').length} waiting` : ''}`} className="mt-3">
+        {testimonials.length ? (
+          <ul className="max-h-[440px] space-y-3 overflow-auto">
+            {testimonials.map((t) => (
+              <li key={t.id} className="rounded-xl border border-line p-4">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm">
+                      <span className="text-accent" dir="ltr">{'★'.repeat(t.rating)}</span> <span className="font-medium">{t.name}</span>
+                      {t.brand ? <span className="text-mute"> · {t.brand}</span> : null}
+                      <span className={`ms-2 rounded-pill px-2 py-0.5 text-xs ${t.status === 'approved' ? 'bg-[#22c55e]/15 text-[#22c55e]' : t.status === 'rejected' ? 'bg-[#ff8a8a]/15 text-[#ff8a8a]' : 'bg-accent/15 text-accent'}`}>{t.status}</span>
+                    </p>
+                    <p className="mt-2 text-sm text-[#cfcfd2]">{t.message}</p>
+                    <p className="mt-2 text-xs text-faint">
+                      {when(t.created_at)} · {String(t.locale).toUpperCase()} · {flag(t.country)} {[t.city, countryName(t.country)].filter((x) => x && x !== 'Unknown').join(', ') || 'Unknown'}
+                    </p>
+                  </div>
+                  <div className="flex shrink-0 gap-2">
+                    {t.status !== 'approved' && (
+                      <form action={moderateTestimonialAction}>
+                        <input type="hidden" name="id" value={t.id} />
+                        <input type="hidden" name="action" value="approved" />
+                        <button className="rounded-pill border border-line px-3 py-1 text-xs text-mute hover:border-[#22c55e]/60 hover:text-[#22c55e]">Approve</button>
+                      </form>
+                    )}
+                    {t.status !== 'rejected' && (
+                      <form action={moderateTestimonialAction}>
+                        <input type="hidden" name="id" value={t.id} />
+                        <input type="hidden" name="action" value="rejected" />
+                        <button className="rounded-pill border border-line px-3 py-1 text-xs text-mute hover:text-paper">Hide</button>
+                      </form>
+                    )}
+                    <form action={moderateTestimonialAction}>
+                      <input type="hidden" name="id" value={t.id} />
+                      <input type="hidden" name="action" value="delete" />
+                      <button className="rounded-pill border border-line px-3 py-1 text-xs text-mute hover:border-[#ff8a8a]/60 hover:text-[#ff8a8a]">Delete</button>
+                    </form>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="py-8 text-center text-sm text-faint">No reviews submitted yet. They appear here for approval before showing on the site.</p>
+        )}
+      </Card>
 
       {/* Security */}
       <div className="mt-3 grid gap-3 lg:grid-cols-2">
