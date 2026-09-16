@@ -42,6 +42,9 @@ export async function moderateTestimonialAction(formData: FormData) {
   if (action === 'delete') await deleteTestimonial(id);
   else if (action === 'approved' || action === 'rejected' || action === 'pending') await setTestimonialStatus(id, action);
   revalidatePath('/admin');
+  // The home pages are prerendered, so rebuild them or an approved review never appears.
+  revalidatePath('/ar');
+  revalidatePath('/en');
 }
 
 export async function revokeOthersAction() {

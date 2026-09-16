@@ -7,7 +7,7 @@ export const dictionary = {
         'SIMA is a digital studio designing premium websites, e-commerce and interactive experiences for perfume, fashion, beauty, restaurant and café brands.',
     },
     skip: 'Skip to content',
-    nav: { work: 'Work', services: 'Services', packages: 'Packages', process: 'Process', about: 'About', start: 'Start a Project', menu: 'Menu', close: 'Close' },
+    nav: { work: 'Work', services: 'Services', packages: 'Packages', process: 'Process', reviews: 'Reviews', about: 'About', start: 'Start a Project', menu: 'Menu', close: 'Close' },
     hero: {
       kicker: 'Digital design studio',
       line1: 'We build brands',
@@ -140,7 +140,7 @@ export const dictionary = {
         'سِمة استوديو رقمي يصمم ويبني مواقع فاخرة ومتاجر إلكترونية وتجارب تفاعلية لعلامات العطور والأزياء والتجميل والمطاعم والمقاهي.',
     },
     skip: 'انتقل إلى المحتوى',
-    nav: { work: 'أعمالنا', services: 'خدماتنا', packages: 'الباقات', process: 'آلية العمل', about: 'من نحن', start: 'ابدأ مشروعك', menu: 'القائمة', close: 'إغلاق' },
+    nav: { work: 'أعمالنا', services: 'خدماتنا', packages: 'الباقات', process: 'آلية العمل', reviews: 'التقييمات', about: 'من نحن', start: 'ابدأ مشروعك', menu: 'القائمة', close: 'إغلاق' },
     hero: {
       kicker: 'استوديو تصميم رقمي',
       line1: 'نبني للعلامات',

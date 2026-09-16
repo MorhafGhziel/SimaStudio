@@ -5,6 +5,7 @@ import { Tracker } from '@/components/analytics/Tracker';
 import { Cursor } from '@/components/layout/Cursor';
 import { Footer } from '@/components/layout/Footer';
 import { Navbar } from '@/components/layout/Navbar';
+import { SmoothHash } from '@/components/layout/SmoothHash';
 import { WhatsAppFab } from '@/components/layout/WhatsAppFab';
 import { LocaleProvider } from '@/components/providers/LocaleProvider';
 import { dictionary } from '@/content/dictionary';
@@ -56,6 +57,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
           <Footer locale={locale} />
           <WhatsAppFab />
           <Cursor />
+          <SmoothHash />
           <Tracker />
         </LocaleProvider>
       </body>

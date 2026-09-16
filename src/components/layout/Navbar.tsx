@@ -47,6 +47,7 @@ export function Navbar() {
     { id: 'services', label: dict.nav.services },
     { id: 'packages', label: dict.nav.packages },
     { id: 'process', label: dict.nav.process },
+    { id: 'testimonials', label: dict.nav.reviews },
   ];
 
   useEffect(() => {
