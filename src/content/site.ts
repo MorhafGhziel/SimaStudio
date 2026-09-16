@@ -9,7 +9,7 @@ import type { T } from '@/lib/i18n';
 export const studio = {
   name: 'SIMA',
   arName: 'سِمة',
-  url: 'https://sima.studio', // PLACEHOLDER — production domain
+  url: 'https://www.simastudio.it.com', // canonical production domain (apex redirects here)
   email: 'simastudio7@gmail.com',
   whatsapp: '966582737120', // international format, no + or spaces
   whatsappDisplay: '+966 58 273 7120',
