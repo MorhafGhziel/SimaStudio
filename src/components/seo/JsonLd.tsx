@@ -20,6 +20,21 @@ export function StudioJsonLd({ locale }: { locale: Locale }) {
           alternateName: studio.arName,
           url: `${studio.url}/${locale}`,
           email: studio.email,
+          telephone: `+${studio.whatsapp}`,
+          // Service-area business: we serve clients remotely, so there is no public street
+          // address — only the country and the cities we work in.
+          address: { '@type': 'PostalAddress', addressCountry: 'SA' },
+          areaServed: [
+            { '@type': 'City', name: locale === 'ar' ? 'جدة' : 'Jeddah' },
+            { '@type': 'City', name: locale === 'ar' ? 'الرياض' : 'Riyadh' },
+            { '@type': 'Country', name: locale === 'ar' ? 'السعودية' : 'Saudi Arabia' },
+          ],
+          availableLanguage: [
+            { '@type': 'Language', name: 'Arabic', alternateName: 'ar' },
+            { '@type': 'Language', name: 'English', alternateName: 'en' },
+          ],
+          priceRange: 'SAR 2,500–8,000',
+          currenciesAccepted: 'SAR',
           description:
             locale === 'ar'
               ? 'استوديو رقمي لتصميم وتطوير المواقع والمتاجر الإلكترونية والتجارب التفاعلية.'

@@ -1,9 +1,10 @@
 import type { MetadataRoute } from 'next';
+import { landings } from '@/content/landing';
 import { projects } from '@/content/projects';
 import { studio } from '@/content/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const paths = ['', ...projects.map((p) => `/work/${p.slug}`)];
+  const paths = ['', ...landings.map((l) => `/${l.slug}`), ...projects.map((p) => `/work/${p.slug}`)];
   return paths.map((path) => ({
     url: `${studio.url}/ar${path}`,
     changeFrequency: path ? 'monthly' : 'weekly',
