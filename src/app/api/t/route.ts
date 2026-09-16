@@ -1,4 +1,5 @@
 import { after } from 'next/server';
+import { OWN_COOKIE } from '@/app/api/own/route';
 import { SESSION_COOKIE } from '@/lib/server/auth';
 import { db, ensureSchema } from '@/lib/server/db';
 import { hmac, requestMeta } from '@/lib/server/security';
@@ -33,8 +34,13 @@ export async function POST(request: Request) {
   if (body.length > 4000 || !db()) return new Response(null, { status: 204 });
 
   const meta = requestMeta(request.headers);
-  // Admins' own visits and bots don't count.
-  if (isBot(meta.userAgent) || request.headers.get('cookie')?.includes(`${SESSION_COOKIE}=`)) return new Response(null, { status: 204 });
+  if (isBot(meta.userAgent)) return new Response(null, { status: 204 });
+
+  // Our own visits are recorded but flagged, so the dashboard can show them as "You" and
+  // still leave them out of every total. Either a live admin session or the long-lived
+  // marker cookie from /api/own counts — the marker survives logout and works on phones.
+  const cookie = request.headers.get('cookie') ?? '';
+  const isOwn = cookie.includes(`${SESSION_COOKIE}=`) || cookie.includes(`${OWN_COOKIE}=1`);
 
   let data: Beacon;
   try {
@@ -69,11 +75,11 @@ export async function POST(request: Request) {
       const ua = parseUserAgent(meta.userAgent);
       await sql`
         insert into analytics_sessions (id, visitor_id, entry_path, exit_path, referrer, referrer_host, source, utm_source, utm_medium, utm_campaign,
-          country, region, city, latitude, longitude, timezone, device, browser, os, screen, language, locale, is_new, pageviews)
+          country, region, city, latitude, longitude, timezone, device, browser, os, screen, language, locale, is_new, is_own, pageviews)
         values (${sid}, ${vid}, ${path}, ${path}, ${referrer}, ${referrerHost}, ${classifySource(referrerHost, utmSource)}, ${utmSource},
           ${str(data.utm?.medium, 80)}, ${str(data.utm?.campaign, 120)}, ${meta.country}, ${meta.region}, ${meta.city}, ${meta.latitude}, ${meta.longitude},
           ${meta.timezone}, ${ua.device}, ${ua.browser}, ${ua.os}, ${str(data.screen, 20)}, ${str(data.language, 20)}, ${str(data.locale, 5)},
-          not exists (select 1 from analytics_sessions where visitor_id = ${vid}), 1)
+          not exists (select 1 from analytics_sessions where visitor_id = ${vid}), ${isOwn}, 1)
         on conflict (id) do update set last_seen = now(), exit_path = excluded.exit_path, pageviews = analytics_sessions.pageviews + 1
         where analytics_sessions.visitor_id = excluded.visitor_id`;
       await sql`insert into analytics_events (session_id, visitor_id, type, path) values (${sid}, ${vid}, 'pageview', ${path})`;

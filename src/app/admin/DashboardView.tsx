@@ -569,6 +569,7 @@ export function DashboardView({ data, ranges, me, testimonials }: Props) {
                   <div className="min-w-0">
                     <p className="truncate">
                       {flag(s.country)} {String(s.city ?? countryName(s.country))} · <span className="text-mute">{String(s.path)}</span>
+                      {s.is_own ? <span className="ms-2 rounded-pill bg-emerald-400/15 px-2 py-0.5 text-[11px] text-emerald-300">You</span> : null}
                     </p>
                     <p className="text-xs text-faint">
                       {String(s.device)} · {String(s.browser)} · from {String(s.source)}
@@ -611,7 +612,15 @@ export function DashboardView({ data, ranges, me, testimonials }: Props) {
                       </td>
                       <td className="px-2 py-2 tabular-nums">{fmt(n(s.pageviews))}</td>
                       <td className="px-2 py-2 tabular-nums">{dur(n(s.duration))}</td>
-                      <td className="px-2 py-2 text-xs">{s.is_new ? <span className="rounded-pill bg-accent/15 px-2 py-0.5 text-accent">New</span> : <span className="text-faint">Returning</span>}</td>
+                      <td className="px-2 py-2 text-xs">
+                        {s.is_own ? (
+                          <span className="rounded-pill bg-emerald-400/15 px-2 py-0.5 text-emerald-300">You</span>
+                        ) : s.is_new ? (
+                          <span className="rounded-pill bg-accent/15 px-2 py-0.5 text-accent">New</span>
+                        ) : (
+                          <span className="text-faint">Returning</span>
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

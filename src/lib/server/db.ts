@@ -50,6 +50,8 @@ export const SCHEMA: string[] = [
     is_new boolean not null default true,
     pageviews integer not null default 0
   )`,
+  // Added after the table existed, so it has to be a separate idempotent statement.
+  `alter table analytics_sessions add column if not exists is_own boolean not null default false`,
   `create index if not exists analytics_sessions_started_idx on analytics_sessions (started_at)`,
   `create index if not exists analytics_sessions_last_seen_idx on analytics_sessions (last_seen)`,
   `create index if not exists analytics_sessions_visitor_idx on analytics_sessions (visitor_id)`,
