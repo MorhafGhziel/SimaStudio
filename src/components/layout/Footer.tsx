@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { dictionary } from '@/content/dictionary';
+import { landings } from '@/content/landing';
 import { instagramUrl, studio, tiktokUrl, whatsappMessage, whatsappUrl } from '@/content/site';
 import { href, type Locale } from '@/lib/i18n';
 import { FooterSilk } from './FooterSilk';
@@ -22,7 +23,7 @@ export function Footer({ locale }: { locale: Locale }) {
         <FooterSilk />
       </div>
       <div className="container-x grid gap-12 pb-40 pt-16 md:grid-cols-12 md:pb-56 md:pt-20">
-        <div className="md:col-span-5">
+        <div className="md:col-span-4">
           <Logo locale={locale} />
           <p className="mt-5 max-w-[30ch] text-mute">{d.footer.statement}</p>
           <a
@@ -52,6 +53,18 @@ export function Footer({ locale }: { locale: Locale }) {
             ))}
           </ul>
         </nav>
+        <nav aria-label={d.footer.explore} className="md:col-span-2">
+          <p className="eyebrow">{d.footer.explore}</p>
+          <ul className="mt-4 space-y-3 text-[0.95rem]">
+            {landings.map((l) => (
+              <li key={l.slug}>
+                <Link href={href(locale, `/${l.slug}`)} className={link}>
+                  {l.title[locale]}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
         <div className="md:col-span-2">
           <p className="eyebrow">{d.footer.social}</p>
           <ul className="mt-4 space-y-3 text-[0.95rem]">
@@ -72,7 +85,7 @@ export function Footer({ locale }: { locale: Locale }) {
             </li>
           </ul>
         </div>
-        <div className="md:col-span-3">
+        <div className="md:col-span-2">
           <p className="eyebrow">{d.footer.contact}</p>
           <ul className="mt-4 space-y-3 text-[0.95rem]">
             <li>
