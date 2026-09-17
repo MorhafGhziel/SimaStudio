@@ -1,8 +1,8 @@
 import type { T } from '@/lib/i18n';
 
 /**
- * Selected work. These are self-initiated concept projects designed and
- * built by the studio — labelled as such everywhere. Screenshots live in
+ * Selected work. Client projects are flagged with `client`; the rest are
+ * self-initiated concept projects designed and built by the studio — labelled as such everywhere. Screenshots live in
  * /public/work/{slug}-{hero|detail|extra|mobile}.jpg.
  */
 export type Project = {
@@ -18,6 +18,8 @@ export type Project = {
   tech: string[];
   year: string;
   live?: string;
+  /** Real client work. Everything else is a self-initiated concept. */
+  client?: boolean;
   overview: T;
   challenge: T;
   concept: T;
@@ -29,8 +31,47 @@ const t = (en: string, ar: string): T => ({ en, ar });
 
 export const projects: Project[] = [
   {
-    slug: 'noble-immersive',
+    slug: 'nasaq',
     number: '01',
+    name: 'NASAQ',
+    arName: 'نسق',
+    client: true,
+    industry: t('Uniforms · B2B', 'أزياء موحدة · B2B'),
+    kind: t('Brand website + 3D configurator', 'موقع علامة + مصمم ثلاثي الأبعاد'),
+    summary: t(
+      'A Saudi workwear company: a new identity, a 3D shirt sewn from a real sewing pattern, and a live configurator that turns into a quote request.',
+      'شركة أزياء عمل سعودية: هوية جديدة، وقميص ثلاثي الأبعاد مخيط من باترون حقيقي، ومصمم مباشر يتحول إلى طلب عرض سعر.',
+    ),
+    tags: [t('Client', 'عميل'), t('B2B', 'B2B'), t('3D', 'ثلاثي الأبعاد'), t('Arabic + English', 'عربي + إنجليزي')],
+    services: [t('Brand identity', 'الهوية البصرية'), t('3D experience', 'تجربة ثلاثية الأبعاد'), t('Web development', 'تطوير الويب')],
+    tech: ['Next.js', 'React Three Fiber', 'GSAP', 'Tailwind CSS', 'TypeScript'],
+    year: '2026',
+    live: 'https://www.nasaqksa.com/',
+    overview: t(
+      'Nasaq designs and manufactures uniforms for companies across Saudi Arabia — corporate, healthcare, hospitality, industrial and more. We replaced their existing site with a bilingual experience that sells confidence to procurement teams and lets them see their uniform before they order.',
+      'نسق تصمم وتصنّع الأزياء الموحدة للشركات في أنحاء المملكة — القطاع المؤسسي والصحي والضيافة والصناعي وغيرها. استبدلنا موقعهم السابق بتجربة ثنائية اللغة تمنح فرق المشتريات الثقة، وتتيح لهم رؤية زيّهم قبل الطلب.',
+    ),
+    challenge: t(
+      'Uniforms are bought by companies, not shoppers. The site had to work for a procurement manager on a laptop and an owner on a phone, Arabic first, and turn "we are interested" into a specific quote request.',
+      'الأزياء الموحدة تشتريها الشركات لا المتسوقون. كان على الموقع أن يخدم مدير مشتريات على حاسوبه وصاحب عمل على هاتفه، بالعربية أولًا، وأن يحوّل "نحن مهتمون" إلى طلب عرض سعر محدد.',
+    ),
+    concept: t(
+      'The shirt is the site. A T-shirt sewn in a cloth simulation from a real sewing pattern sits in the hero, turns under the cursor, and scrolling takes the camera into the fabric, the embroidery and the hem. The same shirt becomes a configurator — colour, embroidery or print, thread and placement — and the choice fills the quote form.',
+      'القميص هو الموقع. تيشيرت مخيط في محاكاة قماش من باترون خياطة حقيقي يتصدر الواجهة، يدور مع المؤشر، ومع التمرير تدخل الكاميرا إلى القماش والتطريز والحاشية. القميص نفسه يتحول إلى مصمم — اللون، تطريز أو طباعة، الخيط والموضع — والاختيار يملأ نموذج عرض السعر.',
+    ),
+    design: t(
+      'Paper and ink with a single thread-gold accent, Jost and Alexandria for headlines, a new monoline «نسق» wordmark, and photography for twelve industries from aviation to education.',
+      'ورق وحبر مع لون ذهبي واحد كالخيط، وخطا Jost وAlexandria للعناوين، وشعار «نسق» جديد بخط أحادي، وصور لاثني عشر قطاعًا من الطيران إلى التعليم.',
+    ),
+    interactions: [
+      { title: t('The hero shirt', 'قميص الواجهة'), text: t('Drag to turn; scroll zooms into the stitching.', 'اسحب للتدوير؛ التمرير يقرّب إلى الغرز.') },
+      { title: t('Studio configurator', 'مصمم الاستوديو'), text: t('Colour, embroidery, thread and placement, straight into a quote.', 'اللون والتطريز والخيط والموضع، مباشرة إلى عرض السعر.') },
+      { title: t('Twelve industries', 'اثنا عشر قطاعًا'), text: t('Pinned horizontal scroll on desktop, swipe on mobile.', 'تمرير أفقي مثبت على الحاسوب، وسحب على الجوال.') },
+    ],
+  },
+  {
+    slug: 'noble-immersive',
+    number: '02',
     name: 'NOBLE Immersive',
     arName: 'نُبل — تجربة غامرة',
     industry: t('Perfume', 'العطور'),
@@ -65,7 +106,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'noble-store',
-    number: '02',
+    number: '03',
     name: 'NOBLE Store',
     arName: 'نُبل — المتجر',
     industry: t('E-commerce', 'تجارة إلكترونية'),
@@ -100,7 +141,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'najdi-table',
-    number: '03',
+    number: '04',
     name: 'Najdi Table',
     arName: 'مائدة نجد',
     industry: t('Restaurant', 'مطاعم'),
@@ -135,7 +176,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'rashfa',
-    number: '04',
+    number: '05',
     name: 'Rashfa',
     arName: 'رشفة',
     industry: t('Café', 'مقاهي'),

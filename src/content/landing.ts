@@ -84,7 +84,7 @@ export const landings: Landing[] = [
         ),
       },
     ],
-    projects: ['rashfa', 'najdi-table'],
+    projects: ['nasaq', 'rashfa'],
   },
   {
     slug: 'web-design-riyadh',
@@ -134,7 +134,7 @@ export const landings: Landing[] = [
         ),
       },
     ],
-    projects: ['noble-store', 'noble-immersive'],
+    projects: ['nasaq', 'noble-immersive'],
   },
   {
     slug: 'ecommerce-website',
@@ -274,7 +274,7 @@ export const landings: Landing[] = [
         a: t('No. The new site is built separately and only replaces the old one at launch.', 'لا. يُبنى الموقع الجديد بشكل منفصل ولا يحل محل القديم إلا عند الإطلاق.'),
       },
     ],
-    projects: ['noble-immersive'],
+    projects: ['nasaq', 'noble-immersive'],
   },
   {
     slug: 'pricing',

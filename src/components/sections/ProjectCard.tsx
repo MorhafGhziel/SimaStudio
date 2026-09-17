@@ -66,7 +66,7 @@ export function ProjectCard({ project, flip = false }: { project: Project; flip?
             {locale === 'ar' ? project.arName : project.name}
           </Link>
         </h3>
-        <p className="mt-2 text-sm text-faint">{dict.work.concept}</p>
+        <p className="mt-2 text-sm text-faint">{project.client ? dict.work.client : dict.work.concept}</p>
         <p className="mt-5 max-w-[40ch] text-mute">{project.summary[locale]}</p>
         <ul className="mt-6 flex flex-wrap gap-2">
           {project.tags.map((tag) => (

@@ -95,7 +95,7 @@ export default async function CaseStudyPage({ params }: PageProps<'/[locale]/wor
               <dd className="mt-1">{project.services.map((s) => s[locale]).join(', ')}</dd>
             </div>
           </dl>
-          <p className="mt-6 max-w-[70ch] text-xs text-faint">{cs.disclaimer}</p>
+          <p className="mt-6 max-w-[70ch] text-xs text-faint">{project.client ? cs.clientNote : cs.disclaimer}</p>
         </Reveal>
       </header>
 
