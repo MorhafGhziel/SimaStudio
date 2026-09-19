@@ -124,8 +124,8 @@ export function Hero() {
           <LinkButton href={`${href(locale)}#work`} arrow>
             {dict.hero.explore}
           </LinkButton>
-          <LinkButton href={`${href(locale)}#contact`} variant="outline" className="bg-ink/40 backdrop-blur-sm">
-            {dict.hero.start}
+          <LinkButton href={`${href(locale)}#review`} variant="outline" className="bg-ink/40 backdrop-blur-sm">
+            {dict.hero.soft}
           </LinkButton>
         </motion.div>
 

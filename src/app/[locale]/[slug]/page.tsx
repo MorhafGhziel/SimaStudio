@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { FreeReview } from '@/components/sections/FreeReview';
 import { AnchorButton, LinkButton } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
 import { dictionary } from '@/content/dictionary';
@@ -155,7 +156,12 @@ export default async function LandingPage({ params }: PageProps<'/[locale]/[slug
         </dl>
       </section>
 
-      {/* 5 · Close */}
+      {/* 5 · The small first step, for a visitor who is not ready to start */}
+      <div className="mt-20 sm:mt-28">
+        <FreeReview />
+      </div>
+
+      {/* 6 · Close */}
       <section className="container-x mt-24 border-t border-line py-16 sm:mt-32 md:py-24" aria-labelledby="landing-cta">
         <Reveal className="grid gap-8 md:grid-cols-12">
           <div className="md:col-span-7">

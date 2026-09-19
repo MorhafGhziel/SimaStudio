@@ -37,6 +37,7 @@ function ids() {
     sid = rid();
     fresh = true;
     session?.setItem('sima_sid', sid);
+    session?.setItem('sima_entry', location.pathname);
   }
   session?.setItem('sima_last', String(Date.now()));
   return { vid, sid, fresh };
@@ -53,7 +54,7 @@ export function track(name: string, props?: Record<string, string | number>) {
   send({ type: 'event', name, props });
 }
 
-const SECTION_IDS = ['work', 'services', 'packages', 'process', 'faq', 'contact'];
+const SECTION_IDS = ['work', 'testimonials', 'review', 'services', 'packages', 'process', 'faq', 'contact'];
 
 export function Tracker() {
   const pathname = usePathname();
@@ -120,6 +121,8 @@ export function Tracker() {
       if (href.includes('wa.me')) track('whatsapp_click', { label });
       else if (href.includes('instagram.com')) track('instagram_click');
       else if (href.includes('tiktok.com')) track('tiktok_click');
+      else if (href.includes('linkedin.com')) track('linkedin_click');
+      else if (/\/\/(www\.)?(x|twitter)\.com\//.test(href)) track('x_click');
       else if (href.startsWith('mailto:')) track('email_click');
       else if (href.endsWith('.pdf')) track('brand_pdf');
       else if (/\/work\/[^/#?]+/.test(href)) track('project_open', { project: href.split('/work/')[1]?.split(/[?#]/)[0] ?? '' });
