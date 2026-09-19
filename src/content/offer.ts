@@ -103,6 +103,10 @@ export const industries = [
   { id: 'ecommerce', label: t('E-Commerce', 'التجارة الإلكترونية'), image: 'ind-ecommerce', projects: [] },
 ];
 
+/* ── Care plan ────────────────────────────────────────────── */
+/** Monthly price in SAR, from the second year. Year one hosting and domain are in every package. */
+export const carePlan = { price: 300 };
+
 /* ── Packages ─────────────────────────────────────────────── */
 export type Package = {
   id: 'starter' | 'signature' | 'immersive';
@@ -112,6 +116,8 @@ export type Package = {
   price: number;
   /** Launch-offer price, shown instead of `price` while the offer runs (see launchOffer in content/site). */
   launchPrice: number;
+  /** The price is a starting point and the project is quoted individually. */
+  fromPrice?: boolean;
   tagline: T;
   audience: T;
   features: T[];
@@ -141,7 +147,7 @@ export const packages: Package[] = [
       t('Domain & hosting', 'النطاق والاستضافة'),
     ],
     cta: t('Choose Starter', 'اختر Starter'),
-    timeline: t('2–3 days', '2–3 أيام'),
+    timeline: t('1–2 weeks', 'أسبوع إلى أسبوعين'),
   },
   {
     id: 'signature',
@@ -164,7 +170,7 @@ export const packages: Package[] = [
       t('Domain & hosting', 'النطاق والاستضافة'),
     ],
     cta: t('Choose Signature', 'اختر Signature'),
-    timeline: t('2–7 days', '2–7 أيام'),
+    timeline: t('2–3 weeks', 'أسبوعان إلى 3 أسابيع'),
   },
   {
     id: 'immersive',
@@ -186,7 +192,8 @@ export const packages: Package[] = [
       t('Domain & hosting', 'النطاق والاستضافة'),
     ],
     cta: t('Choose Immersive', 'اختر Immersive'),
-    timeline: t('1–2 weeks', '1–2 أسبوع'),
+    fromPrice: true,
+    timeline: t('3–5 weeks', '3 إلى 5 أسابيع'),
   },
 ];
 
@@ -227,11 +234,25 @@ export const faqs = [
   {
     q: t('How long does a website take?', 'كم يستغرق بناء الموقع؟'),
     a: t(
-      'Starter takes 2–3 days, Signature 2–7 days and Immersive 1–2 weeks, once we have your content. Custom projects get a timeline in the proposal.',
-      'باقة Starter تستغرق 2–3 أيام، وباقة Signature من 2–7 أيام، وباقة Immersive من 1–2 أسبوع بعد استلام المحتوى. المشاريع المخصصة نحدد مدتها في العرض.',
+      'Starter takes 1–2 weeks, Signature 2–3 weeks and Immersive 3–5 weeks, counted from the day we have your content. Custom projects get a timeline in the proposal. If we launch more than a week after the agreed date, you get 10% back.',
+      'باقة Starter تستغرق أسبوعًا إلى أسبوعين، وباقة Signature من أسبوعين إلى ثلاثة، وباقة Immersive من ثلاثة إلى خمسة أسابيع، تُحسب من يوم استلام المحتوى. المشاريع المخصصة نحدد مدتها في العرض. وإن تأخر الإطلاق أكثر من أسبوع عن الموعد المتفق عليه، نعيد لك 10٪.',
     ),
   },
   { q: t('Do you provide domain and hosting?', 'هل توفرون النطاق والاستضافة؟'), a: t('Yes. Every package includes domain and hosting setup for the first year.', 'نعم. كل الباقات تشمل إعداد النطاق والاستضافة للسنة الأولى.') },
+  {
+    q: t('What happens after the first year?', 'ماذا يحدث بعد السنة الأولى؟'),
+    a: t(
+      `The site is yours. From year two you can take the care plan for ${carePlan.price} SAR a month: hosting, domain renewal, small content edits and a monthly check. Or you can host it yourself and we hand everything over.`,
+      `الموقع ملكك. من السنة الثانية يمكنك الاشتراك في خطة العناية بـ${carePlan.price} ريال شهريًا: الاستضافة وتجديد النطاق وتعديلات المحتوى البسيطة وفحص شهري. أو تستضيفه بنفسك ونسلّمك كل شيء.`,
+    ),
+  },
+  {
+    q: t('How does payment work?', 'كيف يتم الدفع؟'),
+    a: t(
+      'Half before we start and half at launch. The price you agree to is the final price; anything extra is quoted before we do it.',
+      'نصف المبلغ قبل البدء والنصف عند الإطلاق. السعر المتفق عليه هو السعر النهائي، وأي إضافة نسعّرها لك قبل تنفيذها.',
+    ),
+  },
   { q: t('Can you build an Arabic website?', 'هل يمكنكم بناء موقع باللغة العربية؟'), a: t('Yes — with proper right-to-left layout, not just translated text. Signature and Immersive include Arabic + English.', 'نعم — بتصميم صحيح من اليمين لليسار وليس مجرد ترجمة. باقة Signature وباقة Immersive تشملان العربية والإنجليزية.') },
   { q: t('Can you build an online store?', 'هل يمكنكم بناء متجر إلكتروني؟'), a: t(
       'Yes, in two ways. From 4,500 SAR we design your brand site and product pages in front of your existing Salla or Zid store, so payments and shipping stay where they already work. A fully custom store with its own checkout is quoted by products, payment methods and delivery.',

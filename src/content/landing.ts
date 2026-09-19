@@ -31,8 +31,8 @@ export const landings: Landing[] = [
     city: t('Jeddah', 'جدة'),
     title: t('Website Design in Jeddah', 'تصميم مواقع في جدة'),
     description: t(
-      'Website design and development for brands in Jeddah — bilingual Arabic and English sites, online stores and interactive experiences, delivered in days.',
-      'تصميم وتطوير مواقع للعلامات التجارية في جدة — مواقع ثنائية اللغة ومتاجر إلكترونية وتجارب تفاعلية، تُسلَّم خلال أيام.',
+      'Website design and development for brands in Jeddah — bilingual Arabic and English sites, online stores and interactive experiences, designed and built in-house.',
+      'تصميم وتطوير مواقع للعلامات التجارية في جدة — مواقع ثنائية اللغة ومتاجر إلكترونية وتجارب تفاعلية، نصممها ونبنيها بأنفسنا.',
     ),
     heading: t('Website design in Jeddah', 'تصميم مواقع في جدة'),
     intro: [
@@ -41,8 +41,8 @@ export const landings: Landing[] = [
         'نصمم ونبني مواقع للعلامات التجارية في جدة: المقاهي والمطاعم ودور العطور وعلامات الأزياء والشركات الخدمية التي لديها جمهور على إنستغرام وتحتاج إلى بيت رقمي خاص بها.',
       ),
       t(
-        'Every site is built in Arabic and English with a proper right-to-left layout, not a translated copy. We work remotely with Jeddah brands, which keeps the process fast: most projects launch within days rather than months.',
-        'كل موقع يُبنى بالعربية والإنجليزية بتصميم صحيح من اليمين إلى اليسار، وليس نسخة مترجمة. نعمل عن بُعد مع علامات جدة، ما يجعل العملية سريعة: معظم المشاريع تُطلق خلال أيام لا أشهر.',
+        'Every site is built in Arabic and English with a proper right-to-left layout, not a translated copy. We work remotely with Jeddah brands, which keeps the process simple: most company sites launch in two to three weeks.',
+        'كل موقع يُبنى بالعربية والإنجليزية بتصميم صحيح من اليمين إلى اليسار، وليس نسخة مترجمة. نعمل عن بُعد مع علامات جدة، ما يجعل العملية بسيطة: معظم مواقع الشركات تُطلق خلال أسبوعين إلى ثلاثة.',
       ),
     ],
     sections: [
@@ -63,8 +63,8 @@ export const landings: Landing[] = [
       {
         heading: t('How fast, and what it costs', 'كم تستغرق وكم تكلف'),
         body: t(
-          'A Starter site takes two to three days, a fully custom bilingual Signature site two to seven days, and an Immersive 3D experience one to two weeks, once we have your content. Prices start at 2,500 SAR and every package includes domain and hosting for the first year.',
-          'موقع Starter يستغرق يومين إلى ثلاثة أيام، وموقع Signature المخصص بالكامل وثنائي اللغة من يومين إلى سبعة أيام، وتجربة Immersive ثلاثية الأبعاد من أسبوع إلى أسبوعين، بعد استلام المحتوى. تبدأ الأسعار من 2,500 ريال وكل باقة تشمل النطاق والاستضافة للسنة الأولى.',
+          'A Starter site takes one to two weeks, a fully custom bilingual Signature site two to three weeks, and an Immersive 3D experience three to five weeks, counted from the day we have your content. Prices start at 2,500 SAR and every package includes domain and hosting for the first year.',
+          'موقع Starter يستغرق أسبوعًا إلى أسبوعين، وموقع Signature المخصص بالكامل وثنائي اللغة من أسبوعين إلى ثلاثة، وتجربة Immersive ثلاثية الأبعاد من ثلاثة إلى خمسة أسابيع، تُحسب من يوم استلام المحتوى. تبدأ الأسعار من 2,500 ريال وكل باقة تشمل النطاق والاستضافة للسنة الأولى.',
         ),
       },
     ],
@@ -72,8 +72,8 @@ export const landings: Landing[] = [
       {
         q: t('Do you meet clients in Jeddah?', 'هل تقابلون العملاء في جدة؟'),
         a: t(
-          'We work remotely, which is what keeps delivery this fast. Everything happens over WhatsApp and email — brief, design review, revisions and launch.',
-          'نعمل عن بُعد، وهذا ما يجعل التسليم بهذه السرعة. كل شيء يتم عبر واتساب والبريد: الفكرة والمراجعة والتعديلات والإطلاق.',
+          'We work remotely, which keeps the process simple. Everything happens over WhatsApp and email — brief, design review, revisions and launch.',
+          'نعمل عن بُعد، وهذا ما يجعل العملية بسيطة. كل شيء يتم عبر واتساب والبريد: الفكرة والمراجعة والتعديلات والإطلاق.',
         ),
       },
       {
@@ -91,8 +91,8 @@ export const landings: Landing[] = [
     city: t('Riyadh', 'الرياض'),
     title: t('Website Design in Riyadh', 'تصميم مواقع في الرياض'),
     description: t(
-      'Website design and development for Riyadh brands — bilingual Arabic and English websites, e-commerce stores and 3D experiences, launched in days.',
-      'تصميم وتطوير مواقع لعلامات الرياض — مواقع ثنائية اللغة ومتاجر إلكترونية وتجارب ثلاثية الأبعاد، تُطلق خلال أيام.',
+      'Website design and development for Riyadh brands — bilingual Arabic and English websites, e-commerce stores and 3D experiences, launched in weeks, not months.',
+      'تصميم وتطوير مواقع لعلامات الرياض — مواقع ثنائية اللغة ومتاجر إلكترونية وتجارب ثلاثية الأبعاد، تُطلق خلال أسابيع لا أشهر.',
     ),
     heading: t('Website design in Riyadh', 'تصميم مواقع في الرياض'),
     intro: [
