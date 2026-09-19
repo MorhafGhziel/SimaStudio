@@ -3,12 +3,93 @@ import type { T } from '@/lib/i18n';
 const t = (en: string, ar: string): T => ({ en, ar });
 
 /* ── Services ─────────────────────────────────────────────── */
-export const services = [
-  { id: 'brand', title: t('Company & Brand Websites', 'مواقع الشركات والعلامات'), text: t('Your company online the way it looks in real life. Arabic first, English beside it.', 'شركتك على الإنترنت كما هي على أرض الواقع. عربي أولًا، والإنجليزية بجانبه.'), image: '/work/noble-store-hero.jpg' },
-  { id: 'commerce', title: t('Online Stores', 'المتاجر الإلكترونية'), text: t('A store that is easy to buy from on a phone, from the first product photo to payment.', 'متجر يسهل الشراء منه بالجوال، من أول صورة للمنتج إلى الدفع.'), image: '/work/noble-store-extra.jpg' },
-  { id: 'immersive', title: t('3D Product Experiences', 'تجارب المنتجات ثلاثية الأبعاد'), text: t('Your product turns and changes colour before the buyer orders it, as we built for Nasaq.', 'منتجك يدور ويتغير لونه أمام العميل قبل أن يطلبه، كما بنينا لشركة نسق.'), image: '/work/noble-immersive-hero.jpg' },
-  { id: 'landing', title: t('Campaign Pages', 'صفحات الحملات'), text: t('One page for one ad and one goal: the visitor contacts you.', 'صفحة واحدة لإعلان واحد وهدف واحد: أن يتواصل معك الزائر.'), image: '/work/rashfa-hero.jpg' },
-  { id: 'redesign', title: t('Website Redesign', 'إعادة تصميم موقعك'), text: t('We keep what works on your site and rebuild what is costing you customers.', 'نحتفظ بما ينجح في موقعك، ونعيد بناء ما يُخسرك عملاء.'), image: '/work/after.jpg' },
+/**
+ * `pricedBy` ties a service to a package, so its "from" price and timeline follow the
+ * package data (and the launch offer) instead of being typed twice. A service with its own
+ * starting price uses `from`; without a package its timeline is set in the quote.
+ */
+export type Service = {
+  id: string;
+  title: T;
+  text: T;
+  image: string;
+  pricedBy?: 'starter' | 'signature' | 'immersive';
+  timelineBy?: 'starter' | 'signature' | 'immersive';
+  from?: number;
+  points: T[];
+  /** Slug of a project that shows this service. */
+  project?: string;
+};
+
+export const services: Service[] = [
+  {
+    id: 'brand',
+    title: t('Company & Brand Websites', 'مواقع الشركات والعلامات'),
+    text: t('Your company online the way it looks in real life. Arabic first, English beside it.', 'شركتك على الإنترنت كما هي على أرض الواقع. عربي أولًا، والإنجليزية بجانبه.'),
+    image: '/work/nasaq-hero.jpg',
+    pricedBy: 'starter',
+    timelineBy: 'signature',
+    points: [
+      t('Fast on a phone, with WhatsApp, Google Maps and your contact details wired in.', 'سريع على الجوال، مع ربط واتساب وخرائط Google ومعلومات التواصل.'),
+      t('Fully custom design in Arabic and English from the Signature package.', 'تصميم مخصص بالكامل بالعربية والإنجليزية ابتداءً من باقة Signature.'),
+      t('Domain and hosting included for the first year.', 'النطاق والاستضافة ضمن السعر للسنة الأولى.'),
+    ],
+    project: 'nasaq',
+  },
+  {
+    id: 'commerce',
+    title: t('Online Stores', 'المتاجر الإلكترونية'),
+    text: t('A store that is easy to buy from on a phone, from the first product photo to payment.', 'متجر يسهل الشراء منه بالجوال، من أول صورة للمنتج إلى الدفع.'),
+    image: '/work/noble-immersive-detail.jpg',
+    from: 4500,
+    points: [
+      t('In front of your Salla or Zid store: we design the brand site and product pages, and "buy" takes the customer to your existing store, with its payments and shipping.', 'أمام متجرك في سلة أو زد: نصمم موقع العلامة وصفحات المنتجات، وزر الشراء ينقل العميل إلى متجرك القائم بما فيه من دفع وشحن.'),
+      t('Or a fully custom store with its own cart and checkout, quoted by number of products, payment methods and delivery.', 'أو متجر مخصص بالكامل بسلة ودفع خاصين به، يُسعّر حسب عدد المنتجات وطرق الدفع والتوصيل.'),
+      t('Either way: Arabic and English, and product pages built for a phone.', 'في الحالتين: عربي وإنجليزي، وصفحات منتجات مبنية للجوال.'),
+    ],
+    project: 'noble-immersive',
+  },
+  {
+    id: 'immersive',
+    title: t('3D Product Experiences', 'تجارب المنتجات ثلاثية الأبعاد'),
+    text: t('Your product turns and changes colour before the buyer orders it, as we built for Nasaq.', 'منتجك يدور ويتغير لونه أمام العميل قبل أن يطلبه، كما بنينا لشركة نسق.'),
+    image: '/work/nasaq-detail.jpg',
+    pricedBy: 'immersive',
+    timelineBy: 'immersive',
+    points: [
+      t('Your product built in 3D from drawings, photos or a sample.', 'منتجك مبني بالأبعاد الثلاثة انطلاقًا من المخططات أو الصور أو عينة.'),
+      t('Turn it, zoom in, change the colour or finish, by mouse or by touch.', 'يُدار ويُقرَّب ويتغير لونه أو خامته، بالماوس أو باللمس.'),
+      t('The buyer’s choices can fill your quote form, as they do on Nasaq.', 'اختيارات العميل تملأ نموذج طلب عرض السعر، كما في موقع نسق.'),
+    ],
+    project: 'nasaq',
+  },
+  {
+    id: 'landing',
+    title: t('Campaign Pages', 'صفحات الحملات'),
+    text: t('One page for one ad and one goal: the visitor contacts you.', 'صفحة واحدة لإعلان واحد وهدف واحد: أن يتواصل معك الزائر.'),
+    image: '/work/rashfa-hero.jpg',
+    pricedBy: 'starter',
+    timelineBy: 'starter',
+    points: [
+      t('Built around one offer, so nothing pulls the visitor away from it.', 'مبنية حول عرض واحد، فلا شيء يشتت الزائر عنه.'),
+      t('Made to be the link behind your Instagram, TikTok or Snapchat ad.', 'مصممة لتكون الرابط خلف إعلانك في إنستغرام أو تيك توك أو سناب شات.'),
+      t('WhatsApp and a short form as the only ways out.', 'واتساب ونموذج قصير هما المخرجان الوحيدان.'),
+    ],
+  },
+  {
+    id: 'redesign',
+    title: t('Website Redesign', 'إعادة تصميم موقعك'),
+    text: t('We keep what works on your site and rebuild what is costing you customers.', 'نحتفظ بما ينجح في موقعك، ونعيد بناء ما يُخسرك عملاء.'),
+    image: '/work/nasaq-extra.jpg',
+    pricedBy: 'starter',
+    timelineBy: 'signature',
+    points: [
+      t('Start free: send us the link and get three specific notes on how it works on a phone.', 'البداية مجانية: أرسل لنا الرابط ويصلك ثلاث ملاحظات محددة عن أدائه على الجوال.'),
+      t('We move your content across, so you do not start from zero.', 'ننقل محتواك إلى الموقع الجديد، فلا تبدأ من الصفر.'),
+      t('Arabic rebuilt properly from right to left, not a translated copy.', 'العربية تُبنى من اليمين إلى اليسار كما يجب، لا نسخة مترجمة.'),
+    ],
+    project: 'nasaq',
+  },
 ];
 
 /* ── Industries ───────────────────────────────────────────── */
@@ -152,7 +233,11 @@ export const faqs = [
   },
   { q: t('Do you provide domain and hosting?', 'هل توفرون النطاق والاستضافة؟'), a: t('Yes. Every package includes domain and hosting setup for the first year.', 'نعم. كل الباقات تشمل إعداد النطاق والاستضافة للسنة الأولى.') },
   { q: t('Can you build an Arabic website?', 'هل يمكنكم بناء موقع باللغة العربية؟'), a: t('Yes — with proper right-to-left layout, not just translated text. Signature and Immersive include Arabic + English.', 'نعم — بتصميم صحيح من اليمين لليسار وليس مجرد ترجمة. باقة Signature وباقة Immersive تشملان العربية والإنجليزية.') },
-  { q: t('Can you build an online store?', 'هل يمكنكم بناء متجر إلكتروني؟'), a: t('Yes. Online stores are quoted as custom projects based on products, payments and delivery.', 'نعم. المتاجر الإلكترونية تُسعّر كمشاريع مخصصة حسب المنتجات والدفع والتوصيل.') },
+  { q: t('Can you build an online store?', 'هل يمكنكم بناء متجر إلكتروني؟'), a: t(
+      'Yes, in two ways. From 4,500 SAR we design your brand site and product pages in front of your existing Salla or Zid store, so payments and shipping stay where they already work. A fully custom store with its own checkout is quoted by products, payment methods and delivery.',
+      'نعم، بطريقتين. ابتداءً من 4,500 ريال نصمم موقع علامتك وصفحات منتجاتك أمام متجرك القائم في سلة أو زد، فيبقى الدفع والشحن حيث يعملان أصلًا. أما المتجر المخصص بالكامل بصفحة دفع خاصة به فيُسعّر حسب المنتجات وطرق الدفع والتوصيل.',
+    ),
+  },
   { q: t('Can you redesign an existing website?', 'هل يمكنكم إعادة تصميم موقع حالي؟'), a: t('Yes. We keep what works, rebuild what doesn’t, and move your content across.', 'نعم. نحتفظ بما ينجح، ونعيد بناء ما لا ينجح، وننقل محتواك.') },
   { q: t('Can I request custom features?', 'هل يمكنني طلب خصائص إضافية؟'), a: t('Yes. Anything beyond a package is quoted separately before we start.', 'نعم. أي خاصية خارج الباقة نسعّرها بشكل منفصل قبل البدء.') },
   { q: t('Do you work with brands anywhere?', 'هل تعملون مع علامات من أي مكان؟'), a: t('Yes. We work remotely with brands wherever they are.', 'نعم. نعمل عن بُعد مع العلامات أينما كانت.') },

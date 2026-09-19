@@ -129,8 +129,8 @@ export const landings: Landing[] = [
       {
         q: t('Do you build online stores?', 'هل تبنون متاجر إلكترونية؟'),
         a: t(
-          'Yes. Stores are quoted individually because the price depends on the number of products, payment methods and delivery setup.',
-          'نعم. تُسعّر المتاجر بشكل مستقل لأن السعر يعتمد على عدد المنتجات وطرق الدفع وإعداد التوصيل.',
+          'Yes, in two ways. From 4,500 SAR we design your brand site and product pages in front of your existing Salla or Zid store. A fully custom store with its own checkout is quoted by products, payment methods and delivery.',
+          'نعم، بطريقتين. ابتداءً من 4,500 ريال نصمم موقع علامتك وصفحات منتجاتك أمام متجرك القائم في سلة أو زد. أما المتجر المخصص بالكامل بصفحة دفع خاصة به فيُسعّر حسب المنتجات وطرق الدفع والتوصيل.',
         ),
       },
     ],
@@ -165,8 +165,8 @@ export const landings: Landing[] = [
       {
         heading: t('How stores are priced', 'كيف تُسعّر المتاجر'),
         body: t(
-          'Stores are quoted individually rather than sold as a fixed package, because the work depends on how many products you carry, which payment methods you need and how delivery is handled. Tell us those three things and you get a clear proposal.',
-          'تُسعّر المتاجر بشكل مستقل لا كباقة ثابتة، لأن العمل يعتمد على عدد منتجاتك وطرق الدفع المطلوبة وطريقة التوصيل. أخبرنا بهذه الثلاثة وتحصل على عرض واضح.',
+          'There are two routes. If you already sell on Salla or Zid, we design the brand site and product pages in front of your store from 4,500 SAR, and payments and shipping stay where they already work. A fully custom store with its own cart and checkout is quoted by how many products you carry, which payment methods you need and how delivery is handled. Tell us those three things and you get a clear proposal.',
+          'هناك طريقتان. إن كنت تبيع أصلًا عبر سلة أو زد، نصمم موقع العلامة وصفحات المنتجات أمام متجرك ابتداءً من 4,500 ريال، ويبقى الدفع والشحن حيث يعملان أصلًا. أما المتجر المخصص بالكامل بسلة ودفع خاصين به فيُسعّر حسب عدد منتجاتك وطرق الدفع المطلوبة وطريقة التوصيل. أخبرنا بهذه الثلاثة وتحصل على عرض واضح.',
         ),
       },
     ],
@@ -298,8 +298,8 @@ export const landings: Landing[] = [
       {
         heading: t('What changes the price', 'ما الذي يغيّر السعر'),
         body: t(
-          'The number of pages, whether you need Arabic and English, whether products are sold directly on the site, and how much motion or 3D the brand calls for. An online store is always quoted individually.',
-          'عدد الصفحات، وهل تحتاج العربية والإنجليزية، وهل تُباع المنتجات مباشرة عبر الموقع، وكم تحتاج العلامة من حركة أو عناصر ثلاثية الأبعاد. المتجر الإلكتروني يُسعّر دائمًا بشكل مستقل.',
+          'The number of pages, whether you need Arabic and English, whether products are sold directly on the site, and how much motion or 3D the brand calls for. Store projects start from 4,500 SAR; a fully custom checkout is quoted individually.',
+          'عدد الصفحات، وهل تحتاج العربية والإنجليزية، وهل تُباع المنتجات مباشرة عبر الموقع، وكم تحتاج العلامة من حركة أو عناصر ثلاثية الأبعاد. مشاريع المتاجر تبدأ من 4,500 ريال، والمتجر بصفحة دفع مخصصة يُسعّر بشكل مستقل.',
         ),
       },
       {
