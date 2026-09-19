@@ -116,7 +116,6 @@ export const projects: Project[] = [
     services: [t('UX design', 'تصميم تجربة المستخدم'), t('E-commerce', 'تجارة إلكترونية'), t('Web development', 'تطوير الويب')],
     tech: ['Next.js', 'React', 'Tailwind CSS', 'Motion', 'TypeScript'],
     year: '2026',
-    live: 'https://perfumedemo.vercel.app/en',
     overview: t(
       'The commerce side of NOBLE: twelve fragrances, collections, a scent quiz, wishlist, cart and checkout — Arabic first, English complete.',
       'الجانب التجاري من نُبل: اثنا عشر عطرًا ومجموعات واختبار للعطر المناسب وقائمة مفضلة وسلة وإتمام طلب — العربية أولًا والإنجليزية كاملة.',
