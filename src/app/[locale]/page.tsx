@@ -15,10 +15,10 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
     <>
       <Hero />
       <SelectedWork />
+      {isLocale(locale) && <Testimonials locale={locale} />}
       <Services />
       <Packages />
       <Process />
-      {isLocale(locale) && <Testimonials locale={locale} />}
       <FAQ />
       <Contact />
       {isLocale(locale) && <StudioJsonLd locale={locale} />}

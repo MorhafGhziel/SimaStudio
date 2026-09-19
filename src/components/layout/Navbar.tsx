@@ -44,10 +44,10 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const links = [
     { id: 'work', label: dict.nav.work },
+    { id: 'testimonials', label: dict.nav.reviews },
     { id: 'services', label: dict.nav.services },
     { id: 'packages', label: dict.nav.packages },
     { id: 'process', label: dict.nav.process },
-    { id: 'testimonials', label: dict.nav.reviews },
   ];
 
   useEffect(() => {
