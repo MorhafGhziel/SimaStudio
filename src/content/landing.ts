@@ -183,7 +183,7 @@ export const landings: Landing[] = [
         a: t('Yes. We set up the store so you can add and edit products without needing us.', 'نعم. نجهّز المتجر لتتمكن من إضافة المنتجات وتعديلها دون الحاجة إلينا.'),
       },
     ],
-    projects: ['noble-store'],
+    projects: [],
   },
   {
     slug: 'restaurant-website',
@@ -232,7 +232,7 @@ export const landings: Landing[] = [
         ),
       },
     ],
-    projects: ['najdi-table', 'rashfa'],
+    projects: ['rashfa'],
   },
   {
     slug: 'website-redesign',
@@ -330,7 +330,7 @@ export const landings: Landing[] = [
         a: t('We quote it separately before starting, so the price never changes mid-project.', 'نسعّره بشكل منفصل قبل البدء، حتى لا يتغير السعر في منتصف المشروع.'),
       },
     ],
-    projects: ['rashfa', 'noble-store'],
+    projects: ['rashfa'],
   },
 ];
 

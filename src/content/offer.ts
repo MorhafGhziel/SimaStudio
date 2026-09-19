@@ -13,13 +13,13 @@ export const services = [
 
 /* ── Industries ───────────────────────────────────────────── */
 export const industries = [
-  { id: 'perfume', label: t('Perfume', 'العطور'), image: 'ind-perfume', projects: ['noble-immersive', 'noble-store'] },
+  { id: 'perfume', label: t('Perfume', 'العطور'), image: 'ind-perfume', projects: ['noble-immersive'] },
   { id: 'fashion', label: t('Fashion', 'الأزياء'), image: 'ind-fashion', projects: [] },
   { id: 'beauty', label: t('Beauty', 'التجميل'), image: 'ind-beauty', projects: [] },
-  { id: 'restaurants', label: t('Restaurants', 'المطاعم'), image: 'ind-restaurants', projects: ['najdi-table'] },
+  { id: 'restaurants', label: t('Restaurants', 'المطاعم'), image: 'ind-restaurants', projects: [] },
   { id: 'cafes', label: t('Cafés', 'المقاهي'), image: 'ind-cafes', projects: ['rashfa'] },
   { id: 'lifestyle', label: t('Lifestyle', 'أسلوب الحياة'), image: 'ind-lifestyle', projects: [] },
-  { id: 'ecommerce', label: t('E-Commerce', 'التجارة الإلكترونية'), image: 'ind-ecommerce', projects: ['noble-store'] },
+  { id: 'ecommerce', label: t('E-Commerce', 'التجارة الإلكترونية'), image: 'ind-ecommerce', projects: [] },
 ];
 
 /* ── Packages ─────────────────────────────────────────────── */
