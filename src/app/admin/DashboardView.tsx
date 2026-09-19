@@ -5,10 +5,11 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis, ZAxis } from 'recharts';
 import type { Dashboard, RangeKey } from '@/lib/server/analytics';
+import type { Lead } from '@/lib/server/leads';
 import type { AdminTestimonial } from '@/lib/server/testimonials';
-import { moderateTestimonialAction, revokeOthersAction, revokeSessionAction, signOutAction } from './actions';
+import { moderateTestimonialAction, revokeOthersAction, revokeSessionAction, signOutAction, updateLeadAction } from './actions';
 
-type Props = { data: Dashboard; ranges: { key: RangeKey; label: string }[]; me: { email: string; sessionId: string }; testimonials: AdminTestimonial[] };
+type Props = { data: Dashboard; ranges: { key: RangeKey; label: string }[]; me: { email: string; sessionId: string }; testimonials: AdminTestimonial[]; requests: Lead[] };
 type Row = Record<string, unknown>;
 
 const PALETTE = ['#f6d79b', '#e8a33a', '#b340ff', '#ff2e9e', '#ff7338', '#c9831f', '#22c55e', '#eab308', '#8c8c91'];
@@ -230,7 +231,7 @@ function Journey({ sessionId, onClose }: { sessionId: string; onClose: () => voi
   );
 }
 
-export function DashboardView({ data, ranges, me, testimonials }: Props) {
+export function DashboardView({ data, ranges, me, testimonials, requests }: Props) {
   const router = useRouter();
   const [metric, setMetric] = useState<'visitors' | 'sessions' | 'pageviews'>('visitors');
   const [sourceTab, setSourceTab] = useState<'source' | 'referrer' | 'campaign' | 'medium'>('source');
@@ -632,6 +633,61 @@ export function DashboardView({ data, ranges, me, testimonials }: Props) {
           <p className="mt-2 text-xs text-faint">Click a visit to see its full journey.</p>
         </Card>
       </div>
+
+      {/* Project requests — every contact form submission is stored here, even if the email failed. */}
+      <Card title={`Project requests${requests.filter((l) => l.status === 'new').length ? ` · ${requests.filter((l) => l.status === 'new').length} new` : ''}`} className="mt-3">
+        {requests.length ? (
+          <ul className="max-h-[520px] space-y-3 overflow-auto">
+            {requests.map((l) => {
+              const wa = l.reach_type === 'phone' ? `https://wa.me/${l.reach.replace(/\D/g, '')}` : null;
+              const tone = l.status === 'won' ? 'bg-[#22c55e]/15 text-[#22c55e]' : l.status === 'lost' ? 'bg-[#ff8a8a]/15 text-[#ff8a8a]' : l.status === 'contacted' ? 'bg-paper/10 text-mute' : 'bg-accent/15 text-accent';
+              return (
+                <li key={l.id} className="rounded-xl border border-line p-4">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm">
+                        <span className="font-medium">{l.name}</span>
+                        <span className="text-mute"> · {l.brand}</span>
+                        <span className={`ms-2 rounded-pill px-2 py-0.5 text-xs ${tone}`}>{l.status}</span>
+                        {!l.emailed && <span className="ms-2 rounded-pill bg-[#ff8a8a]/15 px-2 py-0.5 text-xs text-[#ff8a8a]">email not sent</span>}
+                      </p>
+                      <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+                        <a href={wa ?? `mailto:${l.reach}`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline" dir="ltr">
+                          {l.reach}
+                        </a>
+                        <span className="text-mute">{[l.need, l.budget, l.package ? `package: ${l.package}` : null].filter(Boolean).join(' · ') || 'no details picked'}</span>
+                      </p>
+                      {l.message && <p className="mt-2 whitespace-pre-line text-sm text-[#d0cfca]">{l.message}</p>}
+                      <p className="mt-2 text-xs text-faint">
+                        #{l.id} · {when(l.created_at)} · {String(l.locale).toUpperCase()}
+                        {l.entry_path ? ` · came in on ${l.entry_path}` : ''} · {flag(l.country)} {[l.city, countryName(l.country)].filter((x) => x && x !== 'Unknown').join(', ') || 'Unknown'}
+                      </p>
+                    </div>
+                    <div className="flex shrink-0 flex-wrap gap-2">
+                      {(['contacted', 'won', 'lost'] as const)
+                        .filter((st) => st !== l.status)
+                        .map((st) => (
+                          <form key={st} action={updateLeadAction}>
+                            <input type="hidden" name="id" value={l.id} />
+                            <input type="hidden" name="action" value={st} />
+                            <button className="rounded-pill border border-line px-3 py-1 text-xs capitalize text-mute hover:text-paper">{st}</button>
+                          </form>
+                        ))}
+                      <form action={updateLeadAction}>
+                        <input type="hidden" name="id" value={l.id} />
+                        <input type="hidden" name="action" value="delete" />
+                        <button className="rounded-pill border border-line px-3 py-1 text-xs text-mute hover:border-[#ff8a8a]/60 hover:text-[#ff8a8a]">Delete</button>
+                      </form>
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <p className="py-8 text-center text-sm text-faint">No project requests yet. Every contact form submission is saved here, even if its email fails.</p>
+        )}
+      </Card>
 
       {/* Client reviews — nothing appears on the website until it is approved here. */}
       <Card title={`Client reviews${testimonials.filter((t) => t.status === 'pending').length ? ` · ${testimonials.filter((t) => t.status === 'pending').length} waiting` : ''}`} className="mt-3">

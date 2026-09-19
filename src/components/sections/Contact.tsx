@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState, type FormEvent } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Check, Mail } from 'lucide-react';
@@ -8,11 +9,13 @@ import { InstagramIcon, WhatsAppIcon } from '@/components/icons';
 import { Button } from '@/components/ui/Button';
 import { Reveal, RevealLines } from '@/components/ui/Reveal';
 import { instagramUrl, studio, whatsappMessage, whatsappUrl } from '@/content/site';
-import { PACKAGE_EVENT } from '@/lib/events';
+import { PACKAGE_EVENT, type PackagePick } from '@/lib/events';
+import { parseReach } from '@/lib/reach';
+import { href } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 
-type Fields = { name: string; brand: string; reach: string; need: string; budget: string; message: string };
-const empty: Fields = { name: '', brand: '', reach: '', need: '', budget: '', message: '' };
+type Fields = { name: string; brand: string; reach: string; need: string; budget: string; message: string; pkg: string; website: string };
+const empty: Fields = { name: '', brand: '', reach: '', need: '', budget: '', message: '', pkg: '', website: '' };
 
 const field =
   'mt-2 w-full rounded-xl border border-line bg-ink-2 px-4 py-3.5 text-paper outline-none transition-colors placeholder:text-faint focus:border-accent/60 aria-[invalid=true]:border-red-400/60';
@@ -23,10 +26,14 @@ export function Contact() {
   const [values, setValues] = useState<Fields>(empty);
   const [errors, setErrors] = useState<Partial<Record<keyof Fields, boolean>>>({});
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'fallback'>('idle');
+  const [notice, setNotice] = useState<'' | 'reach' | 'limited'>('');
 
   // Package buttons pre-select the budget.
   useEffect(() => {
-    const onPick = (e: Event) => setValues((v) => ({ ...v, budget: c.budgets[(e as CustomEvent<number>).detail] ?? v.budget }));
+    const onPick = (e: Event) => {
+      const pick = (e as CustomEvent<PackagePick>).detail;
+      setValues((v) => ({ ...v, budget: c.budgets[pick.budget] ?? v.budget, pkg: pick.pkg }));
+    };
     window.addEventListener(PACKAGE_EVENT, onPick);
     return () => window.removeEventListener(PACKAGE_EVENT, onPick);
   }, [c.budgets]);
@@ -42,24 +49,53 @@ export function Contact() {
     `${c.reach}: ${values.reach}`,
     `${c.need}: ${values.need || '—'}`,
     `${c.budget}: ${values.budget || '—'}`,
+    ...(values.pkg ? [`${c.pkg}: ${values.pkg}`] : []),
     '',
     values.message,
   ].join('\n');
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
-    const missing = (['name', 'brand', 'reach', 'message'] as (keyof Fields)[]).filter((k) => !values[k].trim());
+    setNotice('');
+    // The message is optional: the buttons above already say what is needed.
+    const missing = (['name', 'brand', 'reach'] as (keyof Fields)[]).filter((k) => !values[k].trim());
     if (missing.length) {
       setErrors(Object.fromEntries(missing.map((k) => [k, true])));
       document.getElementById(`c-${missing[0]}`)?.focus();
       return;
     }
+    // A number or address we cannot reach is a lost lead, so catch the typo now.
+    if (!parseReach(values.reach)) {
+      setErrors({ reach: true });
+      setNotice('reach');
+      document.getElementById('c-reach')?.focus();
+      return;
+    }
     setStatus('sending');
     try {
-      const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...values, locale }) });
+      let entry = '';
+      let sid = '';
+      try {
+        entry = window.sessionStorage.getItem('sima_entry') ?? '';
+        sid = window.sessionStorage.getItem('sima_sid') ?? '';
+      } catch {
+        // storage can be blocked; the request still goes through
+      }
+      const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...values, locale, entry, sid }) });
+      if (res.status === 429) {
+        setStatus('idle');
+        setNotice('limited');
+        return;
+      }
+      if (res.status === 422) {
+        setStatus('idle');
+        setErrors({ reach: true });
+        setNotice('reach');
+        return;
+      }
       const data = (await res.json()) as { delivered?: boolean };
       const delivered = res.ok && !!data.delivered;
-      window.dispatchEvent(new CustomEvent('sima:track', { detail: { name: 'contact_submit', props: { delivered: delivered ? 'yes' : 'no', need: values.need || 'none', budget: values.budget || 'none' } } }));
+      window.dispatchEvent(new CustomEvent('sima:track', { detail: { name: 'contact_submit', props: { delivered: delivered ? 'yes' : 'no', need: values.need || 'none', budget: values.budget || 'none', pkg: values.pkg || 'none' } } }));
       setStatus(delivered ? 'sent' : 'fallback');
     } catch {
       setStatus('fallback');
@@ -153,7 +189,15 @@ export function Contact() {
                   </div>
                   <div className="sm:col-span-2">
                     {label('reach', c.reach)}
-                    <input id="c-reach" autoComplete="email" dir="ltr" value={values.reach} onChange={(e) => set('reach', e.target.value)} aria-invalid={errors.reach} className={cn(field, locale === 'ar' && 'text-right')} placeholder="WhatsApp / name@brand.com" />
+                    <input id="c-reach" autoComplete="email" dir="ltr" value={values.reach} onChange={(e) => set('reach', e.target.value)} aria-invalid={errors.reach} className={cn(field, locale === 'ar' && 'text-right')} placeholder="05xxxxxxxx / name@company.com" aria-describedby="c-reach-hint" />
+                    <p id="c-reach-hint" className={cn('mt-2 text-xs', notice === 'reach' ? 'text-red-300' : 'text-faint')}>
+                      {notice === 'reach' ? c.reachInvalid : c.reachHint}
+                    </p>
+                  </div>
+                  {/* Honeypot: hidden from people, irresistible to bots. Clipped in place, never pushed off-screen: in RTL that would widen the page. */}
+                  <div aria-hidden="true" className="pointer-events-none absolute size-px overflow-hidden opacity-0 [clip:rect(0,0,0,0)]">
+                    <label htmlFor="c-website">Website</label>
+                    <input id="c-website" name="website" tabIndex={-1} autoComplete="off" value={values.website} onChange={(e) => set('website', e.target.value)} />
                   </div>
 
                   <fieldset className="sm:col-span-2">
@@ -168,7 +212,15 @@ export function Contact() {
                   </fieldset>
 
                   <fieldset className="sm:col-span-2">
-                    <legend className="text-sm text-mute">{c.budget}</legend>
+                    <legend className="flex w-full items-center justify-between gap-3 text-sm text-mute">
+                      {c.budget}
+                      {values.pkg && (
+                        <button type="button" onClick={() => set('pkg', '')} className="inline-flex items-center gap-1.5 rounded-pill border border-accent/50 px-3 py-1 text-xs text-accent transition-colors hover:border-accent" dir="ltr">
+                          {values.pkg} <span aria-hidden="true">×</span>
+                          <span className="sr-only">{c.pkg}</span>
+                        </button>
+                      )}
+                    </legend>
                     <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
                       {c.budgets.map((b) => (
                         <button key={b} type="button" aria-pressed={values.budget === b} onClick={() => set('budget', values.budget === b ? '' : b)} className={cn('rounded-xl border px-3 py-3 text-sm transition-colors', values.budget === b ? 'border-accent bg-accent text-ink' : 'border-line text-[#c4c4c0] hover:border-paper/30')}>
@@ -179,19 +231,32 @@ export function Contact() {
                   </fieldset>
 
                   <div className="sm:col-span-2">
-                    {label('message', c.message)}
+                    {label('message', c.message, false)}
                     <textarea id="c-message" rows={5} value={values.message} onChange={(e) => set('message', e.target.value)} aria-invalid={errors.message} placeholder={c.messagePlaceholder} className={cn(field, 'resize-none')} />
                   </div>
 
-                  {Object.values(errors).some(Boolean) && (
+                  {(notice === 'limited' || (Object.values(errors).some(Boolean) && notice !== 'reach')) && (
                     <p role="alert" className="text-sm text-red-300 sm:col-span-2">
-                      {c.required}
+                      {notice === 'limited' ? c.limited : c.required}
                     </p>
                   )}
 
                   <Button type="submit" disabled={status === 'sending'} arrow className="w-full sm:col-span-2">
                     {status === 'sending' ? c.sending : c.send}
                   </Button>
+                  <ul className="space-y-1.5 text-xs text-faint sm:col-span-2">
+                    {c.assure.map((line) => (
+                      <li key={line} className="flex gap-2">
+                        <Check className="mt-0.5 size-3.5 shrink-0 text-accent" strokeWidth={2} />
+                        {line}
+                      </li>
+                    ))}
+                    <li>
+                      <Link href={href(locale, '/privacy')} className="underline-offset-4 transition-colors hover:text-paper hover:underline">
+                        {c.privacy}
+                      </Link>
+                    </li>
+                  </ul>
                 </motion.form>
               )}
             </AnimatePresence>

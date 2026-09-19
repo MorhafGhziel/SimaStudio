@@ -99,7 +99,7 @@ export function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
             <span className="text-mute">{pkg.timeline[locale]}</span>
           </p>
         </div>
-        <LinkButton href={`${href(locale)}#contact`} variant={pkg.popular ? 'solid' : 'outline'} magnetic={false} className="mt-6 w-full" onClick={() => selectBudget(offer.active ? pkg.launchPrice : pkg.price)}>
+        <LinkButton href={`${href(locale)}#contact`} variant={pkg.popular ? 'solid' : 'outline'} magnetic={false} className="mt-6 w-full" onClick={() => selectBudget(offer.active ? pkg.launchPrice : pkg.price, pkg.name)}>
           {pkg.cta[locale]}
         </LinkButton>
       </div>

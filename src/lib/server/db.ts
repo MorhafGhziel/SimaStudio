@@ -113,6 +113,28 @@ export const SCHEMA: string[] = [
     city text
   )`,
   `create index if not exists testimonials_status_idx on testimonials (status, created_at desc)`,
+  // Project requests from the contact form: stored first, emailed second, so none is lost.
+  `create table if not exists leads (
+    id bigserial primary key,
+    created_at timestamptz not null default now(),
+    name text not null,
+    brand text not null,
+    reach text not null,
+    reach_type text not null,
+    need text,
+    budget text,
+    package text,
+    message text,
+    locale text not null default 'ar',
+    entry_path text,
+    session_id text,
+    status text not null default 'new',
+    emailed boolean not null default false,
+    ip_hash text,
+    country text,
+    city text
+  )`,
+  `create index if not exists leads_created_idx on leads (created_at desc)`,
   `create table if not exists rate_limits (
     key text not null,
     window_start bigint not null,
