@@ -18,8 +18,8 @@ export const studio = {
 };
 
 export const whatsappMessage: T = {
-  en: "Hi, I'm interested in building a website for my brand. I'd like to know more about your packages.",
-  ar: 'مرحبًا، أرغب في بناء موقع لعلامتي التجارية، وأود معرفة المزيد عن باقاتكم.',
+  en: "Hello, I'd like a website for my company. Could you share the details and prices?",
+  ar: 'السلام عليكم، أرغب في موقع لشركتي، وأود معرفة التفاصيل والأسعار.',
 };
 
 /**

@@ -4,11 +4,11 @@ const t = (en: string, ar: string): T => ({ en, ar });
 
 /* ── Services ─────────────────────────────────────────────── */
 export const services = [
-  { id: 'brand', title: t('Brand Websites', 'مواقع العلامات التجارية'), text: t('Custom websites designed around your identity.', 'مواقع مخصصة مصممة حول هويتك.'), image: '/work/noble-store-hero.jpg' },
-  { id: 'commerce', title: t('E-Commerce', 'التجارة الإلكترونية'), text: t('Online stores designed for a smooth shopping experience.', 'متاجر إلكترونية مصممة لتجربة تسوق سلسة.'), image: '/work/noble-store-extra.jpg' },
-  { id: 'immersive', title: t('Interactive Experiences', 'التجارب التفاعلية'), text: t('Motion, 3D and immersive interactions for the web.', 'حركة وتجارب ثلاثية الأبعاد وتفاعلات غامرة على الويب.'), image: '/work/noble-immersive-hero.jpg' },
-  { id: 'landing', title: t('Landing Pages', 'صفحات الهبوط'), text: t('Focused pages designed for campaigns and conversions.', 'صفحات مركّزة مصممة للحملات والتحويل.'), image: '/work/rashfa-hero.jpg' },
-  { id: 'redesign', title: t('Website Redesign', 'إعادة تصميم المواقع'), text: t('Turn an outdated website into a modern experience.', 'حوّل موقعك القديم إلى تجربة رقمية حديثة.'), image: '/work/after.jpg' },
+  { id: 'brand', title: t('Company & Brand Websites', 'مواقع الشركات والعلامات'), text: t('Your company online the way it looks in real life. Arabic first, English beside it.', 'شركتك على الإنترنت كما هي على أرض الواقع. عربي أولًا، والإنجليزية بجانبه.'), image: '/work/noble-store-hero.jpg' },
+  { id: 'commerce', title: t('Online Stores', 'المتاجر الإلكترونية'), text: t('A store that is easy to buy from on a phone, from the first product photo to payment.', 'متجر يسهل الشراء منه بالجوال، من أول صورة للمنتج إلى الدفع.'), image: '/work/noble-store-extra.jpg' },
+  { id: 'immersive', title: t('3D Product Experiences', 'تجارب المنتجات ثلاثية الأبعاد'), text: t('Your product turns and changes colour before the buyer orders it, as we built for Nasaq.', 'منتجك يدور ويتغير لونه أمام العميل قبل أن يطلبه، كما بنينا لشركة نسق.'), image: '/work/noble-immersive-hero.jpg' },
+  { id: 'landing', title: t('Campaign Pages', 'صفحات الحملات'), text: t('One page for one ad and one goal: the visitor contacts you.', 'صفحة واحدة لإعلان واحد وهدف واحد: أن يتواصل معك الزائر.'), image: '/work/rashfa-hero.jpg' },
+  { id: 'redesign', title: t('Website Redesign', 'إعادة تصميم موقعك'), text: t('We keep what works on your site and rebuild what is costing you customers.', 'نحتفظ بما ينجح في موقعك، ونعيد بناء ما يُخسرك عملاء.'), image: '/work/after.jpg' },
 ];
 
 /* ── Industries ───────────────────────────────────────────── */
@@ -46,8 +46,8 @@ export const packages: Package[] = [
     name: 'Starter',
     price: 2500,
     launchPrice: 1500,
-    tagline: t('A professional digital presence.', 'حضور رقمي احترافي.'),
-    audience: t('For brands that need a clean, professional website.', 'للعلامات التي تحتاج موقعًا احترافيًا وأنيقًا.'),
+    tagline: t('A site that says who you are and how to reach you.', 'موقع يعرّف بنشاطك ويوصل العميل إليك.'),
+    audience: t('For a business that needs a tidy, fast site without the extras.', 'لنشاط يحتاج موقعًا مرتبًا وسريعًا، بلا إضافات.'),
     features: [
       t('Professional responsive website', 'موقع احترافي متجاوب'),
       t('Mobile optimization', 'تحسين كامل للجوال'),
@@ -69,8 +69,8 @@ export const packages: Package[] = [
     price: 4500,
     launchPrice: 2500,
     popular: true,
-    tagline: t('A complete brand experience.', 'تجربة متكاملة لعلامتك.'),
-    audience: t('For brands ready for a fully custom, bilingual website.', 'للعلامات الجاهزة لموقع مخصص بالكامل وثنائي اللغة.'),
+    tagline: t('Designed for your brand only, in two languages.', 'موقع مصمم لعلامتك وحدها، بلغتين.'),
+    audience: t('For a company with a clear identity that wants a site that looks like it.', 'لشركة لها هوية واضحة وتريد موقعًا يشبهها.'),
     features: [
       t('Everything in Starter', 'كل ما في Starter'),
       t('Fully custom UI/UX', 'تصميم واجهة وتجربة مخصص بالكامل'),
@@ -91,8 +91,8 @@ export const packages: Package[] = [
     name: 'Immersive',
     price: 8000,
     launchPrice: 5000,
-    tagline: t('For brands that want to stand out.', 'للعلامات التي تريد أن تتميّز.'),
-    audience: t('For brands that want their website to be remembered.', 'للعلامات التي تريد موقعًا لا يُنسى.'),
+    tagline: t('Your product in 3D, at the centre of the site.', 'منتجك بالأبعاد الثلاثة في قلب الموقع.'),
+    audience: t('For a product that deserves to be seen from every angle.', 'لمنتج يستحق أن يُرى من كل زاوية.'),
     features: [
       t('Everything in Signature', 'كل ما في Signature'),
       t('Premium custom UI/UX', 'تصميم مخصص فاخر'),
@@ -126,10 +126,10 @@ export const comparison: { label: T; values: [boolean | T, boolean | T, boolean 
 
 /* ── Process ──────────────────────────────────────────────── */
 export const processSteps = [
-  { title: t('Discover', 'نفهم'), text: t('We understand your brand, audience, products and goals.', 'نفهم علامتك وجمهورك ومنتجاتك وأهدافك.') },
-  { title: t('Design', 'نصمم'), text: t('We create a visual direction and user experience around your brand.', 'نبني توجهًا بصريًا وتجربة استخدام حول علامتك.') },
-  { title: t('Build', 'نبني'), text: t('We turn the approved design into a fast, responsive website.', 'نحوّل التصميم المعتمد إلى موقع سريع ومتجاوب.') },
-  { title: t('Launch', 'نطلق'), text: t('We connect your domain, finalize everything and go live.', 'نربط نطاقك ونراجع كل التفاصيل ونطلق الموقع.') },
+  { title: t('Discover', 'نفهم'), text: t('We ask who your customers are and what makes them buy, and study your current site.', 'نسألك عن عملائك وما يدفعهم للشراء، وندرس موقعك الحالي.') },
+  { title: t('Design', 'نصمم'), text: t('You see the full design and approve it before we start building.', 'ترى التصميم كاملًا وتعتمده قبل أن نبدأ البناء.') },
+  { title: t('Build', 'نبني'), text: t('We build it in Arabic and English, and test it on a phone before a laptop.', 'نبنيه بالعربية والإنجليزية، ونختبره على الجوال قبل الحاسوب.') },
+  { title: t('Launch', 'نطلق'), text: t('We connect your domain and go live. You stay in touch with the person who built it.', 'نربط نطاقك ونطلق الموقع، وتبقى على تواصل مع من بناه.') },
 ];
 
 /* ── Why us ───────────────────────────────────────────────── */
