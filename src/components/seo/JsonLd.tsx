@@ -23,7 +23,7 @@ export function StudioJsonLd({ locale }: { locale: Locale }) {
           telephone: `+${studio.whatsapp}`,
           // Service-area business: we serve clients remotely, so there is no public street
           // address — only the country and the cities we work in.
-          address: { '@type': 'PostalAddress', addressCountry: 'SA' },
+          address: { '@type': 'PostalAddress', addressLocality: locale === 'ar' ? 'الرياض' : 'Riyadh', addressCountry: 'SA' },
           areaServed: [
             { '@type': 'City', name: locale === 'ar' ? 'جدة' : 'Jeddah' },
             { '@type': 'City', name: locale === 'ar' ? 'الرياض' : 'Riyadh' },

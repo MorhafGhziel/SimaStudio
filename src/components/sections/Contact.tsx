@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState, type FormEvent } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { Check, Mail } from 'lucide-react';
+import { Check, Mail, Phone } from 'lucide-react';
 import { useLocale } from '@/components/providers/LocaleProvider';
 import { InstagramIcon, WhatsAppIcon } from '@/components/icons';
 import { Button } from '@/components/ui/Button';
@@ -123,6 +123,7 @@ export function Contact() {
             <ul className="mt-4 space-y-2">
               {[
                 { href: whatsappUrl(whatsappMessage[locale]), label: 'WhatsApp', value: studio.whatsappDisplay, icon: <WhatsAppIcon className="size-5" /> },
+                { href: whatsappUrl(c.callText), label: c.call, value: c.callValue, icon: <Phone className="size-5" strokeWidth={1.6} /> },
                 { href: instagramUrl, label: 'Instagram', value: `@${studio.instagram}`, icon: <InstagramIcon className="size-5" /> },
                 { href: `mailto:${studio.email}`, label: 'Email', value: studio.email, icon: <Mail className="size-5" strokeWidth={1.6} /> },
               ].map((ch) => (
@@ -136,7 +137,7 @@ export function Contact() {
                   >
                     <span className="text-accent">{ch.icon}</span>
                     <span className="flex-1">{ch.label}</span>
-                    <span className="text-sm text-mute transition-colors group-hover:text-paper" dir="ltr">
+                    <span className="text-sm text-mute transition-colors group-hover:text-paper" dir="auto">
                       {ch.value}
                     </span>
                   </a>
