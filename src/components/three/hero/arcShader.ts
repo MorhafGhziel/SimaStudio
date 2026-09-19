@@ -6,7 +6,7 @@
  * ribbons of colour along the curve; the ribbons are treated as a height field
  * and lit like a glossy fluid (normals, specular glints, fresnel), so the light
  * reads as poured liquid rather than streaks. The sphere rotates in 3D with
- * time and the pointer, colour cycles through a looping spectrum, and the
+ * time and the pointer, colour cycles through a looping saffron-to-platinum spectrum, and the
  * cursor sends soft ripples through the surface.
  */
 
@@ -52,11 +52,11 @@ float fbm(vec2 p) {
 
 // Looping spectrum so colour can cycle forever without a seam.
 vec3 spectrum(float t) {
-  vec3 c1 = vec3(0.10, 0.85, 1.00); // cyan
-  vec3 c2 = vec3(0.25, 0.35, 1.00); // blue
-  vec3 c3 = vec3(0.70, 0.25, 1.00); // violet
-  vec3 c4 = vec3(1.00, 0.18, 0.62); // magenta
-  vec3 c5 = vec3(1.00, 0.45, 0.22); // orange
+  vec3 c1 = vec3(0.91, 0.64, 0.23); // saffron
+  vec3 c2 = vec3(0.79, 0.45, 0.10); // deep amber
+  vec3 c3 = vec3(0.62, 0.22, 0.07); // copper
+  vec3 c4 = vec3(1.00, 0.84, 0.52); // pale gold
+  vec3 c5 = vec3(0.80, 0.80, 0.82); // platinum
   t = fract(t) * 5.0;
   if (t < 1.0) return mix(c1, c2, t);
   if (t < 2.0) return mix(c2, c3, t - 1.0);

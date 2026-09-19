@@ -162,8 +162,8 @@ function Particles({ progress, reduced, lite }: { progress: RefObject<number>; r
       uTime: { value: 0 },
       uSize: { value: lite ? 58 : 46 },
       uPixelRatio: { value: 1 },
-      uColorA: { value: new THREE.Color('#3ec6ff') },
-      uColorB: { value: new THREE.Color('#8b9dff') },
+      uColorA: { value: new THREE.Color('#e8a33a') },
+      uColorB: { value: new THREE.Color('#f6d79b') },
     }),
     [lite, reduced],
   );

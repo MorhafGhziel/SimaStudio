@@ -12,7 +12,7 @@ import * as THREE from 'three';
  * line of coloured light as the surface rolls.
  */
 
-const INK = '#050507';
+const INK = '#0e0e0f';
 
 // Shared by the displacement and the analytic normal so light follows the folds exactly.
 const WAVE = /* glsl */ `
@@ -99,10 +99,10 @@ function Studio() {
     <Environment resolution={512} frames={1}>
       <color attach="background" args={['#000000']} />
       <Lightformer form="rect" intensity={2.2} color="#ffffff" position={[0, 5, -6]} rotation-x={Math.PI / 2.4} scale={[34, 0.18, 1]} />
-      <Lightformer form="rect" intensity={2.4} color="#1ad9ff" position={[-7, 2.2, -9]} rotation-x={Math.PI / 2.8} scale={[16, 0.22, 1]} />
-      <Lightformer form="rect" intensity={2.4} color="#ff2e9e" position={[7, 2.6, -8]} rotation-x={Math.PI / 2.8} scale={[16, 0.22, 1]} />
-      <Lightformer form="rect" intensity={1.6} color="#ff7338" position={[0, 1.3, -11]} rotation-x={Math.PI / 3} scale={[22, 0.18, 1]} />
-      <Lightformer form="rect" intensity={0.9} color="#b340ff" position={[-3, 3.5, 7]} rotation-x={-Math.PI / 2.6} scale={[20, 0.3, 1]} />
+      <Lightformer form="rect" intensity={2.4} color="#f6d79b" position={[-7, 2.2, -9]} rotation-x={Math.PI / 2.8} scale={[16, 0.22, 1]} />
+      <Lightformer form="rect" intensity={2.4} color="#e8a33a" position={[7, 2.6, -8]} rotation-x={Math.PI / 2.8} scale={[16, 0.22, 1]} />
+      <Lightformer form="rect" intensity={1.6} color="#c9831f" position={[0, 1.3, -11]} rotation-x={Math.PI / 3} scale={[22, 0.18, 1]} />
+      <Lightformer form="rect" intensity={0.9} color="#c4c7cb" position={[-3, 3.5, 7]} rotation-x={-Math.PI / 2.6} scale={[20, 0.3, 1]} />
     </Environment>
   );
 }
