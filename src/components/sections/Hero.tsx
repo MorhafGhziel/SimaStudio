@@ -73,7 +73,6 @@ function ProofVideo({ play }: { play: boolean }) {
       onPlaying={() => setReady(true)}
       className={`absolute inset-0 size-full object-cover object-top transition-opacity duration-500 ${ready ? 'opacity-100' : 'opacity-0'}`}
     >
-      <source src="/work/nasaq-loop.webm" type="video/webm" />
       <source src="/work/nasaq-loop.mp4" type="video/mp4" />
     </video>
   );
