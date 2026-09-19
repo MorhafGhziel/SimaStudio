@@ -2,12 +2,14 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Check } from 'lucide-react';
+import { WhatsAppIcon } from '@/components/icons';
 import { AnchorButton, LinkButton } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
 import { dictionary } from '@/content/dictionary';
 import { getProject, projects } from '@/content/projects';
-import { studio } from '@/content/site';
+import { studio, whatsappUrl } from '@/content/site';
+import { getApprovedTestimonials } from '@/lib/server/testimonials';
 import { href, isLocale, locales } from '@/lib/i18n';
 
 export const dynamicParams = false;
@@ -44,6 +46,9 @@ export default async function CaseStudyPage({ params }: PageProps<'/[locale]/wor
   const index = projects.findIndex((p) => p.slug === slug);
   const next = projects[(index + 1) % projects.length];
   const name = locale === 'ar' ? project.arName : project.name;
+  // The client's own approved review, matched by the brand they typed in the review form.
+  const keys = project.reviewBrand?.map((k) => k.toLowerCase()) ?? [];
+  const review = keys.length ? (await getApprovedTestimonials(50)).find((r) => keys.some((k) => `${r.brand ?? ''} ${r.name}`.toLowerCase().includes(k))) : undefined;
 
   return (
     <article>
@@ -75,6 +80,12 @@ export default async function CaseStudyPage({ params }: PageProps<'/[locale]/wor
           </p>
           <h1 className="display-xl mt-4 max-w-[14ch]">{name}</h1>
           <p className="mt-6 max-w-[44ch] text-xl text-mute">{project.summary[locale]}</p>
+          {project.live && (
+            <a href={project.live} target="_blank" rel="noopener noreferrer" data-cursor="open" className="group mt-7 inline-flex items-center gap-2 border-b border-accent/50 pb-1 text-paper transition-colors hover:text-accent">
+              <span dir="ltr">{project.live.replace(/^https?:\/\/(www\.)?/, '').replace(/\/.*$/, '')}</span>
+              <ArrowUpRight className="size-4 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={1.6} />
+            </a>
+          )}
         </Reveal>
         <Reveal delay={0.1}>
           <dl className="mt-12 grid grid-cols-2 gap-6 border-t border-line pt-6 text-sm sm:grid-cols-4">
@@ -101,7 +112,12 @@ export default async function CaseStudyPage({ params }: PageProps<'/[locale]/wor
 
       <Reveal className="container-x">
         <div className="relative aspect-[16/10] overflow-hidden rounded-card border border-line">
-          <Image src={`/work/${slug}-hero.jpg`} alt={`${project.name} — ${cs.desktop}`} fill priority sizes="(min-width: 1536px) 96rem, 100vw" className="object-cover object-top" />
+          <Image src={project.video ? `${project.video}-poster.jpg` : `/work/${slug}-hero.jpg`} alt={`${project.name} — ${cs.desktop}`} fill priority sizes="(min-width: 1536px) 96rem, 100vw" className="object-cover object-top" />
+          {project.video && (
+            <video autoPlay muted loop playsInline preload="metadata" aria-hidden="true" className="absolute inset-0 size-full object-cover object-top motion-reduce:hidden">
+              <source src={`${project.video}.mp4`} type="video/mp4" />
+            </video>
+          )}
         </div>
       </Reveal>
 
@@ -112,6 +128,91 @@ export default async function CaseStudyPage({ params }: PageProps<'/[locale]/wor
         <Block label={cs.concept} text={project.concept[locale]} />
         <Block label={cs.design} text={project.design[locale]} />
       </div>
+
+      {/* What the client received */}
+      {project.deliverables && (
+        <section className="container-x" aria-labelledby="delivered">
+          <Reveal className="grid gap-6 border-t border-line py-12 md:grid-cols-12 md:gap-10 md:py-16">
+            <h2 id="delivered" className="eyebrow md:col-span-3">
+              {cs.delivered}
+            </h2>
+            <ul className="grid gap-x-10 gap-y-5 text-lg text-[#dcdbd6] md:col-span-9 md:grid-cols-2">
+              {project.deliverables.map((item) => (
+                <li key={item.en} className="flex gap-3">
+                  <Check className="mt-1.5 size-5 shrink-0 text-accent" strokeWidth={1.6} />
+                  {item[locale]}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </section>
+      )}
+
+      {/* Measured results: only real numbers from the client */}
+      {project.results && project.results.length > 0 && (
+        <section className="container-x" aria-labelledby="results">
+          <Reveal className="grid gap-6 border-t border-line py-12 md:grid-cols-12 md:gap-10 md:py-16">
+            <h2 id="results" className="eyebrow md:col-span-3">
+              {cs.results}
+            </h2>
+            <dl className="grid gap-8 sm:grid-cols-3 md:col-span-9">
+              {project.results.map((r) => (
+                <div key={r.label.en}>
+                  <dd className="display-md text-accent" dir="ltr">
+                    {r.value}
+                  </dd>
+                  <dt className="mt-2 text-mute">{r.label[locale]}</dt>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+        </section>
+      )}
+
+      {/* The client's own words */}
+      {review && (
+        <section className="container-x" aria-labelledby="client-words">
+          <Reveal className="grid gap-6 border-t border-line py-12 md:grid-cols-12 md:gap-10 md:py-16">
+            <h2 id="client-words" className="eyebrow md:col-span-3">
+              {cs.clientWords}
+            </h2>
+            <figure className="md:col-span-8">
+              <p className="text-sm tracking-[0.2em] text-accent" aria-label={`${review.rating} / 5`} dir="ltr">
+                {'★'.repeat(review.rating)}
+              </p>
+              <blockquote className="mt-5 text-2xl leading-relaxed text-paper sm:text-[1.75rem]" dir="auto">
+                “{review.message}”
+              </blockquote>
+              <figcaption className="mt-6 text-mute">
+                <span className="text-paper">{review.name}</span>
+                {review.brand && <span> · {review.brand}</span>}
+              </figcaption>
+            </figure>
+          </Reveal>
+        </section>
+      )}
+
+      {/* The site we replaced, shown only with the client's permission */}
+      {project.before && (
+        <section className="container-x mt-8" aria-labelledby="before-after">
+          <h2 id="before-after" className="eyebrow">
+            {cs.beforeAfter}
+          </h2>
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
+            {[
+              { src: project.before, label: d.beforeAfter.before },
+              { src: `/work/${slug}-hero.jpg`, label: d.beforeAfter.after },
+            ].map((shot) => (
+              <Reveal key={shot.src}>
+                <p className="mb-3 text-sm text-faint">{shot.label}</p>
+                <div className="relative aspect-[16/10] overflow-hidden rounded-card border border-line">
+                  <Image src={shot.src} alt={`${project.name} — ${shot.label}`} fill sizes="(min-width: 768px) 48vw, 100vw" className="object-cover object-top" />
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="container-x mt-8 grid gap-6 md:grid-cols-2">
         {(['detail', 'extra'] as const).map((shot) => (
@@ -191,12 +292,29 @@ export default async function CaseStudyPage({ params }: PageProps<'/[locale]/wor
           ) : (
             <p className="text-mute">{cs.noLive}</p>
           )}
-          <div className="mt-6">
-            <LinkButton href={`${href(locale)}#contact`} variant="outline">
-              {d.work.all}
-            </LinkButton>
-          </div>
         </div>
+      </section>
+
+      {/* Want the same? */}
+      <section className="container-x mt-20 sm:mt-28" aria-labelledby="want">
+        <Reveal>
+          <div className="flex flex-col gap-7 rounded-card border border-accent/40 bg-accent/[0.05] p-8 sm:p-12 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h2 id="want" className="display-md max-w-[18ch]">
+                {cs.want}
+              </h2>
+              <p className="mt-4 max-w-[46ch] text-mute">{cs.wantText}</p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <a href={whatsappUrl(cs.waText.replace('{project}', name))} target="_blank" rel="noopener noreferrer" data-cursor="open" className="inline-flex h-12 items-center gap-2 rounded-pill bg-accent px-6 font-medium text-ink transition-colors hover:bg-paper sm:h-13 sm:px-7">
+                <WhatsAppIcon className="size-4" /> {cs.askWhatsapp}
+              </a>
+              <LinkButton href={`${href(locale)}#contact`} variant="outline">
+                {d.work.all}
+              </LinkButton>
+            </div>
+          </div>
+        </Reveal>
       </section>
 
       {/* 10 · Next project */}

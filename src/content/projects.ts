@@ -20,6 +20,16 @@ export type Project = {
   live?: string;
   /** Real client work. Everything else is a self-initiated concept. */
   client?: boolean;
+  /** Base path of a short screen recording (`.mp4`, `-poster.jpg`) shown in place of the hero still. */
+  video?: string;
+  /** What the client actually received. Facts only. */
+  deliverables?: T[];
+  /** Words that identify this client in an approved review's "brand" field, so the review appears in the case study. */
+  reviewBrand?: string[];
+  /** Measured outcomes, shown only when filled. Never estimate: add a line only with a number the client gave you. */
+  results?: { value: string; label: T }[];
+  /** Screenshot of the site we replaced (`/work/…`). Needs the client's permission before it is added. */
+  before?: string;
   overview: T;
   challenge: T;
   concept: T;
@@ -47,6 +57,16 @@ export const projects: Project[] = [
     tech: ['Next.js', 'React Three Fiber', 'GSAP', 'Tailwind CSS', 'TypeScript'],
     year: '2026',
     live: 'https://www.nasaqksa.com/',
+    video: '/work/nasaq-loop',
+    reviewBrand: ['نسق', 'nasaq'],
+    deliverables: [
+      t('A new logo and visual identity: a one-stroke «نسق» wordmark with a geometric NASAQ lockup.', 'شعار وهوية بصرية جديدة: كلمة «نسق» بخط واحد متصل مع كتابة NASAQ الهندسية.'),
+      t('A 3D T-shirt sewn in a cloth simulation from a real sewing pattern, down to the hems and stitching.', 'تيشيرت ثلاثي الأبعاد مخيط في محاكاة قماش من باترون حقيقي، حتى الحواشي والغرز.'),
+      t('A live configurator: colour, embroidery or print, thread and placement, feeding the quote request.', 'مصمم مباشر: اللون، والتطريز أو الطباعة، والخيط والموضع، وكلها تصب في طلب عرض السعر.'),
+      t('The whole site in Arabic and English, designed right to left first.', 'الموقع كاملًا بالعربية والإنجليزية، ومصمم من اليمين إلى اليسار أولًا.'),
+      t('Twelve industries, from aviation to education, each with colour-graded photography.', 'اثنا عشر قطاعًا، من الطيران إلى التعليم، ولكل قطاع صور موحدة المعالجة اللونية.'),
+      t('A Saudi National Day page and site-wide banner.', 'صفحة لليوم الوطني السعودي مع شريط يظهر في الموقع كله.'),
+    ],
     overview: t(
       'Nasaq designs and manufactures uniforms for companies across Saudi Arabia — corporate, healthcare, hospitality, industrial and more. We replaced their existing site with a bilingual experience that sells confidence to procurement teams and lets them see their uniform before they order.',
       'نسق تصمم وتصنّع الأزياء الموحدة للشركات في أنحاء المملكة — القطاع المؤسسي والصحي والضيافة والصناعي وغيرها. استبدلنا موقعهم السابق بتجربة ثنائية اللغة تمنح فرق المشتريات الثقة، وتتيح لهم رؤية زيّهم قبل الطلب.',

@@ -45,6 +45,8 @@ export async function moderateTestimonialAction(formData: FormData) {
   // The home pages are prerendered, so rebuild them or an approved review never appears.
   revalidatePath('/ar');
   revalidatePath('/en');
+  // Case studies quote the client's approved review.
+  revalidatePath('/[locale]/work/[slug]', 'page');
 }
 
 export async function revokeOthersAction() {
