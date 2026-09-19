@@ -2,24 +2,26 @@
 export const dictionary = {
   en: {
     meta: {
-      title: 'SIMA — Website Design & Development Studio',
+      title: 'SIMA — Arabic-first Websites & 3D Experiences for Saudi Companies',
       description:
-        'SIMA is a digital studio designing premium websites, e-commerce and interactive experiences for perfume, fashion, beauty, restaurant and café brands.',
+        'SIMA designs and builds Arabic-first websites and 3D product experiences for Saudi companies and brands. Designed and built in-house. Latest client launch: Nasaq Uniforms.',
     },
     skip: 'Skip to content',
     nav: { work: 'Work', services: 'Services', packages: 'Packages', process: 'Process', reviews: 'Reviews', about: 'About', start: 'Start a Project', menu: 'Menu', close: 'Close' },
     hero: {
-      kicker: 'Digital design studio',
-      line1: 'We build brands',
-      line2: 'their digital presence deserves.',
-      text: 'Premium websites and digital experiences for ambitious brands.',
+      kicker: 'Digital studio · Saudi Arabia',
+      line1: 'Arabic-first websites',
+      line2: 'for Saudi companies and brands.',
+      text: 'From a clean company site to a full 3D experience. Designed and built in-house.',
+      proofLabel: 'Latest client launch',
+      proofName: 'Nasaq Uniforms',
       explore: 'Explore Our Work',
       start: 'Start a Project',
       scroll: 'Scroll',
     },
     work: {
       title: 'Selected Work',
-      text: 'A selection of digital experiences designed and built for modern brands.',
+      text: 'One client launch and our own concept projects, each labelled for what it is. Every one is live, so open it on your phone.',
       concept: 'Self-initiated concept',
       client: 'Client project',
       view: 'View project',
@@ -109,7 +111,7 @@ export const dictionary = {
       fallbackText: 'Send it to us on WhatsApp or by email to make sure it reaches us.',
       email: 'Send by email',
     },
-    footer: { statement: 'Digital experiences for ambitious brands.', contact: 'Contact', social: 'Social', rights: 'All rights reserved.', brand: 'View our brand identity', explore: 'Explore' },
+    footer: { statement: 'Arabic-first websites for Saudi companies and brands.', contact: 'Contact', social: 'Social', rights: 'All rights reserved.', brand: 'View our brand identity', explore: 'Explore' },
     landing: {
       home: 'Home',
       faq: 'Common questions',
@@ -147,24 +149,26 @@ export const dictionary = {
   },
   ar: {
     meta: {
-      title: 'سِمة — استوديو تصميم وتطوير المواقع',
+      title: 'سِمة — مواقع عربية وتجارب ثلاثية الأبعاد للشركات السعودية',
       description:
-        'سِمة استوديو رقمي يصمم ويبني مواقع فاخرة ومتاجر إلكترونية وتجارب تفاعلية لعلامات العطور والأزياء والتجميل والمطاعم والمقاهي.',
+        'سِمة تصمم وتبني مواقع عربية أولًا وتجارب منتجات ثلاثية الأبعاد للشركات والعلامات السعودية. نصمم ونبني بأنفسنا. آخر مشروع لعميل: نسق للزي الموحد.',
     },
     skip: 'انتقل إلى المحتوى',
     nav: { work: 'أعمالنا', services: 'خدماتنا', packages: 'الباقات', process: 'آلية العمل', reviews: 'آراء العملاء', about: 'من نحن', start: 'ابدأ مشروعك', menu: 'القائمة', close: 'إغلاق' },
     hero: {
-      kicker: 'استوديو تصميم رقمي',
-      line1: 'نبني للعلامات',
-      line2: 'الحضور الرقمي الذي تستحقه.',
-      text: 'مواقع وتجارب رقمية فاخرة للعلامات الطموحة.',
+      kicker: 'استوديو رقمي · السعودية',
+      line1: 'مواقع عربية أولًا',
+      line2: 'للشركات والعلامات السعودية.',
+      text: 'من موقع تعريفي لشركتك إلى تجربة ثلاثية الأبعاد. نصمم ونبني بأنفسنا.',
+      proofLabel: 'آخر مشروع لعميل',
+      proofName: 'نسق للزي الموحد',
       explore: 'استكشف أعمالنا',
       start: 'ابدأ مشروعك',
       scroll: 'مرّر',
     },
     work: {
       title: 'أعمال مختارة',
-      text: 'مجموعة من التجارب الرقمية التي صممناها وبنيناها لعلامات عصرية.',
+      text: 'مشروع لعميل ومشاريع تجريبية من تصميمنا، وكل مشروع موضّح نوعه. جميعها مباشرة، افتحها من جوالك.',
       concept: 'مشروع مفاهيمي ذاتي',
       client: 'مشروع لعميل',
       view: 'عرض المشروع',
@@ -254,7 +258,7 @@ export const dictionary = {
       fallbackText: 'أرسله لنا عبر واتساب أو البريد الإلكتروني لضمان وصوله.',
       email: 'أرسل بالبريد',
     },
-    footer: { statement: 'تجارب رقمية للعلامات الطموحة.', contact: 'تواصل', social: 'حساباتنا', rights: 'جميع الحقوق محفوظة.', brand: 'اطّلع على الهوية البصرية', explore: 'استكشف' },
+    footer: { statement: 'مواقع عربية أولًا للشركات والعلامات السعودية.', contact: 'تواصل', social: 'حساباتنا', rights: 'جميع الحقوق محفوظة.', brand: 'اطّلع على الهوية البصرية', explore: 'استكشف' },
     landing: {
       home: 'الرئيسية',
       faq: 'أسئلة شائعة',

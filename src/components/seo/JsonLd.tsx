@@ -37,9 +37,9 @@ export function StudioJsonLd({ locale }: { locale: Locale }) {
           currenciesAccepted: 'SAR',
           description:
             locale === 'ar'
-              ? 'استوديو رقمي لتصميم وتطوير المواقع والمتاجر الإلكترونية والتجارب التفاعلية.'
-              : 'Digital studio designing and building websites, e-commerce and interactive experiences for ambitious brands.',
-          knowsAbout: ['Website design', 'Web development', 'E-commerce', 'Interactive 3D websites', 'Arabic RTL websites'],
+              ? 'استوديو رقمي يصمم ويبني مواقع عربية أولًا وتجارب منتجات ثلاثية الأبعاد للشركات والعلامات السعودية.'
+              : 'Digital studio designing and building Arabic-first websites and 3D product experiences for Saudi companies and brands.',
+          knowsAbout: ['Arabic RTL websites', 'Company websites', 'B2B websites', '3D product configurators', 'Interactive 3D websites', 'Website design', 'Web development'],
           sameAs: [instagramUrl, tiktokUrl],
           // Advertise the price a client actually pays today, so search results match the site.
           makesOffer: packages.map((p) => ({

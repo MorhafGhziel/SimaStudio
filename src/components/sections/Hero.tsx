@@ -1,7 +1,10 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import Link from 'next/link';
 import { motion, useReducedMotion } from 'motion/react';
+import { ArrowUpRight } from 'lucide-react';
 import { useLocale } from '@/components/providers/LocaleProvider';
 import { LinkButton } from '@/components/ui/Button';
 import { useWebGL } from '@/lib/capabilities';
@@ -16,7 +19,7 @@ function Headline({ lines, reduce }: { lines: string[]; reduce: boolean }) {
   return (
     <>
       {lines.map((line, li) => (
-        <span key={line} className={li === 1 ? 'block text-[#b3b3bf]' : 'block'}>
+        <span key={line} className={li === 1 ? 'block text-balance text-[#b3b3bf]' : 'block text-balance'}>
           {line.split(' ').map((word, wi, words) => {
             const delay = 0.45 + li * 0.14 + index++ * 0.045;
             return (
@@ -75,21 +78,43 @@ export function Hero() {
           {dict.hero.kicker}
         </motion.p>
 
-        <h1 id="hero-title" className="display-xl mt-7 max-w-[16ch] !text-[clamp(2.6rem,0.6rem+5vw,6.75rem)] rtl:max-w-[22ch] rtl:!text-[clamp(2.3rem,0.6rem+4.2vw,5.5rem)] rtl:!leading-[1.3]">
+        <h1 id="hero-title" className="display-xl mt-7 max-w-[32ch] !text-[clamp(2rem,0.8rem+3.6vw,5rem)] rtl:max-w-[24ch] rtl:!text-[clamp(1.9rem,0.8rem+3.4vw,4.6rem)] rtl:!leading-[1.3]">
           <Headline lines={[dict.hero.line1, dict.hero.line2]} reduce={reduce} />
         </h1>
 
-        <motion.p {...fade(1)} className="mt-6 max-w-[40ch] text-lg leading-relaxed text-[#b0b0bc] sm:text-xl">
+        <motion.p {...fade(1)} className="mt-5 max-w-[52ch] text-base leading-relaxed text-[#b0b0bc] sm:mt-6 sm:text-xl">
           {dict.hero.text}
         </motion.p>
 
-        <motion.div {...fade(1.15)} className="mt-9 flex flex-wrap justify-center gap-3">
+        <motion.div {...fade(1.15)} className="mt-7 flex flex-wrap justify-center gap-3 sm:mt-9">
           <LinkButton href={`${href(locale)}#work`} arrow>
             {dict.hero.explore}
           </LinkButton>
           <LinkButton href={`${href(locale)}#contact`} variant="outline" className="bg-ink/40 backdrop-blur-sm">
             {dict.hero.start}
           </LinkButton>
+        </motion.div>
+
+        {/* Proof in the first screen: the latest client launch, one tap from the case study. */}
+        <motion.div {...fade(1.3)} className="mt-auto w-full max-w-[24rem] pt-8 sm:pt-12">
+          <Link
+            href={href(locale, '/work/nasaq')}
+            data-cursor="view"
+            aria-label={`${dict.hero.proofLabel}: ${dict.hero.proofName}`}
+            className="group flex items-center gap-4 rounded-card border border-line bg-ink/55 p-2.5 text-start backdrop-blur-md transition-colors hover:border-paper/30"
+          >
+            <span className="relative block aspect-[16/10] w-[32%] shrink-0 overflow-hidden rounded-[0.85rem] bg-ink-2">
+              <Image src="/work/nasaq-hero.jpg" alt="" fill sizes="(min-width: 640px) 182px, 36vw" className="object-cover object-top transition-transform duration-[1200ms] ease-out group-hover:scale-[1.05]" />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="flex items-center gap-2 text-xs text-accent">
+                <span aria-hidden="true" className="bg-spectrum size-1.5 rounded-full" />
+                {dict.hero.proofLabel}
+              </span>
+              <span className="mt-1 block font-medium text-paper">{dict.hero.proofName}</span>
+            </span>
+            <ArrowUpRight aria-hidden="true" className="me-3 size-5 shrink-0 text-mute transition-all duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-paper rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5" strokeWidth={1.6} />
+          </Link>
         </motion.div>
       </div>
     </section>
