@@ -2,9 +2,9 @@
 
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion, useInView, useReducedMotion } from 'motion/react';
-import { Check } from 'lucide-react';
+import { Check, ChevronDown } from 'lucide-react';
 import { useLocale } from '@/components/providers/LocaleProvider';
 import { LinkButton } from '@/components/ui/Button';
 import type { Package } from '@/content/offer';
@@ -28,6 +28,9 @@ export function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
   const offer = launchOffer();
   const immersive = pkg.id === 'immersive';
   const show3d = immersive && webgl && desktop && !reduce;
+  // Phones show the first few features; the rest open on tap.
+  const SHORT = 4;
+  const [open, setOpen] = useState(false);
 
   return (
     <motion.article
@@ -36,8 +39,8 @@ export function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
       viewport={{ once: true, margin: '0px 0px -10% 0px' }}
       transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
       className={cn(
-        'relative flex flex-col rounded-card border p-7 sm:p-9',
-        pkg.popular ? 'border-accent/45 bg-ink-3 shadow-[0_40px_90px_-50px_rgb(91_139_255/0.45)] lg:-translate-y-4' : 'border-line bg-ink-2',
+        'relative flex flex-col rounded-card border p-7 max-lg:w-[84%] max-lg:shrink-0 max-lg:snap-start sm:p-9 sm:max-lg:w-[47%]',
+        pkg.popular ? 'border-accent/45 bg-ink-3 shadow-[0_40px_90px_-50px_rgb(232_163_58/0.4)] lg:-translate-y-4' : 'border-line bg-ink-2',
       )}
     >
       {pkg.popular && <span className="absolute -top-3 start-7 rounded-pill bg-spectrum px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-ink rtl:normal-case rtl:tracking-normal">{dict.packages.popular}</span>}
@@ -66,14 +69,20 @@ export function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
 
       <ul className="mt-8 space-y-3 border-t border-line pt-7 text-[0.95rem]">
         {pkg.features.map((f, i) => (
-          <li key={f.en} className={cn('flex gap-3', i === 0 && index > 0 ? 'text-accent' : 'text-[#d0cfca]')}>
+          <li key={f.en} className={cn('flex gap-3', i === 0 && index > 0 ? 'text-accent' : 'text-[#d0cfca]', i >= SHORT && !open && 'max-lg:hidden')}>
             <Check className="mt-1 size-4 shrink-0 text-accent" strokeWidth={1.8} />
             {f[locale]}
           </li>
         ))}
       </ul>
+      {pkg.features.length > SHORT && (
+        <button type="button" aria-expanded={open} onClick={() => setOpen((v) => !v)} className="mt-4 inline-flex items-center gap-1.5 self-start text-sm text-mute transition-colors hover:text-paper lg:hidden">
+          {open ? dict.packages.fewer : dict.packages.allFeatures.replace('{n}', String(pkg.features.length))}
+          <ChevronDown className={cn('size-4 transition-transform duration-300', open && 'rotate-180')} strokeWidth={1.6} />
+        </button>
+      )}
 
-      <div className="mt-auto pt-10">
+      <div className="mt-auto pt-8 lg:pt-10">
         <div className="flex items-end justify-between gap-4 border-t border-line pt-6">
           <div>
             {offer.active ? (
@@ -87,10 +96,10 @@ export function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
                     −{Math.round((1 - pkg.launchPrice / pkg.price) * 100)}%
                   </span>
                 </span>
-                <p className="mt-1 text-[2rem] font-medium leading-none tracking-[-0.03em] text-accent">{formatSAR(pkg.launchPrice, locale)}</p>
+                <p className="mt-1 whitespace-nowrap text-[2rem] font-medium leading-none tracking-[-0.03em] text-accent">{formatSAR(pkg.launchPrice, locale)}</p>
               </>
             ) : (
-              <p className="text-[2rem] font-medium leading-none tracking-[-0.03em]">{formatSAR(pkg.price, locale)}</p>
+              <p className="whitespace-nowrap text-[2rem] font-medium leading-none tracking-[-0.03em]">{formatSAR(pkg.price, locale)}</p>
             )}
           </div>
           <p className="text-end text-xs text-faint">

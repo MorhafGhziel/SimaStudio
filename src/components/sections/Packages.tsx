@@ -46,7 +46,8 @@ export function Packages() {
           </Reveal>
         )}
 
-        <div className="mt-16 grid gap-6 sm:mt-20 lg:grid-cols-3 lg:items-start">
+        {/* Phones and tablets: one swipe row with the next card peeking. Desktop: three columns. */}
+        <div className="no-scrollbar mt-12 flex snap-x snap-mandatory items-start gap-4 overflow-x-auto overscroll-x-contain pt-4 max-lg:-mx-[var(--gutter)] max-lg:scroll-px-[var(--gutter)] max-lg:px-[var(--gutter)] sm:mt-20 lg:grid lg:grid-cols-3 lg:items-start lg:gap-6 lg:overflow-visible lg:pt-0">
           {packages.map((pkg, i) => (
             <PackageCard key={pkg.id} pkg={pkg} index={i} />
           ))}
