@@ -15,6 +15,31 @@ export const studio = {
   whatsappDisplay: '+966 58 273 7120',
   instagram: 'simastudio7', // handle without @
   tiktok: 'simastudio7',
+  x: 'simastudio7',
+  linkedin: 'sima-studio7', // company page slug
+};
+
+/**
+ * The people behind the studio. The "who is behind SIMA" section stays hidden while this is
+ * empty. Real names and real photos only (`/public/team/…`).
+ */
+export type Person = { name: T; role: T; city: T; bio: T; photo: string; linkedin?: string };
+export const team: Person[] = [];
+
+/**
+ * Legal identity shown in the footer: a commercial registration or freelance document number.
+ * `null` hides the line. Never put a number here that is not yours and currently valid.
+ */
+export const legal: { label: T; value: string } | null = null;
+
+/**
+ * How clients can pay. Written once here; the FAQ, pricing terms and landing pages read it.
+ * No crypto: SAMA and the Ministry of Finance state virtual currencies are not approved in the
+ * Kingdom, so a Saudi business site must not advertise them as a way to pay.
+ */
+export const paymentMethods: T = {
+  en: 'Bank transfer or STC Pay.',
+  ar: 'تحويل بنكي أو STC Pay.',
 };
 
 export const whatsappMessage: T = {
@@ -37,3 +62,5 @@ export function launchOffer(now: Date = new Date()) {
 export const whatsappUrl = (text: string) => `https://wa.me/${studio.whatsapp}?text=${encodeURIComponent(text)}`;
 export const instagramUrl = `https://www.instagram.com/${studio.instagram}/`;
 export const tiktokUrl = `https://www.tiktok.com/@${studio.tiktok}`;
+export const xUrl = `https://x.com/${studio.x}`;
+export const linkedinUrl = `https://www.linkedin.com/company/${studio.linkedin}/`;

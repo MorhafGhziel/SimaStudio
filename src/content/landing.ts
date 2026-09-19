@@ -1,4 +1,5 @@
 import type { T } from '@/lib/i18n';
+import { paymentMethods } from './site';
 
 /**
  * Landing pages that target what people actually search for. Each one is a real page with
@@ -312,8 +313,8 @@ export const landings: Landing[] = [
       {
         heading: t('Paying', 'الدفع'),
         body: t(
-          'Half before we start and half at launch. You see the design before the second half is due.',
-          'نصف المبلغ قبل البدء والنصف عند الإطلاق. ترى التصميم قبل استحقاق النصف الثاني.',
+          `Half before we start and half at launch. You see the design before the second half is due. Pay by ${paymentMethods.en.charAt(0).toLowerCase() + paymentMethods.en.slice(1)}`,
+          `نصف المبلغ قبل البدء والنصف عند الإطلاق. ترى التصميم قبل استحقاق النصف الثاني. طرق الدفع: ${paymentMethods.ar}`,
         ),
       },
     ],
@@ -405,8 +406,8 @@ export const landings: Landing[] = [
       {
         q: t('How does payment work?', 'كيف يتم الدفع؟'),
         a: t(
-          'Half before we start and half at launch. Domain and hosting setup are included for the first year.',
-          'نصف المبلغ قبل البدء والنصف عند الإطلاق. ويشمل السعر إعداد النطاق والاستضافة للسنة الأولى.',
+          `Half before we start and half at launch. Pay by ${paymentMethods.en.charAt(0).toLowerCase() + paymentMethods.en.slice(1)} Domain and hosting setup are included for the first year.`,
+          `نصف المبلغ قبل البدء والنصف عند الإطلاق. طرق الدفع: ${paymentMethods.ar} ويشمل السعر إعداد النطاق والاستضافة للسنة الأولى.`,
         ),
       },
     ],

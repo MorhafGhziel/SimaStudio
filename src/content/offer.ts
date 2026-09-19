@@ -1,4 +1,5 @@
 import type { T } from '@/lib/i18n';
+import { paymentMethods } from './site';
 
 const t = (en: string, ar: string): T => ({ en, ar });
 
@@ -249,8 +250,8 @@ export const faqs = [
   {
     q: t('How does payment work?', 'كيف يتم الدفع؟'),
     a: t(
-      'Half before we start and half at launch. The price you agree to is the final price; anything extra is quoted before we do it.',
-      'نصف المبلغ قبل البدء والنصف عند الإطلاق. السعر المتفق عليه هو السعر النهائي، وأي إضافة نسعّرها لك قبل تنفيذها.',
+      `Half before we start and half at launch. Pay by ${paymentMethods.en.charAt(0).toLowerCase() + paymentMethods.en.slice(1)} The price you agree to is the final price; anything extra is quoted before we do it.`,
+      `نصف المبلغ قبل البدء والنصف عند الإطلاق. طرق الدفع: ${paymentMethods.ar} السعر المتفق عليه هو السعر النهائي، وأي إضافة نسعّرها لك قبل تنفيذها.`,
     ),
   },
   { q: t('Can you build an Arabic website?', 'هل يمكنكم بناء موقع باللغة العربية؟'), a: t('Yes — with proper right-to-left layout, not just translated text. Signature and Immersive include Arabic + English.', 'نعم — بتصميم صحيح من اليمين لليسار وليس مجرد ترجمة. باقة Signature وباقة Immersive تشملان العربية والإنجليزية.') },

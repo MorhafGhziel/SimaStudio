@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { dictionary } from '@/content/dictionary';
 import { landings } from '@/content/landing';
-import { instagramUrl, studio, tiktokUrl, whatsappMessage, whatsappUrl } from '@/content/site';
+import { instagramUrl, legal, linkedinUrl, studio, tiktokUrl, whatsappMessage, whatsappUrl, xUrl } from '@/content/site';
 import { href, type Locale } from '@/lib/i18n';
 import { FooterSilk } from './FooterSilk';
 import { Logo } from './Logo';
@@ -79,6 +79,16 @@ export function Footer({ locale }: { locale: Locale }) {
               </a>
             </li>
             <li>
+              <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className={link}>
+                LinkedIn
+              </a>
+            </li>
+            <li>
+              <a href={xUrl} target="_blank" rel="noopener noreferrer" className={link}>
+                X
+              </a>
+            </li>
+            <li>
               <a href={whatsappUrl(whatsappMessage[locale])} target="_blank" rel="noopener noreferrer" className={link}>
                 WhatsApp
               </a>
@@ -105,7 +115,17 @@ export function Footer({ locale }: { locale: Locale }) {
         <p>
           © {new Date().getFullYear()} SIMA · سِمة. {d.footer.rights}
         </p>
-        <p dir="ltr">sima.studio</p>
+        <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
+          {legal && (
+            <span>
+              {legal.label[locale]}: <span dir="ltr">{legal.value}</span>
+            </span>
+          )}
+          <Link href={href(locale, '/privacy')} className="transition-colors hover:text-paper">
+            {d.footer.privacy}
+          </Link>
+          <span dir="ltr">{studio.url.replace(/^https?:\/\/(www\.)?/, '')}</span>
+        </p>
       </div>
     </footer>
   );

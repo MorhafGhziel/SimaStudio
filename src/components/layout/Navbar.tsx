@@ -5,9 +5,9 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useLocale } from '@/components/providers/LocaleProvider';
-import { InstagramIcon, TikTokIcon, WhatsAppIcon } from '@/components/icons';
+import { InstagramIcon, LinkedInIcon, TikTokIcon, WhatsAppIcon, XIcon } from '@/components/icons';
 import { LinkButton } from '@/components/ui/Button';
-import { instagramUrl, studio, tiktokUrl, whatsappMessage, whatsappUrl } from '@/content/site';
+import { instagramUrl, linkedinUrl, studio, tiktokUrl, whatsappMessage, whatsappUrl, xUrl } from '@/content/site';
 import { href, type Locale } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 import { Logo } from './Logo';
@@ -147,6 +147,12 @@ export function Navbar() {
                     </a>
                     <a href={tiktokUrl} target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="grid size-11 place-items-center">
                       <TikTokIcon className="size-5" />
+                    </a>
+                    <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="grid size-11 place-items-center">
+                      <LinkedInIcon className="size-5" />
+                    </a>
+                    <a href={xUrl} target="_blank" rel="noopener noreferrer" aria-label="X" className="grid size-11 place-items-center">
+                      <XIcon className="size-5" />
                     </a>
                   </div>
                 </div>

@@ -1,5 +1,5 @@
 import { faqs, packages } from '@/content/offer';
-import { instagramUrl, launchOffer, launchOfferEnds, studio, tiktokUrl } from '@/content/site';
+import { instagramUrl, launchOffer, launchOfferEnds, linkedinUrl, studio, tiktokUrl, xUrl } from '@/content/site';
 import type { Locale } from '@/lib/i18n';
 
 function Script({ data }: { data: unknown }) {
@@ -40,7 +40,7 @@ export function StudioJsonLd({ locale }: { locale: Locale }) {
               ? 'استوديو رقمي يصمم ويبني مواقع عربية أولًا وتجارب منتجات ثلاثية الأبعاد للشركات والعلامات السعودية.'
               : 'Digital studio designing and building Arabic-first websites and 3D product experiences for Saudi companies and brands.',
           knowsAbout: ['Arabic RTL websites', 'Company websites', 'B2B websites', '3D product configurators', 'Interactive 3D websites', 'Website design', 'Web development'],
-          sameAs: [instagramUrl, tiktokUrl],
+          sameAs: [instagramUrl, tiktokUrl, linkedinUrl, xUrl],
           // Advertise the price a client actually pays today, so search results match the site.
           makesOffer: packages.map((p) => ({
             '@type': 'Offer',
