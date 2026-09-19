@@ -35,7 +35,7 @@ export const dictionary = {
       p1: 'Your customers may discover your brand on Instagram or TikTok, but your website is where they learn who you are, explore your products, and decide whether your brand is worth trusting.',
       p2: 'We turn your existing brand identity into a digital experience that feels intentional, premium and memorable.',
     },
-    services: { title: 'What We Build', cta: 'Discuss your project' },
+    services: { title: 'What We Build', cta: 'Discuss your project', from: 'from', timeline: 'Typical timeline', quoted: 'Set in your quote', related: 'See a similar project', ask: 'Ask about this on WhatsApp', askText: 'Hello, I’d like to ask about: {service}.' },
     industries: { title: 'Built for ambitious brands.', text: 'Choose an industry to see related work.', related: 'Related work', none: 'Be the first in this category — tell us about your brand.', talk: 'Start a project' },
     packages: {
       title: 'Three packages. Prices in the open.',
@@ -184,7 +184,7 @@ export const dictionary = {
       p1: 'قد يكتشف عملاؤك علامتك عبر إنستغرام أو تيك توك، لكن موقعك هو المكان الذي يتعرفون فيه عليك، ويستكشفون منتجاتك، ويقررون إن كانت علامتك تستحق ثقتهم.',
       p2: 'نحوّل هويتك الحالية إلى تجربة رقمية مدروسة وفاخرة ولا تُنسى.',
     },
-    services: { title: 'ماذا نبني', cta: 'ناقش مشروعك معنا' },
+    services: { title: 'ماذا نبني', cta: 'ناقش مشروعك معنا', from: 'من', timeline: 'المدة المعتادة', quoted: 'تُحدد في العرض', related: 'شاهد مشروعًا مشابهًا', ask: 'اسأل عن هذه الخدمة عبر واتساب', askText: 'السلام عليكم، أود الاستفسار عن: {service}.' },
     industries: { title: 'مصمم للعلامات الطموحة.', text: 'اختر مجالًا لعرض الأعمال المرتبطة به.', related: 'أعمال مرتبطة', none: 'كن الأول في هذا المجال — أخبرنا عن علامتك.', talk: 'ابدأ مشروعك' },
     packages: {
       title: 'ثلاث باقات، وسعر معلن.',
