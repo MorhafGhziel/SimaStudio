@@ -27,7 +27,7 @@ export function Process() {
   const progress = useRef(0);
   const [active, setActive] = useState(0);
 
-  // Pin the stage for three extra screens and map scroll to 0–3.
+  // Pin the stage for one and a half extra screens (half a screen per step) and map scroll to 0–3.
   useEffect(() => {
     if (reduce || !section.current || !stage.current) return;
     gsap.registerPlugin(ScrollTrigger);
@@ -35,7 +35,7 @@ export function Process() {
       ScrollTrigger.create({
         trigger: section.current,
         start: 'top top',
-        end: () => `+=${window.innerHeight * 3}`,
+        end: () => `+=${window.innerHeight * 1.5}`,
         pin: stage.current,
         anticipatePin: 1,
         invalidateOnRefresh: true,

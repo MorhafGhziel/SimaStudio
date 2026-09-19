@@ -75,7 +75,7 @@ export function ProjectCard({ project, flip = false }: { project: Project; flip?
             </li>
           ))}
         </ul>
-        <dl className="mt-8 grid grid-cols-2 gap-6 border-t border-line pt-6 text-sm">
+        <dl className="mt-8 grid grid-cols-2 gap-6 border-t border-line pt-6 text-sm max-lg:hidden">
           <div>
             <dt className="text-faint">{dict.work.services}</dt>
             <dd className="mt-2 space-y-1 text-[#c4c4c0]">
@@ -97,7 +97,7 @@ export function ProjectCard({ project, flip = false }: { project: Project; flip?
             </dd>
           </div>
         </dl>
-        <Link href={url} className="mt-auto inline-flex items-center gap-2 self-start pt-8 text-sm text-paper transition-colors hover:text-accent">
+        <Link href={url} className="mt-auto inline-flex items-center gap-2 self-start pt-6 text-sm lg:pt-8 text-paper transition-colors hover:text-accent">
           {dict.work.view}
           <ArrowUpRight className="size-4 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:-scale-x-100" strokeWidth={1.6} />
         </Link>

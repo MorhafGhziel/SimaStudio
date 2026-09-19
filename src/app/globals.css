@@ -36,7 +36,7 @@ html[lang="ar"] {
 :root {
   --gutter: clamp(1.25rem, 0.5rem + 3.2vw, 3.5rem);
   --nav: 4.5rem;
-  --section: clamp(6rem, 4rem + 9vw, 12rem);
+  --section: clamp(4.5rem, 2.2rem + 10.9vw, 12rem);
 }
 
 @utility container-x {

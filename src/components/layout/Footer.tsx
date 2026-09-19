@@ -22,8 +22,8 @@ export function Footer({ locale }: { locale: Locale }) {
       <div className="absolute inset-0 -z-10">
         <FooterSilk />
       </div>
-      <div className="container-x grid gap-12 pb-40 pt-16 md:grid-cols-12 md:pb-56 md:pt-20">
-        <div className="md:col-span-4">
+      <div className="container-x grid grid-cols-2 gap-x-8 gap-y-10 pb-40 pt-14 md:grid-cols-12 md:gap-12 md:pb-56 md:pt-20">
+        <div className="col-span-2 md:col-span-4">
           <Logo locale={locale} />
           <p className="mt-5 max-w-[30ch] text-mute">{d.footer.statement}</p>
           <a
