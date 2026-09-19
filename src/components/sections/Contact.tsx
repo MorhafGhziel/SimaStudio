@@ -169,7 +169,7 @@ export function Contact() {
 
                   <fieldset className="sm:col-span-2">
                     <legend className="text-sm text-mute">{c.budget}</legend>
-                    <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                    <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
                       {c.budgets.map((b) => (
                         <button key={b} type="button" aria-pressed={values.budget === b} onClick={() => set('budget', values.budget === b ? '' : b)} className={cn('rounded-xl border px-3 py-3 text-sm transition-colors', values.budget === b ? 'border-accent bg-accent text-ink' : 'border-line text-[#c4c4c0] hover:border-paper/30')}>
                           {b}

@@ -3,8 +3,9 @@
 import { useLocale } from '@/components/providers/LocaleProvider';
 import { LinkButton } from '@/components/ui/Button';
 import { Reveal, RevealLines } from '@/components/ui/Reveal';
-import { packages } from '@/content/offer';
-import { launchOffer } from '@/content/site';
+import { Check, Clock } from 'lucide-react';
+import { carePlan, packages } from '@/content/offer';
+import { launchOffer, launchOfferEnds } from '@/content/site';
 import { selectBudget } from '@/lib/events';
 import { formatSAR, href } from '@/lib/i18n';
 import { PackageCard } from './PackageCard';
@@ -13,7 +14,8 @@ export function Packages() {
   const { locale, dict } = useLocale();
   const offer = launchOffer();
   const from = Math.min(...packages.map((p) => (offer.active ? p.launchPrice : p.price)));
-  const maxDiscount = Math.max(...packages.map((p) => Math.round((1 - p.launchPrice / p.price) * 100)));
+  // The offer's last day, written out. No countdown: a date is a fact, a ticking clock is pressure.
+  const until = new Intl.DateTimeFormat(locale === 'ar' ? 'ar-SA-u-ca-gregory-nu-latn' : 'en-GB', { day: 'numeric', month: 'long', timeZone: 'Asia/Riyadh' }).format(new Date(launchOfferEnds));
 
   return (
     <section id="packages" aria-labelledby="packages-title" className="section-y border-t border-line">
@@ -36,13 +38,10 @@ export function Packages() {
 
         {offer.active && (
           <Reveal delay={0.15}>
-            <div className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-card border border-accent/40 bg-accent/[0.06] px-5 py-4">
-              <span className="rounded-pill bg-spectrum px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-ink rtl:normal-case rtl:tracking-normal">{dict.packages.launch}</span>
-              <p className="text-sm text-paper">
-                {dict.packages.launchText} <span className="font-semibold text-accent">{dict.packages.save.replace('{n}', String(maxDiscount))}</span>
-              </p>
-              <span className="text-sm text-mute">{offer.daysLeft <= 1 ? dict.packages.lastDay : dict.packages.endsIn.replace('{days}', String(offer.daysLeft))}</span>
-            </div>
+            <p className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-1 border-s-2 border-accent ps-4 text-sm text-mute">
+              <span className="font-medium text-paper">{dict.packages.launch}</span>
+              {dict.packages.launchText.replace('{date}', until)}
+            </p>
           </Reveal>
         )}
 
@@ -53,19 +52,48 @@ export function Packages() {
           ))}
         </div>
 
-        {/* Custom */}
-        <Reveal className="mt-8">
-          <div className="flex flex-col gap-6 rounded-card border border-line p-7 sm:p-9 md:flex-row md:items-center md:justify-between">
-            <div>
-              <h3 className="text-2xl font-medium tracking-[-0.02em]">{dict.packages.customTitle}</h3>
-              <p className="mt-2 max-w-[52ch] text-mute">{dict.packages.customText}</p>
-            </div>
-            <LinkButton href={`${href(locale)}#contact`} arrow onClick={() => selectBudget(3)}>
-              {dict.packages.customCta}
-            </LinkButton>
-          </div>
+        {/* How payment works: three plain facts */}
+        <Reveal className="mt-10">
+          <ul className="grid gap-x-8 gap-y-3 border-y border-line py-6 text-[0.95rem] text-[#d0cfca] md:grid-cols-3">
+            {dict.packages.terms.map((term) => (
+              <li key={term} className="flex gap-3">
+                <Check className="mt-1 size-4 shrink-0 text-accent" strokeWidth={1.8} />
+                {term}
+              </li>
+            ))}
+          </ul>
         </Reveal>
 
+        {/* Guarantee · care plan · custom */}
+        <div className="no-scrollbar mt-8 flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto overscroll-x-contain max-lg:-mx-[var(--gutter)] max-lg:scroll-px-[var(--gutter)] max-lg:px-[var(--gutter)] lg:grid lg:grid-cols-3 lg:gap-6 lg:overflow-visible">
+          <Reveal className="max-lg:w-[84%] max-lg:shrink-0 max-lg:snap-start sm:max-lg:w-[47%]">
+            <div className="flex h-full flex-col rounded-card border border-accent/40 bg-accent/[0.05] p-7 sm:p-8">
+              <Clock className="size-6 text-accent" strokeWidth={1.5} />
+              <h3 className="mt-5 text-2xl font-medium tracking-[-0.02em]">{dict.packages.guaranteeTitle}</h3>
+              <p className="mt-3 text-mute">{dict.packages.guaranteeText}</p>
+            </div>
+          </Reveal>
+          <Reveal delay={0.08} className="max-lg:w-[84%] max-lg:shrink-0 max-lg:snap-start sm:max-lg:w-[47%]">
+            <div className="flex h-full flex-col rounded-card border border-line p-7 sm:p-8">
+              <p className="whitespace-nowrap text-[2rem] font-medium leading-none tracking-[-0.03em]">
+                {formatSAR(carePlan.price, locale)} <span className="text-base font-normal tracking-normal text-mute">{dict.packages.perMonth}</span>
+              </p>
+              <h3 className="mt-5 text-2xl font-medium tracking-[-0.02em]">{dict.packages.careTitle}</h3>
+              <p className="mt-3 text-mute">{dict.packages.careText}</p>
+            </div>
+          </Reveal>
+          <Reveal delay={0.16} className="max-lg:w-[84%] max-lg:shrink-0 max-lg:snap-start sm:max-lg:w-[47%]">
+            <div className="flex h-full flex-col rounded-card border border-line p-7 sm:p-8">
+              <h3 className="text-2xl font-medium tracking-[-0.02em]">{dict.packages.customTitle}</h3>
+              <p className="mt-3 text-mute">{dict.packages.customText}</p>
+              <div className="mt-auto pt-7">
+                <LinkButton href={`${href(locale)}#contact`} arrow onClick={() => selectBudget(5)}>
+                  {dict.packages.customCta}
+                </LinkButton>
+              </div>
+            </div>
+          </Reveal>
+        </div>
       </div>
     </section>
   );

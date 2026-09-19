@@ -57,7 +57,7 @@ export function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
       <p className="mt-2 text-sm text-mute">{pkg.audience[locale]}</p>
 
       {immersive && (
-        <div ref={box} data-cursor={show3d ? 'drag' : undefined} className="relative mt-7 aspect-[4/3] overflow-hidden rounded-2xl border border-line bg-[radial-gradient(90%_80%_at_50%_35%,#2a2114_0%,#0e0e0f_75%)]">
+        <div ref={box} data-cursor={show3d ? 'drag' : undefined} className="relative mt-7 aspect-[16/9] overflow-hidden rounded-2xl lg:aspect-[4/3] border border-line bg-[radial-gradient(90%_80%_at_50%_35%,#2a2114_0%,#0e0e0f_75%)]">
           {show3d && near ? (
             <BottlePreview running={visible} />
           ) : (
@@ -85,21 +85,12 @@ export function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
       <div className="mt-auto pt-8 lg:pt-10">
         <div className="flex items-end justify-between gap-4 border-t border-line pt-6">
           <div>
+            {pkg.fromPrice && <span className="block text-sm text-mute">{dict.packages.from}</span>}
+            <p className="mt-1 whitespace-nowrap text-[2rem] font-medium leading-none tracking-[-0.03em]">{formatSAR(offer.active ? pkg.launchPrice : pkg.price, locale)}</p>
             {offer.active ? (
-              <>
-                <span className="flex items-center gap-2">
-                  <span className="text-sm text-faint line-through" dir="ltr">
-                    <span className="sr-only">{dict.packages.was} </span>
-                    {formatSAR(pkg.price, locale)}
-                  </span>
-                  <span className="rounded-pill bg-accent/15 px-2 py-0.5 text-xs font-semibold text-accent" dir="ltr">
-                    −{Math.round((1 - pkg.launchPrice / pkg.price) * 100)}%
-                  </span>
-                </span>
-                <p className="mt-1 whitespace-nowrap text-[2rem] font-medium leading-none tracking-[-0.03em] text-accent">{formatSAR(pkg.launchPrice, locale)}</p>
-              </>
+              <span className="mt-2 block text-xs text-faint">{dict.packages.after.replace('{price}', formatSAR(pkg.price, locale))}</span>
             ) : (
-              <p className="whitespace-nowrap text-[2rem] font-medium leading-none tracking-[-0.03em]">{formatSAR(pkg.price, locale)}</p>
+              pkg.fromPrice && <span className="mt-2 block text-xs text-faint">{dict.packages.perProject}</span>
             )}
           </div>
           <p className="text-end text-xs text-faint">
