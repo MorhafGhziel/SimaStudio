@@ -54,7 +54,7 @@ export function track(name: string, props?: Record<string, string | number>) {
   send({ type: 'event', name, props });
 }
 
-const SECTION_IDS = ['work', 'testimonials', 'review', 'services', 'packages', 'process', 'faq', 'contact'];
+const SECTION_IDS = ['work', 'testimonials', 'difference', 'review', 'services', 'packages', 'process', 'faq', 'contact'];
 
 export function Tracker() {
   const pathname = usePathname();

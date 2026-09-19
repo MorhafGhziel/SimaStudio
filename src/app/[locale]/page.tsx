@@ -1,4 +1,5 @@
 import { Contact } from '@/components/sections/Contact';
+import { Difference } from '@/components/sections/Difference';
 import { FAQ } from '@/components/sections/FAQ';
 import { FreeReview } from '@/components/sections/FreeReview';
 import { Hero } from '@/components/sections/Hero';
@@ -18,6 +19,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
       <Hero />
       <SelectedWork />
       {isLocale(locale) && <Testimonials locale={locale} />}
+      <Difference />
       <FreeReview />
       <Services />
       <Packages />
