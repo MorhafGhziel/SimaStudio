@@ -58,6 +58,8 @@ export const projects: Project[] = [
     year: '2026',
     live: 'https://www.nasaqksa.com/',
     video: '/work/nasaq-loop',
+    // Shown with the client's permission (given 20 Sep 2026). Captured from the repo's old main branch.
+    before: '/work/nasaq-before.jpg',
     reviewBrand: ['نسق', 'nasaq'],
     deliverables: [
       t('A new logo and visual identity: a one-stroke «نسق» wordmark with a geometric NASAQ lockup.', 'شعار وهوية بصرية جديدة: كلمة «نسق» بخط واحد متصل مع كتابة NASAQ الهندسية.'),

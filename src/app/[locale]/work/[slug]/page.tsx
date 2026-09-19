@@ -129,6 +129,32 @@ export default async function CaseStudyPage({ params }: PageProps<'/[locale]/wor
         <Block label={cs.design} text={project.design[locale]} />
       </div>
 
+      {/* The site we replaced, shown only with the client's permission */}
+      {project.before && (
+        <section className="container-x" aria-labelledby="before-after">
+          <div className="grid gap-6 border-t border-line py-12 md:grid-cols-12 md:gap-10 md:py-16">
+            <h2 id="before-after" className="eyebrow md:col-span-3">
+              {cs.beforeAfter}
+            </h2>
+            <div className="grid gap-6 sm:grid-cols-2 md:col-span-9">
+              {[
+                { src: project.before, label: d.beforeAfter.before, tone: 'text-faint' },
+                { src: `/work/${slug}-hero.jpg`, label: d.beforeAfter.after, tone: 'text-accent' },
+              ].map((shot) => (
+                <Reveal key={shot.src}>
+                  <figure>
+                    <div className="relative aspect-[16/10] overflow-hidden rounded-card border border-line">
+                      <Image src={shot.src} alt={`${project.name} — ${shot.label}`} fill sizes="(min-width: 768px) 36vw, 100vw" className="object-cover object-top" />
+                    </div>
+                    <figcaption className={`mt-3 text-sm ${shot.tone}`}>{shot.label}</figcaption>
+                  </figure>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* What the client received */}
       {project.deliverables && (
         <section className="container-x" aria-labelledby="delivered">
@@ -189,28 +215,6 @@ export default async function CaseStudyPage({ params }: PageProps<'/[locale]/wor
               </figcaption>
             </figure>
           </Reveal>
-        </section>
-      )}
-
-      {/* The site we replaced, shown only with the client's permission */}
-      {project.before && (
-        <section className="container-x mt-8" aria-labelledby="before-after">
-          <h2 id="before-after" className="eyebrow">
-            {cs.beforeAfter}
-          </h2>
-          <div className="mt-6 grid gap-6 md:grid-cols-2">
-            {[
-              { src: project.before, label: d.beforeAfter.before },
-              { src: `/work/${slug}-hero.jpg`, label: d.beforeAfter.after },
-            ].map((shot) => (
-              <Reveal key={shot.src}>
-                <p className="mb-3 text-sm text-faint">{shot.label}</p>
-                <div className="relative aspect-[16/10] overflow-hidden rounded-card border border-line">
-                  <Image src={shot.src} alt={`${project.name} — ${shot.label}`} fill sizes="(min-width: 768px) 48vw, 100vw" className="object-cover object-top" />
-                </div>
-              </Reveal>
-            ))}
-          </div>
         </section>
       )}
 
