@@ -332,6 +332,86 @@ export const landings: Landing[] = [
     ],
     projects: ['rashfa'],
   },
+  {
+    slug: 'company-website',
+    title: t('Websites for Saudi Manufacturers, Suppliers and B2B Companies', 'تصميم مواقع الشركات والمصانع والموردين في السعودية'),
+    description: t(
+      'Arabic-first company websites for Saudi manufacturers, suppliers and B2B firms: your products shown properly, in 3D when it helps, and every visit pointed at a quote request. See what we built for Nasaq Uniforms.',
+      'مواقع عربية أولًا للمصانع والموردين وشركات الأعمال في السعودية: منتجاتكم معروضة كما تستحق، وبالأبعاد الثلاثة عند الحاجة، وكل زيارة تقود إلى طلب عرض سعر. شاهد ما بنيناه لشركة نسق للزي الموحد.',
+    ),
+    heading: t('Websites for makers and suppliers that show your real size.', 'مواقع للمصانع والموردين تُظهر حجمكم الحقيقي.'),
+    intro: [
+      t(
+        'Before a procurement manager calls you, he opens your website. If it is old, slow or English-only, he assumes the company behind it is the same, however good your factory is.',
+        'قبل أن يتصل بكم مدير المشتريات، يفتح موقعكم. فإن كان قديمًا أو بطيئًا أو بالإنجليزية فقط، افترض أن الشركة كذلك، مهما كان مصنعكم متقدمًا.',
+      ),
+      t(
+        'We design and build company websites for Saudi businesses that sell to other businesses: Arabic first, fast on a phone, with your products shown properly and every page leading to a quote request.',
+        'نصمم ونبني مواقع للشركات السعودية التي تبيع لشركات أخرى: عربية أولًا، سريعة على الجوال، تعرض منتجاتكم كما تستحق، وكل صفحة فيها تقود إلى طلب عرض سعر.',
+      ),
+    ],
+    sections: [
+      {
+        heading: t('What we built for Nasaq', 'ماذا بنينا لشركة نسق'),
+        body: t(
+          'Nasaq makes uniforms for companies across the Kingdom. We replaced their website with a bilingual one built around a 3D shirt sewn from a real sewing pattern. A buyer turns it, picks the colour, embroidery and placement, and that choice fills the quote form. It is live at nasaqksa.com. Open it on your phone and turn the shirt.',
+          'نسق تصنّع الأزياء الموحدة للشركات في أنحاء المملكة. استبدلنا موقعهم بموقع ثنائي اللغة مبني حول قميص ثلاثي الأبعاد مخيط من باترون حقيقي. يديره المشتري ويختار اللون والتطريز وموضعه، فيملأ اختياره نموذج طلب عرض السعر. الموقع مباشر على nasaqksa.com. افتحه من جوالك وأدر القميص.',
+        ),
+      },
+      {
+        heading: t('Let buyers see the product before they order', 'دع عميلك يرى المنتج قبل أن يطلبه'),
+        body: t(
+          'A 40 MB PDF catalogue does not open on a phone. If you make something physical, such as furniture, packaging, signage, corporate gifts or workwear, we can put it on the page in 3D so a buyer can turn it, change the finish and send you exactly what he wants. If 3D does not help you sell, we will tell you, and build a fast, clear site without it.',
+          'كتالوج PDF بحجم 40 ميجا لا يفتح على الجوال. إن كنتم تصنعون منتجًا ملموسًا، كالأثاث أو التغليف أو اللوحات أو الهدايا الدعائية أو ملابس العمل، نضعه في الصفحة بالأبعاد الثلاثة ليديره المشتري ويغيّر خامته ويرسل لكم ما يريده بالضبط. وإن لم يكن الثري دي مفيدًا لمبيعاتكم قلنا لكم ذلك، وبنينا موقعًا سريعًا وواضحًا من دونه.',
+        ),
+      },
+      {
+        heading: t('Arabic first, and fast', 'عربي أولًا، وسريع'),
+        body: t(
+          'The Arabic version is designed right-to-left from the start, not translated afterwards, with English beside it for international partners. Pages are built to open quickly on a phone and a normal mobile connection, because that is where most first visits happen.',
+          'النسخة العربية تُصمَّم من اليمين إلى اليسار من البداية ولا تُترجم لاحقًا، ومعها الإنجليزية لشركائكم خارج المملكة. والصفحات مبنية لتفتح بسرعة على الجوال وعلى اتصال عادي، لأن أغلب الزيارات الأولى تأتي منه.',
+        ),
+      },
+      {
+        heading: t('You talk to the person who builds it', 'تتعامل مع من يبني موقعك'),
+        body: t(
+          'We are a small studio, not an agency with account managers. The person you speak to on WhatsApp is the one designing and building your site. Packages start at 2,500 SAR and a 3D product experience at 8,000 SAR; anything larger gets a fixed quote before we start.',
+          'نحن استوديو صغير، لا وكالة فيها مديرو حسابات. من تحدّثه على واتساب هو من يصمم موقعك ويبنيه. تبدأ الباقات من 2,500 ريال، وتجربة المنتج ثلاثية الأبعاد من 8,000 ريال، وما زاد على ذلك نحدد له سعرًا ثابتًا قبل البدء.',
+        ),
+      },
+    ],
+    faqs: [
+      {
+        q: t('We already have a website. Do we need a new one?', 'لدينا موقع بالفعل، فهل نحتاج موقعًا جديدًا؟'),
+        a: t(
+          'Maybe not. Send us the link and we will reply with three specific notes on how it works on a phone, free and with no commitment. If it only needs fixes, we will say so.',
+          'ربما لا. أرسلوا لنا الرابط ونرد عليكم بثلاث ملاحظات محددة عن أدائه على الجوال، مجانًا ودون أي التزام. وإن كان يحتاج إصلاحات فقط قلنا لكم ذلك.',
+        ),
+      },
+      {
+        q: t('Can any product be shown in 3D?', 'هل يمكن عرض أي منتج بالأبعاد الثلاثة؟'),
+        a: t(
+          'Most physical products can, from drawings, photos or a sample. How long it takes depends on the product, so we quote it per project after seeing it.',
+          'أغلب المنتجات الملموسة ممكنة، انطلاقًا من المخططات أو الصور أو عينة. والمدة تعتمد على المنتج، لذلك نسعّره لكل مشروع بعد الاطلاع عليه.',
+        ),
+      },
+      {
+        q: t('Where do quote requests go?', 'أين تصل طلبات عروض الأسعار؟'),
+        a: t(
+          'To the email you choose, with WhatsApp as a second route, so a request is not lost if one channel fails.',
+          'إلى البريد الذي تحددونه، مع واتساب كمسار ثانٍ، حتى لا يضيع طلب إن تعطلت إحدى القناتين.',
+        ),
+      },
+      {
+        q: t('How does payment work?', 'كيف يتم الدفع؟'),
+        a: t(
+          'Half before we start and half at launch. Domain and hosting setup are included for the first year.',
+          'نصف المبلغ قبل البدء والنصف عند الإطلاق. ويشمل السعر إعداد النطاق والاستضافة للسنة الأولى.',
+        ),
+      },
+    ],
+    projects: ['nasaq'],
+  },
 ];
 
 export const getLanding = (slug: string) => landings.find((l) => l.slug === slug);
