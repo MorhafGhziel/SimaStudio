@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { useLocale } from '@/components/providers/LocaleProvider';
@@ -21,7 +22,7 @@ function Headline({ lines, reduce }: { lines: string[]; reduce: boolean }) {
       {lines.map((line, li) => (
         <span key={line} className={li === 1 ? 'block text-balance text-[#b7b6b1]' : 'block text-balance'}>
           {line.split(' ').map((word, wi, words) => {
-            const delay = 0.45 + li * 0.14 + index++ * 0.045;
+            const delay = 0.1 + li * 0.1 + index++ * 0.03;
             return (
               <span key={wi}>
                 <span className="inline-block overflow-hidden pb-[0.08em] align-bottom rtl:overflow-visible">
@@ -29,7 +30,7 @@ function Headline({ lines, reduce }: { lines: string[]; reduce: boolean }) {
                     className="inline-block"
                     initial={reduce ? false : { y: '100%', opacity: 0, filter: 'blur(12px)' }}
                     animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
-                    transition={{ duration: 1.25, ease: EASE, delay }}
+                    transition={{ duration: 0.9, ease: EASE, delay }}
                   >
                     {word}
                   </motion.span>
@@ -44,13 +45,47 @@ function Headline({ lines, reduce }: { lines: string[]; reduce: boolean }) {
   );
 }
 
+/** The client site in motion. Loads only after the page has settled, so it never competes with first paint. */
+function ProofVideo({ play }: { play: boolean }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (!play) return;
+    const start = () => ref.current?.play().catch(() => {});
+    if (document.readyState === 'complete') {
+      const id = window.setTimeout(start, 600);
+      return () => window.clearTimeout(id);
+    }
+    window.addEventListener('load', start, { once: true });
+    return () => window.removeEventListener('load', start);
+  }, [play]);
+
+  if (!play) return null;
+  return (
+    <video
+      ref={ref}
+      muted
+      loop
+      playsInline
+      preload="none"
+      aria-hidden="true"
+      onPlaying={() => setReady(true)}
+      className={`absolute inset-0 size-full object-cover object-top transition-opacity duration-500 ${ready ? 'opacity-100' : 'opacity-0'}`}
+    >
+      <source src="/work/nasaq-loop.webm" type="video/webm" />
+      <source src="/work/nasaq-loop.mp4" type="video/mp4" />
+    </video>
+  );
+}
+
 export function Hero() {
   const { locale, dict } = useLocale();
   const reduce = useReducedMotion() ?? false;
   const webgl = useWebGL();
   const rtl = locale === 'ar';
 
-  const fade = (delay: number) => ({ initial: reduce ? false : { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 }, transition: { duration: 1.2, ease: EASE, delay } });
+  const fade = (delay: number) => ({ initial: reduce ? false : { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8, ease: EASE, delay } });
 
   return (
     <section aria-labelledby="hero-title" className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ink">
@@ -72,8 +107,8 @@ export function Hero() {
       <div aria-hidden="true" className="hero-grain pointer-events-none absolute -inset-[20%] -z-10" />
 
       {/* ── Content ──────────────────────────────────────────── */}
-      <div className="container-x flex flex-1 flex-col items-center pb-16 pt-[calc(var(--nav)+clamp(2rem,8vh,6rem))] text-center">
-        <motion.p {...fade(0.2)} className="inline-flex items-center gap-2.5 rounded-pill border border-line bg-ink/50 px-4 py-1.5 text-[0.72rem] uppercase tracking-[0.14em] text-[#c4c4c0] backdrop-blur-sm rtl:text-xs rtl:normal-case rtl:tracking-normal">
+      <div className="container-x flex flex-1 flex-col items-center pt-[calc(var(--nav)+clamp(2rem,8vh,6rem))] text-center">
+        <motion.p {...fade(0.05)} className="inline-flex items-center gap-2.5 rounded-pill border border-line bg-ink/50 px-4 py-1.5 text-[0.72rem] uppercase tracking-[0.14em] text-[#c4c4c0] backdrop-blur-sm rtl:text-xs rtl:normal-case rtl:tracking-normal">
           <span aria-hidden="true" className="bg-spectrum size-1.5 rounded-full" />
           {dict.hero.kicker}
         </motion.p>
@@ -82,11 +117,11 @@ export function Hero() {
           <Headline lines={[dict.hero.line1, dict.hero.line2]} reduce={reduce} />
         </h1>
 
-        <motion.p {...fade(1)} className="mt-5 max-w-[52ch] text-base leading-relaxed text-[#b2b1ac] sm:mt-6 sm:text-xl">
+        <motion.p {...fade(0.4)} className="mt-5 max-w-[52ch] text-base leading-relaxed text-[#b2b1ac] sm:mt-6 sm:text-xl">
           {dict.hero.text}
         </motion.p>
 
-        <motion.div {...fade(1.15)} className="mt-7 flex flex-wrap justify-center gap-3 sm:mt-9">
+        <motion.div {...fade(0.5)} className="mt-7 flex flex-wrap justify-center gap-3 sm:mt-9">
           <LinkButton href={`${href(locale)}#work`} arrow>
             {dict.hero.explore}
           </LinkButton>
@@ -95,25 +130,29 @@ export function Hero() {
           </LinkButton>
         </motion.div>
 
-        {/* Proof in the first screen: the latest client launch, one tap from the case study. */}
-        <motion.div {...fade(1.3)} className="mt-auto w-full max-w-[24rem] pt-8 sm:pt-12">
+        {/* Proof in the first screen: the latest client site, moving, one tap from the case study. */}
+        <motion.div {...fade(0.6)} className="mt-auto w-full max-w-[46rem] pt-10 sm:pt-12">
           <Link
             href={href(locale, '/work/nasaq')}
             data-cursor="view"
             aria-label={`${dict.hero.proofLabel}: ${dict.hero.proofName}`}
-            className="group flex items-center gap-4 rounded-card border border-line bg-ink/55 p-2.5 text-start backdrop-blur-md transition-colors hover:border-paper/30"
+            className="group relative block max-h-[40svh] overflow-hidden rounded-t-[1.1rem] border border-b-0 border-line bg-ink-2 text-start shadow-[0_-30px_80px_-30px_rgb(0_0_0/0.9)] transition-colors hover:border-paper/30"
           >
-            <span className="relative block aspect-[16/10] w-[32%] shrink-0 overflow-hidden rounded-[0.85rem] bg-ink-2">
-              <Image src="/work/nasaq-hero.jpg" alt="" fill sizes="(min-width: 640px) 182px, 36vw" className="object-cover object-top transition-transform duration-[1200ms] ease-out group-hover:scale-[1.05]" />
-            </span>
-            <span className="min-w-0 flex-1">
-              <span className="flex items-center gap-2 text-xs text-accent">
-                <span aria-hidden="true" className="bg-spectrum size-1.5 rounded-full" />
-                {dict.hero.proofLabel}
+            <span className="flex items-center justify-between gap-3 border-b border-line bg-ink/70 px-4 py-2.5 backdrop-blur-md">
+              <span className="flex min-w-0 items-center gap-2 text-xs sm:text-sm">
+                <span aria-hidden="true" className="bg-spectrum size-1.5 shrink-0 rounded-full" />
+                <span className="whitespace-nowrap text-accent">{dict.hero.proofLabel}</span>
+                <span className="truncate text-paper">{dict.hero.proofName}</span>
               </span>
-              <span className="mt-1 block font-medium text-paper">{dict.hero.proofName}</span>
+              <span className="flex shrink-0 items-center gap-1.5 text-xs text-mute transition-colors group-hover:text-paper" dir="ltr">
+                <span className="max-sm:hidden">nasaqksa.com</span>
+                <ArrowUpRight aria-hidden="true" className="size-4 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={1.6} />
+              </span>
             </span>
-            <ArrowUpRight aria-hidden="true" className="me-3 size-5 shrink-0 text-mute transition-all duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-paper rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5" strokeWidth={1.6} />
+            <span className="relative block aspect-[16/10]">
+              <Image src="/work/nasaq-loop-poster.jpg" alt="" fill priority sizes="(min-width: 768px) 736px, 100vw" className="object-cover object-top" />
+              <ProofVideo play={!reduce} />
+            </span>
           </Link>
         </motion.div>
       </div>
