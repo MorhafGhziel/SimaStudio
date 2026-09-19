@@ -77,7 +77,7 @@ export default async function LandingPage({ params }: PageProps<'/[locale]/[slug
         </Link>
         <Reveal>
           {landing.city ? <p className="eyebrow mt-10">{landing.city[locale]}</p> : null}
-          <h1 className="display-xl mt-4 max-w-[18ch]">{landing.heading[locale]}</h1>
+          <h1 className="display-xl mt-4 max-w-[18ch] text-balance rtl:!leading-[1.3]">{landing.heading[locale]}</h1>
           <div className="mt-8 grid max-w-[68ch] gap-5">
             {landing.intro.map((p) => (
               <p key={p.en} className="text-xl leading-relaxed text-mute">
