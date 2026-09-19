@@ -87,7 +87,7 @@ export function Packages() {
               <h3 className="text-2xl font-medium tracking-[-0.02em]">{dict.packages.customTitle}</h3>
               <p className="mt-3 text-mute">{dict.packages.customText}</p>
               <div className="mt-auto pt-7">
-                <LinkButton href={`${href(locale)}#contact`} arrow onClick={() => selectBudget(5)}>
+                <LinkButton href={`${href(locale)}#contact`} arrow onClick={() => selectBudget(null)}>
                   {dict.packages.customCta}
                 </LinkButton>
               </div>

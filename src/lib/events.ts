@@ -1,6 +1,14 @@
-/** Package CTAs pre-select the budget in the contact form. */
+/** Package CTAs pre-select the budget range in the contact form. */
 export const PACKAGE_EVENT = 'sima:package';
 
-export function selectBudget(index: number) {
+/**
+ * Upper bound in SAR of each budget range, in the same order as `contact.budgets` in the
+ * dictionary. The entry after the last range is "not sure yet".
+ */
+const BUDGET_LIMITS = [3000, 6000, 10000, 15000, Infinity];
+
+/** Select the range that contains `price` (SAR), or "not sure yet" for a custom project (`null`). */
+export function selectBudget(price: number | null) {
+  const index = price === null ? BUDGET_LIMITS.length : BUDGET_LIMITS.findIndex((limit) => price <= limit);
   window.dispatchEvent(new CustomEvent<number>(PACKAGE_EVENT, { detail: index }));
 }
