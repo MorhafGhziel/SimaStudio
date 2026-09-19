@@ -11,7 +11,7 @@ import { moderateTestimonialAction, revokeOthersAction, revokeSessionAction, sig
 type Props = { data: Dashboard; ranges: { key: RangeKey; label: string }[]; me: { email: string; sessionId: string }; testimonials: AdminTestimonial[] };
 type Row = Record<string, unknown>;
 
-const PALETTE = ['#3ec6ff', '#8b9dff', '#b340ff', '#ff2e9e', '#ff7338', '#5b8bff', '#22c55e', '#eab308', '#8d8d99'];
+const PALETTE = ['#f6d79b', '#e8a33a', '#b340ff', '#ff2e9e', '#ff7338', '#c9831f', '#22c55e', '#eab308', '#8c8c91'];
 const TZ = 'Asia/Riyadh';
 const EVENT_LABELS: Record<string, string> = {
   whatsapp_click: 'WhatsApp clicks',
@@ -78,7 +78,7 @@ function Empty() {
 }
 
 function tooltipStyle() {
-  return { contentStyle: { background: '#0c0c11', border: '1px solid rgba(243,243,246,.12)', borderRadius: 12, color: '#f3f3f6', fontSize: 12 }, itemStyle: { color: '#f3f3f6' }, labelStyle: { color: '#8d8d99' } };
+  return { contentStyle: { background: '#161618', border: '1px solid rgba(245,244,240,.12)', borderRadius: 12, color: '#f5f4f0', fontSize: 12 }, itemStyle: { color: '#f5f4f0' }, labelStyle: { color: '#8c8c91' } };
 }
 
 /** Horizontal bar list — the workhorse for every "top X" breakdown. */
@@ -175,7 +175,7 @@ function Heatmap({ rows }: { rows: Row[] }) {
             <span className="self-center">{d}</span>
             {Array.from({ length: 24 }, (_, h) => {
               const v = grid.get(`${di + 1}-${h}`) ?? 0;
-              return <span key={h} title={`${d} ${h}:00 — ${v} visits`} className="aspect-square rounded-[4px]" style={{ background: v ? `rgba(139,157,255,${0.12 + 0.88 * (v / max)})` : 'rgba(243,243,246,.04)' }} />;
+              return <span key={h} title={`${d} ${h}:00 — ${v} visits`} className="aspect-square rounded-[4px]" style={{ background: v ? `rgba(232,163,58,${0.12 + 0.88 * (v / max)})` : 'rgba(245,244,240,.04)' }} />;
             })}
           </div>
         ))}
@@ -381,15 +381,15 @@ export function DashboardView({ data, ranges, me, testimonials }: Props) {
             <AreaChart data={series} margin={{ left: -18, right: 8, top: 8 }}>
               <defs>
                 <linearGradient id="fill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#8b9dff" stopOpacity={0.45} />
-                  <stop offset="100%" stopColor="#8b9dff" stopOpacity={0} />
+                  <stop offset="0%" stopColor="#e8a33a" stopOpacity={0.45} />
+                  <stop offset="100%" stopColor="#e8a33a" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid stroke="rgba(243,243,246,.06)" vertical={false} />
-              <XAxis dataKey="label" tick={{ fill: '#55555f', fontSize: 11 }} axisLine={false} tickLine={false} minTickGap={24} />
-              <YAxis allowDecimals={false} tick={{ fill: '#55555f', fontSize: 11 }} axisLine={false} tickLine={false} />
+              <CartesianGrid stroke="rgba(245,244,240,.06)" vertical={false} />
+              <XAxis dataKey="label" tick={{ fill: '#5c5c61', fontSize: 11 }} axisLine={false} tickLine={false} minTickGap={24} />
+              <YAxis allowDecimals={false} tick={{ fill: '#5c5c61', fontSize: 11 }} axisLine={false} tickLine={false} />
               <Tooltip {...tooltipStyle()} />
-              <Area type="monotone" dataKey={metric} stroke="#8b9dff" strokeWidth={2} fill="url(#fill)" />
+              <Area type="monotone" dataKey={metric} stroke="#e8a33a" strokeWidth={2} fill="url(#fill)" />
             </AreaChart>
           </ResponsiveContainer>
         </div>
@@ -425,15 +425,15 @@ export function DashboardView({ data, ranges, me, testimonials }: Props) {
             <div className="h-80">
               <ResponsiveContainer>
                 <ScatterChart margin={{ left: -20, right: 10, top: 10, bottom: 0 }}>
-                  <CartesianGrid stroke="rgba(243,243,246,.05)" />
-                  <XAxis type="number" dataKey="x" domain={[-180, 180]} ticks={[-120, -60, 0, 60, 120]} tick={{ fill: '#55555f', fontSize: 10 }} axisLine={false} tickLine={false} />
-                  <YAxis type="number" dataKey="y" domain={[-60, 80]} ticks={[-30, 0, 30, 60]} tick={{ fill: '#55555f', fontSize: 10 }} axisLine={false} tickLine={false} />
+                  <CartesianGrid stroke="rgba(245,244,240,.05)" />
+                  <XAxis type="number" dataKey="x" domain={[-180, 180]} ticks={[-120, -60, 0, 60, 120]} tick={{ fill: '#5c5c61', fontSize: 10 }} axisLine={false} tickLine={false} />
+                  <YAxis type="number" dataKey="y" domain={[-60, 80]} ticks={[-30, 0, 30, 60]} tick={{ fill: '#5c5c61', fontSize: 10 }} axisLine={false} tickLine={false} />
                   <ZAxis type="number" dataKey="z" range={[40, 900]} />
                   <Tooltip {...tooltipStyle()} cursor={false} content={({ payload }) => {
                     const p = payload?.[0]?.payload as { name: string; z: number } | undefined;
                     return p ? <div className="rounded-xl border border-line bg-ink-2 px-3 py-2 text-xs">{p.name}: {fmt(p.z)} visits</div> : null;
                   }} />
-                  <Scatter data={points} fill="#3ec6ff" fillOpacity={0.55} stroke="#8b9dff" />
+                  <Scatter data={points} fill="#f6d79b" fillOpacity={0.55} stroke="#e8a33a" />
                 </ScatterChart>
               </ResponsiveContainer>
             </div>
@@ -508,8 +508,8 @@ export function DashboardView({ data, ranges, me, testimonials }: Props) {
             <ResponsiveContainer>
               <BarChart data={funnel} layout="vertical" margin={{ left: 10, right: 20 }}>
                 <XAxis type="number" hide allowDecimals={false} />
-                <YAxis type="category" dataKey="label" tick={{ fill: '#8d8d99', fontSize: 12 }} axisLine={false} tickLine={false} width={70} />
-                <Tooltip {...tooltipStyle()} cursor={{ fill: 'rgba(243,243,246,.04)' }} />
+                <YAxis type="category" dataKey="label" tick={{ fill: '#8c8c91', fontSize: 12 }} axisLine={false} tickLine={false} width={70} />
+                <Tooltip {...tooltipStyle()} cursor={{ fill: 'rgba(245,244,240,.04)' }} />
                 <Bar dataKey="sessions" name="Visits that saw it" radius={[0, 6, 6, 0]}>
                   {funnel.map((_, i) => (
                     <Cell key={i} fill={PALETTE[i % PALETTE.length]} />
@@ -555,7 +555,7 @@ export function DashboardView({ data, ranges, me, testimonials }: Props) {
               <BarChart data={activeMinutes} margin={{ top: 4, right: 0, bottom: 0, left: 0 }}>
                 <XAxis dataKey="t" hide />
                 <YAxis hide allowDecimals={false} />
-                <Tooltip {...tooltipStyle()} cursor={{ fill: 'rgba(243,243,246,.04)' }} />
+                <Tooltip {...tooltipStyle()} cursor={{ fill: 'rgba(245,244,240,.04)' }} />
                 <Bar dataKey="users" fill="#22c55e" radius={[2, 2, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -646,7 +646,7 @@ export function DashboardView({ data, ranges, me, testimonials }: Props) {
                       {t.brand ? <span className="text-mute"> · {t.brand}</span> : null}
                       <span className={`ms-2 rounded-pill px-2 py-0.5 text-xs ${t.status === 'approved' ? 'bg-[#22c55e]/15 text-[#22c55e]' : t.status === 'rejected' ? 'bg-[#ff8a8a]/15 text-[#ff8a8a]' : 'bg-accent/15 text-accent'}`}>{t.status}</span>
                     </p>
-                    <p className="mt-2 text-sm text-[#cfcfd2]">{t.message}</p>
+                    <p className="mt-2 text-sm text-[#d0cfca]">{t.message}</p>
                     <p className="mt-2 text-xs text-faint">
                       {when(t.created_at)} · {String(t.locale).toUpperCase()} · {flag(t.country)} {[t.city, countryName(t.country)].filter((x) => x && x !== 'Unknown').join(', ') || 'Unknown'}
                     </p>

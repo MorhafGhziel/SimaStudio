@@ -1,21 +1,23 @@
 @import "tailwindcss";
 
 /* ─── SIMA design system ─────────────────────────────────────
-   Cool near-black ground, crisp white type, one violet accent — plus
-   a cool cyan → blue → periwinkle gradient (no pink outside the hero), used sparingly
-   so every section shares the same light.                          */
+   The SIMA STUDIO identity: ink ground, bone type, one saffron accent.
+   The saffron gradient is for thin rules, badges and progress only, so
+   every section shares the same warm light.                         */
 @theme {
-  --color-ink: #050507;
-  --color-ink-2: #0c0c11;
-  --color-ink-3: #15151c;
-  --color-paper: #f3f3f6;
-  --color-mute: #8d8d99;
-  --color-faint: #55555f;
-  --color-accent: #8b9dff;
-  --color-line: rgb(243 243 246 / 0.1);
+  --color-ink: #0e0e0f;
+  --color-ink-2: #161618;
+  --color-ink-3: #1d1d20;
+  --color-paper: #f5f4f0;
+  --color-mute: #8c8c91;
+  --color-faint: #5c5c61;
+  --color-accent: #e8a33a;
+  --color-accent-deep: #c9831f;
+  --color-line: rgb(245 244 240 / 0.1);
 
-  --font-sans: var(--font-grotesk), system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: var(--font-grotesk), system-ui, sans-serif;
+  --font-sans: var(--font-barlow), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-condensed), "Arial Narrow", system-ui, sans-serif;
+  --font-label: var(--font-mono), ui-monospace, monospace;
 
   --radius-card: 1.25rem;
   --radius-pill: 999px;
@@ -78,13 +80,13 @@ html[lang="ar"] {
   font-weight: 500;
 }
 
-/* The hero's light as a reusable gradient — for thin rules, badges and progress, not large fills. */
+/* The saffron light as a reusable gradient — for thin rules, badges and progress, not large fills. */
 @utility bg-spectrum {
-  background-image: linear-gradient(90deg, #3ec6ff 0%, #5b8bff 50%, #8b9dff 100%);
+  background-image: linear-gradient(90deg, #c9831f 0%, #e8a33a 55%, #f6d79b 100%);
 }
 
 @utility text-spectrum {
-  background-image: linear-gradient(90deg, #3ec6ff 0%, #5b8bff 50%, #8b9dff 100%);
+  background-image: linear-gradient(90deg, #c9831f 0%, #e8a33a 55%, #f6d79b 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -181,4 +183,24 @@ html[lang="ar"] {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ─── Brand type rules ───────────────────────────────────────
+   Unlayered on purpose: utilities outrank @layer base, so language-specific
+   display rules written there never applied.                          */
+/* Latin display — Barlow Condensed, heavy and uppercase, as in the identity. */
+html:not([lang="ar"]) :is(.display-xl, .display-lg, .display-md) {
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+}
+html:not([lang="ar"]) .display-xl { line-height: 0.92; }
+html:not([lang="ar"]) .eyebrow {
+  font-family: var(--font-label);
+  font-weight: 500;
+}
+/* Arabic display — Alexandria needs room and no negative tracking. */
+html[lang="ar"] :is(.display-xl, .display-lg, .display-md) {
+  letter-spacing: 0;
+  line-height: 1.25;
 }

@@ -76,7 +76,7 @@ export function Process() {
       <div ref={stage} className={cn('relative overflow-hidden', reduce ? 'section-y' : 'h-[100svh]')}>
         {webgl === true && (
           <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-[var(--nav)] h-[46%] md:inset-y-0 md:start-auto md:end-0 md:top-0 md:h-auto md:w-[60%]">
-            <div className="absolute inset-0 bg-[radial-gradient(50%_50%_at_50%_50%,rgba(91,139,255,0.12),transparent_70%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(50%_50%_at_50%_50%,rgba(232,163,58,0.12),transparent_70%)]" />
             <ProcessScene progress={progress} reduced={reduce} />
           </div>
         )}
@@ -131,7 +131,7 @@ export function Process() {
                           ref={(el) => {
                             if (el) fills.current[i] = el;
                           }}
-                          className="bg-spectrum absolute inset-0 origin-left rtl:origin-right rtl:[background-image:linear-gradient(270deg,#3ec6ff_0%,#5b8bff_50%,#8b9dff_100%)]"
+                          className="bg-spectrum absolute inset-0 origin-left rtl:origin-right rtl:[background-image:linear-gradient(270deg,#c9831f_0%,#e8a33a_55%,#f6d79b_100%)]"
                           style={{ transform: i === 0 ? 'scaleX(1)' : 'scaleX(0)' }}
                         />
                       </span>

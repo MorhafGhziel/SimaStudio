@@ -78,7 +78,7 @@ export function ProjectCard({ project, flip = false }: { project: Project; flip?
         <dl className="mt-8 grid grid-cols-2 gap-6 border-t border-line pt-6 text-sm">
           <div>
             <dt className="text-faint">{dict.work.services}</dt>
-            <dd className="mt-2 space-y-1 text-[#c3c3c6]">
+            <dd className="mt-2 space-y-1 text-[#c4c4c0]">
               {project.services.map((s) => (
                 <span key={s.en} className="block">
                   {s[locale]}
@@ -88,7 +88,7 @@ export function ProjectCard({ project, flip = false }: { project: Project; flip?
           </div>
           <div>
             <dt className="text-faint">{dict.work.tech}</dt>
-            <dd className="mt-2 space-y-1 text-[#c3c3c6]" dir="ltr">
+            <dd className="mt-2 space-y-1 text-[#c4c4c0]" dir="ltr">
               {project.tech.slice(0, 3).map((t) => (
                 <span key={t} className={cn('block', locale === 'ar' && 'text-right')}>
                   {t}

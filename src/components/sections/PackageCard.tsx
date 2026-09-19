@@ -54,19 +54,19 @@ export function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
       <p className="mt-2 text-sm text-mute">{pkg.audience[locale]}</p>
 
       {immersive && (
-        <div ref={box} data-cursor={show3d ? 'drag' : undefined} className="relative mt-7 aspect-[4/3] overflow-hidden rounded-2xl border border-line bg-[radial-gradient(90%_80%_at_50%_35%,#211a36_0%,#08080c_75%)]">
+        <div ref={box} data-cursor={show3d ? 'drag' : undefined} className="relative mt-7 aspect-[4/3] overflow-hidden rounded-2xl border border-line bg-[radial-gradient(90%_80%_at_50%_35%,#2a2114_0%,#0e0e0f_75%)]">
           {show3d && near ? (
             <BottlePreview running={visible} />
           ) : (
             <Image src="/work/noble-immersive-detail.jpg" alt="" fill sizes="(min-width: 1024px) 30vw, 100vw" className="object-cover" />
           )}
-          {show3d && <span className="pointer-events-none absolute bottom-3 start-3 rounded-pill bg-ink/60 px-3 py-1 text-[0.7rem] text-[#c3c3c6] backdrop-blur">{dict.packages.preview}</span>}
+          {show3d && <span className="pointer-events-none absolute bottom-3 start-3 rounded-pill bg-ink/60 px-3 py-1 text-[0.7rem] text-[#c4c4c0] backdrop-blur">{dict.packages.preview}</span>}
         </div>
       )}
 
       <ul className="mt-8 space-y-3 border-t border-line pt-7 text-[0.95rem]">
         {pkg.features.map((f, i) => (
-          <li key={f.en} className={cn('flex gap-3', i === 0 && index > 0 ? 'text-accent' : 'text-[#cfcfd2]')}>
+          <li key={f.en} className={cn('flex gap-3', i === 0 && index > 0 ? 'text-accent' : 'text-[#d0cfca]')}>
             <Check className="mt-1 size-4 shrink-0 text-accent" strokeWidth={1.8} />
             {f[locale]}
           </li>

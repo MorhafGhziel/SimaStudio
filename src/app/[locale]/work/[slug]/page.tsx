@@ -30,7 +30,7 @@ function Block({ label, text }: { label: string; text: string }) {
   return (
     <Reveal className="grid gap-4 border-t border-line py-12 md:grid-cols-12 md:gap-10 md:py-16">
       <h2 className="eyebrow md:col-span-3">{label}</h2>
-      <p className="text-xl leading-relaxed text-[#dbdbde] md:col-span-8 sm:text-2xl">{text}</p>
+      <p className="text-xl leading-relaxed text-[#dcdbd6] md:col-span-8 sm:text-2xl">{text}</p>
     </Reveal>
   );
 }
@@ -172,7 +172,7 @@ export default async function CaseStudyPage({ params }: PageProps<'/[locale]/wor
           <h2 className="eyebrow">{cs.tech}</h2>
           <ul className="mt-6 flex flex-wrap gap-2" dir="ltr">
             {project.tech.map((t) => (
-              <li key={t} className="rounded-pill border border-line px-4 py-2 text-sm text-[#cfcfd2]">
+              <li key={t} className="rounded-pill border border-line px-4 py-2 text-sm text-[#d0cfca]">
                 {t}
               </li>
             ))}

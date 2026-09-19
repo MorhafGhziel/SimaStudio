@@ -10,7 +10,7 @@ const base =
   'group/btn relative inline-flex h-12 items-center justify-center gap-2 overflow-hidden rounded-pill px-6 text-[0.95rem] font-medium transition-[background-color,color,border-color,transform] duration-500 ease-out active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 sm:h-13 sm:px-7';
 
 const variants: Record<Variant, string> = {
-  solid: 'bg-paper text-ink hover:bg-accent',
+  solid: 'bg-accent text-ink hover:bg-paper',
   outline: 'border border-line text-paper hover:border-paper/40 hover:bg-paper/5',
   ghost: 'px-0 text-paper hover:text-accent sm:px-0',
 };

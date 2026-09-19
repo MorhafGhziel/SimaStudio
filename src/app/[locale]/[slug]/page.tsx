@@ -101,7 +101,7 @@ export default async function LandingPage({ params }: PageProps<'/[locale]/[slug
         {landing.sections.map((section) => (
           <Reveal key={section.heading.en} className="grid gap-4 border-t border-line py-12 md:grid-cols-12 md:gap-10 md:py-16">
             <h2 className="eyebrow md:col-span-3">{section.heading[locale]}</h2>
-            <p className="text-xl leading-relaxed text-[#dbdbde] md:col-span-8 sm:text-2xl">{section.body[locale]}</p>
+            <p className="text-xl leading-relaxed text-[#dcdbd6] md:col-span-8 sm:text-2xl">{section.body[locale]}</p>
           </Reveal>
         ))}
       </div>
@@ -178,7 +178,7 @@ export default async function LandingPage({ params }: PageProps<'/[locale]/[slug
             .filter((other) => other.slug !== slug)
             .map((other) => (
               <Link key={other.slug} href={href(locale, `/${other.slug}`)} className="group bg-ink p-6 transition-colors hover:bg-ink-2">
-                <span className="flex items-center justify-between gap-4 text-[0.95rem] text-[#cfcfd2] transition-colors group-hover:text-paper">
+                <span className="flex items-center justify-between gap-4 text-[0.95rem] text-[#d0cfca] transition-colors group-hover:text-paper">
                   {other.title[locale]}
                   <ArrowUpRight className="size-4 shrink-0 text-faint transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent rtl:-scale-x-100" strokeWidth={1.6} />
                 </span>

@@ -15,7 +15,7 @@ export function Footer({ locale }: { locale: Locale }) {
     { id: 'process', label: d.nav.process },
     { id: 'contact', label: d.footer.contact },
   ];
-  const link = 'text-[#acacae] transition-colors hover:text-paper';
+  const link = 'text-[#adaca8] transition-colors hover:text-paper';
 
   return (
     <footer className="relative isolate overflow-hidden border-t border-line bg-ink">

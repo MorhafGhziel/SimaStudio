@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false, nocache: true, googleBot: { index: false, follow: false } },
 };
 
-export const viewport: Viewport = { themeColor: '#050507', colorScheme: 'dark', width: 'device-width', initialScale: 1 };
+export const viewport: Viewport = { themeColor: '#0e0e0f', colorScheme: 'dark', width: 'device-width', initialScale: 1 };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -32,7 +32,7 @@ export async function Testimonials({ locale }: { locale: Locale }) {
             {items.map((item) => (
               <li key={item.id} className="flex flex-col rounded-card border border-line bg-ink-2 p-7">
                 <Stars rating={item.rating} />
-                <blockquote className="mt-5 flex-1 text-[1.05rem] leading-relaxed text-[#cfcfd2]">“{item.message}”</blockquote>
+                <blockquote className="mt-5 flex-1 text-[1.05rem] leading-relaxed text-[#d0cfca]">“{item.message}”</blockquote>
                 <footer className="mt-6 border-t border-line pt-4">
                   <p className="font-medium">{item.name}</p>
                   {item.brand && <p className="text-sm text-mute">{item.brand}</p>}
