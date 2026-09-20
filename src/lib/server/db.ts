@@ -55,6 +55,13 @@ export const SCHEMA: string[] = [
   `alter table analytics_sessions add column if not exists utm_term text`,
   `alter table analytics_sessions add column if not exists utm_content text`,
   `alter table analytics_sessions add column if not exists click_id text`,
+  // Why a visit is ours: signed_in, device (marker cookie or a browser already known as ours), network, manual.
+  `alter table analytics_sessions add column if not exists own_reason text`,
+  // Browsers we said "Not me" about: the same-network rule must never claim them again.
+  `create table if not exists analytics_not_own (
+    visitor_id text primary key,
+    created_at timestamptz not null default now()
+  )`,
   // A browser that was ever ours is ours in every visit: repairs rows recorded before the flag was made sticky.
   `update analytics_sessions s set is_own = true where not s.is_own and exists (select 1 from analytics_sessions o where o.visitor_id = s.visitor_id and o.is_own)`,
   `create index if not exists analytics_sessions_started_idx on analytics_sessions (started_at)`,

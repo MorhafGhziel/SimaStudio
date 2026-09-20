@@ -46,7 +46,8 @@ export async function POST(request: Request) {
   // every visit it ever made is flagged too, and so is every later one — even if the cookie is
   // gone by then, because its visitor id is already on record as ours.
   const cookie = request.headers.get('cookie') ?? '';
-  const isOwn = cookie.includes(`${SESSION_COOKIE}=`) || cookie.includes(`${OWN_COOKIE}=1`);
+  const signedIn = cookie.includes(`${SESSION_COOKIE}=`);
+  const isOwn = signedIn || cookie.includes(`${OWN_COOKIE}=1`);
 
   let data: Beacon;
   try {
@@ -78,22 +79,38 @@ export async function POST(request: Request) {
         } catch {}
       }
       const utmSource = str(data.utm?.source, 80);
+
+      // Two more ways a visit is ours, neither of which needs a cookie:
+      //   known   — this browser's id is already on record as ours;
+      //   network — it comes from the same internet connection an admin was signed in from in the last
+      //             7 days. This is what catches our own link opened inside Instagram, TikTok, WhatsApp
+      //             or LinkedIn, whose built-in browsers share no cookies with the one we sign in from.
+      // The visitor's IP is only compared here, never stored. "Not me" in the dashboard exempts a browser
+      // from the network rule, for a customer who happens to share our Wi-Fi or mobile carrier address.
+      const [seen] = (await sql`
+        select exists (select 1 from analytics_sessions where visitor_id = ${vid} and is_own) as known,
+               (${meta.ip}::text is not null
+                and exists (select 1 from admin_sessions a where a.ip = ${meta.ip} and a.last_seen > now() - interval '7 days')
+                and not exists (select 1 from analytics_not_own n where n.visitor_id = ${vid})) as network`) as { known: boolean; network: boolean }[];
+      const own = isOwn || seen.known || seen.network;
+      const ownReason = signedIn ? 'signed_in' : isOwn || seen.known ? 'device' : seen.network ? 'network' : null;
       const ua = parseUserAgent(meta.userAgent);
       await sql`
         insert into analytics_sessions (id, visitor_id, entry_path, exit_path, referrer, referrer_host, source, utm_source, utm_medium, utm_campaign,
           country, region, city, latitude, longitude, timezone, device, browser, os, screen, language, locale, is_new, is_own, pageviews,
-          utm_term, utm_content, click_id)
+          utm_term, utm_content, click_id, own_reason)
         values (${sid}, ${vid}, ${path}, ${path}, ${referrer}, ${referrerHost}, ${classifySource(referrerHost, utmSource)}, ${utmSource},
           ${str(data.utm?.medium, 80)}, ${str(data.utm?.campaign, 120)}, ${meta.country}, ${meta.region}, ${meta.city}, ${meta.latitude}, ${meta.longitude},
           ${meta.timezone}, ${ua.device}, ${ua.browser}, ${ua.os}, ${str(data.screen, 20)}, ${str(data.language, 20)}, ${str(data.locale, 5)},
           not exists (select 1 from analytics_sessions where visitor_id = ${vid}),
-          ${isOwn} or exists (select 1 from analytics_sessions where visitor_id = ${vid} and is_own), 1,
-          ${str(data.utm?.term, 120)}, ${str(data.utm?.content, 120)}, ${CLICK_IDS.includes(data.clickId ?? '') ? data.clickId : null})
+          ${own}, 1,
+          ${str(data.utm?.term, 120)}, ${str(data.utm?.content, 120)}, ${CLICK_IDS.includes(data.clickId ?? '') ? data.clickId : null}, ${ownReason})
         on conflict (id) do update set last_seen = now(), exit_path = excluded.exit_path, pageviews = analytics_sessions.pageviews + 1,
-          is_own = analytics_sessions.is_own or excluded.is_own
+          is_own = analytics_sessions.is_own or excluded.is_own,
+          own_reason = coalesce(analytics_sessions.own_reason, excluded.own_reason)
         where analytics_sessions.visitor_id = excluded.visitor_id`;
       await sql`insert into analytics_events (session_id, visitor_id, type, path) values (${sid}, ${vid}, 'pageview', ${path})`;
-      if (isOwn) await sql`update analytics_sessions set is_own = true where visitor_id = ${vid} and not is_own`;
+      if (own) await sql`update analytics_sessions set is_own = true, own_reason = coalesce(own_reason, ${ownReason}) where visitor_id = ${vid} and not is_own`;
       return;
     }
 
