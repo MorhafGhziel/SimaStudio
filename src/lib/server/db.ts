@@ -52,6 +52,11 @@ export const SCHEMA: string[] = [
   )`,
   // Added after the table existed, so it has to be a separate idempotent statement.
   `alter table analytics_sessions add column if not exists is_own boolean not null default false`,
+  `alter table analytics_sessions add column if not exists utm_term text`,
+  `alter table analytics_sessions add column if not exists utm_content text`,
+  `alter table analytics_sessions add column if not exists click_id text`,
+  // A browser that was ever ours is ours in every visit: repairs rows recorded before the flag was made sticky.
+  `update analytics_sessions s set is_own = true where not s.is_own and exists (select 1 from analytics_sessions o where o.visitor_id = s.visitor_id and o.is_own)`,
   `create index if not exists analytics_sessions_started_idx on analytics_sessions (started_at)`,
   `create index if not exists analytics_sessions_last_seen_idx on analytics_sessions (last_seen)`,
   `create index if not exists analytics_sessions_visitor_idx on analytics_sessions (visitor_id)`,
@@ -135,6 +140,7 @@ export const SCHEMA: string[] = [
     city text
   )`,
   `create index if not exists leads_created_idx on leads (created_at desc)`,
+  `create index if not exists leads_session_idx on leads (session_id)`,
   `create table if not exists rate_limits (
     key text not null,
     window_start bigint not null,

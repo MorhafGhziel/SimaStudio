@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import { after } from 'next/server';
 import { db, ensureSchema, requireDb } from './db';
 import { loginAlertMail, loginCodeMail, sendMail } from './email';
+import { markThisBrowserAsOwn } from './own';
 import { hmac, randomCode, randomToken, rateLimit, requestMeta, safeEqualHex, sha256 } from './security';
 import { parseUserAgent } from './ua';
 
@@ -104,6 +105,9 @@ export async function verifyLoginCode(rawEmail: unknown, rawCode: unknown): Prom
     path: '/',
     maxAge: SESSION_HOURS * 3600,
   });
+  // The admin session lasts hours; the "this browser is ours" marker lasts a year, so our visits
+  // stay out of the analytics after the session ends.
+  await markThisBrowserAsOwn();
 
   after(async () => {
     const ua = parseUserAgent(meta.userAgent);

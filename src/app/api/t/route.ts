@@ -1,7 +1,7 @@
 import { after } from 'next/server';
-import { OWN_COOKIE } from '@/app/api/own/route';
 import { SESSION_COOKIE } from '@/lib/server/auth';
 import { db, ensureSchema } from '@/lib/server/db';
+import { OWN_COOKIE } from '@/lib/server/own';
 import { hmac, requestMeta } from '@/lib/server/security';
 import { classifySource, isBot, parseUserAgent } from '@/lib/server/ua';
 
@@ -13,6 +13,8 @@ import { classifySource, isBot, parseUserAgent } from '@/lib/server/ua';
 
 const ID = /^[A-Za-z0-9_-]{8,64}$/;
 const NAME = /^[a-z0-9_]{1,40}$/;
+/** Which ad platform's click id was on the landing URL. Only the kind is kept, never the id itself. */
+const CLICK_IDS = ['google', 'meta', 'tiktok', 'linkedin', 'microsoft', 'snapchat', 'x'];
 const str = (v: unknown, max: number) => (typeof v === 'string' && v.length ? v.slice(0, max) : null);
 
 type Beacon = {
@@ -23,7 +25,8 @@ type Beacon = {
   name?: string;
   props?: Record<string, unknown>;
   referrer?: string;
-  utm?: { source?: string; medium?: string; campaign?: string };
+  utm?: { source?: string; medium?: string; campaign?: string; term?: string; content?: string };
+  clickId?: string;
   screen?: string;
   language?: string;
   locale?: string;
@@ -36,9 +39,12 @@ export async function POST(request: Request) {
   const meta = requestMeta(request.headers);
   if (isBot(meta.userAgent)) return new Response(null, { status: 204 });
 
-  // Our own visits are recorded but flagged, so the dashboard can show them as "You" and
-  // still leave them out of every total. Either a live admin session or the long-lived
-  // marker cookie from /api/own counts — the marker survives logout and works on phones.
+  // Our own visits are recorded but flagged, and left out of every number. Either a live admin
+  // session or the year-long marker (set at sign-in, or by /api/own) counts.
+  //
+  // The flag belongs to the browser, not to one visit: the moment a browser is known to be ours,
+  // every visit it ever made is flagged too, and so is every later one — even if the cookie is
+  // gone by then, because its visitor id is already on record as ours.
   const cookie = request.headers.get('cookie') ?? '';
   const isOwn = cookie.includes(`${SESSION_COOKIE}=`) || cookie.includes(`${OWN_COOKIE}=1`);
 
@@ -75,14 +81,19 @@ export async function POST(request: Request) {
       const ua = parseUserAgent(meta.userAgent);
       await sql`
         insert into analytics_sessions (id, visitor_id, entry_path, exit_path, referrer, referrer_host, source, utm_source, utm_medium, utm_campaign,
-          country, region, city, latitude, longitude, timezone, device, browser, os, screen, language, locale, is_new, is_own, pageviews)
+          country, region, city, latitude, longitude, timezone, device, browser, os, screen, language, locale, is_new, is_own, pageviews,
+          utm_term, utm_content, click_id)
         values (${sid}, ${vid}, ${path}, ${path}, ${referrer}, ${referrerHost}, ${classifySource(referrerHost, utmSource)}, ${utmSource},
           ${str(data.utm?.medium, 80)}, ${str(data.utm?.campaign, 120)}, ${meta.country}, ${meta.region}, ${meta.city}, ${meta.latitude}, ${meta.longitude},
           ${meta.timezone}, ${ua.device}, ${ua.browser}, ${ua.os}, ${str(data.screen, 20)}, ${str(data.language, 20)}, ${str(data.locale, 5)},
-          not exists (select 1 from analytics_sessions where visitor_id = ${vid}), ${isOwn}, 1)
-        on conflict (id) do update set last_seen = now(), exit_path = excluded.exit_path, pageviews = analytics_sessions.pageviews + 1
+          not exists (select 1 from analytics_sessions where visitor_id = ${vid}),
+          ${isOwn} or exists (select 1 from analytics_sessions where visitor_id = ${vid} and is_own), 1,
+          ${str(data.utm?.term, 120)}, ${str(data.utm?.content, 120)}, ${CLICK_IDS.includes(data.clickId ?? '') ? data.clickId : null})
+        on conflict (id) do update set last_seen = now(), exit_path = excluded.exit_path, pageviews = analytics_sessions.pageviews + 1,
+          is_own = analytics_sessions.is_own or excluded.is_own
         where analytics_sessions.visitor_id = excluded.visitor_id`;
       await sql`insert into analytics_events (session_id, visitor_id, type, path) values (${sid}, ${vid}, 'pageview', ${path})`;
+      if (isOwn) await sql`update analytics_sessions set is_own = true where visitor_id = ${vid} and not is_own`;
       return;
     }
 
@@ -97,6 +108,8 @@ export async function POST(request: Request) {
     }
 
     await sql`update analytics_sessions set last_seen = now() where id = ${sid} and visitor_id = ${vid}`;
+    // Signed in halfway through a visit: that visit, and the ones before it, are ours too.
+    if (isOwn) await sql`update analytics_sessions set is_own = true where visitor_id = ${vid} and not is_own`;
   });
 
   return new Response(null, { status: 204 });
