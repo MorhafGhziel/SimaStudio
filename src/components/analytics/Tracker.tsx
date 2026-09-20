@@ -54,6 +54,18 @@ export function track(name: string, props?: Record<string, string | number>) {
   send({ type: 'event', name, props });
 }
 
+const CLICK_PARAMS: [string, string][] = [
+  ['gclid', 'google'],
+  ['gbraid', 'google'],
+  ['wbraid', 'google'],
+  ['fbclid', 'meta'],
+  ['ttclid', 'tiktok'],
+  ['li_fat_id', 'linkedin'],
+  ['msclkid', 'microsoft'],
+  ['ScCid', 'snapchat'],
+  ['twclid', 'x'],
+];
+
 const SECTION_IDS = ['work', 'testimonials', 'difference', 'review', 'services', 'packages', 'process', 'faq', 'contact'];
 
 export function Tracker() {
@@ -68,7 +80,17 @@ export function Tracker() {
     send({
       type: 'pageview',
       referrer: fresh ? external : undefined,
-      utm: fresh ? { source: params.get('utm_source') ?? undefined, medium: params.get('utm_medium') ?? undefined, campaign: params.get('utm_campaign') ?? undefined } : undefined,
+      utm: fresh
+        ? {
+            source: params.get('utm_source') ?? undefined,
+            medium: params.get('utm_medium') ?? undefined,
+            campaign: params.get('utm_campaign') ?? undefined,
+            term: params.get('utm_term') ?? undefined,
+            content: params.get('utm_content') ?? undefined,
+          }
+        : undefined,
+      // Which ad platform sent them, from the click id on the landing URL. The id itself is not sent.
+      clickId: fresh ? CLICK_PARAMS.find(([param]) => params.has(param))?.[1] : undefined,
       screen: `${screen.width}x${screen.height}`,
       language: navigator.language,
       locale: document.documentElement.lang,
