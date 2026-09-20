@@ -245,6 +245,25 @@ function cameFrom(r: Row, prefix = '') {
   return [ad ?? source, host && String(host) !== source.toLowerCase() ? String(host) : null, tags || null].filter(Boolean).join(' · ');
 }
 
+/**
+ * The same person, recognisable at a glance: a permanent number (the order in which browsers first
+ * arrived, so it never changes) and a colour taken from the browser's id. Both appear wherever that
+ * person shows up — live list, recent visits, visitors table, profile.
+ */
+function Who({ id, no, visits, visit }: { id: unknown; no: unknown; visits?: unknown; visit?: unknown }) {
+  const hue = parseInt(String(id ?? '0').slice(0, 6), 16) % 360 || 0;
+  const total = n(visits);
+  return (
+    <span className="inline-flex items-center gap-1.5 whitespace-nowrap align-middle">
+      <span className="size-2.5 shrink-0 rounded-full" style={{ background: `hsl(${hue} 78% 62%)` }} />
+      <span className="font-medium tabular-nums">#{fmt(n(no))}</span>
+      {total > 1 ? (
+        <span className="rounded-pill bg-paper/10 px-1.5 py-0.5 text-[11px] text-mute">{visit ? `visit ${fmt(n(visit))} of ${fmt(total)}` : `${fmt(total)} visits`}</span>
+      ) : null}
+    </span>
+  );
+}
+
 function Fact({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="flex items-baseline justify-between gap-4 border-t border-line py-2 text-sm first:border-t-0">
@@ -256,12 +275,12 @@ function Fact({ label, children }: { label: string; children: React.ReactNode })
 
 /** One person: where they first came from, every visit since, everything they did, and any request they sent. */
 function Person({ visitorId, focus, onClose }: { visitorId: string; focus?: string; onClose: () => void }) {
-  const [profile, setProfile] = useState<{ sessions: Row[]; events: Row[]; leads: Row[] } | null | undefined>(undefined);
+  const [profile, setProfile] = useState<{ visitorNo: number | null; sessions: Row[]; events: Row[]; leads: Row[] } | null | undefined>(undefined);
   useEffect(() => {
     let live = true;
     fetch(`/api/admin/visitor?id=${encodeURIComponent(visitorId)}`, { cache: 'no-store' })
       .then((r) => r.json())
-      .then((d: { profile?: { sessions: Row[]; events: Row[]; leads: Row[] } | null }) => live && setProfile(d.profile ?? null))
+      .then((d: { profile?: { visitorNo: number | null; sessions: Row[]; events: Row[]; leads: Row[] } | null }) => live && setProfile(d.profile ?? null))
       .catch(() => live && setProfile(null));
     return () => {
       live = false;
@@ -279,6 +298,11 @@ function Person({ visitorId, focus, onClose }: { visitorId: string; focus?: stri
       <aside className="h-full w-full max-w-xl overflow-y-auto border-l border-line bg-ink-2 p-6" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between gap-3">
           <h3 className="font-medium">
+            {profile?.visitorNo ? (
+              <span className="me-2">
+                <Who id={visitorId} no={profile.visitorNo} visits={sessions.length} />
+              </span>
+            ) : null}
             {profile?.leads?.[0] ? `${String(profile.leads[0].name)} · ${String(profile.leads[0].brand)}` : 'Visitor'}
             {own && <span className="ms-2 rounded-pill bg-emerald-400/15 px-2 py-0.5 text-[11px] text-emerald-300">You · not counted</span>}
           </h3>
@@ -746,6 +770,9 @@ export function DashboardView({ data, ranges, me, testimonials, requests }: Prop
                           {flag(v.country)} {place(v)}
                         </span>
                       )}
+                      <span className="ms-2">
+                        <Who id={v.visitor_id} no={v.visitor_no} />
+                      </span>
                       <span className="block text-xs text-faint">
                         {v.lead_name ? `${flag(v.country)} ${place(v)} · ` : ''}
                         {String(v.device)} · {String(v.os)} · {String(v.browser)}
@@ -815,6 +842,9 @@ export function DashboardView({ data, ranges, me, testimonials, requests }: Prop
                 <li key={i} className="flex items-start justify-between gap-3 text-sm">
                   <div className="min-w-0">
                     <p className="truncate">
+                      <span className="me-2">
+                        <Who id={s.visitor_id} no={s.visitor_no} visits={s.visitor_visits} />
+                      </span>
                       {flag(s.country)} {String(s.city ?? countryName(s.country))} · <span className="text-mute">{String(s.path)}</span>
                       {s.is_own ? <span className="ms-2 rounded-pill bg-emerald-400/15 px-2 py-0.5 text-[11px] text-emerald-300">You</span> : null}
                     </p>
@@ -843,10 +873,10 @@ export function DashboardView({ data, ranges, me, testimonials, requests }: Prop
         >
           {(data.recent as Row[]).length ? (
             <div className="-mx-2 max-h-[420px] overflow-auto">
-              <table className="w-full min-w-[720px] text-left text-sm">
+              <table className="w-full min-w-[860px] text-left text-sm">
                 <thead className="sticky top-0 bg-ink-2 text-xs text-faint">
                   <tr>
-                    {['When', 'Where', 'From', 'Device', 'Pages', 'Time', ''].map((h) => (
+                    {['Who', 'When', 'Where', 'From', 'Device', 'Pages', 'Time', ''].map((h) => (
                       <th key={h} className="px-2 py-2 font-normal">
                         {h}
                       </th>
@@ -856,6 +886,9 @@ export function DashboardView({ data, ranges, me, testimonials, requests }: Prop
                 <tbody>
                   {(data.recent as Row[]).filter((s) => showMine || !s.is_own).map((s) => (
                     <tr key={String(s.id)} className="cursor-pointer border-t border-line hover:bg-ink-3" onClick={() => (s.visitor_id ? setPerson({ id: String(s.visitor_id), focus: String(s.id) }) : setJourney(String(s.id)))}>
+                      <td className="px-2 py-2">
+                        <Who id={s.visitor_id} no={s.visitor_no} visits={s.visitor_visits} visit={s.visit_no} />
+                      </td>
                       <td className="whitespace-nowrap px-2 py-2 text-mute">{when(s.started_at)}</td>
                       <td className="px-2 py-2">
                         {flag(s.country)} {[s.city, countryName(s.country)].filter((x) => x && x !== 'Unknown').join(', ') || 'Unknown'}
@@ -886,7 +919,7 @@ export function DashboardView({ data, ranges, me, testimonials, requests }: Prop
           ) : (
             <Empty />
           )}
-          <p className="mt-2 text-xs text-faint">Click a visit to open the person behind it: where they first came from, every visit, every step.</p>
+          <p className="mt-2 text-xs text-faint">The number and colour belong to the person and never change, so the same # means the same visitor came back. Click a visit to open that person.</p>
         </Card>
       </div>
 
