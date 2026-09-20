@@ -110,7 +110,7 @@ export async function getDashboard(rangeKey: string | undefined) {
     sql`
       select path, count(*)::int as views, count(distinct visitor_id)::int as visitors
       from analytics_events e where type = 'pageview' and ts >= ${from}::timestamptz and ts < ${to}::timestamptz
-        and not exists (select 1 from analytics_sessions s where s.id = e.session_id and s.is_own)
+        and not exists (select 1 from analytics_sessions s where s.visitor_id = e.visitor_id and s.is_own)
       group by path order by views desc limit 15`,
     sql`select count(distinct visitor_id)::int as active from analytics_sessions where not is_own and last_seen > now() - interval '5 minutes'`,
     // Our own devices stay in this list — labelled, not hidden — so we can see ourselves browsing.
@@ -126,17 +126,17 @@ export async function getDashboard(rangeKey: string | undefined) {
     sql`
       select name, count(*)::int as count, count(distinct session_id)::int as sessions
       from analytics_events e where type = 'event' and ts >= ${from}::timestamptz and ts < ${to}::timestamptz
-        and not exists (select 1 from analytics_sessions s where s.id = e.session_id and s.is_own)
+        and not exists (select 1 from analytics_sessions s where s.visitor_id = e.visitor_id and s.is_own)
       group by name order by count desc`,
     sql`
       select props->>'section' as section, count(distinct session_id)::int as sessions
       from analytics_events e where type = 'event' and name = 'section_view' and ts >= ${from}::timestamptz and ts < ${to}::timestamptz
-        and not exists (select 1 from analytics_sessions s where s.id = e.session_id and s.is_own)
+        and not exists (select 1 from analytics_sessions s where s.visitor_id = e.visitor_id and s.is_own)
       group by 1 order by 2 desc`,
     sql`
       select (props->>'depth')::int as depth, count(distinct session_id)::int as sessions
       from analytics_events e where type = 'event' and name = 'scroll' and ts >= ${from}::timestamptz and ts < ${to}::timestamptz
-        and not exists (select 1 from analytics_sessions s where s.id = e.session_id and s.is_own)
+        and not exists (select 1 from analytics_sessions s where s.visitor_id = e.visitor_id and s.is_own)
       group by 1 order by 1`,
     sql`
       select extract(isodow from started_at at time zone 'Asia/Riyadh')::int as dow,
@@ -198,7 +198,7 @@ export async function getDashboard(rangeKey: string | undefined) {
              count(distinct session_id) filter (where name = 'whatsapp_click')::int as whatsapp,
              count(distinct session_id) filter (where name in ('contact_submit', 'whatsapp_click', 'email_click'))::int as any_lead
       from analytics_events e where type = 'event' and ts >= ${from}::timestamptz and ts < ${to}::timestamptz
-        and not exists (select 1 from analytics_sessions s where s.id = e.session_id and s.is_own)`,
+        and not exists (select 1 from analytics_sessions s where s.visitor_id = e.visitor_id and s.is_own)`,
     sql`
       select id, email, created_at, last_seen, expires_at, ip, country, city, user_agent
       from admin_sessions where revoked_at is null and expires_at > now()
@@ -315,7 +315,7 @@ export async function getVisitorProfile(visitorId: string) {
     sql`
       select id, started_at, last_seen, extract(epoch from (last_seen - started_at))::int as duration, pageviews, entry_path, exit_path,
              source, referrer, referrer_host, utm_source, utm_medium, utm_campaign, utm_term, utm_content, click_id,
-             country, region, city, timezone, device, browser, os, screen, language, locale, is_new, is_own
+             country, region, city, timezone, device, browser, os, screen, language, locale, is_new, is_own, own_reason
       from analytics_sessions where visitor_id = ${visitorId} order by started_at desc limit 60`,
     sql`
       select session_id, ts, type, name, path, props from analytics_events
@@ -337,5 +337,8 @@ export async function setVisitorOwn(visitorId: string, own: boolean) {
   await requireAdmin();
   const sql = requireDb();
   if (!VISITOR_ID.test(visitorId)) return;
-  await sql`update analytics_sessions set is_own = ${own} where visitor_id = ${visitorId}`;
+  await sql`update analytics_sessions set is_own = ${own}, own_reason = ${own ? 'manual' : null} where visitor_id = ${visitorId}`;
+  // "Not me" has to hold: otherwise the same-network rule would claim this browser again on its next visit.
+  if (own) await sql`delete from analytics_not_own where visitor_id = ${visitorId}`;
+  else await sql`insert into analytics_not_own (visitor_id) values (${visitorId}) on conflict do nothing`;
 }
