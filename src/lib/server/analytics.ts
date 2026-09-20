@@ -81,6 +81,7 @@ export async function getDashboard(rangeKey: string | undefined) {
     heatmap,
     mapPoints,
     recent,
+    people,
     leads,
     admins,
     logins,
@@ -146,11 +147,37 @@ export async function getDashboard(rangeKey: string | undefined) {
       group by city, country order by sessions desc limit 300`,
     // Kept in the list and labelled, so we can tell our own browsing from real traffic.
     sql`
-      select id, started_at, last_seen, entry_path, exit_path, pageviews, source, referrer_host, utm_campaign,
+      select id, visitor_id, started_at, last_seen, entry_path, exit_path, pageviews, source, referrer_host, utm_campaign,
              country, region, city, device, browser, os, screen, language, locale, is_new, is_own,
              extract(epoch from (last_seen - started_at))::int as duration
       from analytics_sessions where started_at >= ${from}::timestamptz and started_at < ${to}::timestamptz
       order by started_at desc limit 100`,
+    // People, not visits: one row per browser, with where it first came from and what it did since.
+    // First-touch fields come from that person's very first visit, however long ago that was.
+    sql`
+      with active as (
+        select visitor_id, max(last_seen) as last_seen
+        from analytics_sessions where not is_own and last_seen >= ${from}::timestamptz and started_at < ${to}::timestamptz
+        group by visitor_id order by max(last_seen) desc limit 150
+      )
+      select a.visitor_id, a.last_seen, t.first_seen, t.visits, t.pageviews, t.seconds,
+             f.source as first_source, f.referrer as first_referrer, f.referrer_host as first_referrer_host, f.entry_path as first_page,
+             f.utm_source, f.utm_medium, f.utm_campaign, f.click_id,
+             l.country, l.region, l.city, l.device, l.browser, l.os,
+             coalesce(e.actions, '{}') as actions, ld.name as lead_name, ld.brand as lead_brand, ld.status as lead_status
+      from active a
+      join lateral (select min(started_at) as first_seen, count(*)::int as visits, sum(pageviews)::int as pageviews,
+                           sum(extract(epoch from (last_seen - started_at)))::int as seconds
+                    from analytics_sessions s where s.visitor_id = a.visitor_id) t on true
+      join lateral (select * from analytics_sessions s where s.visitor_id = a.visitor_id order by started_at asc limit 1) f on true
+      join lateral (select * from analytics_sessions s where s.visitor_id = a.visitor_id order by started_at desc limit 1) l on true
+      left join lateral (select array_agg(distinct name) as actions from analytics_events ev
+                         where ev.visitor_id = a.visitor_id and ev.type = 'event'
+                           and ev.name in ('contact_submit', 'whatsapp_click', 'email_click', 'cta_click', 'brand_pdf', 'project_open')) e on true
+      left join lateral (select name, brand, status from leads
+                         where session_id in (select id from analytics_sessions s where s.visitor_id = a.visitor_id)
+                         order by created_at desc limit 1) ld on true
+      order by a.last_seen desc`,
     sql`
       select count(distinct session_id) filter (where name = 'contact_submit')::int as contact,
              count(distinct session_id) filter (where name = 'whatsapp_click')::int as whatsapp,
@@ -214,6 +241,7 @@ export async function getDashboard(rangeKey: string | undefined) {
     heatmap,
     mapPoints,
     recent,
+    people,
     leads: leads[0],
     admins,
     logins,
@@ -240,10 +268,11 @@ export async function exportSessionsCsv(rangeKey: string | undefined) {
   const { from, to } = resolveRange(rangeKey);
   const rows = (await sql`
     select started_at, last_seen, extract(epoch from (last_seen - started_at))::int as duration_s, pageviews, entry_path, exit_path,
-           source, referrer_host, utm_source, utm_medium, utm_campaign, country, region, city, device, browser, os, screen, language, locale, is_new
+           source, referrer, referrer_host, utm_source, utm_medium, utm_campaign, utm_term, utm_content, click_id, visitor_id,
+           country, region, city, timezone, device, browser, os, screen, language, locale, is_new
     from analytics_sessions where not is_own and started_at >= ${from}::timestamptz and started_at < ${to}::timestamptz
     order by started_at desc limit 50000`) as Record<string, unknown>[];
-  const columns = ['started_at', 'last_seen', 'duration_s', 'pageviews', 'entry_path', 'exit_path', 'source', 'referrer_host', 'utm_source', 'utm_medium', 'utm_campaign', 'country', 'region', 'city', 'device', 'browser', 'os', 'screen', 'language', 'locale', 'is_new'];
+  const columns = ['started_at', 'last_seen', 'duration_s', 'pageviews', 'entry_path', 'exit_path', 'source', 'referrer', 'referrer_host', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'click_id', 'visitor_id', 'country', 'region', 'city', 'timezone', 'device', 'browser', 'os', 'screen', 'language', 'locale', 'is_new'];
   const cell = (v: unknown) => {
     let s = v === null || v === undefined ? '' : v instanceof Date ? v.toISOString() : String(v);
     // Neutralise spreadsheet formula injection.
@@ -251,4 +280,40 @@ export async function exportSessionsCsv(rangeKey: string | undefined) {
     return `"${s.replace(/"/g, '""')}"`;
   };
   return [columns.join(','), ...rows.map((r) => columns.map((c) => cell(r[c])).join(','))].join('\n');
+}
+
+const VISITOR_ID = /^[a-f0-9]{16,64}$/;
+
+/** Everything known about one person: each visit with its source, place and device, every action in order, and any request they sent. */
+export async function getVisitorProfile(visitorId: string) {
+  await requireAdmin();
+  const sql = requireDb();
+  if (!VISITOR_ID.test(visitorId)) return null;
+  const [sessions, events, leads] = await Promise.all([
+    sql`
+      select id, started_at, last_seen, extract(epoch from (last_seen - started_at))::int as duration, pageviews, entry_path, exit_path,
+             source, referrer, referrer_host, utm_source, utm_medium, utm_campaign, utm_term, utm_content, click_id,
+             country, region, city, timezone, device, browser, os, screen, language, locale, is_new, is_own
+      from analytics_sessions where visitor_id = ${visitorId} order by started_at desc limit 60`,
+    sql`
+      select session_id, ts, type, name, path, props from analytics_events
+      where visitor_id = ${visitorId} order by ts asc limit 1500`,
+    sql`
+      select id, created_at, name, brand, reach, reach_type, need, budget, package, message, status, session_id
+      from leads where session_id in (select id from analytics_sessions where visitor_id = ${visitorId})
+      order by created_at desc`,
+  ]);
+  return { sessions, events, leads };
+}
+
+/**
+ * "This is me" / "Not me" for a browser we never signed in from. Moves every visit that browser
+ * made in or out of the analytics at once; later visits follow, because the collector keeps a
+ * browser's flag (see /api/t).
+ */
+export async function setVisitorOwn(visitorId: string, own: boolean) {
+  await requireAdmin();
+  const sql = requireDb();
+  if (!VISITOR_ID.test(visitorId)) return;
+  await sql`update analytics_sessions set is_own = ${own} where visitor_id = ${visitorId}`;
 }

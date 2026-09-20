@@ -36,6 +36,9 @@ export type Lead = {
   emailed: boolean;
   country: string | null;
   city: string | null;
+  /** Sent from one of our own browsers: a test, not a lead. */
+  is_own: boolean;
+  visitor_id: string | null;
 };
 
 export const LEAD_STATUSES = ['new', 'contacted', 'won', 'lost'] as const;
@@ -68,8 +71,10 @@ export async function listLeads(): Promise<Lead[]> {
   const sql = requireDb();
   await ensureSchema();
   return (await sql`
-    select id, created_at, name, brand, reach, reach_type, need, budget, package, message, locale, entry_path, status, emailed, country, city
-    from leads order by (status = 'new') desc, created_at desc limit 200`) as Lead[];
+    select l.id, l.created_at, l.name, l.brand, l.reach, l.reach_type, l.need, l.budget, l.package, l.message, l.locale, l.entry_path, l.status, l.emailed,
+           l.country, l.city, coalesce(s.is_own, false) as is_own, s.visitor_id
+    from leads l left join analytics_sessions s on s.id = l.session_id
+    order by coalesce(s.is_own, false) asc, (l.status = 'new') desc, l.created_at desc limit 200`) as Lead[];
 }
 
 export async function setLeadStatus(id: number, status: LeadStatus) {

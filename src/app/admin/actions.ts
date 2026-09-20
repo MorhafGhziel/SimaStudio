@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { requestLoginCode, revokeAllOtherSessions, revokeSession, SESSION_COOKIE, signOut, verifyLoginCode, type AuthResult } from '@/lib/server/auth';
+import { setVisitorOwn } from '@/lib/server/analytics';
 import { deleteLead, LEAD_STATUSES, setLeadStatus, type LeadStatus } from '@/lib/server/leads';
 import { deleteTestimonial, setTestimonialStatus } from '@/lib/server/testimonials';
 
@@ -61,5 +62,13 @@ export async function updateLeadAction(formData: FormData) {
   if (!Number.isInteger(id)) return;
   if (action === 'delete') await deleteLead(id);
   else if ((LEAD_STATUSES as readonly string[]).includes(action)) await setLeadStatus(id, action as LeadStatus);
+  revalidatePath('/admin');
+}
+
+/** "This is me" / "Not me" on a visitor: moves all of that browser's visits in or out of the analytics. */
+export async function markVisitorAction(formData: FormData) {
+  const id = String(formData.get('id') ?? '');
+  if (!/^[a-f0-9]{16,64}$/.test(id)) return;
+  await setVisitorOwn(id, formData.get('own') === '1');
   revalidatePath('/admin');
 }
