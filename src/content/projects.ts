@@ -92,8 +92,55 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'noble-immersive',
+    slug: 'liwan',
     number: '02',
+    name: 'LIWAN',
+    arName: 'ليوان',
+    industry: t('Architecture · Real estate', 'العمارة · العقار'),
+    kind: t('Architecture site + 3D residence configurator', 'موقع معماري + مصمم مسكن ثلاثي الأبعاد'),
+    summary: t(
+      'An architecture studio whose house is the interface: a villa drawn entirely in code that you walk through and specify, in Arabic first.',
+      'استوديو معماري بيته هو الواجهة: فيلا مرسومة بالكامل بالشيفرة تتجوّل فيها وتختار تشطيباتها، بالعربية أولًا.',
+    ),
+    tags: [t('Architecture', 'عمارة'), t('Real estate', 'عقار'), t('3D', 'ثلاثي الأبعاد'), t('Arabic-first', 'عربي أولًا')],
+    services: [t('Art direction', 'التوجيه الفني'), t('3D experience', 'تجربة ثلاثية الأبعاد'), t('Web development', 'تطوير الويب')],
+    tech: ['Next.js', 'React Three Fiber', 'Three.js', 'GSAP', 'TypeScript'],
+    year: '2026',
+    live: 'https://liwan-studio.vercel.app/ar',
+    overview: t(
+      'A concept for a Riyadh architecture studio and residential developer. Instead of a gallery of renders, the site opens on the house itself, and the visitor moves through it.',
+      'مفهوم لاستوديو معماري ومطوّر سكني في الرياض. بدل معرض صور جاهزة، يفتح الموقع على البيت نفسه، ويتنقّل الزائر داخله.',
+    ),
+    challenge: t(
+      'A villa buyer decides on finishes months before anything is built, from a sample box and a flat drawing. The site had to let them stand inside the house and see each finish in its real light — on a phone, in Arabic.',
+      'يختار مشتري الفيلا تشطيباتها قبل شهور من البناء، من علبة عيّنات ومخطط مسطّح. كان على الموقع أن يضعه داخل البيت ليرى كل تشطيب في ضوئه الحقيقي — على الجوال، وبالعربية.',
+    ),
+    concept: t(
+      'One house, modelled from a real plan in metres: walls are extruded outlines with their openings cut through, so a window is a hole with a reveal. Scrolling runs a camera through it — wide, threshold, living, kitchen, pool — and then the same house becomes the configurator.',
+      'بيت واحد، مبني من مخطط حقيقي بالمتر: الجدران مقاطع ممتدّة بفتحات مقطوعة فيها، فالنافذة ثقب له عمق. التمرير يقود الكاميرا داخله — من بعيد، ثم العتبة والمعيشة والمطبخ والمسبح — ثم يتحوّل البيت نفسه إلى أداة التخصيص.',
+    ),
+    design: t(
+      'Arabic is the default language with full RTL and its own type: Alexandria for headings, IBM Plex Sans Arabic for reading, Noto Naskh for the editorial line. Ink, paper and a single bronze accent, and a restrained filmic grade on the 3D — no bloom, no blur.',
+      'العربية هي اللغة الافتراضية باتجاه كامل من اليمين وخطوط خاصة بها: الإسكندرية للعناوين، و IBM Plex Sans Arabic للقراءة، ونسخ نوتو للسطر التحريري. حبر وورق ولمسة برونزية واحدة، ومعالجة لونية سينمائية هادئة للمشهد ثلاثي الأبعاد — بلا توهّج ولا ضبابية.',
+    ),
+    interactions: [
+      {
+        title: t('Scroll-driven camera film', 'فيلم كاميرا مع التمرير'),
+        text: t('Four screens of scroll fly the camera from the garden into the house and out to the pool.', 'أربع شاشات من التمرير تنقل الكاميرا من الحديقة إلى داخل البيت ثم إلى المسبح.'),
+      },
+      {
+        title: t('Live finish configurator', 'تخصيص التشطيبات مباشرة'),
+        text: t('Walls, window frames, entrance door, flooring, cabinets, countertop and more — each dissolves into the next on the house itself.', 'الجدران وإطارات النوافذ وباب المدخل والأرضيات والخزائن وسطح العمل وغيرها — كل تشطيب يذوب في التالي على البيت نفسه.'),
+      },
+      {
+        title: t('Every surface drawn in code', 'كل سطح مرسوم بالشيفرة'),
+        text: t('Stone, oak, marble and plaster are generated as textures at their real size in metres — no downloaded models or texture packs.', 'الحجر والبلوط والرخام واللياسة تُولَّد كخامات بمقاسها الحقيقي بالمتر — بلا نماذج أو خامات جاهزة.'),
+      },
+    ],
+  },
+  {
+    slug: 'noble-immersive',
+    number: '03',
     name: 'NOBLE Immersive',
     arName: 'نُبل — تجربة غامرة',
     industry: t('Perfume', 'العطور'),
@@ -128,7 +175,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'rashfa',
-    number: '03',
+    number: '04',
     name: 'Rashfa',
     arName: 'رشفة',
     industry: t('Café', 'مقاهي'),
