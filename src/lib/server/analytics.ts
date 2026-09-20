@@ -115,9 +115,13 @@ export async function getDashboard(rangeKey: string | undefined) {
     sql`select count(distinct visitor_id)::int as active from analytics_sessions where not is_own and last_seen > now() - interval '5 minutes'`,
     // Our own devices stay in this list — labelled, not hidden — so we can see ourselves browsing.
     sql`
-      select exit_path as path, country, city, device, browser, os, source, pageviews, is_own,
+      with numbered as (
+        select visitor_id, dense_rank() over (order by min(started_at), visitor_id)::int as visitor_no, count(*)::int as visitor_visits
+        from analytics_sessions group by visitor_id
+      )
+      select exit_path as path, visitor_id, nb.visitor_no, nb.visitor_visits, country, city, device, browser, os, source, pageviews, is_own,
              extract(epoch from (last_seen - started_at))::int as duration, last_seen
-      from analytics_sessions where last_seen > now() - interval '5 minutes'
+      from analytics_sessions join numbered nb using (visitor_id) where last_seen > now() - interval '5 minutes'
       order by last_seen desc limit 20`,
     sql`
       select name, count(*)::int as count, count(distinct session_id)::int as sessions
@@ -147,10 +151,17 @@ export async function getDashboard(rangeKey: string | undefined) {
       group by city, country order by sessions desc limit 300`,
     // Kept in the list and labelled, so we can tell our own browsing from real traffic.
     sql`
-      select id, visitor_id, started_at, last_seen, entry_path, exit_path, pageviews, source, referrer_host, utm_campaign,
+      with numbered as (
+        select visitor_id, dense_rank() over (order by min(started_at), visitor_id)::int as visitor_no, count(*)::int as visitor_visits
+        from analytics_sessions group by visitor_id
+      )
+      select id, visitor_id, nb.visitor_no, nb.visitor_visits,
+             (select count(*)::int from analytics_sessions p where p.visitor_id = s.visitor_id and p.started_at <= s.started_at) as visit_no,
+             started_at, last_seen, entry_path, exit_path, pageviews, source, referrer_host, utm_campaign,
              country, region, city, device, browser, os, screen, language, locale, is_new, is_own,
              extract(epoch from (last_seen - started_at))::int as duration
-      from analytics_sessions where started_at >= ${from}::timestamptz and started_at < ${to}::timestamptz
+      from analytics_sessions s join numbered nb using (visitor_id)
+      where started_at >= ${from}::timestamptz and started_at < ${to}::timestamptz
       order by started_at desc limit 100`,
     // People, not visits: one row per browser, with where it first came from and what it did since.
     // First-touch fields come from that person's very first visit, however long ago that was.
@@ -159,13 +170,17 @@ export async function getDashboard(rangeKey: string | undefined) {
         select visitor_id, max(last_seen) as last_seen
         from analytics_sessions where not is_own and last_seen >= ${from}::timestamptz and started_at < ${to}::timestamptz
         group by visitor_id order by max(last_seen) desc limit 150
+      ), numbered as (
+        select visitor_id, dense_rank() over (order by min(started_at), visitor_id)::int as visitor_no, count(*)::int as visitor_visits
+        from analytics_sessions group by visitor_id
       )
-      select a.visitor_id, a.last_seen, t.first_seen, t.visits, t.pageviews, t.seconds,
+      select a.visitor_id, nb.visitor_no, a.last_seen, t.first_seen, t.visits, t.pageviews, t.seconds,
              f.source as first_source, f.referrer as first_referrer, f.referrer_host as first_referrer_host, f.entry_path as first_page,
              f.utm_source, f.utm_medium, f.utm_campaign, f.click_id,
              l.country, l.region, l.city, l.device, l.browser, l.os,
              coalesce(e.actions, '{}') as actions, ld.name as lead_name, ld.brand as lead_brand, ld.status as lead_status
       from active a
+      join numbered nb on nb.visitor_id = a.visitor_id
       join lateral (select min(started_at) as first_seen, count(*)::int as visits, sum(pageviews)::int as pageviews,
                            sum(extract(epoch from (last_seen - started_at)))::int as seconds
                     from analytics_sessions s where s.visitor_id = a.visitor_id) t on true
@@ -289,7 +304,14 @@ export async function getVisitorProfile(visitorId: string) {
   await requireAdmin();
   const sql = requireDb();
   if (!VISITOR_ID.test(visitorId)) return null;
-  const [sessions, events, leads] = await Promise.all([
+  const [number, sessions, events, leads] = await Promise.all([
+    // The same permanent number the tables show: the order in which browsers first arrived.
+    sql`
+      with numbered as (
+        select visitor_id, dense_rank() over (order by min(started_at), visitor_id)::int as visitor_no, count(*)::int as visitor_visits
+        from analytics_sessions group by visitor_id
+      )
+      select visitor_no from numbered where visitor_id = ${visitorId}`,
     sql`
       select id, started_at, last_seen, extract(epoch from (last_seen - started_at))::int as duration, pageviews, entry_path, exit_path,
              source, referrer, referrer_host, utm_source, utm_medium, utm_campaign, utm_term, utm_content, click_id,
@@ -303,7 +325,7 @@ export async function getVisitorProfile(visitorId: string) {
       from leads where session_id in (select id from analytics_sessions where visitor_id = ${visitorId})
       order by created_at desc`,
   ]);
-  return { sessions, events, leads };
+  return { visitorNo: (number[0]?.visitor_no as number | undefined) ?? null, sessions, events, leads };
 }
 
 /**
