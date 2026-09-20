@@ -7,7 +7,7 @@ import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, Res
 import type { Dashboard, RangeKey } from '@/lib/server/analytics';
 import type { Lead } from '@/lib/server/leads';
 import type { AdminTestimonial } from '@/lib/server/testimonials';
-import { moderateTestimonialAction, revokeOthersAction, revokeSessionAction, signOutAction, updateLeadAction } from './actions';
+import { markVisitorAction, moderateTestimonialAction, revokeOthersAction, revokeSessionAction, signOutAction, updateLeadAction } from './actions';
 
 type Props = { data: Dashboard; ranges: { key: RangeKey; label: string }[]; me: { email: string; sessionId: string }; testimonials: AdminTestimonial[]; requests: Lead[] };
 type Row = Record<string, unknown>;
@@ -27,7 +27,7 @@ const EVENT_LABELS: Record<string, string> = {
   section_view: 'Section views',
   scroll: 'Scroll milestones',
 };
-const SECTION_ORDER = ['work', 'services', 'packages', 'process', 'faq', 'contact'];
+const SECTION_ORDER = ['work', 'testimonials', 'difference', 'review', 'services', 'packages', 'process', 'faq', 'contact'];
 
 const n = (v: unknown) => (typeof v === 'number' ? v : Number(v) || 0);
 const fmt = (v: number) => new Intl.NumberFormat('en-US').format(Math.round(v));
@@ -231,6 +231,183 @@ function Journey({ sessionId, onClose }: { sessionId: string; onClose: () => voi
   );
 }
 
+const CLICK_ID_LABELS: Record<string, string> = { google: 'Google Ads', meta: 'Meta ad', tiktok: 'TikTok ad', linkedin: 'LinkedIn ad', microsoft: 'Microsoft ad', snapchat: 'Snapchat ad', x: 'X ad' };
+const ACTION_BADGES: Record<string, string> = { contact_submit: 'Sent the form', whatsapp_click: 'WhatsApp', email_click: 'Email', cta_click: 'Start a project', brand_pdf: 'Brand PDF', project_open: 'Opened a project' };
+const place = (r: Row) => [r.city, r.region, countryName(r.country)].filter((x, i, a) => x && x !== 'Unknown' && a.indexOf(x) === i).join(', ') || 'Unknown';
+
+/** Where a visit came from, said the way you would say it out loud. */
+function cameFrom(r: Row, prefix = '') {
+  const get = (k: string) => r[prefix + k] ?? r[k];
+  const ad = get('click_id') ? CLICK_ID_LABELS[String(get('click_id'))] ?? String(get('click_id')) : null;
+  const source = String(get(prefix ? 'source' : 'source') ?? r.first_source ?? 'Direct');
+  const host = get('referrer_host');
+  const tags = [get('utm_source'), get('utm_medium'), get('utm_campaign')].filter(Boolean).join(' / ');
+  return [ad ?? source, host && String(host) !== source.toLowerCase() ? String(host) : null, tags || null].filter(Boolean).join(' · ');
+}
+
+function Fact({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="flex items-baseline justify-between gap-4 border-t border-line py-2 text-sm first:border-t-0">
+      <span className="shrink-0 text-xs text-faint">{label}</span>
+      <span className="min-w-0 break-words text-right">{children}</span>
+    </div>
+  );
+}
+
+/** One person: where they first came from, every visit since, everything they did, and any request they sent. */
+function Person({ visitorId, focus, onClose }: { visitorId: string; focus?: string; onClose: () => void }) {
+  const [profile, setProfile] = useState<{ sessions: Row[]; events: Row[]; leads: Row[] } | null | undefined>(undefined);
+  useEffect(() => {
+    let live = true;
+    fetch(`/api/admin/visitor?id=${encodeURIComponent(visitorId)}`, { cache: 'no-store' })
+      .then((r) => r.json())
+      .then((d: { profile?: { sessions: Row[]; events: Row[]; leads: Row[] } | null }) => live && setProfile(d.profile ?? null))
+      .catch(() => live && setProfile(null));
+    return () => {
+      live = false;
+    };
+  }, [visitorId]);
+
+  const sessions = profile?.sessions ?? [];
+  const first = sessions[sessions.length - 1];
+  const last = sessions[0];
+  const own = sessions.some((x) => x.is_own);
+  const totals = { pages: sessions.reduce((a, x) => a + n(x.pageviews), 0), seconds: sessions.reduce((a, x) => a + n(x.duration), 0) };
+
+  return (
+    <div className="fixed inset-0 z-50 flex justify-end bg-black/60" onClick={onClose}>
+      <aside className="h-full w-full max-w-xl overflow-y-auto border-l border-line bg-ink-2 p-6" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between gap-3">
+          <h3 className="font-medium">
+            {profile?.leads?.[0] ? `${String(profile.leads[0].name)} · ${String(profile.leads[0].brand)}` : 'Visitor'}
+            {own && <span className="ms-2 rounded-pill bg-emerald-400/15 px-2 py-0.5 text-[11px] text-emerald-300">You · not counted</span>}
+          </h3>
+          <button type="button" onClick={onClose} className="text-sm text-mute hover:text-paper">
+            Close
+          </button>
+        </div>
+
+        {profile === undefined ? (
+          <p className="mt-8 text-sm text-mute">Loading…</p>
+        ) : !first ? (
+          <Empty />
+        ) : (
+          <>
+            <div className="mt-5 grid grid-cols-4 gap-2">
+              {[
+                { label: 'Visits', value: fmt(sessions.length) },
+                { label: 'Pages', value: fmt(totals.pages) },
+                { label: 'Time', value: dur(totals.seconds) },
+                { label: 'Known for', value: ago(first.started_at).replace(' ago', '') },
+              ].map((k) => (
+                <div key={k.label} className="rounded-xl border border-line px-3 py-2.5 text-center">
+                  <p className="text-lg font-medium tabular-nums">{k.value}</p>
+                  <p className="mt-0.5 text-[11px] text-faint">{k.label}</p>
+                </div>
+              ))}
+            </div>
+
+            <p className="mb-1 mt-6 text-xs text-mute">How they found you (first visit)</p>
+            <div className="rounded-xl border border-line px-4">
+              <Fact label="Came from">{cameFrom(first)}</Fact>
+              {first.referrer ? (
+                <Fact label="Exact link">
+                  <a href={String(first.referrer)} target="_blank" rel="noopener noreferrer nofollow" className="text-accent hover:underline" dir="ltr">
+                    {String(first.referrer).replace(/^https?:\/\//, '').slice(0, 70)}
+                  </a>
+                </Fact>
+              ) : null}
+              {first.utm_term || first.utm_content ? <Fact label="Ad details">{[first.utm_term, first.utm_content].filter(Boolean).join(' · ')}</Fact> : null}
+              <Fact label="Landed on">
+                <span dir="ltr">{String(first.entry_path)}</span>
+              </Fact>
+              <Fact label="First seen">{when(first.started_at)}</Fact>
+              <Fact label="Last seen">
+                {when(last.last_seen)} · {ago(last.last_seen)}
+              </Fact>
+            </div>
+
+            <p className="mb-1 mt-6 text-xs text-mute">Who they are, as far as the browser says</p>
+            <div className="rounded-xl border border-line px-4">
+              <Fact label="Place">
+                {flag(last.country)} {place(last)}
+              </Fact>
+              {last.timezone ? (
+                <Fact label="Their time now">
+                  {new Intl.DateTimeFormat('en-GB', { timeStyle: 'short', timeZone: String(last.timezone) }).format(new Date())} · {String(last.timezone)}
+                </Fact>
+              ) : null}
+              <Fact label="Device">{[last.device, last.os, last.browser, last.screen].filter(Boolean).join(' · ')}</Fact>
+              <Fact label="Language">{[last.language, last.locale ? `reads the site in ${String(last.locale).toUpperCase()}` : null].filter(Boolean).join(' · ')}</Fact>
+            </div>
+
+            {profile?.leads?.length ? (
+              <>
+                <p className="mb-1 mt-6 text-xs text-mute">What they asked for</p>
+                {profile.leads.map((l) => (
+                  <div key={String(l.id)} className="mb-2 rounded-xl border border-accent/40 bg-accent/5 p-4 text-sm">
+                    <p>
+                      <span className="font-medium">{String(l.name)}</span> <span className="text-mute">· {String(l.brand)}</span>
+                      <span className="ms-2 rounded-pill bg-accent/15 px-2 py-0.5 text-xs text-accent">{String(l.status)}</span>
+                    </p>
+                    <p className="mt-1 text-accent" dir="ltr">
+                      {String(l.reach)}
+                    </p>
+                    <p className="mt-1 text-mute">{[l.need, l.budget, l.package ? `package: ${String(l.package)}` : null].filter(Boolean).join(' · ') || 'no details picked'}</p>
+                    {l.message ? <p className="mt-2 whitespace-pre-line text-[#d0cfca]">{String(l.message)}</p> : null}
+                    <p className="mt-2 text-xs text-faint">{when(l.created_at)}</p>
+                  </div>
+                ))}
+              </>
+            ) : null}
+
+            <p className="mb-1 mt-6 text-xs text-mute">Every visit, newest first</p>
+            {sessions.map((v, i) => {
+              const steps = (profile?.events ?? []).filter((e) => e.session_id === v.id);
+              return (
+                <details key={String(v.id)} open={focus ? v.id === focus : i === 0} className="mb-2 rounded-xl border border-line">
+                  <summary className="cursor-pointer list-none px-4 py-3 text-sm hover:bg-ink-3">
+                    <span className="text-mute">#{sessions.length - i}</span> · {when(v.started_at)} · {fmt(n(v.pageviews))} pages · {dur(n(v.duration))}
+                    <span className="block text-xs text-faint">
+                      from {cameFrom(v)} · landed on {String(v.entry_path)} · left from {String(v.exit_path)}
+                    </span>
+                  </summary>
+                  <ol className="mx-4 mb-4 mt-1 space-y-3 border-l border-line pl-5">
+                    {steps.map((e, k) => {
+                      const props = (e.props ?? {}) as Record<string, string>;
+                      const detail = Object.entries(props).map(([key, val]) => `${key}: ${val}`).join(' · ');
+                      return (
+                        <li key={k} className="relative">
+                          <span className={`absolute -left-[25px] top-1.5 size-2.5 rounded-full ${e.type === 'pageview' ? 'bg-accent' : 'bg-paper/50'}`} />
+                          <p className="text-xs text-faint">{when(e.ts, { timeStyle: 'medium' })}</p>
+                          <p className="text-sm">{e.type === 'pageview' ? `Viewed ${String(e.path)}` : EVENT_LABELS[String(e.name)] ?? String(e.name)}</p>
+                          {detail && <p className="text-xs text-mute">{detail}</p>}
+                        </li>
+                      );
+                    })}
+                    {!steps.length && <li className="text-xs text-faint">No recorded steps.</li>}
+                  </ol>
+                </details>
+              );
+            })}
+
+            <form action={markVisitorAction} className="mt-6 border-t border-line pt-4">
+              <input type="hidden" name="id" value={visitorId} />
+              <input type="hidden" name="own" value={own ? '0' : '1'} />
+              <button type="submit" onClick={() => setTimeout(onClose, 50)} className="rounded-pill border border-line px-4 py-2 text-sm text-mute hover:border-paper/40 hover:text-paper">
+                {own ? 'Not me — count this visitor again' : 'This is me — leave this visitor out of the analytics'}
+              </button>
+              <p className="mt-2 text-xs text-faint">
+                {own ? 'Every visit from this browser is currently left out of all totals.' : 'Removes every visit this browser made, and every one it makes later, from all totals.'}
+              </p>
+            </form>
+          </>
+        )}
+      </aside>
+    </div>
+  );
+}
+
 export function DashboardView({ data, ranges, me, testimonials, requests }: Props) {
   const router = useRouter();
   const [metric, setMetric] = useState<'visitors' | 'sessions' | 'pageviews'>('visitors');
@@ -239,6 +416,11 @@ export function DashboardView({ data, ranges, me, testimonials, requests }: Prop
   const [techTab, setTechTab] = useState<'browser' | 'os' | 'screen' | 'language'>('browser');
   const [pageTab, setPageTab] = useState<'pages' | 'entry' | 'exit'>('pages');
   const [journey, setJourney] = useState<string | null>(null);
+  const [person, setPerson] = useState<{ id: string; focus?: string } | null>(null);
+  // Our own visits are recorded but kept out of sight as well as out of the numbers, unless asked for.
+  const [showMine, setShowMine] = useState(false);
+  const mineCount = (data.recent as Row[]).filter((r) => r.is_own).length;
+  const realRequests = requests.filter((l) => !l.is_own);
   const [updated, setUpdated] = useState(() => new Date());
 
   // Live: refresh server data every 30 seconds while the tab is open.
@@ -537,6 +719,70 @@ export function DashboardView({ data, ranges, me, testimonials, requests }: Prop
         <Heatmap rows={data.heatmap as Row[]} />
       </Card>
 
+      {/* People, not visits: who each visitor is, where they first came from, and what they have done since. */}
+      <Card title={`Visitors · ${fmt((data.people as Row[]).length)}${(data.people as Row[]).length >= 150 ? '+' : ''} people in this period`} className="mt-3">
+        {(data.people as Row[]).length ? (
+          <div className="-mx-2 max-h-[460px] overflow-auto">
+            <table className="w-full min-w-[860px] text-left text-sm">
+              <thead className="sticky top-0 bg-ink-2 text-xs text-faint">
+                <tr>
+                  {['Who', 'First came from', 'Landed on', 'Visits', 'Pages', 'Time', 'Last seen', ''].map((h) => (
+                    <th key={h} className="px-2 py-2 font-normal">
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {(data.people as Row[]).map((v) => (
+                  <tr key={String(v.visitor_id)} className="cursor-pointer border-t border-line hover:bg-ink-3" onClick={() => setPerson({ id: String(v.visitor_id) })}>
+                    <td className="px-2 py-2">
+                      {v.lead_name ? (
+                        <span className="font-medium">
+                          {String(v.lead_name)} <span className="font-normal text-mute">· {String(v.lead_brand)}</span>
+                        </span>
+                      ) : (
+                        <span>
+                          {flag(v.country)} {place(v)}
+                        </span>
+                      )}
+                      <span className="block text-xs text-faint">
+                        {v.lead_name ? `${flag(v.country)} ${place(v)} · ` : ''}
+                        {String(v.device)} · {String(v.os)} · {String(v.browser)}
+                      </span>
+                    </td>
+                    <td className="px-2 py-2">
+                      {cameFrom(v, 'first_')}
+                      <span className="block text-xs text-faint">{when(v.first_seen, { dateStyle: 'medium' })}</span>
+                    </td>
+                    <td className="max-w-[160px] truncate px-2 py-2 text-mute" dir="ltr">
+                      {String(v.first_page)}
+                    </td>
+                    <td className="px-2 py-2 tabular-nums">{fmt(n(v.visits))}</td>
+                    <td className="px-2 py-2 tabular-nums">{fmt(n(v.pageviews))}</td>
+                    <td className="px-2 py-2 tabular-nums">{dur(n(v.seconds))}</td>
+                    <td className="whitespace-nowrap px-2 py-2 text-mute">{ago(v.last_seen)}</td>
+                    <td className="px-2 py-2 text-xs">
+                      <span className="flex flex-wrap gap-1">
+                        {v.lead_name ? <span className="rounded-pill bg-accent/15 px-2 py-0.5 text-accent">Lead · {String(v.lead_status)}</span> : null}
+                        {((v.actions as string[]) ?? []).filter((a) => a !== 'contact_submit' || !v.lead_name).slice(0, 3).map((a) => (
+                          <span key={a} className="rounded-pill bg-paper/10 px-2 py-0.5 text-mute">
+                            {ACTION_BADGES[a] ?? a}
+                          </span>
+                        ))}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <Empty />
+        )}
+        <p className="mt-2 text-xs text-faint">One row per browser. Your own devices are never listed here. Click a person for their full story.</p>
+      </Card>
+
       <div className="mt-3 grid gap-3 lg:grid-cols-3">
         <Card title="Active users" className="lg:col-span-1">
           <div className="grid grid-cols-3 gap-2">
@@ -565,7 +811,7 @@ export function DashboardView({ data, ranges, me, testimonials, requests }: Prop
           <p className="mb-2 mt-5 text-xs text-mute">On the site right now</p>
           {(data.realtime.sessions as Row[]).length ? (
             <ul className="space-y-3">
-              {(data.realtime.sessions as Row[]).map((s, i) => (
+              {(data.realtime.sessions as Row[]).filter((s) => showMine || !s.is_own).map((s, i) => (
                 <li key={i} className="flex items-start justify-between gap-3 text-sm">
                   <div className="min-w-0">
                     <p className="truncate">
@@ -584,7 +830,17 @@ export function DashboardView({ data, ranges, me, testimonials, requests }: Prop
             <p className="py-8 text-center text-sm text-faint">Nobody on the site right now.</p>
           )}
         </Card>
-        <Card title="Recent visits" className="lg:col-span-2">
+        <Card
+          title="Recent visits"
+          className="lg:col-span-2"
+          action={
+            mineCount ? (
+              <button type="button" onClick={() => setShowMine((v) => !v)} className="rounded-pill border border-line px-3 py-1 text-xs text-mute hover:text-paper">
+                {showMine ? 'Hide my visits' : `Show my visits (${mineCount})`}
+              </button>
+            ) : undefined
+          }
+        >
           {(data.recent as Row[]).length ? (
             <div className="-mx-2 max-h-[420px] overflow-auto">
               <table className="w-full min-w-[720px] text-left text-sm">
@@ -598,8 +854,8 @@ export function DashboardView({ data, ranges, me, testimonials, requests }: Prop
                   </tr>
                 </thead>
                 <tbody>
-                  {(data.recent as Row[]).map((s) => (
-                    <tr key={String(s.id)} className="cursor-pointer border-t border-line hover:bg-ink-3" onClick={() => setJourney(String(s.id))}>
+                  {(data.recent as Row[]).filter((s) => showMine || !s.is_own).map((s) => (
+                    <tr key={String(s.id)} className="cursor-pointer border-t border-line hover:bg-ink-3" onClick={() => (s.visitor_id ? setPerson({ id: String(s.visitor_id), focus: String(s.id) }) : setJourney(String(s.id)))}>
                       <td className="whitespace-nowrap px-2 py-2 text-mute">{when(s.started_at)}</td>
                       <td className="px-2 py-2">
                         {flag(s.country)} {[s.city, countryName(s.country)].filter((x) => x && x !== 'Unknown').join(', ') || 'Unknown'}
@@ -630,12 +886,12 @@ export function DashboardView({ data, ranges, me, testimonials, requests }: Prop
           ) : (
             <Empty />
           )}
-          <p className="mt-2 text-xs text-faint">Click a visit to see its full journey.</p>
+          <p className="mt-2 text-xs text-faint">Click a visit to open the person behind it: where they first came from, every visit, every step.</p>
         </Card>
       </div>
 
       {/* Project requests — every contact form submission is stored here, even if the email failed. */}
-      <Card title={`Project requests${requests.filter((l) => l.status === 'new').length ? ` · ${requests.filter((l) => l.status === 'new').length} new` : ''}`} className="mt-3">
+      <Card title={`Project requests${realRequests.filter((l) => l.status === 'new').length ? ` · ${realRequests.filter((l) => l.status === 'new').length} new` : ''}`} className="mt-3">
         {requests.length ? (
           <ul className="max-h-[520px] space-y-3 overflow-auto">
             {requests.map((l) => {
@@ -650,6 +906,12 @@ export function DashboardView({ data, ranges, me, testimonials, requests }: Prop
                         <span className="text-mute"> · {l.brand}</span>
                         <span className={`ms-2 rounded-pill px-2 py-0.5 text-xs ${tone}`}>{l.status}</span>
                         {!l.emailed && <span className="ms-2 rounded-pill bg-[#ff8a8a]/15 px-2 py-0.5 text-xs text-[#ff8a8a]">email not sent</span>}
+                        {l.is_own && <span className="ms-2 rounded-pill bg-emerald-400/15 px-2 py-0.5 text-xs text-emerald-300">Your test · not counted</span>}
+                        {l.visitor_id && !l.is_own ? (
+                          <button type="button" onClick={() => setPerson({ id: String(l.visitor_id) })} className="ms-2 text-xs text-accent hover:underline">
+                            See their visits
+                          </button>
+                        ) : null}
                       </p>
                       <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm">
                         <a href={wa ?? `mailto:${l.reach}`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline" dir="ltr">
@@ -794,6 +1056,7 @@ export function DashboardView({ data, ranges, me, testimonials, requests }: Prop
       </div>
 
       {journey && <Journey sessionId={journey} onClose={() => setJourney(null)} />}
+      {person && <Person visitorId={person.id} focus={person.focus} onClose={() => setPerson(null)} />}
     </div>
   );
 }
