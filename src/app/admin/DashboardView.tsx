@@ -231,6 +231,13 @@ function Journey({ sessionId, onClose }: { sessionId: string; onClose: () => voi
   );
 }
 
+const OWN_REASONS: Record<string, string> = {
+  signed_in: 'signed in to the admin from this browser',
+  device: 'this browser is marked as yours',
+  network: 'same internet connection as an admin in the last 7 days',
+  manual: 'you marked it as you',
+};
+
 const CLICK_ID_LABELS: Record<string, string> = { google: 'Google Ads', meta: 'Meta ad', tiktok: 'TikTok ad', linkedin: 'LinkedIn ad', microsoft: 'Microsoft ad', snapchat: 'Snapchat ad', x: 'X ad' };
 const ACTION_BADGES: Record<string, string> = { contact_submit: 'Sent the form', whatsapp_click: 'WhatsApp', email_click: 'Email', cta_click: 'Start a project', brand_pdf: 'Brand PDF', project_open: 'Opened a project' };
 const place = (r: Row) => [r.city, r.region, countryName(r.country)].filter((x, i, a) => x && x !== 'Unknown' && a.indexOf(x) === i).join(', ') || 'Unknown';
@@ -305,6 +312,11 @@ function Person({ visitorId, focus, onClose }: { visitorId: string; focus?: stri
             ) : null}
             {profile?.leads?.[0] ? `${String(profile.leads[0].name)} · ${String(profile.leads[0].brand)}` : 'Visitor'}
             {own && <span className="ms-2 rounded-pill bg-emerald-400/15 px-2 py-0.5 text-[11px] text-emerald-300">You · not counted</span>}
+            {own && (
+              <span className="mt-1 block text-xs font-normal text-faint">
+                Why: {OWN_REASONS[String(sessions.find((x) => x.own_reason)?.own_reason ?? '')] ?? 'this browser is on record as yours'}. Nothing it did is in any number: visits, pages, clicks, scrolling, sections or requests.
+              </span>
+            )}
           </h3>
           <button type="button" onClick={onClose} className="text-sm text-mute hover:text-paper">
             Close
@@ -619,7 +631,32 @@ export function DashboardView({ data, ranges, me, testimonials, requests }: Prop
             />
           }
         >
-          <BarList rows={sourceRows} />
+          <BarList rows={sourceRows.map((r) => (r.label === 'Direct' ? { ...r, label: 'Direct / unknown' } : r))} />
+          <details className="mt-4 rounded-xl border border-line px-4 py-3 text-sm text-mute">
+            <summary className="cursor-pointer list-none text-paper">What does &ldquo;Direct / unknown&rdquo; mean?</summary>
+            <div className="mt-3 space-y-2 leading-relaxed">
+              <p>
+                It means the visitor&rsquo;s browser did not say where it came from, so we cannot know. It does <span className="text-paper">not</span> only mean they typed the address.
+              </p>
+              <p>It is usually one of these:</p>
+              <ul className="list-disc space-y-1 ps-5">
+                <li>They typed simastudio.it.com, used a bookmark, or their browser auto-completed it.</li>
+                <li>They tapped a link someone sent them in WhatsApp, Telegram, SMS or email. These apps hide where the tap came from.</li>
+                <li>They scanned a QR code, or opened a link inside a PDF or a document.</li>
+                <li>They came from an app whose built-in browser hides it, which TikTok and Snapchat often do.</li>
+                <li>Their browser or a privacy setting removes this information.</li>
+              </ul>
+              <p className="pt-1 text-paper">To stop real sources hiding in &ldquo;Direct&rdquo;, share tagged links instead of the plain address:</p>
+              <ul className="space-y-1 font-mono text-xs" dir="ltr">
+                {['instagram', 'tiktok', 'snapchat', 'linkedin', 'x', 'whatsapp', 'qr'].map((src) => (
+                  <li key={src} className="select-all break-all text-accent">
+                    https://www.simastudio.it.com/ar?utm_source={src}
+                  </li>
+                ))}
+              </ul>
+              <p className="text-xs text-faint">Put each one where it belongs (the Instagram one in your Instagram bio, the WhatsApp one when you send the site to someone). Those visits then show under that source, and their campaign can be added with &amp;utm_campaign=name.</p>
+            </div>
+          </details>
         </Card>
         <Card title="Source share">
           <Donut rows={b.source as Row[]} />
