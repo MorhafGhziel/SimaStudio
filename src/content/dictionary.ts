@@ -2,16 +2,16 @@
 export const dictionary = {
   en: {
     meta: {
-      title: 'SIMA — Websites & 3D Experiences, in Arabic and English',
+      title: 'SIMA — Websites & 3D Experiences That Sell',
       description:
-        'SIMA designs and builds websites and 3D product experiences in Arabic and English, for companies anywhere. Designed and built in-house. Latest client launch: Nasaq Uniforms.',
+        'SIMA designs and builds websites and 3D product experiences that sell for you. Designed and built in-house. Latest client launch: Nasaq Uniforms.',
     },
     skip: 'Skip to content',
     nav: { work: 'Work', services: 'Services', packages: 'Packages', process: 'Process', reviews: 'Reviews', about: 'About', start: 'Start a Project', menu: 'Menu', close: 'Close' },
     hero: {
-      kicker: 'Digital studio · Riyadh',
+      kicker: 'Digital studio',
       line1: 'We design and build websites',
-      line2: 'in Arabic and English.',
+      line2: 'that sell for you.',
       text: 'From a clean company site to a full 3D experience. Designed and built in-house.',
       proofLabel: 'Latest client launch',
       proofName: 'Nasaq Uniforms',
@@ -158,7 +158,7 @@ export const dictionary = {
       fallbackText: 'Send it to us on WhatsApp or by email to make sure it reaches us.',
       email: 'Send by email',
     },
-    footer: { statement: 'Websites and 3D experiences, in Arabic and English.', contact: 'Contact', social: 'Social', rights: 'All rights reserved.', privacy: 'Privacy', brand: 'View our brand identity', explore: 'Explore' },
+    footer: { statement: 'Websites and 3D experiences that sell for you.', contact: 'Contact', social: 'Social', rights: 'All rights reserved.', privacy: 'Privacy', brand: 'View our brand identity', explore: 'Explore' },
     landing: {
       home: 'Home',
       faq: 'Common questions',
@@ -204,16 +204,16 @@ export const dictionary = {
   },
   ar: {
     meta: {
-      title: 'سِمة — مواقع وتجارب ثلاثية الأبعاد، بالعربية والإنجليزية',
+      title: 'سِمة — مواقع وتجارب ثلاثية الأبعاد تبيع عنك',
       description:
-        'سِمة تصمم وتبني مواقع وتجارب منتجات ثلاثية الأبعاد، بالعربية والإنجليزية، لأي شركة في أي مكان. نصمم ونبني بأنفسنا. آخر مشروع لعميل: نسق للزي الموحد.',
+        'سِمة تصمم وتبني مواقع وتجارب منتجات ثلاثية الأبعاد تبيع عنك. نصمم ونبني بأنفسنا. آخر مشروع لعميل: نسق للزي الموحد.',
     },
     skip: 'انتقل إلى المحتوى',
     nav: { work: 'أعمالنا', services: 'خدماتنا', packages: 'الباقات', process: 'آلية العمل', reviews: 'آراء العملاء', about: 'من نحن', start: 'ابدأ مشروعك', menu: 'القائمة', close: 'إغلاق' },
     hero: {
-      kicker: 'استوديو رقمي · الرياض',
+      kicker: 'استوديو رقمي',
       line1: 'نصمّم ونبني مواقع',
-      line2: 'بالعربية والإنجليزية.',
+      line2: 'تبيع عنك.',
       text: 'من موقع تعريفي لشركتك إلى تجربة ثلاثية الأبعاد. نصمم ونبني بأنفسنا.',
       proofLabel: 'آخر مشروع لعميل',
       proofName: 'نسق للزي الموحد',
@@ -360,7 +360,7 @@ export const dictionary = {
       fallbackText: 'أرسله لنا عبر واتساب أو البريد الإلكتروني لضمان وصوله.',
       email: 'أرسل بالبريد',
     },
-    footer: { statement: 'مواقع وتجارب ثلاثية الأبعاد، بالعربية والإنجليزية.', contact: 'تواصل', social: 'حساباتنا', rights: 'جميع الحقوق محفوظة.', privacy: 'الخصوصية', brand: 'اطّلع على الهوية البصرية', explore: 'استكشف' },
+    footer: { statement: 'مواقع وتجارب ثلاثية الأبعاد تبيع عنك.', contact: 'تواصل', social: 'حساباتنا', rights: 'جميع الحقوق محفوظة.', privacy: 'الخصوصية', brand: 'اطّلع على الهوية البصرية', explore: 'استكشف' },
     landing: {
       home: 'الرئيسية',
       faq: 'أسئلة شائعة',

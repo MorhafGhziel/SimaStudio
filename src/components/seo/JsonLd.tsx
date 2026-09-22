@@ -41,8 +41,8 @@ export function StudioJsonLd({ locale }: { locale: Locale }) {
           currenciesAccepted: locale === 'ar' ? 'SAR' : 'USD',
           description:
             locale === 'ar'
-              ? 'استوديو رقمي يصمم ويبني مواقع وتجارب منتجات ثلاثية الأبعاد، بالعربية والإنجليزية، لأي شركة في أي مكان.'
-              : 'Digital studio designing and building websites and 3D product experiences in Arabic and English, for companies anywhere.',
+              ? 'استوديو رقمي يصمم ويبني مواقع وتجارب منتجات ثلاثية الأبعاد تبيع عنك.'
+              : 'Digital studio designing and building websites and 3D product experiences that sell for you.',
           knowsAbout: ['Arabic RTL websites', 'Bilingual websites', 'English websites', 'Company websites', 'B2B websites', '3D product configurators', 'Interactive 3D websites', 'Website design', 'Web development'],
           sameAs: [instagramUrl, tiktokUrl, linkedinUrl, xUrl],
           // Advertise the price a client actually pays today, so search results match the site.
