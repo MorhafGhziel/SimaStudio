@@ -161,6 +161,43 @@ export const projects: Project[] = [
       { title: t('Mobile action bar', 'شريط الإجراءات للجوال'), text: t('WhatsApp, directions and call, always in reach.', 'واتساب والاتجاهات والاتصال في متناول اليد دائمًا.') },
     ],
   },
+  {
+    slug: 'starbucks',
+    number: '05',
+    name: 'Starbucks (concept)',
+    arName: 'ستاربكس (مفهوم)',
+    industry: t('Coffee · Retail', 'قهوة · تجزئة'),
+    kind: t('Unofficial concept redesign', 'إعادة تصميم غير رسمية (مفهوم)'),
+    summary: t(
+      'An unofficial concept we made on our own to show what we can do: a two-colour Starbucks site with a real-time 3D cup that flies from the hero and lands in the story. Not commissioned by, affiliated with or endorsed by Starbucks.',
+      'مفهوم غير رسمي صممناه بمبادرة منا لنعرض ما نقدر عليه: موقع لستاربكس بلونين فقط، وكوب ثلاثي الأبعاد يطير من الواجهة ويهبط في قسم القصة. لم تطلبه ستاربكس، ولا علاقة لنا بها، ولا تتبناه.',
+    ),
+    tags: [t('Unofficial concept', 'مفهوم غير رسمي'), t('3D', 'ثلاثي الأبعاد'), t('Motion', 'حركة'), t('E-commerce', 'متجر')],
+    services: [t('Art direction', 'التوجيه الفني'), t('3D experience', 'تجربة ثلاثية الأبعاد'), t('Web development', 'تطوير الويب')],
+    tech: ['Next.js', 'React Three Fiber', 'GSAP ScrollTrigger', 'Lenis', 'TypeScript'],
+    year: '2026',
+    overview: t(
+      'A self-initiated showcase, not client work. Starbucks did not contact or commission us; we rebuilt their website as an exercise to show our design and 3D skills. Starbucks, the Siren logo and product names belong to Starbucks Corporation.',
+      'مشروع استعراضي بمبادرة منا، وليس عملًا لعميل. لم تتواصل معنا ستاربكس ولم تكلّفنا؛ أعدنا بناء موقعها كتمرين لنعرض مهاراتنا في التصميم والتجارب ثلاثية الأبعاد. ستاربكس وشعار الحورية وأسماء المنتجات ملك لشركة ستاربكس.',
+    ),
+    challenge: t(
+      'Make a famous brand feel new using only its green and cream, with real menu data and real products, and a 3D moment that never covers the content it passes.',
+      'أن نجعل علامة مشهورة تبدو جديدة بلونيها الأخضر والكريمي فقط، ببيانات منيو ومنتجات حقيقية، وبلحظة ثلاثية الأبعاد لا تغطي المحتوى الذي تمر بجانبه.',
+    ),
+    concept: t(
+      'One cup, one journey: it lifts off the hero pedestal, tumbles toward the camera, glides beside the drinks and lands softly in the story section.',
+      'كوب واحد ورحلة واحدة: يرتفع عن منصة الواجهة، يدور نحو الكاميرا، يمر بجانب المشروبات، ثم يهبط بهدوء في قسم القصة.',
+    ),
+    design: t(
+      'Only two colours, green and cream. Real product photography, a warm serif with a clean sans, and wave edges drawn from the Siren’s hair.',
+      'لونان فقط، الأخضر والكريمي. صور منتجات حقيقية، وخط سيريف دافئ مع خط بسيط واضح، وحواف متموجة مستوحاة من شعر الحورية.',
+    ),
+    interactions: [
+      { title: t('Flying 3D cup', 'كوب ثلاثي الأبعاد يطير'), text: t('A planned path that clears every card at 14 screen sizes.', 'مسار مخطط يتفادى كل البطاقات على 14 مقاس شاشة.') },
+      { title: t('Focused product carousel', 'عرض منتجات مركّز'), text: t('The chosen product grows; the others blur away.', 'المنتج المختار يكبر، والباقي يتلاشى.') },
+      { title: t('Lift the lid, add the sleeve', 'ارفع الغطاء وأضف الغلاف'), text: t('Inspect the cup and the real Insulated Sleeve.', 'افحص الكوب والغلاف المعزول الحقيقي.') },
+    ],
+  },
 ];
 
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug);
