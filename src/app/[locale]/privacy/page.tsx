@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps<'/[locale]/privacy'
   return {
     title: privacy.title[locale],
     description: privacy.description[locale],
-    alternates: { canonical: `/${locale}/privacy`, languages: { ar: '/ar/privacy', en: '/en/privacy', 'x-default': '/ar/privacy' } },
+    alternates: { canonical: `/${locale}/privacy`, languages: { ar: '/ar/privacy', en: '/en/privacy', 'x-default': '/en/privacy' } },
   };
 }
 
