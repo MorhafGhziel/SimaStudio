@@ -9,7 +9,7 @@ import { useLocale } from '@/components/providers/LocaleProvider';
 import { Reveal, RevealLines } from '@/components/ui/Reveal';
 import { packages } from '@/content/offer';
 import { getProject } from '@/content/projects';
-import { formatSAR, href } from '@/lib/i18n';
+import { formatPrice, href } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 
 /**
@@ -35,7 +35,7 @@ export function Difference() {
   }, [inView, reduce]);
 
   const prices = packages.map((p) => p.price);
-  const ours = d.oursPrice.replace('{min}', formatSAR(Math.min(...prices), locale)).replace('{max}', formatSAR(Math.max(...prices), locale));
+  const ours = d.oursPrice.replace('{min}', formatPrice(Math.min(...prices), locale)).replace('{max}', formatPrice(Math.max(...prices), locale));
   const rows = d.rows.map((row, i) => (i === 1 ? { ...row, ours } : row));
 
   return (

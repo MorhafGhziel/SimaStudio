@@ -1,4 +1,4 @@
-import type { T } from '@/lib/i18n';
+import { toUSD, type T } from '@/lib/i18n';
 import { paymentMethods } from './site';
 
 const t = (en: string, ar: string): T => ({ en, ar });
@@ -243,7 +243,7 @@ export const faqs = [
   {
     q: t('What happens after the first year?', 'ماذا يحدث بعد السنة الأولى؟'),
     a: t(
-      `The site is yours. From year two you can take the care plan for ${carePlan.price} SAR a month: hosting, domain renewal, small content edits and a monthly check. Or you can host it yourself and we hand everything over.`,
+      `The site is yours. From year two you can take the care plan for $${toUSD(carePlan.price)} a month: hosting, domain renewal, small content edits and a monthly check. Or you can host it yourself and we hand everything over.`,
       `الموقع ملكك. من السنة الثانية يمكنك الاشتراك في خطة العناية بـ${carePlan.price} ريال شهريًا: الاستضافة وتجديد النطاق وتعديلات المحتوى البسيطة وفحص شهري. أو تستضيفه بنفسك ونسلّمك كل شيء.`,
     ),
   },
@@ -256,7 +256,7 @@ export const faqs = [
   },
   { q: t('Can you build an Arabic website?', 'هل يمكنكم بناء موقع باللغة العربية؟'), a: t('Yes — with proper right-to-left layout, not just translated text. Signature and Immersive include Arabic + English.', 'نعم — بتصميم صحيح من اليمين لليسار وليس مجرد ترجمة. باقة Signature وباقة Immersive تشملان العربية والإنجليزية.') },
   { q: t('Can you build an online store?', 'هل يمكنكم بناء متجر إلكتروني؟'), a: t(
-      'Yes, in two ways. From 4,500 SAR we design your brand site and product pages in front of your existing Salla or Zid store, so payments and shipping stay where they already work. A fully custom store with its own checkout is quoted by products, payment methods and delivery.',
+      'Yes, in two ways. From $1,200 we design your brand site and product pages in front of your existing Salla or Zid store, so payments and shipping stay where they already work. A fully custom store with its own checkout is quoted by products, payment methods and delivery.',
       'نعم، بطريقتين. ابتداءً من 4,500 ريال نصمم موقع علامتك وصفحات منتجاتك أمام متجرك القائم في سلة أو زد، فيبقى الدفع والشحن حيث يعملان أصلًا. أما المتجر المخصص بالكامل بصفحة دفع خاصة به فيُسعّر حسب المنتجات وطرق الدفع والتوصيل.',
     ),
   },
