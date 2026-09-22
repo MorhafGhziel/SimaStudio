@@ -1,9 +1,10 @@
 /**
  * Prices are written once in SAR (see content/offer) and shown in the visitor's own currency.
  *
- * The proxy reads Vercel's `x-vercel-ip-country` and writes the code into the `sima_cur` cookie;
- * the <Price> client component reads that cookie and swaps the number after the page has loaded,
- * so the pages stay statically cached and search engines still see a real price in the HTML.
+ * No cookie is involved: the privacy page promises none for visitors. /api/geo reads Vercel's
+ * `x-vercel-ip-country` and useCurrency() asks it once after the page has loaded, so the pages
+ * stay statically cached, search engines still see a real price in the HTML, and nothing is
+ * stored on the visitor's device.
  *
  * Rates are a fixed table, not a live feed: a starting price that moves every day looks unstable,
  * and there is nothing here that can fail at request time. The Gulf currencies are pegged to the
@@ -78,4 +79,3 @@ export function formatMoney(sar: number, code: CurrencyCode, locale: 'en' | 'ar'
 /** SAR → USD, rounded to the nearest ten. Used where a price is baked into a sentence. */
 export const toUSD = (sar: number) => Math.round(sar / CURRENCIES.SAR.perUSD / 10) * 10;
 
-export const COOKIE = 'sima_cur';
