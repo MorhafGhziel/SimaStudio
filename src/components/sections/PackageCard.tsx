@@ -11,7 +11,9 @@ import type { Package } from '@/content/offer';
 import { useMedia, useWebGL } from '@/lib/capabilities';
 import { selectBudget } from '@/lib/events';
 import { launchOffer } from '@/content/site';
-import { formatPrice, href } from '@/lib/i18n';
+import { formatMoney } from '@/lib/currency';
+import { href } from '@/lib/i18n';
+import { useCurrency } from '@/lib/useCurrency';
 import { cn } from '@/lib/utils';
 
 const BottlePreview = dynamic(() => import('@/components/three/BottlePreview'), { ssr: false });
@@ -19,6 +21,7 @@ const BottlePreview = dynamic(() => import('@/components/three/BottlePreview'), 
 /** Hierarchy: experience → value → features → price → CTA. */
 export function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
   const { locale, dict } = useLocale();
+  const cur = useCurrency(locale);
   const reduce = useReducedMotion();
   const webgl = useWebGL();
   const desktop = useMedia('(min-width: 768px)');
@@ -86,9 +89,9 @@ export function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
         <div className="flex items-end justify-between gap-4 border-t border-line pt-6">
           <div>
             {pkg.fromPrice && <span className="block text-sm text-mute">{dict.packages.from}</span>}
-            <p className="mt-1 whitespace-nowrap text-[2rem] font-medium leading-none tracking-[-0.03em]">{formatPrice(offer.active ? pkg.launchPrice : pkg.price, locale)}</p>
+            <p className="mt-1 whitespace-nowrap text-[2rem] font-medium leading-none tracking-[-0.03em]">{formatMoney(offer.active ? pkg.launchPrice : pkg.price, cur, locale)}</p>
             {offer.active ? (
-              <span className="mt-2 block text-xs text-faint">{dict.packages.after.replace('{price}', formatPrice(pkg.price, locale))}</span>
+              <span className="mt-2 block text-xs text-faint">{dict.packages.after.replace('{price}', formatMoney(pkg.price, cur, locale))}</span>
             ) : (
               pkg.fromPrice && <span className="mt-2 block text-xs text-faint">{dict.packages.perProject}</span>
             )}

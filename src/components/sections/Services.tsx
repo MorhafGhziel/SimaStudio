@@ -12,12 +12,15 @@ import { WhatsAppIcon } from '@/components/icons';
 import { packages, services, type Service } from '@/content/offer';
 import { launchOffer, whatsappUrl } from '@/content/site';
 import { useMedia } from '@/lib/capabilities';
-import { formatPrice, href } from '@/lib/i18n';
+import { formatMoney } from '@/lib/currency';
+import { href } from '@/lib/i18n';
+import { useCurrency } from '@/lib/useCurrency';
 import { cn } from '@/lib/utils';
 
 /** Interactive list: each row shows its starting price and opens to what you get. On desktop a preview image follows the cursor. */
 export function Services() {
   const { locale, dict } = useLocale();
+  const cur = useCurrency(locale);
   const hover = useMedia('(hover: hover) and (pointer: fine)');
   const [active, setActive] = useState<string | null>(null);
   const [open, setOpen] = useState<string | null>(null);
@@ -69,7 +72,7 @@ export function Services() {
                   <span className="flex items-center justify-between gap-3 md:col-span-2 md:justify-end">
                     {price !== undefined && (
                       <span className="whitespace-nowrap text-sm text-mute">
-                        {dict.services.from} <span className="text-base text-paper">{formatPrice(price, locale)}</span>
+                        {dict.services.from} <span className="text-base text-paper">{formatMoney(price, cur, locale)}</span>
                       </span>
                     )}
                     <span aria-hidden="true" className={cn('grid size-8 shrink-0 place-items-center rounded-full border border-line text-mute transition-all duration-500 group-hover:border-accent/60 group-hover:text-accent', isOpen && 'rotate-45 border-accent/60 text-accent')}>

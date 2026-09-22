@@ -9,7 +9,9 @@ import { useLocale } from '@/components/providers/LocaleProvider';
 import { Reveal, RevealLines } from '@/components/ui/Reveal';
 import { packages } from '@/content/offer';
 import { getProject } from '@/content/projects';
-import { formatPrice, href } from '@/lib/i18n';
+import { formatMoney, isApprox } from '@/lib/currency';
+import { href } from '@/lib/i18n';
+import { useCurrency } from '@/lib/useCurrency';
 import { cn } from '@/lib/utils';
 
 /**
@@ -19,6 +21,7 @@ import { cn } from '@/lib/utils';
  */
 export function Difference() {
   const { locale, dict } = useLocale();
+  const cur = useCurrency(locale);
   const d = dict.difference;
   const reduce = useReducedMotion();
   const stage = useRef<HTMLDivElement>(null);
@@ -35,8 +38,22 @@ export function Difference() {
   }, [inView, reduce]);
 
   const prices = packages.map((p) => p.price);
-  const ours = d.oursPrice.replace('{min}', formatPrice(Math.min(...prices), locale)).replace('{max}', formatPrice(Math.max(...prices), locale));
-  const rows = d.rows.map((row, i) => (i === 1 ? { ...row, ours } : row));
+  // ranges carry one ≈ in front, not one per number
+  const bare = (sar: number) => formatMoney(sar, cur, locale, true);
+  const tilde = isApprox(cur) ? '≈ ' : '';
+  const ours = tilde + d.oursPrice.replace('{min}', bare(Math.min(...prices))).replace('{max}', bare(Math.max(...prices)));
+  // the price row: what the others charge, in the same currency as ours (written in SAR, converted on the way out)
+  const money = (sar: number) => formatMoney(sar, cur, locale);
+  const rows = d.rows.map((row, i) =>
+    i === 1
+      ? {
+          ...row,
+          ours,
+          templates: tilde + row.templates.replace('{a}', bare(1500)).replace('{b}', bare(4000)),
+          agencies: row.agencies.replace('{c}', money(22000)),
+        }
+      : row,
+  );
 
   return (
     <section id="difference" aria-labelledby="difference-title" className="section-y border-t border-line">

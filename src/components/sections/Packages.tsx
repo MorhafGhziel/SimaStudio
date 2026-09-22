@@ -7,11 +7,14 @@ import { Check, Clock } from 'lucide-react';
 import { carePlan, packages } from '@/content/offer';
 import { launchOffer, launchOfferEnds } from '@/content/site';
 import { selectBudget } from '@/lib/events';
-import { formatPrice, href } from '@/lib/i18n';
+import { formatMoney } from '@/lib/currency';
+import { href } from '@/lib/i18n';
+import { useCurrency } from '@/lib/useCurrency';
 import { PackageCard } from './PackageCard';
 
 export function Packages() {
   const { locale, dict } = useLocale();
+  const cur = useCurrency(locale);
   const offer = launchOffer();
   const from = Math.min(...packages.map((p) => (offer.active ? p.launchPrice : p.price)));
   // The offer's last day, written out. No countdown: a date is a fact, a ticking clock is pressure.
@@ -31,7 +34,7 @@ export function Packages() {
           </div>
           <Reveal delay={0.2}>
             <p className="text-sm text-mute">
-              {dict.packages.from} <span className="text-paper">{formatPrice(from, locale)}</span>
+              {dict.packages.from} <span className="text-paper">{formatMoney(from, cur, locale)}</span>
             </p>
           </Reveal>
         </div>
@@ -76,7 +79,7 @@ export function Packages() {
           <Reveal delay={0.08} className="max-lg:w-[84%] max-lg:shrink-0 max-lg:snap-start sm:max-lg:w-[47%]">
             <div className="flex h-full flex-col rounded-card border border-line p-7 sm:p-8">
               <p className="whitespace-nowrap text-[2rem] font-medium leading-none tracking-[-0.03em]">
-                {formatPrice(carePlan.price, locale)} <span className="text-base font-normal tracking-normal text-mute">{dict.packages.perMonth}</span>
+                {formatMoney(carePlan.price, cur, locale)} <span className="text-base font-normal tracking-normal text-mute">{dict.packages.perMonth}</span>
               </p>
               <h3 className="mt-5 text-2xl font-medium tracking-[-0.02em]">{dict.packages.careTitle}</h3>
               <p className="mt-3 text-mute">{dict.packages.careText}</p>

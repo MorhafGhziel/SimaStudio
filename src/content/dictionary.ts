@@ -50,7 +50,7 @@ export const dictionary = {
       oursPrice: '{min} to {max}, published',
       rows: [
         { label: 'Design', templates: 'A ready template, adjusted', ours: 'From zero, around your brand', agencies: 'From zero' },
-        { label: 'Price', templates: '$400 to $1,070', ours: '', agencies: 'From $5,870' },
+        { label: 'Price', templates: '{a} to {b}', ours: '', agencies: 'From {c}' },
         { label: 'Time', templates: 'Days', ours: '1 to 5 weeks', agencies: 'One to several months' },
         { label: 'Who you talk to', templates: 'A support desk', ours: 'The person who designs and builds your site', agencies: 'An account manager' },
       ],
@@ -252,7 +252,7 @@ export const dictionary = {
       oursPrice: 'من {min} إلى {max}، والسعر مكتوب أمامك',
       rows: [
         { label: 'التصميم', templates: 'قالب جاهز مع تعديلات', ours: 'نبدأ من الصفر، لشركتك أنت', agencies: 'من الصفر' },
-        { label: 'السعر', templates: 'من 1,500 إلى 4,000 ر.س', ours: '', agencies: 'من 22,000 ر.س فأكثر' },
+        { label: 'السعر', templates: 'من {a} إلى {b}', ours: '', agencies: 'من {c} فأكثر' },
         { label: 'المدة', templates: 'أيام', ours: 'من أسبوع إلى 5 أسابيع', agencies: 'من شهر إلى عدة أشهر' },
         { label: 'مع من تتكلم', templates: 'موظف دعم', ours: 'الشخص الذي يصمم موقعك ويبنيه', agencies: 'وسيط بينك وبين الفريق' },
       ],
