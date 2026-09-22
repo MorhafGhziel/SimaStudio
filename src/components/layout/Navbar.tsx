@@ -28,7 +28,7 @@ function LangSwitch({ className }: { className?: string }) {
             hrefLang={code}
             aria-current={code === locale ? 'true' : undefined}
             aria-label={code === 'ar' ? 'العربية' : 'English'}
-            className={cn('py-2 transition-colors', code === locale ? 'text-paper' : 'text-faint hover:text-paper')}
+            className={cn('py-2 transition-colors', code === locale ? 'font-medium text-paper' : 'text-mute hover:text-paper')}
           >
             {code.toUpperCase()}
           </Link>
