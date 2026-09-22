@@ -2,16 +2,16 @@
 export const dictionary = {
   en: {
     meta: {
-      title: 'SIMA — Arabic-first Websites & 3D Experiences for Saudi Companies',
+      title: 'SIMA — Websites & 3D Experiences, in Arabic and English',
       description:
-        'SIMA designs and builds Arabic-first websites and 3D product experiences for Saudi companies and brands. Designed and built in-house. Latest client launch: Nasaq Uniforms.',
+        'SIMA designs and builds websites and 3D product experiences in Arabic and English, for companies anywhere. Designed and built in-house. Latest client launch: Nasaq Uniforms.',
     },
     skip: 'Skip to content',
     nav: { work: 'Work', services: 'Services', packages: 'Packages', process: 'Process', reviews: 'Reviews', about: 'About', start: 'Start a Project', menu: 'Menu', close: 'Close' },
     hero: {
       kicker: 'Digital studio · Riyadh',
-      line1: 'Arabic-first websites',
-      line2: 'for Saudi companies and brands.',
+      line1: 'We design and build websites',
+      line2: 'in Arabic and English.',
       text: 'From a clean company site to a full 3D experience. Designed and built in-house.',
       proofLabel: 'Latest client launch',
       proofName: 'Nasaq Uniforms',
@@ -50,11 +50,11 @@ export const dictionary = {
       oursPrice: '{min} to {max}, published',
       rows: [
         { label: 'Design', templates: 'A ready template, adjusted', ours: 'From zero, around your brand', agencies: 'From zero' },
-        { label: 'Price', templates: '1,500 to 4,000 SAR', ours: '', agencies: 'From 22,000 SAR' },
+        { label: 'Price', templates: '$400 to $1,070', ours: '', agencies: 'From $5,870' },
         { label: 'Time', templates: 'Days', ours: '1 to 5 weeks', agencies: 'One to several months' },
         { label: 'Who you talk to', templates: 'A support desk', ours: 'The person who designs and builds your site', agencies: 'An account manager' },
       ],
-      tableNote: 'A general comparison based on prices and timelines published by Saudi providers in September 2026. Individual companies differ.',
+      tableNote: 'A general comparison based on prices and timelines published by providers in September 2026, converted from riyals. Individual companies differ.',
     },
     review: {
       kicker: 'Not ready yet?',
@@ -144,7 +144,7 @@ export const dictionary = {
       need: 'What do you need?',
       needs: ['Company website', 'Online store', '3D product experience', 'Campaign page', 'Website redesign', 'Not sure yet'],
       budget: 'Budget',
-      budgets: ['Up to 3,000 SAR', '3,000 – 6,000', '6,000 – 10,000', '10,000 – 15,000', '15,000+', 'Not sure yet'],
+      budgets: ['Up to $800', '$800 – $1,600', '$1,600 – $2,670', '$2,670 – $4,000', '$4,000+', 'Not sure yet'],
       message: 'Message',
       messagePlaceholder: 'What does your company sell, who buys it, and what should the site do for you?',
       send: 'Send Project Request',
@@ -158,7 +158,7 @@ export const dictionary = {
       fallbackText: 'Send it to us on WhatsApp or by email to make sure it reaches us.',
       email: 'Send by email',
     },
-    footer: { statement: 'Arabic-first websites for Saudi companies and brands.', contact: 'Contact', social: 'Social', rights: 'All rights reserved.', privacy: 'Privacy', brand: 'View our brand identity', explore: 'Explore' },
+    footer: { statement: 'Websites and 3D experiences, in Arabic and English.', contact: 'Contact', social: 'Social', rights: 'All rights reserved.', privacy: 'Privacy', brand: 'View our brand identity', explore: 'Explore' },
     landing: {
       home: 'Home',
       faq: 'Common questions',
@@ -204,16 +204,16 @@ export const dictionary = {
   },
   ar: {
     meta: {
-      title: 'سِمة — مواقع عربية وتجارب ثلاثية الأبعاد للشركات السعودية',
+      title: 'سِمة — مواقع وتجارب ثلاثية الأبعاد، بالعربية والإنجليزية',
       description:
-        'سِمة تصمم وتبني مواقع عربية أولًا وتجارب منتجات ثلاثية الأبعاد للشركات والعلامات السعودية. نصمم ونبني بأنفسنا. آخر مشروع لعميل: نسق للزي الموحد.',
+        'سِمة تصمم وتبني مواقع وتجارب منتجات ثلاثية الأبعاد، بالعربية والإنجليزية، لأي شركة في أي مكان. نصمم ونبني بأنفسنا. آخر مشروع لعميل: نسق للزي الموحد.',
     },
     skip: 'انتقل إلى المحتوى',
     nav: { work: 'أعمالنا', services: 'خدماتنا', packages: 'الباقات', process: 'آلية العمل', reviews: 'آراء العملاء', about: 'من نحن', start: 'ابدأ مشروعك', menu: 'القائمة', close: 'إغلاق' },
     hero: {
       kicker: 'استوديو رقمي · الرياض',
-      line1: 'مواقع عربية أولًا',
-      line2: 'للشركات والعلامات السعودية.',
+      line1: 'نصمّم ونبني مواقع',
+      line2: 'بالعربية والإنجليزية.',
       text: 'من موقع تعريفي لشركتك إلى تجربة ثلاثية الأبعاد. نصمم ونبني بأنفسنا.',
       proofLabel: 'آخر مشروع لعميل',
       proofName: 'نسق للزي الموحد',
@@ -360,7 +360,7 @@ export const dictionary = {
       fallbackText: 'أرسله لنا عبر واتساب أو البريد الإلكتروني لضمان وصوله.',
       email: 'أرسل بالبريد',
     },
-    footer: { statement: 'مواقع عربية أولًا للشركات والعلامات السعودية.', contact: 'تواصل', social: 'حساباتنا', rights: 'جميع الحقوق محفوظة.', privacy: 'الخصوصية', brand: 'اطّلع على الهوية البصرية', explore: 'استكشف' },
+    footer: { statement: 'مواقع وتجارب ثلاثية الأبعاد، بالعربية والإنجليزية.', contact: 'تواصل', social: 'حساباتنا', rights: 'جميع الحقوق محفوظة.', privacy: 'الخصوصية', brand: 'اطّلع على الهوية البصرية', explore: 'استكشف' },
     landing: {
       home: 'الرئيسية',
       faq: 'أسئلة شائعة',

@@ -64,7 +64,7 @@ export const landings: Landing[] = [
       {
         heading: t('How fast, and what it costs', 'كم تستغرق وكم تكلف'),
         body: t(
-          'A Starter site takes one to two weeks, a fully custom bilingual Signature site two to three weeks, and an Immersive 3D experience three to five weeks, counted from the day we have your content. Prices start at 2,500 SAR and every package includes domain and hosting for the first year.',
+          'A Starter site takes one to two weeks, a fully custom bilingual Signature site two to three weeks, and an Immersive 3D experience three to five weeks, counted from the day we have your content. Prices start at $670 and every package includes domain and hosting for the first year.',
           'موقع Starter يستغرق أسبوعًا إلى أسبوعين، وموقع Signature المخصص بالكامل وثنائي اللغة من أسبوعين إلى ثلاثة، وتجربة Immersive ثلاثية الأبعاد من ثلاثة إلى خمسة أسابيع، تُحسب من يوم استلام المحتوى. تبدأ الأسعار من 2,500 ريال وكل باقة تشمل النطاق والاستضافة للسنة الأولى.',
         ),
       },
@@ -130,7 +130,7 @@ export const landings: Landing[] = [
       {
         q: t('Do you build online stores?', 'هل تبنون متاجر إلكترونية؟'),
         a: t(
-          'Yes, in two ways. From 4,500 SAR we design your brand site and product pages in front of your existing Salla or Zid store. A fully custom store with its own checkout is quoted by products, payment methods and delivery.',
+          'Yes, in two ways. From $1,200 we design your brand site and product pages in front of your existing Salla or Zid store. A fully custom store with its own checkout is quoted by products, payment methods and delivery.',
           'نعم، بطريقتين. ابتداءً من 4,500 ريال نصمم موقع علامتك وصفحات منتجاتك أمام متجرك القائم في سلة أو زد. أما المتجر المخصص بالكامل بصفحة دفع خاصة به فيُسعّر حسب المنتجات وطرق الدفع والتوصيل.',
         ),
       },
@@ -166,7 +166,7 @@ export const landings: Landing[] = [
       {
         heading: t('How stores are priced', 'كيف تُسعّر المتاجر'),
         body: t(
-          'There are two routes. If you already sell on Salla or Zid, we design the brand site and product pages in front of your store from 4,500 SAR, and payments and shipping stay where they already work. A fully custom store with its own cart and checkout is quoted by how many products you carry, which payment methods you need and how delivery is handled. Tell us those three things and you get a clear proposal.',
+          'There are two routes. If you already sell on Salla or Zid, we design the brand site and product pages in front of your store from $1,200, and payments and shipping stay where they already work. A fully custom store with its own cart and checkout is quoted by how many products you carry, which payment methods you need and how delivery is handled. Tell us those three things and you get a clear proposal.',
           'هناك طريقتان. إن كنت تبيع أصلًا عبر سلة أو زد، نصمم موقع العلامة وصفحات المنتجات أمام متجرك ابتداءً من 4,500 ريال، ويبقى الدفع والشحن حيث يعملان أصلًا. أما المتجر المخصص بالكامل بسلة ودفع خاصين به فيُسعّر حسب عدد منتجاتك وطرق الدفع المطلوبة وطريقة التوصيل. أخبرنا بهذه الثلاثة وتحصل على عرض واضح.',
         ),
       },
@@ -299,7 +299,7 @@ export const landings: Landing[] = [
       {
         heading: t('What changes the price', 'ما الذي يغيّر السعر'),
         body: t(
-          'The number of pages, whether you need Arabic and English, whether products are sold directly on the site, and how much motion or 3D the brand calls for. Store projects start from 4,500 SAR; a fully custom checkout is quoted individually.',
+          'The number of pages, whether you need Arabic and English, whether products are sold directly on the site, and how much motion or 3D the brand calls for. Store projects start from $1,200; a fully custom checkout is quoted individually.',
           'عدد الصفحات، وهل تحتاج العربية والإنجليزية، وهل تُباع المنتجات مباشرة عبر الموقع، وكم تحتاج العلامة من حركة أو عناصر ثلاثية الأبعاد. مشاريع المتاجر تبدأ من 4,500 ريال، والمتجر بصفحة دفع مخصصة يُسعّر بشكل مستقل.',
         ),
       },
@@ -335,10 +335,10 @@ export const landings: Landing[] = [
   },
   {
     slug: 'company-website',
-    title: t('Websites for Saudi Manufacturers, Suppliers and B2B Companies', 'تصميم مواقع الشركات والمصانع والموردين في السعودية'),
+    title: t('Websites for Manufacturers, Suppliers and B2B Companies', 'تصميم مواقع الشركات والمصانع والموردين'),
     description: t(
-      'Arabic-first company websites for Saudi manufacturers, suppliers and B2B firms: your products shown properly, in 3D when it helps, and every visit pointed at a quote request. See what we built for Nasaq Uniforms.',
-      'مواقع عربية أولًا للمصانع والموردين وشركات الأعمال في السعودية: منتجاتكم معروضة كما تستحق، وبالأبعاد الثلاثة عند الحاجة، وكل زيارة تقود إلى طلب عرض سعر. شاهد ما بنيناه لشركة نسق للزي الموحد.',
+      'Company websites for manufacturers, suppliers and B2B firms, in Arabic, English or both: your products shown properly, in 3D when it helps, and every visit pointed at a quote request. See what we built for Nasaq Uniforms.',
+      'مواقع للمصانع والموردين وشركات الأعمال، بالعربية أو الإنجليزية أو كليهما: منتجاتكم معروضة كما تستحق، وبالأبعاد الثلاثة عند الحاجة، وكل زيارة تقود إلى طلب عرض سعر. شاهد ما بنيناه لشركة نسق للزي الموحد.',
     ),
     heading: t('Websites for makers and suppliers that show your real size.', 'مواقع للمصانع والموردين تُظهر حجمكم الحقيقي.'),
     intro: [
@@ -347,8 +347,8 @@ export const landings: Landing[] = [
         'قبل أن يتصل بكم مدير المشتريات، يفتح موقعكم. فإن كان قديمًا أو بطيئًا أو بالإنجليزية فقط، افترض أن الشركة كذلك، مهما كان مصنعكم متقدمًا.',
       ),
       t(
-        'We design and build company websites for Saudi businesses that sell to other businesses: Arabic first, fast on a phone, with your products shown properly and every page leading to a quote request.',
-        'نصمم ونبني مواقع للشركات السعودية التي تبيع لشركات أخرى: عربية أولًا، سريعة على الجوال، تعرض منتجاتكم كما تستحق، وكل صفحة فيها تقود إلى طلب عرض سعر.',
+        'We design and build company websites for businesses that sell to other businesses: in Arabic, English or both, fast on a phone, with your products shown properly and every page leading to a quote request.',
+        'نصمم ونبني مواقع للشركات التي تبيع لشركات أخرى: بالعربية أو الإنجليزية أو كليهما، سريعة على الجوال، تعرض منتجاتكم كما تستحق، وكل صفحة فيها تقود إلى طلب عرض سعر.',
       ),
     ],
     sections: [
@@ -367,16 +367,16 @@ export const landings: Landing[] = [
         ),
       },
       {
-        heading: t('Arabic first, and fast', 'عربي أولًا، وسريع'),
+        heading: t('Both languages, and fast', 'اللغتان معًا، وسريع'),
         body: t(
-          'The Arabic version is designed right-to-left from the start, not translated afterwards, with English beside it for international partners. Pages are built to open quickly on a phone and a normal mobile connection, because that is where most first visits happen.',
-          'النسخة العربية تُصمَّم من اليمين إلى اليسار من البداية ولا تُترجم لاحقًا، ومعها الإنجليزية لشركائكم خارج المملكة. والصفحات مبنية لتفتح بسرعة على الجوال وعلى اتصال عادي، لأن أغلب الزيارات الأولى تأتي منه.',
+          'Arabic is designed right-to-left from the start, not translated afterwards, and English is designed as its own language, not a copy. Take one or both. Pages are built to open quickly on a phone and a normal mobile connection, because that is where most first visits happen.',
+          'النسخة العربية تُصمَّم من اليمين إلى اليسار من البداية ولا تُترجم لاحقًا، والإنجليزية تُصمَّم كلغة قائمة بذاتها لا كنسخة مترجمة. اختر واحدة أو الاثنتين. والصفحات مبنية لتفتح بسرعة على الجوال وعلى اتصال عادي، لأن أغلب الزيارات الأولى تأتي منه.',
         ),
       },
       {
         heading: t('You talk to the person who builds it', 'تتعامل مع من يبني موقعك'),
         body: t(
-          'We are a small studio, not an agency with account managers. The person you speak to on WhatsApp is the one designing and building your site. Packages start at 2,500 SAR and a 3D product experience at 8,000 SAR; anything larger gets a fixed quote before we start.',
+          'We are a small studio, not an agency with account managers. The person you speak to on WhatsApp is the one designing and building your site. Packages start at $670 and a 3D product experience at $2,130; anything larger gets a fixed quote before we start.',
           'نحن استوديو صغير، لا وكالة فيها مديرو حسابات. من تحدّثه على واتساب هو من يصمم موقعك ويبنيه. تبدأ الباقات من 2,500 ريال، وتجربة المنتج ثلاثية الأبعاد من 8,000 ريال، وما زاد على ذلك نحدد له سعرًا ثابتًا قبل البدء.',
         ),
       },
