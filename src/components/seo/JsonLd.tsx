@@ -1,6 +1,7 @@
 import { faqs, packages } from '@/content/offer';
 import { instagramUrl, launchOffer, launchOfferEnds, linkedinUrl, studio, tiktokUrl, xUrl } from '@/content/site';
-import { toUSD, type Locale } from '@/lib/i18n';
+import { toUSD } from '@/lib/currency';
+import type { Locale } from '@/lib/i18n';
 
 function Script({ data }: { data: unknown }) {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, '\\u003c') }} />;

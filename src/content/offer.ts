@@ -1,4 +1,5 @@
-import { toUSD, type T } from '@/lib/i18n';
+import { toUSD } from '@/lib/currency';
+import type { T } from '@/lib/i18n';
 import { paymentMethods } from './site';
 
 const t = (en: string, ar: string): T => ({ en, ar });
