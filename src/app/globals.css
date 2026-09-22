@@ -10,7 +10,9 @@
   --color-ink-3: #1d1d20;
   --color-paper: #f5f4f0;
   --color-mute: #8c8c91;
-  --color-faint: #5c5c61;
+  /* faint only ever sits on the three dark grounds; #5c5c61 was 2.5-2.9:1, under the 4.5:1 AA
+     needs for text this small. #86868c is 4.65:1 on the lightest of them (ink-3). */
+  --color-faint: #86868c;
   --color-accent: #e8a33a;
   --color-accent-deep: #c9831f;
   --color-line: rgb(245 244 240 / 0.1);
