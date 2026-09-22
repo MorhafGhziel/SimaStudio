@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: PageProps<'/[locale]/work/[sl
   return {
     title,
     description: project.summary[locale],
-    alternates: { canonical: `/${locale}/work/${slug}`, languages: { ar: `/ar/work/${slug}`, en: `/en/work/${slug}`, 'x-default': `/en/work/${slug}` } },
+    alternates: { canonical: `/${locale}/work/${slug}`, languages: { ar: `/ar/work/${slug}`, en: `/en/work/${slug}`, 'x-default': `/ar/work/${slug}` } },
     openGraph: { title: `${title} — SIMA`, description: project.summary[locale], images: [{ url: `/work/${slug}-hero.jpg`, width: 1600, height: 1000 }] },
   };
 }

@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps<'/[locale]/[slug]'>
   return {
     title: landing.title[locale],
     description: landing.description[locale],
-    alternates: { canonical: `/${locale}/${slug}`, languages: { ar: `/ar/${slug}`, en: `/en/${slug}`, 'x-default': `/en/${slug}` } },
+    alternates: { canonical: `/${locale}/${slug}`, languages: { ar: `/ar/${slug}`, en: `/en/${slug}`, 'x-default': `/ar/${slug}` } },
     openGraph: { title: `${landing.title[locale]} — SIMA`, description: landing.description[locale], url: `/${locale}/${slug}` },
   };
 }

@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Pr
     title: { default: d.meta.title, template: `%s — SIMA` },
     description: d.meta.description,
     keywords: ['Website design studio', 'Web development', 'Brand website design', 'E-commerce website design', 'Interactive 3D websites', 'Arabic website design', 'تصميم مواقع', 'تطوير مواقع', 'تصميم متاجر إلكترونية'],
-    alternates: { canonical: `/${locale}`, languages: { ar: '/ar', en: '/en', 'x-default': '/en' } },
+    alternates: { canonical: `/${locale}`, languages: { ar: '/ar', en: '/en', 'x-default': '/ar' } },
     openGraph: {
       type: 'website',
       siteName: 'SIMA',
