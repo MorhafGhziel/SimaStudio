@@ -163,7 +163,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'starbucks',
-    number: '05',
+    number: '04',
     name: 'Starbucks (concept)',
     arName: 'ستاربكس (مفهوم)',
     industry: t('Coffee · Retail', 'قهوة · تجزئة'),
