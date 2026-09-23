@@ -176,6 +176,7 @@ export const projects: Project[] = [
     services: [t('Art direction', 'التوجيه الفني'), t('3D experience', 'تجربة ثلاثية الأبعاد'), t('Web development', 'تطوير الويب')],
     tech: ['Next.js', 'React Three Fiber', 'GSAP ScrollTrigger', 'Lenis', 'TypeScript'],
     year: '2026',
+    live: 'https://starbucks-rebuild.vercel.app/',
     overview: t(
       'A self-initiated showcase, not client work. Starbucks did not contact or commission us; we rebuilt their website as an exercise to show our design and 3D skills. Starbucks, the Siren logo and product names belong to Starbucks Corporation.',
       'مشروع استعراضي بمبادرة منا، وليس عملًا لعميل. لم تتواصل معنا ستاربكس ولم تكلّفنا؛ أعدنا بناء موقعها كتمرين لنعرض مهاراتنا في التصميم والتجارب ثلاثية الأبعاد. ستاربكس وشعار الحورية وأسماء المنتجات ملك لشركة ستاربكس.',
