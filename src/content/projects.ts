@@ -92,8 +92,46 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'noble-immersive',
+    slug: 'merit',
     number: '02',
+    name: 'MERIT',
+    arName: 'ميرت',
+    industry: t('Fashion · E-commerce', 'أزياء · متجر إلكتروني'),
+    kind: t('Fashion store + virtual fitting room', 'متجر أزياء + غرفة قياس افتراضية'),
+    summary: t(
+      'A Riyadh fashion label: a fitting room where the model puts on the jacket you pick, a full store, and an Arabic site written in Saudi dialect, not translated.',
+      'علامة أزياء من الرياض: غرفة قياس يرتدي فيها العارض الجاكيت الذي تختاره، ومتجر كامل، وموقع عربي مكتوب باللهجة السعودية لا مترجم.',
+    ),
+    tags: [t('Fashion', 'أزياء'), t('E-commerce', 'متجر إلكتروني'), t('Interactive', 'تفاعلي'), t('Arabic + English', 'عربي + إنجليزي')],
+    services: [t('Brand identity', 'الهوية البصرية'), t('Art direction', 'التوجيه الفني'), t('Web development', 'تطوير الويب')],
+    tech: ['Next.js', 'GSAP', 'WebGL shaders', 'Alpha video', 'Tailwind CSS', 'TypeScript'],
+    year: '2026',
+    live: 'https://merit-fawn.vercel.app/',
+    overview: t(
+      'A concept for a contemporary label from Riyadh that makes tailoring, outerwear and knitwear in small counts. The brief was a store that feels like walking into the shop: you try the clothes on before you read about them.',
+      'مفهوم لعلامة معاصرة من الرياض تصنع التفصيل والمعاطف والتريكو بكميات قليلة. الفكرة متجر يشعرك أنك داخل المحل: تجرّب الملابس قبل أن تقرأ عنها.',
+    ),
+    challenge: t(
+      'Online, clothes are flat photos on a grid. The site had to show how a jacket actually sits on a body, carry a full shop (filters, bag, sizes, stock), and speak to a Saudi customer in their own Arabic.',
+      'الملابس على الإنترنت مجرد صور مسطحة في شبكة. كان على الموقع أن يُظهر كيف يجلس الجاكيت فعلًا على الجسم، وأن يحمل متجرًا كاملًا (فلاتر وسلة ومقاسات ومخزون)، وأن يخاطب العميل السعودي بلهجته.',
+    ),
+    concept: t(
+      'The Fitting Room: the model stands in front of a giant logotype, and clicking a jacket plays him putting it on, swapping it or taking it off. The clips were generated with AI video, then stabilised and cut out frame by frame so he stands in the page. A jacket anatomy with a loupe, a campaign film that plays with the scroll, and the logotype poured in liquid metal follow.',
+      'غرفة القياس: العارض يقف أمام شعار ضخم، وبضغطة على جاكيت يرتديه أو يبدّله أو يخلعه أمامك. المقاطع مولّدة بفيديو الذكاء الاصطناعي، ثم ثبّتناها وفصلناها عن الخلفية إطارًا إطارًا ليقف داخل الصفحة. يليها تشريح للجاكيت بعدسة مكبّرة، وفيلم حملة يتحرك مع التمرير، والشعار مسكوبًا كمعدن سائل.',
+    ),
+    design: t(
+      'Black, warm white, stone and graphite; a heavy grotesk and a custom liquid MERIT logotype. The Arabic site is its own voice: Jomhuria for headlines, collections named by meaning (الأساس، الفناء، الفهرس) and copy in white Saudi dialect.',
+      'أسود وأبيض دافئ وحجري وجرافيت، وخط غروتسك ثقيل مع شعار MERIT سائل مرسوم خصيصًا. والموقع العربي له صوته الخاص: خط جمهورية للعناوين، ومجموعات بأسماء عربية لها معنى (الأساس، الفناء، الفهرس)، ونصوص باللهجة السعودية البيضاء.',
+    ),
+    interactions: [
+      { title: t('The Fitting Room', 'غرفة القياس'), text: t('Pick a jacket and watch the model put it on.', 'اختر جاكيتًا وشاهد العارض يرتديه.') },
+      { title: t('Jacket anatomy', 'تشريح الجاكيت'), text: t('Hotspots and a loupe read every seam and pocket.', 'نقاط وعدسة مكبّرة تشرح كل درزة وكل جيب.') },
+      { title: t('A real store', 'متجر حقيقي'), text: t('Filters, sizes, stock, bag and wishlist, honest that nothing is charged.', 'فلاتر ومقاسات ومخزون وسلة ومفضّلة، مع توضيح صريح أن لا شيء يُخصم.') },
+    ],
+  },
+  {
+    slug: 'noble-immersive',
+    number: '03',
     name: 'NOBLE Immersive',
     arName: 'نُبل — تجربة غامرة',
     industry: t('Perfume', 'العطور'),
@@ -128,7 +166,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'rashfa',
-    number: '03',
+    number: '04',
     name: 'Rashfa',
     arName: 'رشفة',
     industry: t('Café', 'مقاهي'),
