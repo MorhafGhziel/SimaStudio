@@ -239,7 +239,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'azal',
-    number: '05',
+    number: '06',
     name: 'AZAL',
     arName: 'أزل',
     industry: t('Perfume · E-commerce', 'عطور · متجر إلكتروني'),
