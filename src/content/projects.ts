@@ -237,6 +237,44 @@ export const projects: Project[] = [
       { title: t('Lift the lid, add the sleeve', 'ارفع الغطاء وأضف الغلاف'), text: t('Inspect the cup and the real Insulated Sleeve.', 'افحص الكوب والغلاف المعزول الحقيقي.') },
     ],
   },
+  {
+    slug: 'azal',
+    number: '05',
+    name: 'AZAL',
+    arName: 'أزل',
+    industry: t('Perfume · E-commerce', 'عطور · متجر إلكتروني'),
+    kind: t('Cinematic perfume store', 'متجر عطور سينمائي'),
+    summary: t(
+      'A fictional perfume house: a painted sky you fall through to reach the bottle, a story of where the scent comes from, and a full working shop from bag to checkout.',
+      'دار عطور خيالية: سماء مرسومة تنزل خلالها حتى تصل للقارورة، وقصة من أين يأتي العطر، ومتجر كامل يعمل من الحقيبة حتى إتمام الطلب.',
+    ),
+    tags: [t('Concept', 'مفهوم'), t('E-commerce', 'متجر'), t('3D renders', 'ريندر ثلاثي الأبعاد'), t('Arabic + English', 'عربي + إنجليزي')],
+    services: [t('Art direction', 'التوجيه الفني'), t('3D product renders', 'ريندر المنتج ثلاثي الأبعاد'), t('Web development', 'تطوير الويب'), t('E-commerce UX', 'تجربة المتجر')],
+    tech: ['Vite', 'TypeScript', 'GSAP ScrollTrigger', 'Lenis', 'Blender'],
+    year: '2026',
+    live: 'https://azal-eight.vercel.app/',
+    overview: t(
+      'A self-initiated concept, not client work. AZAL is a made-up brand; we built it to show that a cinematic story and a real, clear shop can live on one site.',
+      'مشروع بمبادرة منا، وليس عملًا لعميل. أزل علامة من خيالنا؛ بنيناها لنثبت أن القصة السينمائية والمتجر الواضح الحقيقي يقدرون يعيشون في موقع واحد.',
+    ),
+    challenge: t(
+      'Luxury perfume sites are often beautiful and hard to buy from. The goal: keep the film, but make price, size and "Add to bag" easy to find on every page, in Arabic and English.',
+      'مواقع العطور الفاخرة غالبًا جميلة لكن الشراء منها صعب. الهدف: نحافظ على الفيلم، ونخلي السعر والحجم وزر «أضف إلى الحقيبة» سهلة الوصول في كل صفحة، بالعربي والإنجليزي.',
+    ),
+    concept: t(
+      'Scent as a memory: you fall from a dawn sky through the clouds to the bottle, visit the rose fields and the still, watch the notes fill the bottle layer by layer, and end at dusk.',
+      'العطر ذكرى: تنزل من سماء الفجر عبر الغيوم حتى القارورة، تزور حقول الورد والتقطير، تشوف النوتات تملأ القارورة طبقة طبقة، وتنتهي عند الغروب.',
+    ),
+    design: t(
+      'Painted clouds and ingredients made in Blender and finished with a brush-stroke painter, one arched glass bottle with a gold-foil mark in five colourways, Cormorant with Amiri for Arabic.',
+      'غيوم ومكونات مصنوعة في بلندر ومرسومة بفرشاة رقمية، وقارورة زجاجية واحدة على شكل قوس بعلامة ذهبية بخمسة ألوان، وخط Cormorant مع Amiri للعربي.',
+    ),
+    interactions: [
+      { title: t('Fall through the sky', 'انزل عبر السماء'), text: t('Layered painted clouds part to reveal the bottle.', 'طبقات غيوم مرسومة تنفتح وتكشف القارورة.') },
+      { title: t('Notes that fill the bottle', 'نوتات تملأ القارورة'), text: t('Top, heart and base each bring their own painted ingredients.', 'القمة والقلب والقاعدة، كل طبقة بمكوناتها المرسومة.') },
+      { title: t('A real shop flow', 'متجر يشتغل فعلًا'), text: t('Sizes, bag, gift wrap and a demo checkout, with no payment taken.', 'أحجام وحقيبة وتغليف هدية وإتمام طلب تجريبي، بدون أي دفع.') },
+    ],
+  },
 ];
 
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug);
