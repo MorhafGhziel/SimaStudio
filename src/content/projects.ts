@@ -106,7 +106,7 @@ export const projects: Project[] = [
     services: [t('Brand identity', 'الهوية البصرية'), t('Art direction', 'التوجيه الفني'), t('Web development', 'تطوير الويب')],
     tech: ['Next.js', 'GSAP', 'WebGL shaders', 'Alpha video', 'Tailwind CSS', 'TypeScript'],
     year: '2026',
-    live: 'https://merit-fawn.vercel.app/',
+    live: 'https://www.meritbrand.store/',
     overview: t(
       'A concept for a contemporary label from Riyadh that makes tailoring, outerwear and knitwear in small counts. The brief was a store that feels like walking into the shop: you try the clothes on before you read about them.',
       'مفهوم لعلامة معاصرة من الرياض تصنع التفصيل والمعاطف والتريكو بكميات قليلة. الفكرة متجر يشعرك أنك داخل المحل: تجرّب الملابس قبل أن تقرأ عنها.',
