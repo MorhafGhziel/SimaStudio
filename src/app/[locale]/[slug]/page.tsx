@@ -5,11 +5,13 @@ import { notFound } from 'next/navigation';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { FreeReview } from '@/components/sections/FreeReview';
 import { AnchorButton, LinkButton } from '@/components/ui/Button';
+import { Priced } from '@/components/ui/Priced';
 import { Reveal } from '@/components/ui/Reveal';
 import { dictionary } from '@/content/dictionary';
 import { getLanding, landings } from '@/content/landing';
 import { getProject } from '@/content/projects';
 import { studio, whatsappMessage, whatsappUrl } from '@/content/site';
+import { defaultCurrency, fillPrices } from '@/lib/currency';
 import { href, isLocale, locales } from '@/lib/i18n';
 
 export const dynamicParams = false;
@@ -65,7 +67,7 @@ export default async function LandingPage({ params }: PageProps<'/[locale]/[slug
             {
               '@context': 'https://schema.org',
               '@type': 'FAQPage',
-              mainEntity: landing.faqs.map((f) => ({ '@type': 'Question', name: f.q[locale], acceptedAnswer: { '@type': 'Answer', text: f.a[locale] } })),
+              mainEntity: landing.faqs.map((f) => ({ '@type': 'Question', name: f.q[locale], acceptedAnswer: { '@type': 'Answer', text: fillPrices(f.a[locale], defaultCurrency(locale), locale) } })),
             },
           ]).replace(/</g, '\\u003c'),
         }}
@@ -102,7 +104,7 @@ export default async function LandingPage({ params }: PageProps<'/[locale]/[slug
         {landing.sections.map((section) => (
           <Reveal key={section.heading.en} className="grid gap-4 border-t border-line py-12 md:grid-cols-12 md:gap-10 md:py-16">
             <h2 className="eyebrow md:col-span-3">{section.heading[locale]}</h2>
-            <p className="text-xl leading-relaxed text-[#dcdbd6] md:col-span-8 sm:text-2xl">{section.body[locale]}</p>
+            <p className="text-xl leading-relaxed text-[#dcdbd6] md:col-span-8 sm:text-2xl"><Priced text={section.body[locale]} locale={locale} /></p>
           </Reveal>
         ))}
       </div>
@@ -150,7 +152,7 @@ export default async function LandingPage({ params }: PageProps<'/[locale]/[slug
           {landing.faqs.map((f) => (
             <div key={f.q.en} className="bg-ink p-8 sm:p-10">
               <dt className="text-xl font-medium tracking-[-0.02em]">{f.q[locale]}</dt>
-              <dd className="mt-3 max-w-[70ch] text-mute">{f.a[locale]}</dd>
+              <dd className="mt-3 max-w-[70ch] text-mute"><Priced text={f.a[locale]} locale={locale} /></dd>
             </div>
           ))}
         </dl>

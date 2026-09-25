@@ -1,6 +1,6 @@
 import { faqs, packages } from '@/content/offer';
 import { instagramUrl, launchOffer, launchOfferEnds, linkedinUrl, studio, tiktokUrl, xUrl } from '@/content/site';
-import { toUSD } from '@/lib/currency';
+import { defaultCurrency, fillPrices, toUSD } from '@/lib/currency';
 import type { Locale } from '@/lib/i18n';
 
 function Script({ data }: { data: unknown }) {
@@ -60,7 +60,7 @@ export function StudioJsonLd({ locale }: { locale: Locale }) {
         data={{
           '@context': 'https://schema.org',
           '@type': 'FAQPage',
-          mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q[locale], acceptedAnswer: { '@type': 'Answer', text: f.a[locale] } })),
+          mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q[locale], acceptedAnswer: { '@type': 'Answer', text: fillPrices(f.a[locale], defaultCurrency(locale), locale) } })),
         }}
       />
     </>

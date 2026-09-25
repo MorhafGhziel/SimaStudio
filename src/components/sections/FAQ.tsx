@@ -6,11 +6,14 @@ import { Plus } from 'lucide-react';
 import { useLocale } from '@/components/providers/LocaleProvider';
 import { Reveal, RevealLines } from '@/components/ui/Reveal';
 import { faqs } from '@/content/offer';
+import { fillPrices } from '@/lib/currency';
+import { useCurrency } from '@/lib/useCurrency';
 import { cn } from '@/lib/utils';
 
 export function FAQ() {
   const { locale, dict } = useLocale();
   const [open, setOpen] = useState<number | null>(0);
+  const cur = useCurrency(locale);
 
   return (
     <section aria-labelledby="faq-title" className="section-y border-t border-line">
@@ -49,7 +52,7 @@ export function FAQ() {
                         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                         className="overflow-hidden"
                       >
-                        <p className="max-w-[60ch] pb-7 text-mute">{item.a[locale]}</p>
+                        <p className="max-w-[60ch] pb-7 text-mute">{fillPrices(item.a[locale], cur, locale)}</p>
                       </motion.div>
                     )}
                   </AnimatePresence>

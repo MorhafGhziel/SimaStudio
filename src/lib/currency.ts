@@ -94,6 +94,13 @@ export function formatMoneyRange(lo: number, hi: number, code: CurrencyCode, loc
   return cur.approx ? `≈ ${body}` : body;
 }
 
+/** A SAR amount written into a sentence as a token; fillPrices() turns it into money. */
+export const price = (sar: number) => `{price:${sar}}`;
+
+/** Replace every price() token in a sentence with that amount in the visitor's currency. */
+export const fillPrices = (text: string, code: CurrencyCode, locale: 'en' | 'ar') =>
+  text.replace(/\{price:(\d+)\}/g, (_, sar: string) => formatMoney(Number(sar), code, locale));
+
 /** SAR → USD, rounded to the nearest ten. Used where a price is baked into a sentence. */
 export const toUSD = (sar: number) => Math.round(sar / CURRENCIES.SAR.perUSD / 10) * 10;
 

@@ -1,4 +1,6 @@
 import type { T } from '@/lib/i18n';
+import { price } from '@/lib/currency';
+import { packages, services } from './offer';
 import { paymentMethods } from './site';
 
 /**
@@ -8,6 +10,10 @@ import { paymentMethods } from './site';
  */
 
 const t = (en: string, ar: string): T => ({ en, ar });
+
+/** Starting prices written into the copy as price() tokens, so each visitor reads them in their own currency. */
+const pkg = (id: string) => price(packages.find((p) => p.id === id)?.price ?? 0);
+const storesFrom = price(services.find((s) => s.id === 'commerce')?.from ?? 4500);
 
 export type LandingSection = { heading: T; body: T };
 
@@ -64,8 +70,8 @@ export const landings: Landing[] = [
       {
         heading: t('How fast, and what it costs', 'كم تستغرق وكم تكلف'),
         body: t(
-          'A Starter site takes one to two weeks, a fully custom bilingual Signature site two to three weeks, and an Immersive 3D experience three to five weeks, counted from the day we have your content. Prices start at $670 and every package includes domain and hosting for the first year.',
-          'موقع Starter يستغرق أسبوعًا إلى أسبوعين، وموقع Signature المخصص بالكامل وثنائي اللغة من أسبوعين إلى ثلاثة، وتجربة Immersive ثلاثية الأبعاد من ثلاثة إلى خمسة أسابيع، تُحسب من يوم استلام المحتوى. تبدأ الأسعار من 2,500 ريال وكل باقة تشمل النطاق والاستضافة للسنة الأولى.',
+          `A Starter site takes one to two weeks, a fully custom bilingual Signature site two to three weeks, and an Immersive 3D experience three to five weeks, counted from the day we have your content. Prices start at ${pkg('starter')} and every package includes domain and hosting for the first year.`,
+          `موقع Starter يستغرق أسبوعًا إلى أسبوعين، وموقع Signature المخصص بالكامل وثنائي اللغة من أسبوعين إلى ثلاثة، وتجربة Immersive ثلاثية الأبعاد من ثلاثة إلى خمسة أسابيع، تُحسب من يوم استلام المحتوى. تبدأ الأسعار من ${pkg('starter')} وكل باقة تشمل النطاق والاستضافة للسنة الأولى.`,
         ),
       },
     ],
@@ -130,8 +136,8 @@ export const landings: Landing[] = [
       {
         q: t('Do you build online stores?', 'هل تبنون متاجر إلكترونية؟'),
         a: t(
-          'Yes, in two ways. From $1,200 we design your brand site and product pages in front of your existing Salla or Zid store. A fully custom store with its own checkout is quoted by products, payment methods and delivery.',
-          'نعم، بطريقتين. ابتداءً من 4,500 ريال نصمم موقع علامتك وصفحات منتجاتك أمام متجرك القائم في سلة أو زد. أما المتجر المخصص بالكامل بصفحة دفع خاصة به فيُسعّر حسب المنتجات وطرق الدفع والتوصيل.',
+          `Yes, in two ways. From ${storesFrom} we design your brand site and product pages in front of your existing Salla or Zid store. A fully custom store with its own checkout is quoted by products, payment methods and delivery.`,
+          `نعم، بطريقتين. ابتداءً من ${storesFrom} نصمم موقع علامتك وصفحات منتجاتك أمام متجرك القائم في سلة أو زد. أما المتجر المخصص بالكامل بصفحة دفع خاصة به فيُسعّر حسب المنتجات وطرق الدفع والتوصيل.`,
         ),
       },
     ],
@@ -166,8 +172,8 @@ export const landings: Landing[] = [
       {
         heading: t('How stores are priced', 'كيف تُسعّر المتاجر'),
         body: t(
-          'There are two routes. If you already sell on Salla or Zid, we design the brand site and product pages in front of your store from $1,200, and payments and shipping stay where they already work. A fully custom store with its own cart and checkout is quoted by how many products you carry, which payment methods you need and how delivery is handled. Tell us those three things and you get a clear proposal.',
-          'هناك طريقتان. إن كنت تبيع أصلًا عبر سلة أو زد، نصمم موقع العلامة وصفحات المنتجات أمام متجرك ابتداءً من 4,500 ريال، ويبقى الدفع والشحن حيث يعملان أصلًا. أما المتجر المخصص بالكامل بسلة ودفع خاصين به فيُسعّر حسب عدد منتجاتك وطرق الدفع المطلوبة وطريقة التوصيل. أخبرنا بهذه الثلاثة وتحصل على عرض واضح.',
+          `There are two routes. If you already sell on Salla or Zid, we design the brand site and product pages in front of your store from ${storesFrom}, and payments and shipping stay where they already work. A fully custom store with its own cart and checkout is quoted by how many products you carry, which payment methods you need and how delivery is handled. Tell us those three things and you get a clear proposal.`,
+          `هناك طريقتان. إن كنت تبيع أصلًا عبر سلة أو زد، نصمم موقع العلامة وصفحات المنتجات أمام متجرك ابتداءً من ${storesFrom}، ويبقى الدفع والشحن حيث يعملان أصلًا. أما المتجر المخصص بالكامل بسلة ودفع خاصين به فيُسعّر حسب عدد منتجاتك وطرق الدفع المطلوبة وطريقة التوصيل. أخبرنا بهذه الثلاثة وتحصل على عرض واضح.`,
         ),
       },
     ],
@@ -299,8 +305,8 @@ export const landings: Landing[] = [
       {
         heading: t('What changes the price', 'ما الذي يغيّر السعر'),
         body: t(
-          'The number of pages, whether you need Arabic and English, whether products are sold directly on the site, and how much motion or 3D the brand calls for. Store projects start from $1,200; a fully custom checkout is quoted individually.',
-          'عدد الصفحات، وهل تحتاج العربية والإنجليزية، وهل تُباع المنتجات مباشرة عبر الموقع، وكم تحتاج العلامة من حركة أو عناصر ثلاثية الأبعاد. مشاريع المتاجر تبدأ من 4,500 ريال، والمتجر بصفحة دفع مخصصة يُسعّر بشكل مستقل.',
+          `The number of pages, whether you need Arabic and English, whether products are sold directly on the site, and how much motion or 3D the brand calls for. Store projects start from ${storesFrom}; a fully custom checkout is quoted individually.`,
+          `عدد الصفحات، وهل تحتاج العربية والإنجليزية، وهل تُباع المنتجات مباشرة عبر الموقع، وكم تحتاج العلامة من حركة أو عناصر ثلاثية الأبعاد. مشاريع المتاجر تبدأ من ${storesFrom}، والمتجر بصفحة دفع مخصصة يُسعّر بشكل مستقل.`,
         ),
       },
       {
@@ -376,8 +382,8 @@ export const landings: Landing[] = [
       {
         heading: t('You talk to the person who builds it', 'تتعامل مع من يبني موقعك'),
         body: t(
-          'We are a small studio, not an agency with account managers. The person you speak to on WhatsApp is the one designing and building your site. Packages start at $670 and a 3D product experience at $2,130; anything larger gets a fixed quote before we start.',
-          'نحن استوديو صغير، لا وكالة فيها مديرو حسابات. من تحدّثه على واتساب هو من يصمم موقعك ويبنيه. تبدأ الباقات من 2,500 ريال، وتجربة المنتج ثلاثية الأبعاد من 8,000 ريال، وما زاد على ذلك نحدد له سعرًا ثابتًا قبل البدء.',
+          `We are a small studio, not an agency with account managers. The person you speak to on WhatsApp is the one designing and building your site. Packages start at ${pkg('starter')} and a 3D product experience at ${pkg('immersive')}; anything larger gets a fixed quote before we start.`,
+          `نحن استوديو صغير، لا وكالة فيها مديرو حسابات. من تحدّثه على واتساب هو من يصمم موقعك ويبنيه. تبدأ الباقات من ${pkg('starter')}، وتجربة المنتج ثلاثية الأبعاد من ${pkg('immersive')}، وما زاد على ذلك نحدد له سعرًا ثابتًا قبل البدء.`,
         ),
       },
     ],
