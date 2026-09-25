@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { useLocale } from '@/components/providers/LocaleProvider';
@@ -41,6 +42,39 @@ function Headline({ lines, reduce }: { lines: string[]; reduce: boolean }) {
         </span>
       ))}
     </>
+  );
+}
+
+/** The client site in motion. Loads only after the page has settled, so it never competes with first paint. */
+function ProofVideo({ play }: { play: boolean }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (!play) return;
+    const start = () => ref.current?.play().catch(() => {});
+    if (document.readyState === 'complete') {
+      const id = window.setTimeout(start, 600);
+      return () => window.clearTimeout(id);
+    }
+    window.addEventListener('load', start, { once: true });
+    return () => window.removeEventListener('load', start);
+  }, [play]);
+
+  if (!play) return null;
+  return (
+    <video
+      ref={ref}
+      muted
+      loop
+      playsInline
+      preload="none"
+      aria-hidden="true"
+      onPlaying={() => setReady(true)}
+      className={`absolute inset-0 size-full object-cover object-top transition-opacity duration-500 ${ready ? 'opacity-100' : 'opacity-0'}`}
+    >
+      <source src="/work/merit-loop.mp4" type="video/mp4" />
+    </video>
   );
 }
 
@@ -95,7 +129,7 @@ export function Hero() {
           </LinkButton>
         </motion.div>
 
-        {/* Proof in the first screen: the latest client site, mid-fitting, one tap from the case study. */}
+        {/* Proof in the first screen: the latest client site, moving, one tap from the case study. */}
         <motion.div {...fade(0.6)} className="mt-auto w-full max-w-[46rem] pt-10 sm:pt-12">
           <Link
             href={href(locale, '/work/merit')}
@@ -115,8 +149,9 @@ export function Hero() {
               </span>
             </span>
             <span className="relative block aspect-[16/10]">
-              {/* MERIT's Fitting Room, captured the moment the model has put on the leather jacket. */}
-              <Image src={`/work/merit-proof-${locale}.jpg`} alt="" fill priority sizes="(min-width: 768px) 736px, 100vw" className="object-cover object-top" />
+              {/* MERIT's Fitting Room on the live English site: the leather jacket is clicked, put on, then taken off, so it loops. */}
+              <Image src="/work/merit-loop-poster.jpg" alt="" fill priority sizes="(min-width: 768px) 736px, 100vw" className="object-cover object-top" />
+              <ProofVideo play={!reduce} />
             </span>
           </Link>
         </motion.div>
