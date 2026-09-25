@@ -21,7 +21,7 @@ export default function OpengraphImage() {
           <span style={{ fontSize: 84, lineHeight: 1, letterSpacing: -3, fontWeight: 500 }}>We design and build websites</span>
           <span style={{ fontSize: 84, lineHeight: 1.05, letterSpacing: -3, fontWeight: 500, color: '#e8a33a' }}>that sell for you.</span>
         </div>
-        <span style={{ fontSize: 24, color: '#8c8c91' }}>Designed and built in-house · Latest client launch: nasaqksa.com</span>
+        <span style={{ fontSize: 24, color: '#8c8c91' }}>Designed and built in-house · Latest client launch: meritbrand.store</span>
       </div>
     ),
     size,

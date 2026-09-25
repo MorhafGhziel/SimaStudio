@@ -41,8 +41,48 @@ const t = (en: string, ar: string): T => ({ en, ar });
 
 export const projects: Project[] = [
   {
-    slug: 'nasaq',
+    slug: 'merit',
     number: '01',
+    name: 'MERIT',
+    arName: 'ميرت',
+    client: true,
+    industry: t('Fashion · E-commerce', 'أزياء · متجر إلكتروني'),
+    kind: t('Fashion store + virtual fitting room', 'متجر أزياء + غرفة قياس افتراضية'),
+    summary: t(
+      'A Riyadh fashion label: a fitting room where the model puts on the jacket you pick, a full store, and an Arabic site written in Saudi dialect, not translated.',
+      'علامة أزياء من الرياض: غرفة قياس يرتدي فيها العارض الجاكيت الذي تختاره، ومتجر كامل، وموقع عربي مكتوب باللهجة السعودية لا مترجم.',
+    ),
+    tags: [t('Client', 'عميل'), t('Fashion', 'أزياء'), t('E-commerce', 'متجر إلكتروني'), t('Arabic + English', 'عربي + إنجليزي')],
+    services: [t('Brand identity', 'الهوية البصرية'), t('Art direction', 'التوجيه الفني'), t('Web development', 'تطوير الويب')],
+    tech: ['Next.js', 'GSAP', 'WebGL shaders', 'Alpha video', 'Tailwind CSS', 'TypeScript'],
+    year: '2026',
+    live: 'https://www.meritbrand.store/',
+    reviewBrand: ['merit', 'ميرت'],
+    overview: t(
+      'MERIT is a contemporary label from Riyadh that makes tailoring, outerwear and knitwear in small counts. The brief was a store that feels like walking into the shop: you try the clothes on before you read about them.',
+      'ميرت علامة معاصرة من الرياض تصنع التفصيل والمعاطف والتريكو بكميات قليلة. الفكرة متجر يشعرك أنك داخل المحل: تجرّب الملابس قبل أن تقرأ عنها.',
+    ),
+    challenge: t(
+      'Online, clothes are flat photos on a grid. The site had to show how a jacket actually sits on a body, carry a full shop (filters, bag, sizes, stock), and speak to a Saudi customer in their own Arabic.',
+      'الملابس على الإنترنت مجرد صور مسطحة في شبكة. كان على الموقع أن يُظهر كيف يجلس الجاكيت فعلًا على الجسم، وأن يحمل متجرًا كاملًا (فلاتر وسلة ومقاسات ومخزون)، وأن يخاطب العميل السعودي بلهجته.',
+    ),
+    concept: t(
+      'The Fitting Room: the model stands in front of a giant logotype, and clicking a jacket plays him putting it on, swapping it or taking it off. The clips were generated with AI video, then stabilised and cut out frame by frame so he stands in the page. A jacket anatomy with a loupe, a campaign film that plays with the scroll, and the logotype poured in liquid metal follow.',
+      'غرفة القياس: العارض يقف أمام شعار ضخم، وبضغطة على جاكيت يرتديه أو يبدّله أو يخلعه أمامك. المقاطع مولّدة بفيديو الذكاء الاصطناعي، ثم ثبّتناها وفصلناها عن الخلفية إطارًا إطارًا ليقف داخل الصفحة. يليها تشريح للجاكيت بعدسة مكبّرة، وفيلم حملة يتحرك مع التمرير، والشعار مسكوبًا كمعدن سائل.',
+    ),
+    design: t(
+      'Black, warm white, stone and graphite; a heavy grotesk and a custom liquid MERIT logotype. The Arabic site is its own voice: Jomhuria for headlines, collections named by meaning (الأساس، الفناء، الفهرس) and copy in white Saudi dialect.',
+      'أسود وأبيض دافئ وحجري وجرافيت، وخط غروتسك ثقيل مع شعار MERIT سائل مرسوم خصيصًا. والموقع العربي له صوته الخاص: خط جمهورية للعناوين، ومجموعات بأسماء عربية لها معنى (الأساس، الفناء، الفهرس)، ونصوص باللهجة السعودية البيضاء.',
+    ),
+    interactions: [
+      { title: t('The Fitting Room', 'غرفة القياس'), text: t('Pick a jacket and watch the model put it on.', 'اختر جاكيتًا وشاهد العارض يرتديه.') },
+      { title: t('Jacket anatomy', 'تشريح الجاكيت'), text: t('Hotspots and a loupe read every seam and pocket.', 'نقاط وعدسة مكبّرة تشرح كل درزة وكل جيب.') },
+      { title: t('A real store', 'متجر حقيقي'), text: t('Filters, sizes, stock, bag and wishlist, honest that nothing is charged.', 'فلاتر ومقاسات ومخزون وسلة ومفضّلة، مع توضيح صريح أن لا شيء يُخصم.') },
+    ],
+  },
+  {
+    slug: 'nasaq',
+    number: '02',
     name: 'NASAQ',
     arName: 'نسق',
     client: true,
@@ -92,86 +132,8 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'merit',
-    number: '02',
-    name: 'MERIT',
-    arName: 'ميرت',
-    client: true,
-    industry: t('Fashion · E-commerce', 'أزياء · متجر إلكتروني'),
-    kind: t('Fashion store + virtual fitting room', 'متجر أزياء + غرفة قياس افتراضية'),
-    summary: t(
-      'A Riyadh fashion label: a fitting room where the model puts on the jacket you pick, a full store, and an Arabic site written in Saudi dialect, not translated.',
-      'علامة أزياء من الرياض: غرفة قياس يرتدي فيها العارض الجاكيت الذي تختاره، ومتجر كامل، وموقع عربي مكتوب باللهجة السعودية لا مترجم.',
-    ),
-    tags: [t('Client', 'عميل'), t('Fashion', 'أزياء'), t('E-commerce', 'متجر إلكتروني'), t('Arabic + English', 'عربي + إنجليزي')],
-    services: [t('Brand identity', 'الهوية البصرية'), t('Art direction', 'التوجيه الفني'), t('Web development', 'تطوير الويب')],
-    tech: ['Next.js', 'GSAP', 'WebGL shaders', 'Alpha video', 'Tailwind CSS', 'TypeScript'],
-    year: '2026',
-    live: 'https://www.meritbrand.store/',
-    reviewBrand: ['merit', 'ميرت'],
-    overview: t(
-      'MERIT is a contemporary label from Riyadh that makes tailoring, outerwear and knitwear in small counts. The brief was a store that feels like walking into the shop: you try the clothes on before you read about them.',
-      'ميرت علامة معاصرة من الرياض تصنع التفصيل والمعاطف والتريكو بكميات قليلة. الفكرة متجر يشعرك أنك داخل المحل: تجرّب الملابس قبل أن تقرأ عنها.',
-    ),
-    challenge: t(
-      'Online, clothes are flat photos on a grid. The site had to show how a jacket actually sits on a body, carry a full shop (filters, bag, sizes, stock), and speak to a Saudi customer in their own Arabic.',
-      'الملابس على الإنترنت مجرد صور مسطحة في شبكة. كان على الموقع أن يُظهر كيف يجلس الجاكيت فعلًا على الجسم، وأن يحمل متجرًا كاملًا (فلاتر وسلة ومقاسات ومخزون)، وأن يخاطب العميل السعودي بلهجته.',
-    ),
-    concept: t(
-      'The Fitting Room: the model stands in front of a giant logotype, and clicking a jacket plays him putting it on, swapping it or taking it off. The clips were generated with AI video, then stabilised and cut out frame by frame so he stands in the page. A jacket anatomy with a loupe, a campaign film that plays with the scroll, and the logotype poured in liquid metal follow.',
-      'غرفة القياس: العارض يقف أمام شعار ضخم، وبضغطة على جاكيت يرتديه أو يبدّله أو يخلعه أمامك. المقاطع مولّدة بفيديو الذكاء الاصطناعي، ثم ثبّتناها وفصلناها عن الخلفية إطارًا إطارًا ليقف داخل الصفحة. يليها تشريح للجاكيت بعدسة مكبّرة، وفيلم حملة يتحرك مع التمرير، والشعار مسكوبًا كمعدن سائل.',
-    ),
-    design: t(
-      'Black, warm white, stone and graphite; a heavy grotesk and a custom liquid MERIT logotype. The Arabic site is its own voice: Jomhuria for headlines, collections named by meaning (الأساس، الفناء، الفهرس) and copy in white Saudi dialect.',
-      'أسود وأبيض دافئ وحجري وجرافيت، وخط غروتسك ثقيل مع شعار MERIT سائل مرسوم خصيصًا. والموقع العربي له صوته الخاص: خط جمهورية للعناوين، ومجموعات بأسماء عربية لها معنى (الأساس، الفناء، الفهرس)، ونصوص باللهجة السعودية البيضاء.',
-    ),
-    interactions: [
-      { title: t('The Fitting Room', 'غرفة القياس'), text: t('Pick a jacket and watch the model put it on.', 'اختر جاكيتًا وشاهد العارض يرتديه.') },
-      { title: t('Jacket anatomy', 'تشريح الجاكيت'), text: t('Hotspots and a loupe read every seam and pocket.', 'نقاط وعدسة مكبّرة تشرح كل درزة وكل جيب.') },
-      { title: t('A real store', 'متجر حقيقي'), text: t('Filters, sizes, stock, bag and wishlist, honest that nothing is charged.', 'فلاتر ومقاسات ومخزون وسلة ومفضّلة، مع توضيح صريح أن لا شيء يُخصم.') },
-    ],
-  },
-  {
-    slug: 'starbucks',
-    number: '03',
-    name: 'Starbucks (concept)',
-    arName: 'ستاربكس (مفهوم)',
-    industry: t('Coffee · Retail', 'قهوة · تجزئة'),
-    kind: t('Unofficial concept redesign', 'إعادة تصميم غير رسمية (مفهوم)'),
-    summary: t(
-      'An unofficial concept we made on our own to show what we can do: a two-colour Starbucks site with a real-time 3D cup that flies from the hero and lands in the story. Not commissioned by, affiliated with or endorsed by Starbucks.',
-      'مفهوم غير رسمي صممناه بمبادرة منا لنعرض ما نقدر عليه: موقع لستاربكس بلونين فقط، وكوب ثلاثي الأبعاد يطير من الواجهة ويهبط في قسم القصة. لم تطلبه ستاربكس، ولا علاقة لنا بها، ولا تتبناه.',
-    ),
-    tags: [t('Unofficial concept', 'مفهوم غير رسمي'), t('3D', 'ثلاثي الأبعاد'), t('Motion', 'حركة'), t('E-commerce', 'متجر')],
-    services: [t('Art direction', 'التوجيه الفني'), t('3D experience', 'تجربة ثلاثية الأبعاد'), t('Web development', 'تطوير الويب')],
-    tech: ['Next.js', 'React Three Fiber', 'GSAP ScrollTrigger', 'Lenis', 'TypeScript'],
-    year: '2026',
-    live: 'https://starbucks-rebuild.vercel.app/',
-    overview: t(
-      'A self-initiated showcase, not client work. Starbucks did not contact or commission us; we rebuilt their website as an exercise to show our design and 3D skills. Starbucks, the Siren logo and product names belong to Starbucks Corporation.',
-      'مشروع استعراضي بمبادرة منا، وليس عملًا لعميل. لم تتواصل معنا ستاربكس ولم تكلّفنا؛ أعدنا بناء موقعها كتمرين لنعرض مهاراتنا في التصميم والتجارب ثلاثية الأبعاد. ستاربكس وشعار الحورية وأسماء المنتجات ملك لشركة ستاربكس.',
-    ),
-    challenge: t(
-      'Make a famous brand feel new using only its green and cream, with real menu data and real products, and a 3D moment that never covers the content it passes.',
-      'أن نجعل علامة مشهورة تبدو جديدة بلونيها الأخضر والكريمي فقط، ببيانات منيو ومنتجات حقيقية، وبلحظة ثلاثية الأبعاد لا تغطي المحتوى الذي تمر بجانبه.',
-    ),
-    concept: t(
-      'One cup, one journey: it lifts off the hero pedestal, tumbles toward the camera, glides beside the drinks and lands softly in the story section.',
-      'كوب واحد ورحلة واحدة: يرتفع عن منصة الواجهة، يدور نحو الكاميرا، يمر بجانب المشروبات، ثم يهبط بهدوء في قسم القصة.',
-    ),
-    design: t(
-      'Only two colours, green and cream. Real product photography, a warm serif with a clean sans, and wave edges drawn from the Siren’s hair.',
-      'لونان فقط، الأخضر والكريمي. صور منتجات حقيقية، وخط سيريف دافئ مع خط بسيط واضح، وحواف متموجة مستوحاة من شعر الحورية.',
-    ),
-    interactions: [
-      { title: t('Flying 3D cup', 'كوب ثلاثي الأبعاد يطير'), text: t('A planned path that clears every card at 14 screen sizes.', 'مسار مخطط يتفادى كل البطاقات على 14 مقاس شاشة.') },
-      { title: t('Focused product carousel', 'عرض منتجات مركّز'), text: t('The chosen product grows; the others blur away.', 'المنتج المختار يكبر، والباقي يتلاشى.') },
-      { title: t('Lift the lid, add the sleeve', 'ارفع الغطاء وأضف الغلاف'), text: t('Inspect the cup and the real Insulated Sleeve.', 'افحص الكوب والغلاف المعزول الحقيقي.') },
-    ],
-  },
-  {
     slug: 'azal',
-    number: '04',
+    number: '03',
     name: 'AZAL',
     arName: 'أزل',
     industry: t('Perfume · E-commerce', 'عطور · متجر إلكتروني'),
@@ -205,6 +167,44 @@ export const projects: Project[] = [
       { title: t('Fall through the sky', 'انزل عبر السماء'), text: t('Layered painted clouds part to reveal the bottle.', 'طبقات غيوم مرسومة تنفتح وتكشف القارورة.') },
       { title: t('Notes that fill the bottle', 'نوتات تملأ القارورة'), text: t('Top, heart and base each bring their own painted ingredients.', 'القمة والقلب والقاعدة، كل طبقة بمكوناتها المرسومة.') },
       { title: t('A real shop flow', 'متجر يشتغل فعلًا'), text: t('Sizes, bag, gift wrap and a demo checkout, with no payment taken.', 'أحجام وحقيبة وتغليف هدية وإتمام طلب تجريبي، بدون أي دفع.') },
+    ],
+  },
+  {
+    slug: 'starbucks',
+    number: '04',
+    name: 'Starbucks (concept)',
+    arName: 'ستاربكس (مفهوم)',
+    industry: t('Coffee · Retail', 'قهوة · تجزئة'),
+    kind: t('Unofficial concept redesign', 'إعادة تصميم غير رسمية (مفهوم)'),
+    summary: t(
+      'An unofficial concept we made on our own to show what we can do: a two-colour Starbucks site with a real-time 3D cup that flies from the hero and lands in the story. Not commissioned by, affiliated with or endorsed by Starbucks.',
+      'مفهوم غير رسمي صممناه بمبادرة منا لنعرض ما نقدر عليه: موقع لستاربكس بلونين فقط، وكوب ثلاثي الأبعاد يطير من الواجهة ويهبط في قسم القصة. لم تطلبه ستاربكس، ولا علاقة لنا بها، ولا تتبناه.',
+    ),
+    tags: [t('Unofficial concept', 'مفهوم غير رسمي'), t('3D', 'ثلاثي الأبعاد'), t('Motion', 'حركة'), t('E-commerce', 'متجر')],
+    services: [t('Art direction', 'التوجيه الفني'), t('3D experience', 'تجربة ثلاثية الأبعاد'), t('Web development', 'تطوير الويب')],
+    tech: ['Next.js', 'React Three Fiber', 'GSAP ScrollTrigger', 'Lenis', 'TypeScript'],
+    year: '2026',
+    live: 'https://starbucks-rebuild.vercel.app/',
+    overview: t(
+      'A self-initiated showcase, not client work. Starbucks did not contact or commission us; we rebuilt their website as an exercise to show our design and 3D skills. Starbucks, the Siren logo and product names belong to Starbucks Corporation.',
+      'مشروع استعراضي بمبادرة منا، وليس عملًا لعميل. لم تتواصل معنا ستاربكس ولم تكلّفنا؛ أعدنا بناء موقعها كتمرين لنعرض مهاراتنا في التصميم والتجارب ثلاثية الأبعاد. ستاربكس وشعار الحورية وأسماء المنتجات ملك لشركة ستاربكس.',
+    ),
+    challenge: t(
+      'Make a famous brand feel new using only its green and cream, with real menu data and real products, and a 3D moment that never covers the content it passes.',
+      'أن نجعل علامة مشهورة تبدو جديدة بلونيها الأخضر والكريمي فقط، ببيانات منيو ومنتجات حقيقية، وبلحظة ثلاثية الأبعاد لا تغطي المحتوى الذي تمر بجانبه.',
+    ),
+    concept: t(
+      'One cup, one journey: it lifts off the hero pedestal, tumbles toward the camera, glides beside the drinks and lands softly in the story section.',
+      'كوب واحد ورحلة واحدة: يرتفع عن منصة الواجهة، يدور نحو الكاميرا، يمر بجانب المشروبات، ثم يهبط بهدوء في قسم القصة.',
+    ),
+    design: t(
+      'Only two colours, green and cream. Real product photography, a warm serif with a clean sans, and wave edges drawn from the Siren’s hair.',
+      'لونان فقط، الأخضر والكريمي. صور منتجات حقيقية، وخط سيريف دافئ مع خط بسيط واضح، وحواف متموجة مستوحاة من شعر الحورية.',
+    ),
+    interactions: [
+      { title: t('Flying 3D cup', 'كوب ثلاثي الأبعاد يطير'), text: t('A planned path that clears every card at 14 screen sizes.', 'مسار مخطط يتفادى كل البطاقات على 14 مقاس شاشة.') },
+      { title: t('Focused product carousel', 'عرض منتجات مركّز'), text: t('The chosen product grows; the others blur away.', 'المنتج المختار يكبر، والباقي يتلاشى.') },
+      { title: t('Lift the lid, add the sleeve', 'ارفع الغطاء وأضف الغلاف'), text: t('Inspect the cup and the real Insulated Sleeve.', 'افحص الكوب والغلاف المعزول الحقيقي.') },
     ],
   },
   {
