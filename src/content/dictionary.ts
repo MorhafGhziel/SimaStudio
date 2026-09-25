@@ -4,7 +4,7 @@ export const dictionary = {
     meta: {
       title: 'SIMA — Websites & 3D Experiences That Sell',
       description:
-        'SIMA designs and builds websites and 3D product experiences that sell for you. Designed and built in-house. Latest client launch: Nasaq Uniforms.',
+        'SIMA designs and builds websites and 3D product experiences that sell for you. Designed and built in-house. Latest client launch: MERIT.',
     },
     skip: 'Skip to content',
     nav: { work: 'Work', services: 'Services', packages: 'Packages', process: 'Process', reviews: 'Reviews', about: 'About', start: 'Start a Project', menu: 'Menu', close: 'Close' },
@@ -14,7 +14,7 @@ export const dictionary = {
       line2: 'that sell for you.',
       text: 'From a clean company site to a full 3D experience. Designed and built in-house.',
       proofLabel: 'Latest client launch',
-      proofName: 'Nasaq Uniforms',
+      proofName: 'MERIT',
       explore: 'Explore Our Work',
       start: 'Start a Project',
       soft: 'Free notes on your site',
@@ -206,7 +206,7 @@ export const dictionary = {
     meta: {
       title: 'سِمة — مواقع وتجارب ثلاثية الأبعاد تبيع عنك',
       description:
-        'سِمة تصمم وتبني مواقع وتجارب منتجات ثلاثية الأبعاد تبيع عنك. نصمم ونبني بأنفسنا. آخر مشروع لعميل: نسق للزي الموحد.',
+        'سِمة تصمم وتبني مواقع وتجارب منتجات ثلاثية الأبعاد تبيع عنك. نصمم ونبني بأنفسنا. آخر مشروع لعميل: ميرت.',
     },
     skip: 'انتقل إلى المحتوى',
     nav: { work: 'أعمالنا', services: 'خدماتنا', packages: 'الباقات', process: 'آلية العمل', reviews: 'آراء العملاء', about: 'من نحن', start: 'ابدأ مشروعك', menu: 'القائمة', close: 'إغلاق' },
@@ -216,7 +216,7 @@ export const dictionary = {
       line2: 'تبيع عنك.',
       text: 'من موقع تعريفي لشركتك إلى تجربة ثلاثية الأبعاد. نصمم ونبني بأنفسنا.',
       proofLabel: 'آخر مشروع لعميل',
-      proofName: 'نسق للزي الموحد',
+      proofName: 'ميرت',
       explore: 'استكشف أعمالنا',
       start: 'ابدأ مشروعك',
       soft: 'ملاحظات مجانية على موقعك',

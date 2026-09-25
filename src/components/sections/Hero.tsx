@@ -3,7 +3,6 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { useLocale } from '@/components/providers/LocaleProvider';
@@ -42,39 +41,6 @@ function Headline({ lines, reduce }: { lines: string[]; reduce: boolean }) {
         </span>
       ))}
     </>
-  );
-}
-
-/** The client site in motion. Loads only after the page has settled, so it never competes with first paint. */
-function ProofVideo({ play }: { play: boolean }) {
-  const ref = useRef<HTMLVideoElement>(null);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    if (!play) return;
-    const start = () => ref.current?.play().catch(() => {});
-    if (document.readyState === 'complete') {
-      const id = window.setTimeout(start, 600);
-      return () => window.clearTimeout(id);
-    }
-    window.addEventListener('load', start, { once: true });
-    return () => window.removeEventListener('load', start);
-  }, [play]);
-
-  if (!play) return null;
-  return (
-    <video
-      ref={ref}
-      muted
-      loop
-      playsInline
-      preload="none"
-      aria-hidden="true"
-      onPlaying={() => setReady(true)}
-      className={`absolute inset-0 size-full object-cover object-top transition-opacity duration-500 ${ready ? 'opacity-100' : 'opacity-0'}`}
-    >
-      <source src="/work/nasaq-loop.mp4" type="video/mp4" />
-    </video>
   );
 }
 
@@ -129,10 +95,10 @@ export function Hero() {
           </LinkButton>
         </motion.div>
 
-        {/* Proof in the first screen: the latest client site, moving, one tap from the case study. */}
+        {/* Proof in the first screen: the latest client site, mid-fitting, one tap from the case study. */}
         <motion.div {...fade(0.6)} className="mt-auto w-full max-w-[46rem] pt-10 sm:pt-12">
           <Link
-            href={href(locale, '/work/nasaq')}
+            href={href(locale, '/work/merit')}
             data-cursor="view"
             aria-label={`${dict.hero.proofLabel}: ${dict.hero.proofName}`}
             className="group relative block max-h-[40svh] overflow-hidden rounded-t-[1.1rem] border border-b-0 border-line bg-ink-2 text-start shadow-[0_-30px_80px_-30px_rgb(0_0_0/0.9)] transition-colors hover:border-paper/30"
@@ -144,13 +110,13 @@ export function Hero() {
                 <span className="truncate text-paper">{dict.hero.proofName}</span>
               </span>
               <span className="flex shrink-0 items-center gap-1.5 text-xs text-mute transition-colors group-hover:text-paper" dir="ltr">
-                <span className="max-sm:hidden">nasaqksa.com</span>
+                <span className="max-sm:hidden">meritbrand.store</span>
                 <ArrowUpRight aria-hidden="true" className="size-4 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={1.6} />
               </span>
             </span>
             <span className="relative block aspect-[16/10]">
-              <Image src="/work/nasaq-loop-poster.jpg" alt="" fill priority sizes="(min-width: 768px) 736px, 100vw" className="object-cover object-top" />
-              <ProofVideo play={!reduce} />
+              {/* MERIT's Fitting Room, captured the moment the model has put on the leather jacket. */}
+              <Image src={`/work/merit-proof-${locale}.jpg`} alt="" fill priority sizes="(min-width: 768px) 736px, 100vw" className="object-cover object-top" />
             </span>
           </Link>
         </motion.div>
