@@ -22,7 +22,7 @@ export const dictionary = {
     },
     work: {
       title: 'Selected Work',
-      text: 'One client launch and our own concept projects, each labelled for what it is. Every one is live, so open it on your phone.',
+      text: 'Client launches and our own concept projects, each labelled for what it is. Every one is live, so open it on your phone.',
       concept: 'Our own concept project',
       client: 'Client project',
       view: 'View project',
@@ -224,7 +224,7 @@ export const dictionary = {
     },
     work: {
       title: 'أعمال مختارة',
-      text: 'مشروع لعميل ومشاريع تجريبية من تصميمنا، وكل مشروع موضّح نوعه. جميعها مباشرة، افتحها من جوالك.',
+      text: 'مشاريع لعملاء ومشاريع تجريبية من تصميمنا، وكل مشروع موضّح نوعه. جميعها مباشرة، افتحها من جوالك.',
       concept: 'مشروع تجريبي من تصميمنا',
       client: 'مشروع لعميل',
       view: 'عرض المشروع',
