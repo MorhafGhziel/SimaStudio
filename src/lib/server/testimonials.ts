@@ -1,4 +1,5 @@
 import 'server-only';
+import { projects } from '@/content/projects';
 import { requireAdmin } from './auth';
 import { db, ensureSchema, requireDb } from './db';
 import { hmac, rateLimit, type RequestMeta } from './security';
@@ -47,16 +48,32 @@ export async function submitTestimonial(input: { name?: unknown; brand?: unknown
   return { ok: true };
 }
 
+/**
+ * Names of our self-initiated concept projects. A concept has no client, so a review that
+ * names one would contradict its "concept" label; those are never shown, even if approved.
+ */
+const conceptKeys = projects
+  .filter((p) => !p.client)
+  .flatMap((p) => [p.slug.split('-')[0], p.name.replace(/\(.*\)/, ''), p.arName.split(/[—(]/)[0]])
+  .map((k) => k.trim().toLowerCase())
+  .filter((k) => k.length >= 3);
+
+const namesConcept = (r: Testimonial) => {
+  const text = `${r.brand ?? ''} ${r.name} ${r.message}`.toLowerCase();
+  return conceptKeys.some((k) => text.includes(k));
+};
+
 /** Public: only approved reviews, newest first. Safe to call from the website. */
 export async function getApprovedTestimonials(limit = 12): Promise<Testimonial[]> {
   const sql = db();
   if (!sql) return [];
   try {
     await ensureSchema();
-    return (await sql`
+    const rows = (await sql`
       select id, name, brand, rating, message, locale, created_at
       from testimonials where status = 'approved'
-      order by created_at desc limit ${limit}`) as Testimonial[];
+      order by created_at desc limit ${limit + 10}`) as Testimonial[];
+    return rows.filter((r) => !namesConcept(r)).slice(0, limit);
   } catch {
     return [];
   }
