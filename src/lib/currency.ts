@@ -68,12 +68,30 @@ export const isApprox = (code: CurrencyCode) => Boolean(CURRENCIES[code].approx)
  */
 export function formatMoney(sar: number, code: CurrencyCode, locale: 'en' | 'ar', bare = false) {
   const cur = CURRENCIES[code];
-  const usd = sar / CURRENCIES.SAR.perUSD;
-  const value = Math.round((usd * cur.perUSD) / cur.step) * cur.step;
-  const n = new Intl.NumberFormat('en-US').format(value);
+  const n = formatAmount(sar, code);
   const sym = cur.symbol[locale];
-  const body = cur.suffix ? `${n} ${sym}` : `${sym}${n}`;
+  // A no-break space keeps the symbol on the number's line in narrow buttons.
+  const body = cur.suffix ? `${n}\u00a0${sym}` : `${sym}${n}`;
   return cur.approx && !bare ? `≈ ${body}` : body;
+}
+
+/** The converted, rounded number alone, without a symbol. */
+function formatAmount(sar: number, code: CurrencyCode) {
+  const cur = CURRENCIES[code];
+  const value = Math.round(((sar / CURRENCIES.SAR.perUSD) * cur.perUSD) / cur.step) * cur.step;
+  return new Intl.NumberFormat('en-US').format(value);
+}
+
+/**
+ * A range of two SAR amounts in one currency, written into `between` ("{a} – {b}"). A symbol that
+ * follows the number is written once at the end ("3,000 – 6,000 SAR"); one in front goes on both
+ * ("$800 – $1,600"). A floating currency gets a single ≈ in front of the whole range.
+ */
+export function formatMoneyRange(lo: number, hi: number, code: CurrencyCode, locale: 'en' | 'ar', between: string) {
+  const cur = CURRENCIES[code];
+  const a = cur.suffix ? formatAmount(lo, code) : formatMoney(lo, code, locale, true);
+  const body = between.replace('{a}', a).replace('{b}', formatMoney(hi, code, locale, true));
+  return cur.approx ? `≈ ${body}` : body;
 }
 
 /** SAR → USD, rounded to the nearest ten. Used where a price is baked into a sentence. */

@@ -9,13 +9,14 @@ import { InstagramIcon, WhatsAppIcon } from '@/components/icons';
 import { Button } from '@/components/ui/Button';
 import { Reveal, RevealLines } from '@/components/ui/Reveal';
 import { instagramUrl, studio, whatsappMessage, whatsappUrl } from '@/content/site';
-import { PACKAGE_EVENT, type PackagePick } from '@/lib/events';
+import { budgetLabels, PACKAGE_EVENT, type PackagePick } from '@/lib/events';
 import { parseReach } from '@/lib/reach';
 import { href } from '@/lib/i18n';
+import { useCurrency } from '@/lib/useCurrency';
 import { cn } from '@/lib/utils';
 
-type Fields = { name: string; brand: string; reach: string; need: string; budget: string; message: string; pkg: string; website: string };
-const empty: Fields = { name: '', brand: '', reach: '', need: '', budget: '', message: '', pkg: '', website: '' };
+type Fields = { name: string; brand: string; reach: string; need: string; message: string; pkg: string; website: string };
+const empty: Fields = { name: '', brand: '', reach: '', need: '', message: '', pkg: '', website: '' };
 
 const field =
   'mt-2 w-full rounded-xl border border-line bg-ink-2 px-4 py-3.5 text-paper outline-none transition-colors placeholder:text-faint focus:border-accent/60 aria-[invalid=true]:border-red-400/60';
@@ -24,6 +25,11 @@ export function Contact() {
   const { locale, dict } = useLocale();
   const c = dict.contact;
   const [values, setValues] = useState<Fields>(empty);
+  // The budget is kept as a position, so its label follows the currency if that arrives after the pick.
+  const [budgetPick, setBudgetPick] = useState<number | null>(null);
+  const cur = useCurrency(locale);
+  const budgets = budgetLabels(c.budgets, cur, locale);
+  const budget = budgetPick === null ? '' : (budgets[budgetPick] ?? '');
   const [errors, setErrors] = useState<Partial<Record<keyof Fields, boolean>>>({});
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'fallback'>('idle');
   const [notice, setNotice] = useState<'' | 'reach' | 'limited'>('');
@@ -32,11 +38,12 @@ export function Contact() {
   useEffect(() => {
     const onPick = (e: Event) => {
       const pick = (e as CustomEvent<PackagePick>).detail;
-      setValues((v) => ({ ...v, budget: c.budgets[pick.budget] ?? v.budget, pkg: pick.pkg }));
+      setBudgetPick(pick.budget);
+      setValues((v) => ({ ...v, pkg: pick.pkg }));
     };
     window.addEventListener(PACKAGE_EVENT, onPick);
     return () => window.removeEventListener(PACKAGE_EVENT, onPick);
-  }, [c.budgets]);
+  }, []);
 
   const set = (key: keyof Fields, value: string) => {
     setValues((v) => ({ ...v, [key]: value }));
@@ -48,7 +55,7 @@ export function Contact() {
     `${c.brand}: ${values.brand}`,
     `${c.reach}: ${values.reach}`,
     `${c.need}: ${values.need || '—'}`,
-    `${c.budget}: ${values.budget || '—'}`,
+    `${c.budget}: ${budget || '—'}`,
     ...(values.pkg ? [`${c.pkg}: ${values.pkg}`] : []),
     '',
     values.message,
@@ -81,7 +88,7 @@ export function Contact() {
       } catch {
         // storage can be blocked; the request still goes through
       }
-      const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...values, locale, entry, sid }) });
+      const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...values, budget, locale, entry, sid }) });
       if (res.status === 429) {
         setStatus('idle');
         setNotice('limited');
@@ -95,7 +102,7 @@ export function Contact() {
       }
       const data = (await res.json()) as { delivered?: boolean };
       const delivered = res.ok && !!data.delivered;
-      window.dispatchEvent(new CustomEvent('sima:track', { detail: { name: 'contact_submit', props: { delivered: delivered ? 'yes' : 'no', need: values.need || 'none', budget: values.budget || 'none', pkg: values.pkg || 'none' } } }));
+      window.dispatchEvent(new CustomEvent('sima:track', { detail: { name: 'contact_submit', props: { delivered: delivered ? 'yes' : 'no', need: values.need || 'none', budget: budget || 'none', pkg: values.pkg || 'none' } } }));
       setStatus(delivered ? 'sent' : 'fallback');
     } catch {
       setStatus('fallback');
@@ -171,6 +178,7 @@ export function Contact() {
                     type="button"
                     onClick={() => {
                       setValues(empty);
+                      setBudgetPick(null);
                       setStatus('idle');
                     }}
                     className="mt-8 text-sm text-faint underline-offset-4 hover:text-paper hover:underline"
@@ -223,8 +231,8 @@ export function Contact() {
                       )}
                     </legend>
                     <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
-                      {c.budgets.map((b) => (
-                        <button key={b} type="button" aria-pressed={values.budget === b} onClick={() => set('budget', values.budget === b ? '' : b)} className={cn('rounded-xl border px-3 py-3 text-sm transition-colors', values.budget === b ? 'border-accent bg-accent text-ink' : 'border-line text-[#c4c4c0] hover:border-paper/30')}>
+                      {budgets.map((b, i) => (
+                        <button key={i} type="button" aria-pressed={budgetPick === i} onClick={() => setBudgetPick(budgetPick === i ? null : i)} className={cn('rounded-xl border px-3 py-3 text-sm transition-colors', budgetPick === i ? 'border-accent bg-accent text-ink' : 'border-line text-[#c4c4c0] hover:border-paper/30')}>
                           {b}
                         </button>
                       ))}

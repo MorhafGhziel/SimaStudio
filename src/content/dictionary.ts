@@ -144,7 +144,8 @@ export const dictionary = {
       need: 'What do you need?',
       needs: ['Company website', 'Online store', '3D product experience', 'Campaign page', 'Website redesign', 'Not sure yet'],
       budget: 'Budget',
-      budgets: ['Up to $800', '$800 – $1,600', '$1,600 – $2,670', '$2,670 – $4,000', '$4,000+', 'Not sure yet'],
+      // Budget ranges: the amounts come from BUDGET_LIMITS in the visitor's currency, like the packages.
+      budgets: { upTo: 'Up to {x}', between: '{a} – {b}', over: 'Over {x}', unsure: 'Not sure yet' },
       message: 'Message',
       messagePlaceholder: 'What does your company sell, who buys it, and what should the site do for you?',
       send: 'Send Project Request',
@@ -346,7 +347,7 @@ export const dictionary = {
       need: 'ماذا تحتاج؟',
       needs: ['موقع لشركة أو علامة', 'متجر إلكتروني', 'منتج ثلاثي الأبعاد', 'صفحة لحملة', 'إعادة تصميم موقع', 'لست متأكدًا بعد'],
       budget: 'الميزانية',
-      budgets: ['حتى 3,000 ر.س', '3,000 إلى 6,000', '6,000 إلى 10,000', '10,000 إلى 15,000', 'أكثر من 15,000', 'لست متأكدًا بعد'],
+      budgets: { upTo: 'حتى {x}', between: '{a} إلى {b}', over: 'أكثر من {x}', unsure: 'لست متأكدًا بعد' },
       message: 'الرسالة',
       messagePlaceholder: 'ماذا تبيع شركتك، ومن يشتري منها، وماذا تريد من الموقع؟',
       send: 'أرسل طلب المشروع',
