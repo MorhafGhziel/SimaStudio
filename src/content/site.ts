@@ -38,8 +38,8 @@ export const legal: { label: T; value: string } | null = null;
  * Kingdom, so a Saudi business site must not advertise them as a way to pay.
  */
 export const paymentMethods: T = {
-  en: 'Bank transfer or STC Pay.',
-  ar: 'تحويل بنكي أو STC Pay.',
+  en: 'Bank transfer or STC Pay in Saudi Arabia, and Wise for clients abroad.',
+  ar: 'تحويل بنكي أو STC Pay داخل السعودية، أو عبر Wise للعملاء من خارجها.',
 };
 
 export const whatsappMessage: T = {
