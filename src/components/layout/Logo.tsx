@@ -13,16 +13,19 @@ export function Symbol({ className, pin = true }: { className?: string; pin?: bo
   );
 }
 
-export function Logo({ locale, className }: { locale: Locale; className?: string }) {
+/** The symbol and wordmark. `arabic` adds the Arabic name beside them (the footer); the header shows one logo only. */
+export function Logo({ locale, className, arabic = false }: { locale: Locale; className?: string; arabic?: boolean }) {
   return (
     <Link href={href(locale)} aria-label="SIMA STUDIO — سِمة" className={cn('group inline-flex items-center gap-2.5', className)}>
       <Symbol className="h-7 w-auto" />
       <span className="font-[family-name:var(--font-condensed)] text-[1.3rem] font-bold uppercase leading-none tracking-[0.22em]" dir="ltr">
         SIMA
       </span>
-      <span className="hidden text-sm text-mute sm:inline" lang="ar">
-        سِمة
-      </span>
+      {arabic && (
+        <span className="hidden text-sm text-mute sm:inline" lang="ar">
+          سِمة
+        </span>
+      )}
     </Link>
   );
 }
