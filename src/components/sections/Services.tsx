@@ -13,6 +13,7 @@ import { packages, services, type Service } from '@/content/offer';
 import { launchOffer, whatsappUrl } from '@/content/site';
 import { useMedia } from '@/lib/capabilities';
 import { formatMoney } from '@/lib/currency';
+import { workMedia } from '@/content/projects';
 import { href } from '@/lib/i18n';
 import { useCurrency } from '@/lib/useCurrency';
 import { cn } from '@/lib/utils';
@@ -118,7 +119,7 @@ export function Services() {
                 {/* Touch tablets: inline preview (hidden on phones to keep the list short) */}
                 {!hover && (
                   <div className="relative mb-8 aspect-[16/9] overflow-hidden rounded-card max-md:hidden">
-                    <Image src={service.image} alt="" fill sizes="100vw" className="object-cover object-top" />
+                    <Image src={workMedia(service.image, locale)} alt="" fill sizes="100vw" className="object-cover object-top" />
                   </div>
                 )}
               </li>
@@ -140,7 +141,7 @@ export function Services() {
                 className="absolute -translate-x-1/2 -translate-y-[115%] overflow-hidden rounded-2xl border border-line shadow-[0_30px_60px_-20px_rgb(0_0_0/0.9)]"
               >
                 <div className="relative h-[15rem] w-[24rem]">
-                  <Image src={current.image} alt="" fill sizes="384px" className="object-cover object-top" />
+                  <Image src={workMedia(current.image, locale)} alt="" fill sizes="384px" className="object-cover object-top" />
                 </div>
               </motion.div>
             )}

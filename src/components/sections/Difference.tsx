@@ -8,7 +8,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { useLocale } from '@/components/providers/LocaleProvider';
 import { Reveal, RevealLines } from '@/components/ui/Reveal';
 import { packages } from '@/content/offer';
-import { getProject } from '@/content/projects';
+import { getProject, workMedia } from '@/content/projects';
 import { formatMoney, isApprox } from '@/lib/currency';
 import { href } from '@/lib/i18n';
 import { useCurrency } from '@/lib/useCurrency';
@@ -95,10 +95,10 @@ export function Difference() {
 
           <Reveal delay={0.1} className="lg:col-span-7">
             <div ref={stage} className="relative aspect-[16/10] overflow-hidden rounded-card border border-line bg-ink-2">
-              <Image src="/work/nasaq-loop-poster.jpg" alt={d.alt} fill sizes="(min-width: 1024px) 56vw, 100vw" className="object-cover object-top" />
+              <Image src={workMedia('nasaq-loop-poster.jpg', locale)} alt={d.alt} fill sizes="(min-width: 1024px) 56vw, 100vw" className="object-cover object-top" />
               {!reduce && (
                 <video ref={video} muted loop playsInline preload="none" aria-hidden="true" className="absolute inset-0 size-full object-cover object-top">
-                  <source src="/work/nasaq-loop.mp4" type="video/mp4" />
+                  <source src={workMedia('nasaq-loop.mp4', locale)} type="video/mp4" />
                 </video>
               )}
             </div>

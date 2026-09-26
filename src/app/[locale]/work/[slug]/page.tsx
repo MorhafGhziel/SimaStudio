@@ -7,7 +7,7 @@ import { WhatsAppIcon } from '@/components/icons';
 import { AnchorButton, LinkButton } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
 import { dictionary } from '@/content/dictionary';
-import { getProject, projects } from '@/content/projects';
+import { getProject, projects, workMedia } from '@/content/projects';
 import { studio, whatsappUrl } from '@/content/site';
 import { getApprovedTestimonials } from '@/lib/server/testimonials';
 import { href, isLocale, locales } from '@/lib/i18n';
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: PageProps<'/[locale]/work/[sl
     title,
     description: project.summary[locale],
     alternates: { canonical: `/${locale}/work/${slug}`, languages: { ar: `/ar/work/${slug}`, en: `/en/work/${slug}`, 'x-default': `/ar/work/${slug}` } },
-    openGraph: { title: `${title} — SIMA`, description: project.summary[locale], images: [{ url: `/work/${slug}-hero.jpg`, width: 1600, height: 1000 }] },
+    openGraph: { title: `${title} — SIMA`, description: project.summary[locale], images: [{ url: workMedia(`${slug}-hero.jpg`, locale), width: 1600, height: 1000 }] },
   };
 }
 
@@ -63,7 +63,7 @@ export default async function CaseStudyPage({ params }: PageProps<'/[locale]/wor
             description: project.summary[locale],
             creator: { '@type': 'Organization', name: 'SIMA', url: studio.url },
             dateCreated: project.year,
-            image: `${studio.url}/work/${slug}-hero.jpg`,
+            image: `${studio.url}${workMedia(`${slug}-hero.jpg`, locale)}`,
             url: `${studio.url}/${locale}/work/${slug}`,
           }).replace(/</g, '\\u003c'),
         }}
@@ -112,10 +112,10 @@ export default async function CaseStudyPage({ params }: PageProps<'/[locale]/wor
 
       <Reveal className="container-x">
         <div className="relative aspect-[16/10] overflow-hidden rounded-card border border-line">
-          <Image src={project.video ? `${project.video}-poster.jpg` : `/work/${slug}-hero.jpg`} alt={`${project.name} — ${cs.desktop}`} fill priority sizes="(min-width: 1536px) 96rem, 100vw" className="object-cover object-top" />
+          <Image src={workMedia(project.video ? `${project.video}-poster.jpg` : `${slug}-hero.jpg`, locale)} alt={`${project.name} — ${cs.desktop}`} fill priority sizes="(min-width: 1536px) 96rem, 100vw" className="object-cover object-top" />
           {project.video && (
             <video autoPlay muted loop playsInline preload="metadata" aria-hidden="true" className="absolute inset-0 size-full object-cover object-top motion-reduce:hidden">
-              <source src={`${project.video}.mp4`} type="video/mp4" />
+              <source src={workMedia(`${project.video}.mp4`, locale)} type="video/mp4" />
             </video>
           )}
         </div>
@@ -139,7 +139,7 @@ export default async function CaseStudyPage({ params }: PageProps<'/[locale]/wor
             <div className="grid gap-6 sm:grid-cols-2 md:col-span-9">
               {[
                 { src: project.before, label: d.beforeAfter.before, tone: 'text-faint' },
-                { src: `/work/${slug}-hero.jpg`, label: d.beforeAfter.after, tone: 'text-accent' },
+                { src: workMedia(`${slug}-hero.jpg`, locale), label: d.beforeAfter.after, tone: 'text-accent' },
               ].map((shot) => (
                 <Reveal key={shot.src}>
                   <figure>
@@ -222,7 +222,7 @@ export default async function CaseStudyPage({ params }: PageProps<'/[locale]/wor
         {(['detail', 'extra'] as const).map((shot) => (
           <Reveal key={shot}>
             <div className="relative aspect-[16/10] overflow-hidden rounded-card border border-line">
-              <Image src={`/work/${slug}-${shot}.jpg`} alt={`${project.name} — ${cs.design}`} fill sizes="(min-width: 768px) 48vw, 100vw" className="object-cover object-top" />
+              <Image src={workMedia(`${slug}-${shot}.jpg`, locale)} alt={`${project.name} — ${cs.design}`} fill sizes="(min-width: 768px) 48vw, 100vw" className="object-cover object-top" />
             </div>
           </Reveal>
         ))}
@@ -259,13 +259,13 @@ export default async function CaseStudyPage({ params }: PageProps<'/[locale]/wor
           <Reveal className="md:col-span-8">
             <p className="mb-3 text-sm text-faint">{cs.desktop}</p>
             <div className="relative aspect-[16/10] overflow-hidden rounded-card border border-line">
-              <Image src={`/work/${slug}-hero.jpg`} alt="" fill sizes="(min-width: 768px) 64vw, 100vw" className="object-cover object-top" />
+              <Image src={workMedia(`${slug}-hero.jpg`, locale)} alt="" fill sizes="(min-width: 768px) 64vw, 100vw" className="object-cover object-top" />
             </div>
           </Reveal>
           <Reveal delay={0.1} className="md:col-span-4">
             <p className="mb-3 text-sm text-faint">{cs.mobile}</p>
             <div className="relative mx-auto aspect-[390/844] max-w-[18rem] overflow-hidden rounded-[2rem] border-4 border-ink-3 shadow-[0_40px_80px_-40px_rgb(0_0_0/0.9)]">
-              <Image src={`/work/${slug}-mobile.jpg`} alt={`${project.name} — ${cs.mobile}`} fill sizes="288px" className="object-cover object-top" />
+              <Image src={workMedia(`${slug}-mobile.jpg`, locale)} alt={`${project.name} — ${cs.mobile}`} fill sizes="288px" className="object-cover object-top" />
             </div>
           </Reveal>
         </div>
@@ -331,7 +331,7 @@ export default async function CaseStudyPage({ params }: PageProps<'/[locale]/wor
             <ArrowUpRight className="mt-8 size-8 text-mute transition-transform duration-700 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-accent rtl:-scale-x-100" strokeWidth={1.2} />
           </div>
           <div className="relative aspect-[16/10] overflow-hidden rounded-card border border-line md:col-span-6">
-            <Image src={`/work/${next.slug}-hero.jpg`} alt="" fill sizes="(min-width: 768px) 48vw, 100vw" className="object-cover object-top transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]" />
+            <Image src={workMedia(`${next.slug}-hero.jpg`, locale)} alt="" fill sizes="(min-width: 768px) 48vw, 100vw" className="object-cover object-top transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]" />
           </div>
         </div>
       </Link>

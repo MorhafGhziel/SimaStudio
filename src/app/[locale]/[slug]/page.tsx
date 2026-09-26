@@ -9,7 +9,7 @@ import { Priced } from '@/components/ui/Priced';
 import { Reveal } from '@/components/ui/Reveal';
 import { dictionary } from '@/content/dictionary';
 import { getLanding, landings } from '@/content/landing';
-import { getProject } from '@/content/projects';
+import { getProject, workMedia } from '@/content/projects';
 import { studio, whatsappMessage, whatsappUrl } from '@/content/site';
 import { defaultCurrency, fillPrices } from '@/lib/currency';
 import { href, isLocale, locales } from '@/lib/i18n';
@@ -123,7 +123,7 @@ export default async function LandingPage({ params }: PageProps<'/[locale]/[slug
                 <Link href={href(locale, `/work/${project.slug}`)} data-cursor="view" className="group block">
                   <div className="relative aspect-[16/10] overflow-hidden rounded-card border border-line">
                     <Image
-                      src={`/work/${project.slug}-hero.jpg`}
+                      src={workMedia(`${project.slug}-hero.jpg`, locale)}
                       alt={locale === 'ar' ? project.arName : project.name}
                       fill
                       sizes="(min-width: 768px) 48vw, 100vw"

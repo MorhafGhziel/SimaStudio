@@ -9,7 +9,8 @@ import { ArrowUpRight } from 'lucide-react';
 import { useLocale } from '@/components/providers/LocaleProvider';
 import { LinkButton } from '@/components/ui/Button';
 import { useWebGL } from '@/lib/capabilities';
-import { href } from '@/lib/i18n';
+import { workMedia } from '@/content/projects';
+import { href, type Locale } from '@/lib/i18n';
 
 const ArcScene = dynamic(() => import('@/components/three/hero/ArcScene'), { ssr: false });
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -46,7 +47,7 @@ function Headline({ lines, reduce }: { lines: string[]; reduce: boolean }) {
 }
 
 /** The client site in motion. Loads only after the page has settled, so it never competes with first paint. */
-function ProofVideo({ play }: { play: boolean }) {
+function ProofVideo({ play, locale }: { play: boolean; locale: Locale }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [ready, setReady] = useState(false);
 
@@ -73,7 +74,7 @@ function ProofVideo({ play }: { play: boolean }) {
       onPlaying={() => setReady(true)}
       className={`absolute inset-0 size-full object-cover object-top transition-opacity duration-500 ${ready ? 'opacity-100' : 'opacity-0'}`}
     >
-      <source src="/work/merit-loop.mp4" type="video/mp4" />
+      <source src={workMedia('merit-loop.mp4', locale)} type="video/mp4" />
     </video>
   );
 }
@@ -150,8 +151,8 @@ export function Hero() {
             </span>
             <span className="relative block aspect-[16/10]">
               {/* MERIT's Fitting Room on the live English site: the leather jacket is clicked, put on, then taken off, so it loops. */}
-              <Image src="/work/merit-loop-poster.jpg" alt="" fill priority sizes="(min-width: 768px) 736px, 100vw" className="object-cover object-top" />
-              <ProofVideo play={!reduce} />
+              <Image src={workMedia('merit-loop-poster.jpg', locale)} alt="" fill priority sizes="(min-width: 768px) 736px, 100vw" className="object-cover object-top" />
+              <ProofVideo play={!reduce} locale={locale} />
             </span>
           </Link>
         </motion.div>

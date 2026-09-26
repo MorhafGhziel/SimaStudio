@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { motion, useReducedMotion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { useLocale } from '@/components/providers/LocaleProvider';
-import type { Project } from '@/content/projects';
+import { workMedia, type Project } from '@/content/projects';
 import { href } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 
@@ -33,7 +33,7 @@ export function ProjectCard({ project, flip = false }: { project: Project; flip?
       >
         <div className="relative aspect-[16/10]">
           <Image
-            src={`/work/${project.slug}-hero.jpg`}
+            src={workMedia(`${project.slug}-hero.jpg`, locale)}
             alt={`${project.name} — ${project.kind[locale]}`}
             fill
             sizes="(min-width: 1024px) 64vw, 100vw"
@@ -44,7 +44,7 @@ export function ProjectCard({ project, flip = false }: { project: Project; flip?
         {/* Mobile screen tucked into the corner */}
         <div className="absolute bottom-4 end-4 hidden w-[17%] overflow-hidden rounded-xl border border-line shadow-[0_24px_48px_-20px_rgb(0_0_0/0.9)] transition-transform duration-[1200ms] ease-out group-hover:-translate-y-2 sm:block">
           <div className="relative aspect-[390/844]">
-            <Image src={`/work/${project.slug}-mobile.jpg`} alt="" fill sizes="12vw" className="object-cover object-top" />
+            <Image src={workMedia(`${project.slug}-mobile.jpg`, locale)} alt="" fill sizes="12vw" className="object-cover object-top" />
           </div>
         </div>
       </Link>

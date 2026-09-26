@@ -1,9 +1,9 @@
-import type { T } from '@/lib/i18n';
+import type { Locale, T } from '@/lib/i18n';
 
 /**
  * Selected work. Client projects are flagged with `client`; the rest are
  * self-initiated concept projects designed and built by the studio — labelled as such everywhere. Screenshots live in
- * /public/work/{slug}-{hero|detail|extra|mobile}.jpg.
+ * /public/work/{ar|en}/{slug}-{hero|detail|extra|mobile}.jpg, captured from the project's own site in that language.
  */
 export type Project = {
   slug: string;
@@ -20,7 +20,7 @@ export type Project = {
   live?: string;
   /** Real client work. Everything else is a self-initiated concept. */
   client?: boolean;
-  /** Base path of a short screen recording (`.mp4`, `-poster.jpg`) shown in place of the hero still. */
+  /** File name of a short screen recording (`.mp4`, `-poster.jpg`, one per language) shown in place of the hero still. */
   video?: string;
   /** What the client actually received. Facts only. */
   deliverables?: T[];
@@ -97,7 +97,7 @@ export const projects: Project[] = [
     tech: ['Next.js', 'React Three Fiber', 'GSAP', 'Tailwind CSS', 'TypeScript'],
     year: '2026',
     live: 'https://www.nasaqksa.com/',
-    video: '/work/nasaq-loop',
+    video: 'nasaq-loop',
     // Shown with the client's permission (given 20 Sep 2026). Captured from the repo's old main branch.
     before: '/work/nasaq-before.jpg',
     reviewBrand: ['نسق', 'nasaq'],
@@ -242,3 +242,6 @@ export const projects: Project[] = [
 ];
 
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug);
+
+/** Screenshots and clips exist in both languages, so an Arabic page shows the Arabic site: /public/work/{ar|en}/{file}. */
+export const workMedia = (file: string, locale: Locale) => `/work/${locale}/${file}`;

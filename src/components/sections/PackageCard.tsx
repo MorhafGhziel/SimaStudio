@@ -12,6 +12,7 @@ import { useMedia, useWebGL } from '@/lib/capabilities';
 import { selectBudget } from '@/lib/events';
 import { launchOffer } from '@/content/site';
 import { formatMoney } from '@/lib/currency';
+import { workMedia } from '@/content/projects';
 import { href } from '@/lib/i18n';
 import { useCurrency } from '@/lib/useCurrency';
 import { cn } from '@/lib/utils';
@@ -64,7 +65,7 @@ export function PackageCard({ pkg, index }: { pkg: Package; index: number }) {
           {show3d && near ? (
             <BottlePreview running={visible} />
           ) : (
-            <Image src="/work/noble-immersive-detail.jpg" alt="" fill sizes="(min-width: 1024px) 30vw, 100vw" className="object-cover" />
+            <Image src={workMedia('noble-immersive-detail.jpg', locale)} alt="" fill sizes="(min-width: 1024px) 30vw, 100vw" className="object-cover" />
           )}
           {show3d && <span className="pointer-events-none absolute bottom-3 start-3 rounded-pill bg-ink/60 px-3 py-1 text-[0.7rem] text-[#c4c4c0] backdrop-blur">{dict.packages.preview}</span>}
         </div>

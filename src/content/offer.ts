@@ -28,7 +28,7 @@ export const services: Service[] = [
     id: 'brand',
     title: t('Company & Brand Websites', 'مواقع الشركات والعلامات'),
     text: t('Your company online the way it looks in real life. Arabic first, English beside it.', 'شركتك على الإنترنت كما هي على أرض الواقع. عربي أولًا، والإنجليزية بجانبه.'),
-    image: '/work/nasaq-hero.jpg',
+    image: 'nasaq-hero.jpg',
     pricedBy: 'starter',
     timelineBy: 'signature',
     points: [
@@ -42,7 +42,7 @@ export const services: Service[] = [
     id: 'commerce',
     title: t('Online Stores', 'المتاجر الإلكترونية'),
     text: t('A store that is easy to buy from on a phone, from the first product photo to payment.', 'متجر يسهل الشراء منه بالجوال، من أول صورة للمنتج إلى الدفع.'),
-    image: '/work/noble-immersive-detail.jpg',
+    image: 'noble-immersive-detail.jpg',
     from: 4500,
     points: [
       t('In front of your Salla or Zid store: we design the brand site and product pages, and "buy" takes the customer to your existing store, with its payments and shipping.', 'أمام متجرك في سلة أو زد: نصمم موقع العلامة وصفحات المنتجات، وزر الشراء ينقل العميل إلى متجرك القائم بما فيه من دفع وشحن.'),
@@ -55,7 +55,7 @@ export const services: Service[] = [
     id: 'immersive',
     title: t('3D Product Experiences', 'تجارب المنتجات ثلاثية الأبعاد'),
     text: t('Your product turns and changes colour before the buyer orders it, as we built for Nasaq.', 'منتجك يدور ويتغير لونه أمام العميل قبل أن يطلبه، كما بنينا لشركة نسق.'),
-    image: '/work/nasaq-detail.jpg',
+    image: 'nasaq-detail.jpg',
     pricedBy: 'immersive',
     timelineBy: 'immersive',
     points: [
@@ -69,7 +69,7 @@ export const services: Service[] = [
     id: 'landing',
     title: t('Campaign Pages', 'صفحات الحملات'),
     text: t('One page for one ad and one goal: the visitor contacts you.', 'صفحة واحدة لإعلان واحد وهدف واحد: أن يتواصل معك الزائر.'),
-    image: '/work/rashfa-hero.jpg',
+    image: 'rashfa-hero.jpg',
     pricedBy: 'starter',
     timelineBy: 'starter',
     points: [
@@ -82,7 +82,7 @@ export const services: Service[] = [
     id: 'redesign',
     title: t('Website Redesign', 'إعادة تصميم موقعك'),
     text: t('We keep what works on your site and rebuild what is costing you customers.', 'نحتفظ بما ينجح في موقعك، ونعيد بناء ما يُخسرك عملاء.'),
-    image: '/work/nasaq-extra.jpg',
+    image: 'nasaq-extra.jpg',
     pricedBy: 'starter',
     timelineBy: 'signature',
     points: [
