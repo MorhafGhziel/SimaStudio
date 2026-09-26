@@ -24,7 +24,7 @@ export function Footer({ locale }: { locale: Locale }) {
       </div>
       <div className="container-x grid grid-cols-2 gap-x-8 gap-y-10 pb-40 pt-14 md:grid-cols-12 md:gap-12 md:pb-56 md:pt-20">
         <div className="col-span-2 md:col-span-4">
-          <Logo locale={locale} arabic />
+          <Logo locale={locale} />
           <p className="mt-5 max-w-[30ch] text-mute">{d.footer.statement}</p>
           <a
             href="/brand/SIMA-STUDIO-Brand-Identity.pdf"
